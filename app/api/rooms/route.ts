@@ -2,7 +2,11 @@ import { NextRequest, NextResponse } from 'next/server';
 
 export async function POST(request: NextRequest) {
   try {
-    const body = await request.json();
+    const body = (await request.json()) as {
+      hostPlayerId: string;
+      hostPlayerName: string;
+      gameType: string;
+    };
     const { hostPlayerId, hostPlayerName, gameType } = body;
 
     // Forward to Workers API

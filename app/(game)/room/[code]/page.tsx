@@ -324,8 +324,10 @@ export default function RoomPage() {
         const backendUrl = wsUrl.replace('ws://', 'http://').replace('wss://', 'https://');
         const response = await fetch(`${backendUrl}/api/locations`);
         if (response.ok) {
-          const data = await response.json();
-          const location = data.locations?.find((loc: any) => loc.id === payload.guessedLocationId);
+          const data = (await response.json()) as {
+            locations?: Array<{ id: string; nameTh: string }>;
+          };
+          const location = data.locations?.find((loc) => loc.id === payload.guessedLocationId);
           if (location) {
             guessedName = location.nameTh;
             console.log('[Room] Resolved guessed location:', guessedName);

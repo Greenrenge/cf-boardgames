@@ -44,7 +44,7 @@ export function CreateRoom() {
         throw new Error('ไม่สามารถสร้างห้องได้');
       }
 
-      const data = await response.json();
+      const data = (await response.json()) as { roomCode: string };
       storage.updateRoomCode(data.roomCode);
 
       // Navigate to room

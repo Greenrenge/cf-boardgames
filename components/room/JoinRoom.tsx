@@ -41,7 +41,10 @@ export function JoinRoom() {
         throw new Error('ไม่พบห้องนี้');
       }
 
-      const roomInfo = await response.json();
+      const roomInfo = (await response.json()) as {
+        playerCount: number;
+        maxPlayers: number;
+      };
 
       // Check if room is full
       if (roomInfo.playerCount >= roomInfo.maxPlayers) {

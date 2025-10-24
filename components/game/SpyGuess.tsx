@@ -35,7 +35,7 @@ export function SpyGuess({ onGuess }: SpyGuessProps) {
         throw new Error('Failed to fetch locations');
       }
 
-      const data = await response.json();
+      const data = (await response.json()) as { locations?: Location[] };
       console.log('[SpyGuess] Fetched locations:', data.locations?.length || 0);
       setLocations(data.locations || []);
     } catch (err) {

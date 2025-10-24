@@ -113,7 +113,7 @@ export function VotingInterface({
             </div>
 
             <p className="text-xs text-gray-600 text-center">
-              เลือก "ข้าม" ถ้าคุณไม่แน่ใจว่าใครเป็นสปาย
+              เลือก &quot;ข้าม&quot; ถ้าคุณไม่แน่ใจว่าใครเป็นสปาย
             </p>
           </>
         )}
