@@ -1,16 +1,17 @@
 'use client';
 
+import { useState } from 'react';
 import { Button } from '../ui/Button';
 import { Card } from '../ui/Card';
 import { PlayerList } from './PlayerList';
-import type { Player } from '@/lib/types';
+import type { Player, Difficulty } from '@/lib/types';
 
 interface LobbyProps {
   roomCode: string;
   players: Player[];
   hostId: string;
   currentPlayerId: string;
-  onStartGame: () => void;
+  onStartGame: (difficulty: Difficulty[], timerDuration: number) => void;
   onKickPlayer: (targetPlayerId: string) => void;
   isStarting: boolean;
 }
@@ -26,6 +27,36 @@ export function Lobby({
 }: LobbyProps) {
   const isHost = currentPlayerId === hostId;
   const canStart = players.length >= 3 && players.length <= 8;
+
+  // Game settings state (host only)
+  const [selectedDifficulties, setSelectedDifficulties] = useState<Difficulty[]>([
+    'easy',
+    'medium',
+    'hard',
+  ]);
+  const [timerDuration, setTimerDuration] = useState<number>(8);
+
+  const handleDifficultyToggle = (difficulty: Difficulty) => {
+    setSelectedDifficulties((prev) => {
+      if (prev.includes(difficulty)) {
+        // Don't allow deselecting all difficulties
+        if (prev.length === 1) return prev;
+        return prev.filter((d) => d !== difficulty);
+      } else {
+        return [...prev, difficulty];
+      }
+    });
+  };
+
+  const handleStartGame = () => {
+    console.log('[Lobby] Starting game with:', {
+      selectedDifficulties,
+      timerDuration,
+      canStart,
+      isStarting,
+    });
+    onStartGame(selectedDifficulties, timerDuration);
+  };
 
   return (
     <div className="max-w-2xl mx-auto space-y-6">
@@ -68,11 +99,68 @@ export function Lobby({
         <Card>
           <div className="space-y-4">
             <h3 className="text-lg font-medium text-gray-900">ตั้งค่าเกม</h3>
+
+            {/* Timer Duration Selector */}
             <div className="space-y-2">
-              <p className="text-sm text-gray-600">• ระยะเวลาต่อรอบ: 8 นาที</p>
-              <p className="text-sm text-gray-600">• ระดับความยาก: ทุกระดับ</p>
+              <label className="block text-sm font-medium text-gray-700">ระยะเวลาต่อรอบ</label>
+              <select
+                value={timerDuration}
+                onChange={(e) => setTimerDuration(Number(e.target.value))}
+                className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+              >
+                <option value={5}>5 นาที</option>
+                <option value={6}>6 นาที</option>
+                <option value={7}>7 นาที</option>
+                <option value={8}>8 นาที</option>
+                <option value={9}>9 นาที</option>
+                <option value={10}>10 นาที</option>
+                <option value={12}>12 นาที</option>
+                <option value={15}>15 นาที</option>
+              </select>
             </div>
-            <Button onClick={onStartGame} disabled={!canStart || isStarting} className="w-full">
+
+            {/* Difficulty Selector */}
+            <div className="space-y-2">
+              <label className="block text-sm font-medium text-gray-700">ระดับความยาก</label>
+              <div className="space-y-2">
+                <label className="flex items-center space-x-2 cursor-pointer">
+                  <input
+                    type="checkbox"
+                    checked={selectedDifficulties.includes('easy')}
+                    onChange={() => handleDifficultyToggle('easy')}
+                    className="w-4 h-4 text-blue-600 border-gray-300 rounded focus:ring-blue-500"
+                  />
+                  <span className="text-sm text-gray-700">ง่าย (Easy)</span>
+                </label>
+                <label className="flex items-center space-x-2 cursor-pointer">
+                  <input
+                    type="checkbox"
+                    checked={selectedDifficulties.includes('medium')}
+                    onChange={() => handleDifficultyToggle('medium')}
+                    className="w-4 h-4 text-blue-600 border-gray-300 rounded focus:ring-blue-500"
+                  />
+                  <span className="text-sm text-gray-700">ปานกลาง (Medium)</span>
+                </label>
+                <label className="flex items-center space-x-2 cursor-pointer">
+                  <input
+                    type="checkbox"
+                    checked={selectedDifficulties.includes('hard')}
+                    onChange={() => handleDifficultyToggle('hard')}
+                    className="w-4 h-4 text-blue-600 border-gray-300 rounded focus:ring-blue-500"
+                  />
+                  <span className="text-sm text-gray-700">ยาก (Hard)</span>
+                </label>
+              </div>
+              {selectedDifficulties.length === 0 && (
+                <p className="text-xs text-red-600">กรุณาเลือกอย่างน้อย 1 ระดับ</p>
+              )}
+            </div>
+
+            <Button
+              onClick={handleStartGame}
+              disabled={!canStart || isStarting || selectedDifficulties.length === 0}
+              className="w-full"
+            >
               {isStarting
                 ? 'กำลังเริ่มเกม...'
                 : !canStart

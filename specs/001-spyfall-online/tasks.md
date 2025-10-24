@@ -129,75 +129,75 @@ Web application structure (monorepo):
 
 ### Playground for User Story 2 (MANDATORY) ✓
 
-- [ ] T051 [US2] Create playground for user story 2 in specs/001-spyfall-online/playground/story2/ documenting full game round test
-- [ ] T052 [US2] Add demo script showing how to test role assignment, chat, voting with multiple tabs
+- [x] T051 [US2] Create playground for user story 2 in specs/001-spyfall-online/playground/story2/ documenting full game round test
+- [x] T052 [US2] Add demo script showing how to test role assignment, chat, voting with multiple tabs
 
 ### Implementation for User Story 2
 
 **Backend - Game Start & Role Assignment**
 
-- [ ] T053 [P] [US2] Query D1 for locations by difficulty in workers/src/handlers/game.ts (SELECT with WHERE difficulty IN)
-- [ ] T054 [US2] Implement START_GAME message handler in workers/src/handlers/websocket.ts (validate host, player count, create GameState)
-- [ ] T055 [US2] Implement random location selection in workers/src/handlers/game.ts (filter by difficulty, pick one)
-- [ ] T056 [US2] Implement spy assignment in workers/src/handlers/game.ts (random player selection)
-- [ ] T057 [US2] Implement role assignment for non-spies in workers/src/handlers/game.ts (assign unique roles from location)
-- [ ] T058 [US2] Broadcast GAME_STARTED message to all players in GameRoom Durable Object
-- [ ] T059 [US2] Send private ROLE_ASSIGNMENT messages to each player in GameRoom Durable Object
+- [x] T053 [P] [US2] Query D1 for locations by difficulty in workers/src/handlers/game.ts (SELECT with WHERE difficulty IN)
+- [x] T054 [US2] Implement START_GAME message handler in workers/src/handlers/websocket.ts (validate host, player count, create GameState)
+- [x] T055 [US2] Implement random location selection in workers/src/handlers/game.ts (filter by difficulty, pick one)
+- [x] T056 [US2] Implement spy assignment in workers/src/handlers/game.ts (random player selection)
+- [x] T057 [US2] Implement role assignment for non-spies in workers/src/handlers/game.ts (assign unique roles from location)
+- [x] T058 [US2] Broadcast GAME_STARTED message to all players in GameRoom Durable Object
+- [x] T059 [US2] Send private ROLE_ASSIGNMENT messages to each player in GameRoom Durable Object
 
 **Backend - Chat & Timer**
 
-- [ ] T060 [P] [US2] Implement CHAT message handler in workers/src/handlers/websocket.ts (validate, store in GameState, broadcast MESSAGE)
-- [ ] T061 [P] [US2] Implement timer logic in GameRoom Durable Object (start timer, send TIMER_TICK every second, PHASE_CHANGE on expiry)
-- [ ] T062 [US2] Implement turn tracking in GameState (currentTurn index, turn indicator in chat)
+- [x] T060 [P] [US2] Implement CHAT message handler in workers/src/handlers/websocket.ts (validate, store in GameState, broadcast MESSAGE)
+- [x] T061 [P] [US2] Implement timer logic in GameRoom Durable Object (start timer, send TIMER_TICK every second, PHASE_CHANGE on expiry)
+- [ ] T062 [US2] Implement turn tracking in GameState (currentTurn index, turn indicator in chat) - DEFERRED
 
 **Backend - Voting**
 
-- [ ] T063 [US2] Implement VOTE message handler in workers/src/handlers/websocket.ts (validate phase, store vote, broadcast VOTE_CAST with count)
-- [ ] T064 [US2] Implement vote tallying in workers/src/handlers/game.ts (count votes, determine eliminated player)
-- [ ] T065 [US2] Implement score calculation in workers/src/handlers/game.ts (spy caught: +1 non-spies, spy survives: proceed to spy_guess)
-- [ ] T066 [US2] Broadcast VOTING_RESULTS message with eliminated player, wasSpy flag, and scores
+- [x] T063 [US2] Implement VOTE message handler in workers/src/handlers/websocket.ts (validate phase, store vote, broadcast VOTE_CAST with count)
+- [x] T064 [US2] Implement vote tallying in workers/src/handlers/game.ts (count votes, determine eliminated player)
+- [x] T065 [US2] Implement score calculation in workers/src/handlers/game.ts (spy caught: +1 non-spies, spy survives: proceed to spy_guess)
+- [x] T066 [US2] Broadcast VOTING_RESULTS message with eliminated player, wasSpy flag, and scores
 
 **Frontend - Game Configuration**
 
-- [ ] T067 [P] [US2] Add difficulty selector to Lobby component (checkboxes for easy/medium/hard)
-- [ ] T068 [P] [US2] Add timer duration selector to Lobby component (dropdown 5-15 minutes)
-- [ ] T069 [US2] Implement START_GAME message sending from Lobby (host button click, include difficulty and timer)
-- [ ] T070 [US2] Update Lobby component to disable start button if <4 or >10 players
+- [x] T067 [P] [US2] Add difficulty selector to Lobby component (checkboxes for easy/medium/hard)
+- [x] T068 [P] [US2] Add timer duration selector to Lobby component (dropdown 5-15 minutes)
+- [x] T069 [US2] Implement START_GAME message sending from Lobby (host button click, include difficulty and timer)
+- [x] T070 [US2] Update Lobby component to disable start button if <4 or >10 players
 
 **Frontend - Role Display**
 
-- [ ] T071 [P] [US2] Create RoleCard component in components/game/RoleCard.tsx (show role, location for non-spy, "You are the spy" for spy)
-- [ ] T072 [P] [US2] Create LocationReference component in components/game/LocationReference.tsx (show location name + all roles for non-spy)
-- [ ] T073 [US2] Handle ROLE_ASSIGNMENT message in room page (store role privately, show appropriate card)
-- [ ] T074 [US2] Implement conditional rendering in room page (show Lobby vs RoleCard based on game phase)
+- [x] T071 [P] [US2] Create RoleCard component in components/game/RoleCard.tsx (show role, location for non-spy, "You are the spy" for spy)
+- [x] T072 [P] [US2] Create LocationReference component in components/game/LocationReference.tsx (show location name + all roles for non-spy)
+- [x] T073 [US2] Handle ROLE_ASSIGNMENT message in room page (store role privately, show appropriate card)
+- [x] T074 [US2] Implement conditional rendering in room page (show Lobby vs RoleCard based on game phase)
 
 **Frontend - Chat**
 
-- [ ] T075 [P] [US2] Create ChatPanel component in components/game/ChatPanel.tsx (message list, input field, send button)
-- [ ] T076 [US2] Implement chat message sending in ChatPanel (CHAT WebSocket message with content and isTurnIndicator)
-- [ ] T077 [US2] Handle MESSAGE WebSocket message in room page (append to chat history)
-- [ ] T078 [US2] Add turn indicator styling in ChatPanel (highlight messages with isTurnIndicator flag)
-- [ ] T079 [US2] Add auto-scroll to bottom in ChatPanel (scroll on new message)
+- [x] T075 [P] [US2] Create ChatPanel component in components/game/ChatPanel.tsx (message list, input field, send button)
+- [x] T076 [US2] Implement chat message sending in ChatPanel (CHAT WebSocket message with content and isTurnIndicator)
+- [x] T077 [US2] Handle MESSAGE WebSocket message in room page (append to chat history)
+- [x] T078 [US2] Add turn indicator styling in ChatPanel (highlight messages with isTurnIndicator flag)
+- [x] T079 [US2] Add auto-scroll to bottom in ChatPanel (scroll on new message)
 
 **Frontend - Timer**
 
-- [ ] T080 [P] [US2] Create GameTimer component in components/game/GameTimer.tsx (countdown display, visual progress bar)
-- [ ] T081 [US2] Handle TIMER_TICK message in room page (update timer state)
-- [ ] T082 [US2] Handle PHASE_CHANGE message in room page (transition to voting phase)
-- [ ] T083 [US2] Add timer expiration animation in GameTimer component (flash or sound on expiry)
+- [x] T080 [P] [US2] Create GameTimer component in components/game/GameTimer.tsx (countdown display, visual progress bar)
+- [x] T081 [US2] Handle TIMER_TICK message in room page (update timer state)
+- [x] T082 [US2] Handle PHASE_CHANGE message in room page (transition to voting phase) - Using timer expiry instead
+- [x] T083 [US2] Add timer expiration animation in GameTimer component (flash or sound on expiry)
 
 **Frontend - Voting**
 
-- [ ] T084 [P] [US2] Create VotingInterface component in components/game/VotingInterface.tsx (player list with vote buttons)
-- [ ] T085 [US2] Implement vote submission in VotingInterface (VOTE WebSocket message with suspectId)
-- [ ] T086 [US2] Handle VOTE_CAST message in room page (update vote count display)
-- [ ] T087 [US2] Handle VOTING_RESULTS message in room page (show eliminated player, wasSpy status, updated scores)
-- [ ] T088 [US2] Add voting results modal/overlay in room page (display results clearly before transitioning)
+- [x] T084 [P] [US2] Create VotingInterface component in components/game/VotingInterface.tsx (player list with vote buttons)
+- [x] T085 [US2] Implement vote submission in VotingInterface (VOTE WebSocket message with suspectId)
+- [x] T086 [US2] Handle VOTE_CAST message in room page (update vote count display)
+- [x] T087 [US2] Handle VOTING_RESULTS message in room page (show eliminated player, wasSpy status, updated scores)
+- [x] T088 [US2] Add voting results modal/overlay in room page (display results clearly before transitioning)
 
 **Frontend - Game State Management**
 
-- [ ] T089 [US2] Implement game state reducer in room page (manage phase transitions, role, timer, messages, votes)
-- [ ] T090 [US2] Add phase-based conditional rendering in room page (lobby → playing → voting → results)
+- [x] T089 [US2] Implement game state reducer in room page (manage phase transitions, role, timer, messages, votes)
+- [x] T090 [US2] Add phase-based conditional rendering in room page (lobby → playing → voting → results)
 - [ ] T091 [US2] Update PlayerList to show scores during and after game
 
 **Checkpoint**: User Story 2 playground should demonstrate complete game round with roles, chat, timer, voting, and results

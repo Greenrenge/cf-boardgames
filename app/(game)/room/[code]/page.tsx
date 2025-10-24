@@ -3,9 +3,15 @@
 import { useEffect, useState, useRef } from 'react';
 import { useParams, useRouter } from 'next/navigation';
 import { Lobby } from '@/components/room/Lobby';
+import { RoleCard } from '@/components/game/RoleCard';
+import { LocationReference } from '@/components/game/LocationReference';
+import { ChatPanel } from '@/components/game/ChatPanel';
+import { GameTimer } from '@/components/game/GameTimer';
+import { VotingInterface } from '@/components/game/VotingInterface';
+import { ResultsScreen } from '@/components/game/ResultsScreen';
 import { storage } from '@/lib/storage';
 import { createWebSocketClient, WebSocketClient } from '@/lib/websocket';
-import type { Player, WebSocketMessage } from '@/lib/types';
+import type { Player, WebSocketMessage, Difficulty, Message, GamePhase } from '@/lib/types';
 
 export default function RoomPage() {
   const params = useParams();
@@ -19,6 +25,18 @@ export default function RoomPage() {
   const [isConnected, setIsConnected] = useState(false);
   const [isStarting, setIsStarting] = useState(false);
   const [error, setError] = useState<string | null>(null);
+
+  // Game state
+  const [gamePhase, setGamePhase] = useState<GamePhase>('lobby');
+  const [playerRole, setPlayerRole] = useState<string | null>(null);
+  const [playerLocation, setPlayerLocation] = useState<string | null>(null);
+  const [locationRoles, setLocationRoles] = useState<string[]>([]);
+  const [messages, setMessages] = useState<Message[]>([]);
+  const [remainingSeconds, setRemainingSeconds] = useState<number>(0);
+  const [timerEndsAt, setTimerEndsAt] = useState<number>(0);
+  const [votesCount, setVotesCount] = useState<number>(0);
+  const [hasVoted, setHasVoted] = useState<boolean>(false);
+  const [votingResults, setVotingResults] = useState<any>(null);
 
   const wsRef = useRef<WebSocketClient | null>(null);
   const isConnectingRef = useRef(false); // Prevent duplicate connections
@@ -51,6 +69,30 @@ export default function RoomPage() {
         break;
       case 'KICKED':
         handleKicked(message.payload as { reason: string });
+        break;
+      case 'ROLE_ASSIGNMENT':
+        handleRoleAssignment(
+          message.payload as { role: string; location: string | null; locationRoles?: string[] }
+        );
+        break;
+      case 'TIMER_TICK':
+        handleTimerTick(message.payload as { remainingSeconds: number });
+        break;
+      case 'MESSAGE':
+        handleMessage(message.payload as Message);
+        break;
+      case 'VOTE_CAST':
+        handleVoteCast(
+          message.payload as {
+            voterId: string;
+            voterName: string;
+            totalVotes: number;
+            requiredVotes: number;
+          }
+        );
+        break;
+      case 'VOTING_RESULTS':
+        handleVotingResults(message.payload as any);
         break;
       default:
         console.log('[Room] Unhandled message type:', message.type);
@@ -167,6 +209,7 @@ export default function RoomPage() {
   const handleGameStarted = () => {
     console.log('[Room] Game started');
     setIsStarting(false);
+    // Note: Timer and phase will be set by ROLE_ASSIGNMENT and TIMER_TICK messages
   };
 
   const handleError = (payload: { code: string; message: string }) => {
@@ -193,16 +236,60 @@ export default function RoomPage() {
     }, 2000);
   };
 
-  const handleStartGame = () => {
+  const handleRoleAssignment = (payload: {
+    role: string;
+    location: string | null;
+    locationRoles?: string[];
+  }) => {
+    console.log('[Room] Role assigned:', payload);
+    setPlayerRole(payload.role);
+    setPlayerLocation(payload.location);
+    setLocationRoles(payload.locationRoles || []);
+    setGamePhase('playing');
+    // Set initial timer - will be updated by TIMER_TICK
+    setTimerEndsAt(Date.now() + 8 * 60 * 1000); // Default 8 minutes
+  };
+
+  const handleTimerTick = (payload: { remainingSeconds: number }) => {
+    setRemainingSeconds(payload.remainingSeconds);
+  };
+
+  const handleMessage = (payload: Message) => {
+    setMessages((prev) => [...prev, payload]);
+  };
+
+  const handleVoteCast = (payload: {
+    voterId: string;
+    voterName: string;
+    totalVotes: number;
+    requiredVotes: number;
+  }) => {
+    console.log('[Room] Vote cast:', payload);
+    setVotesCount(payload.totalVotes);
+    if (payload.voterId === currentPlayerId) {
+      setHasVoted(true);
+    }
+  };
+
+  const handleVotingResults = (payload: any) => {
+    console.log('[Room] Voting results:', payload);
+    setVotingResults(payload);
+    setGamePhase('results');
+  };
+
+  const handleStartGame = (difficulty: Difficulty[], timerDuration: number) => {
+    console.log('[Room] Starting game with:', { difficulty, timerDuration });
+
     if (!wsRef.current?.isConnected()) {
+      console.error('[Room] WebSocket not connected');
       setError('ไม่ได้เชื่อมต่อกับเซิร์ฟเวอร์');
       return;
     }
 
     setIsStarting(true);
     wsRef.current.send('START_GAME', {
-      difficulty: ['easy', 'medium', 'hard'],
-      timerDuration: 480,
+      difficulty,
+      timerDuration,
     });
   };
 
@@ -228,6 +315,37 @@ export default function RoomPage() {
       wsRef.current = null;
     }
     router.push('/');
+  };
+
+  const handleSendMessage = (content: string, isTurnIndicator: boolean) => {
+    if (!wsRef.current?.isConnected()) return;
+
+    wsRef.current.send('CHAT', {
+      content,
+      isTurnIndicator,
+    });
+  };
+
+  const handleVote = (suspectId: string) => {
+    if (!wsRef.current?.isConnected()) return;
+
+    wsRef.current.send('VOTE', {
+      suspectId,
+    });
+  };
+
+  const handleBackToLobby = () => {
+    // Reset game state
+    setGamePhase('lobby');
+    setPlayerRole(null);
+    setPlayerLocation(null);
+    setLocationRoles([]);
+    setMessages([]);
+    setRemainingSeconds(0);
+    setTimerEndsAt(0);
+    setVotesCount(0);
+    setHasVoted(false);
+    setVotingResults(null);
   };
 
   if (!isConnected) {
@@ -273,15 +391,83 @@ export default function RoomPage() {
         </div>
       )}
 
-      <Lobby
-        roomCode={roomCode}
-        players={players}
-        hostId={hostId}
-        currentPlayerId={currentPlayerId}
-        onStartGame={handleStartGame}
-        onKickPlayer={handleKickPlayer}
-        isStarting={isStarting}
-      />
+      {/* Lobby Phase */}
+      {gamePhase === 'lobby' && (
+        <Lobby
+          roomCode={roomCode}
+          players={players}
+          hostId={hostId}
+          currentPlayerId={currentPlayerId}
+          onStartGame={handleStartGame}
+          onKickPlayer={handleKickPlayer}
+          isStarting={isStarting}
+        />
+      )}
+
+      {/* Playing Phase */}
+      {gamePhase === 'playing' && playerRole && (
+        <div className="max-w-6xl mx-auto">
+          <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
+            {/* Left Column - Role & Timer */}
+            <div className="space-y-6">
+              <RoleCard role={playerRole} location={playerLocation} isSpy={playerRole === 'Spy'} />
+
+              {!playerLocation && locationRoles.length === 0 && (
+                <GameTimer remainingSeconds={remainingSeconds} timerEndsAt={timerEndsAt} />
+              )}
+
+              {playerLocation && locationRoles.length > 0 && (
+                <LocationReference location={playerLocation} roles={locationRoles} />
+              )}
+            </div>
+
+            {/* Middle Column - Chat */}
+            <div className="lg:col-span-2">
+              <ChatPanel
+                messages={messages}
+                currentPlayerId={currentPlayerId}
+                onSendMessage={handleSendMessage}
+                disabled={false}
+              />
+            </div>
+          </div>
+
+          {/* Timer for non-spy or voting UI */}
+          {(playerLocation || remainingSeconds <= 60) && (
+            <div className="max-w-6xl mx-auto mt-6">
+              {remainingSeconds > 0 ? (
+                <GameTimer remainingSeconds={remainingSeconds} timerEndsAt={timerEndsAt} />
+              ) : (
+                <VotingInterface
+                  players={players}
+                  currentPlayerId={currentPlayerId}
+                  votesCount={votesCount}
+                  requiredVotes={players.length}
+                  onVote={handleVote}
+                  hasVoted={hasVoted}
+                  disabled={false}
+                />
+              )}
+            </div>
+          )}
+        </div>
+      )}
+
+      {/* Results Phase */}
+      {gamePhase === 'results' && votingResults && (
+        <div className="max-w-4xl mx-auto">
+          <ResultsScreen
+            eliminatedPlayerId={votingResults.eliminatedPlayerId}
+            spyPlayerId={votingResults.spyPlayerId}
+            spyWasEliminated={votingResults.spyWasEliminated}
+            location={votingResults.location}
+            scores={votingResults.scores}
+            players={players}
+            voteTally={votingResults.voteTally}
+            onBackToLobby={handleBackToLobby}
+          />
+        </div>
+      )}
     </div>
   );
 }

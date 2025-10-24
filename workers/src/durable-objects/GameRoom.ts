@@ -1,6 +1,8 @@
 import { Room } from '../models/Room';
 import { Player } from '../models/Player';
-import type { WebSocketMessage } from '../../../lib/types';
+import { GameState } from '../models/GameState';
+import type { WebSocketMessage, Location, Assignment, Difficulty } from '../../../lib/types';
+import locationsData from '../../../data/locations.json';
 
 export class GameRoom {
   private state: DurableObjectState;
@@ -12,6 +14,8 @@ export class GameRoom {
   private kickedPlayers: Set<string> = new Set();
   private isLoadingState: boolean = false;
   private messageQueue: Map<string, Promise<void>> = new Map();
+  private gameState: GameState | null = null;
+  private timerInterval: ReturnType<typeof setInterval> | null = null;
 
   constructor(state: DurableObjectState, env: any) {
     this.state = state;
@@ -541,6 +545,179 @@ export class GameRoom {
       }
     }
 
+    if (message.type === 'START_GAME') {
+      if (currentPlayerId) {
+        // Only host can start the game
+        if (currentPlayerId !== this.room?.hostPlayerId) {
+          ws.send(
+            JSON.stringify({
+              type: 'ERROR',
+              payload: { code: 'NOT_HOST', message: 'Only host can start the game' },
+              timestamp: Date.now(),
+            })
+          );
+          return;
+        }
+
+        // Validate player count (3-8 players)
+        const activePlayers = Array.from(this.players.values()).filter(
+          (p) => p.connectionStatus === 'connected'
+        );
+        if (activePlayers.length < 3 || activePlayers.length > 8) {
+          ws.send(
+            JSON.stringify({
+              type: 'ERROR',
+              payload: {
+                code: 'INVALID_PLAYER_COUNT',
+                message: `Need 3-8 players to start. Currently ${activePlayers.length} players.`,
+              },
+              timestamp: Date.now(),
+            })
+          );
+          return;
+        }
+
+        // Change room phase
+        if (this.room) {
+          this.room.phase = 'playing';
+        }
+
+        // Start the game
+        await this.startGame(activePlayers, message.payload as any);
+      }
+    }
+
+    if (message.type === 'CHAT') {
+      if (currentPlayerId && this.gameState) {
+        const { content, isTurnIndicator } = message.payload as {
+          content: string;
+          isTurnIndicator?: boolean;
+        };
+
+        // Validate message
+        if (!content || content.trim().length === 0) {
+          ws.send(
+            JSON.stringify({
+              type: 'ERROR',
+              payload: { code: 'INVALID_MESSAGE', message: 'Message cannot be empty' },
+              timestamp: Date.now(),
+            })
+          );
+          return;
+        }
+
+        if (content.length > 500) {
+          ws.send(
+            JSON.stringify({
+              type: 'ERROR',
+              payload: { code: 'MESSAGE_TOO_LONG', message: 'Message too long (max 500 chars)' },
+              timestamp: Date.now(),
+            })
+          );
+          return;
+        }
+
+        // Store message in game state
+        const player = this.players.get(currentPlayerId);
+        if (player) {
+          const chatMessage = {
+            id: `${Date.now()}-${currentPlayerId}`,
+            roomCode: this.room!.code,
+            roundNumber: this.gameState.roundNumber,
+            playerId: currentPlayerId,
+            playerName: player.name,
+            content: content.trim(),
+            isTurnIndicator: isTurnIndicator || false,
+            timestamp: Date.now(),
+          };
+
+          this.gameState.addMessage(chatMessage);
+          await this.state.storage.put('gameState', this.gameState.toJSON());
+
+          // Broadcast MESSAGE to all players
+          this.broadcast({
+            type: 'MESSAGE',
+            payload: chatMessage,
+            timestamp: Date.now(),
+          });
+        }
+      }
+    }
+
+    if (message.type === 'VOTE') {
+      if (currentPlayerId && this.gameState) {
+        const { suspectId } = message.payload as { suspectId: string };
+
+        // Check if voting is allowed (game must be playing and timer not expired)
+        if (this.room?.phase !== 'playing') {
+          ws.send(
+            JSON.stringify({
+              type: 'ERROR',
+              payload: { code: 'NOT_IN_GAME', message: 'Game is not in progress' },
+              timestamp: Date.now(),
+            })
+          );
+          return;
+        }
+
+        // Validate suspect exists (or is 'skip')
+        if (suspectId !== 'skip' && !this.players.has(suspectId)) {
+          ws.send(
+            JSON.stringify({
+              type: 'ERROR',
+              payload: { code: 'INVALID_SUSPECT', message: 'Suspect player not found' },
+              timestamp: Date.now(),
+            })
+          );
+          return;
+        }
+
+        // Check if player already voted
+        const existingVote = this.gameState.votes.find((v) => v.voterId === currentPlayerId);
+        if (existingVote) {
+          ws.send(
+            JSON.stringify({
+              type: 'ERROR',
+              payload: { code: 'ALREADY_VOTED', message: 'You have already voted' },
+              timestamp: Date.now(),
+            })
+          );
+          return;
+        }
+
+        // Store vote
+        const vote = {
+          id: `${Date.now()}-${currentPlayerId}`,
+          roomCode: this.room!.code,
+          roundNumber: this.gameState.roundNumber,
+          voterId: currentPlayerId,
+          suspectId,
+          timestamp: Date.now(),
+        };
+
+        this.gameState.addVote(vote);
+        await this.state.storage.put('gameState', this.gameState.toJSON());
+
+        // Broadcast VOTE_CAST (without revealing who voted for whom)
+        const player = this.players.get(currentPlayerId);
+        this.broadcast({
+          type: 'VOTE_CAST',
+          payload: {
+            voterId: currentPlayerId,
+            voterName: player?.name || 'Unknown',
+            totalVotes: this.gameState.votes.length,
+            requiredVotes: this.players.size,
+          },
+          timestamp: Date.now(),
+        });
+
+        // Check if all players have voted
+        if (this.gameState.votes.length === this.players.size) {
+          await this.endRound();
+        }
+      }
+    }
+
     if (message.type === 'KICK') {
       if (currentPlayerId) {
         const targetPlayerId = (message.payload as any).targetPlayerId;
@@ -904,5 +1081,207 @@ export class GameRoom {
     } catch (error) {
       console.error('[GameRoom] Error cleaning up room:', error);
     }
+  }
+
+  private async startGame(
+    activePlayers: Player[],
+    settings: { difficulty?: Difficulty[]; timerDuration?: number }
+  ) {
+    console.log(`[GameRoom] Starting game with ${activePlayers.length} players`);
+
+    // Select random location based on difficulty
+    const difficulties = settings.difficulty || ['easy', 'medium', 'hard'];
+    const availableLocations = (locationsData as Location[]).filter((loc) =>
+      difficulties.includes(loc.difficulty)
+    );
+
+    if (availableLocations.length === 0) {
+      console.error('[GameRoom] No locations available for selected difficulties');
+      return;
+    }
+
+    const selectedLocation =
+      availableLocations[Math.floor(Math.random() * availableLocations.length)];
+    console.log(`[GameRoom] Selected location: ${selectedLocation.nameTh}`);
+
+    // Select random spy
+    const spyIndex = Math.floor(Math.random() * activePlayers.length);
+    const spyPlayerId = activePlayers[spyIndex].id;
+    console.log(`[GameRoom] Spy is: ${spyPlayerId}`);
+
+    // Assign roles to non-spy players
+    const assignments: Record<string, Assignment> = {};
+    const availableRoles = [...selectedLocation.roles];
+
+    for (let i = 0; i < activePlayers.length; i++) {
+      const player = activePlayers[i];
+
+      if (player.id === spyPlayerId) {
+        // Assign spy
+        assignments[player.id] = {
+          playerId: player.id,
+          role: 'Spy',
+          location: null,
+        };
+      } else {
+        // Assign random unique role from location
+        const roleIndex = Math.floor(Math.random() * availableRoles.length);
+        const role = availableRoles.splice(roleIndex, 1)[0];
+
+        assignments[player.id] = {
+          playerId: player.id,
+          role,
+          location: selectedLocation.nameTh,
+        };
+      }
+    }
+
+    // Create game state
+    const timerDuration = settings.timerDuration || 8; // Default 8 minutes
+    const gameState = new GameState(
+      this.room!.code,
+      1, // Round 1
+      selectedLocation,
+      assignments,
+      spyPlayerId,
+      timerDuration
+    );
+
+    // Save game state
+    this.gameState = gameState;
+    await this.state.storage.put('gameState', gameState.toJSON());
+
+    // Start timer interval (broadcast every second)
+    this.startTimerInterval();
+
+    // Broadcast GAME_STARTED to all players
+    this.broadcast({
+      type: 'GAME_STARTED',
+      payload: {
+        gameState: {
+          roundNumber: gameState.roundNumber,
+          timerStartedAt: gameState.timerStartedAt,
+          timerEndsAt: gameState.timerEndsAt,
+        },
+        roundNumber: gameState.roundNumber,
+      },
+      timestamp: Date.now(),
+    });
+
+    // Send private ROLE_ASSIGNMENT to each player
+    for (const player of activePlayers) {
+      const ws = this.connections.get(player.id);
+      const assignment = assignments[player.id];
+
+      if (ws && assignment) {
+        ws.send(
+          JSON.stringify({
+            type: 'ROLE_ASSIGNMENT',
+            payload: {
+              role: assignment.role,
+              location: assignment.location,
+              locationRoles: assignment.location ? selectedLocation.roles : undefined,
+            },
+            timestamp: Date.now(),
+          })
+        );
+      }
+    }
+
+    console.log('[GameRoom] Game started successfully');
+  }
+
+  private startTimerInterval() {
+    // Clear existing interval if any
+    if (this.timerInterval) {
+      clearInterval(this.timerInterval);
+    }
+
+    // Broadcast timer tick every second
+    this.timerInterval = setInterval(() => {
+      if (!this.gameState) {
+        if (this.timerInterval) {
+          clearInterval(this.timerInterval);
+          this.timerInterval = null;
+        }
+        return;
+      }
+
+      const remainingSeconds = this.gameState.getRemainingTime();
+
+      // Broadcast TIMER_TICK
+      this.broadcast({
+        type: 'TIMER_TICK',
+        payload: { remainingSeconds },
+        timestamp: Date.now(),
+      });
+
+      // Check if timer expired
+      if (remainingSeconds <= 0) {
+        console.log('[GameRoom] Timer expired, ending round');
+        if (this.timerInterval) {
+          clearInterval(this.timerInterval);
+          this.timerInterval = null;
+        }
+        this.endRound();
+      }
+    }, 1000);
+  }
+
+  private async endRound() {
+    if (!this.gameState || !this.room) return;
+
+    console.log('[GameRoom] Ending round');
+
+    // Stop timer
+    if (this.timerInterval) {
+      clearInterval(this.timerInterval);
+      this.timerInterval = null;
+    }
+
+    // Tally votes
+    const voteTally = this.gameState.tallyVotes();
+    const eliminatedPlayerId = this.gameState.getEliminatedPlayer();
+
+    console.log('[GameRoom] Vote tally:', voteTally);
+    console.log('[GameRoom] Eliminated player:', eliminatedPlayerId);
+
+    // Calculate results
+    const spyWasEliminated = eliminatedPlayerId === this.gameState.spyPlayerId;
+    const spyEscaped = !spyWasEliminated;
+
+    // Calculate scores
+    const scores: Record<string, number> = {};
+    const activePlayers = Array.from(this.players.values());
+
+    for (const player of activePlayers) {
+      if (player.id === this.gameState.spyPlayerId) {
+        // Spy scores
+        scores[player.id] = spyEscaped ? 2 : 0;
+      } else {
+        // Non-spy scores
+        scores[player.id] = spyWasEliminated ? 1 : 0;
+      }
+    }
+
+    // Broadcast results
+    this.broadcast({
+      type: 'VOTING_RESULTS',
+      payload: {
+        voteTally,
+        eliminatedPlayerId,
+        spyPlayerId: this.gameState.spyPlayerId,
+        spyWasEliminated,
+        scores,
+        location: this.gameState.selectedLocation.nameTh,
+      },
+      timestamp: Date.now(),
+    });
+
+    // Change room phase to results
+    this.room.phase = 'results';
+    await this.saveState();
+
+    console.log('[GameRoom] Round ended, results sent');
   }
 }
