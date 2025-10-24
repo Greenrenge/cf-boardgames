@@ -1,0 +1,71 @@
+# Dependencies
+node_modules/
+.pnp
+.pnp.js
+
+# Testing
+coverage/
+*.lcov
+
+# Next.js
+.next/
+out/
+build/
+dist/
+
+# Production
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+lerna-debug.log*
+
+# Environment variables
+.env
+.env*.local
+.env.development.local
+.env.test.local
+.env.production.local
+
+# Vercel / Cloudflare
+.vercel
+.dev.vars
+.wrangler/
+
+# IDE
+.vscode/*
+!.vscode/settings.json
+!.vscode/tasks.json
+!.vscode/launch.json
+!.vscode/extensions.json
+.idea/
+*.swp
+*.swo
+*~
+.DS_Store
+
+# Misc
+*.pem
+*.key
+*.crt
+Thumbs.db
+*.tmp
+*.temp
+
+# TypeScript
+*.tsbuildinfo
+next-env.d.ts
+
+# Cloudflare Workers
+workers/.wrangler/
+workers/dist/
+.dev.vars
+
+# Database
+*.db
+*.sqlite
+*.db-journal
+
+# Generated files
+.turbo/

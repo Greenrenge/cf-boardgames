@@ -1,0 +1,1404 @@
+{
+  "locations": [
+    {
+      "id": 1,
+      "name_th": "ตลาดนัด",
+      "name_en": "Local Market",
+      "roles": [
+        {"name_th": "แม่ค้าผัก", "name_en": "Vegetable vendor"},
+        {"name_th": "ลูกค้า", "name_en": "Customer"},
+        {"name_th": "คนขายของเก่า", "name_en": "Second-hand seller"},
+        {"name_th": "เจ้าของร้านอาหาร", "name_en": "Food stall owner"},
+        {"name_th": "คนเก็บเงิน", "name_en": "Cashier"},
+        {"name_th": "คนแบกของ", "name_en": "Porter"},
+        {"name_th": "คนขายเสื้อผ้า", "name_en": "Clothing vendor"}
+      ]
+    },
+    {
+      "id": 2,
+      "name_th": "เซเว่น อีเลฟเว่น",
+      "name_en": "7-Eleven",
+      "roles": [
+        {"name_th": "พนักงานแคชเชียร์", "name_en": "Cashier"},
+        {"name_th": "ลูกค้า", "name_en": "Customer"},
+        {"name_th": "พนักงานจัดสินค้า", "name_en": "Stock clerk"},
+        {"name_th": "เจ้าของแฟรนไชส์", "name_en": "Franchise owner"},
+        {"name_th": "คนส่งของ", "name_en": "Delivery person"},
+        {"name_th": "รปภ.", "name_en": "Security guard"},
+        {"name_th": "คนแพ็คของ", "name_en": "Packer"}
+      ]
+    },
+    {
+      "id": 3,
+      "name_th": "โรงพยาบาล",
+      "name_en": "Hospital",
+      "roles": [
+        {"name_th": "หมอ", "name_en": "Doctor"},
+        {"name_th": "พยาบาล", "name_en": "Nurse"},
+        {"name_th": "คนไข้", "name_en": "Patient"},
+        {"name_th": "ญาติผู้ป่วย", "name_en": "Patient's relative"},
+        {"name_th": "เภสัชกร", "name_en": "Pharmacist"},
+        {"name_th": "รปภ.", "name_en": "Security guard"},
+        {"name_th": "พนักงานรับโทรศัพท์", "name_en": "Receptionist"}
+      ]
+    },
+    {
+      "id": 4,
+      "name_th": "โรงเรียน",
+      "name_en": "School",
+      "roles": [
+        {"name_th": "ครู", "name_en": "Teacher"},
+        {"name_th": "นักเรียน", "name_en": "Student"},
+        {"name_th": "ผู้อำนวยการ", "name_en": "Principal"},
+        {"name_th": "แม่บ้าน", "name_en": "Janitor"},
+        {"name_th": "ยาม", "name_en": "Security guard"},
+        {"name_th": "พ่อแม่นักเรียน", "name_en": "Parent"},
+        {"name_th": "ครูพลศึกษา", "name_en": "PE teacher"}
+      ]
+    },
+    {
+      "id": 5,
+      "name_th": "ธนาคาร",
+      "name_en": "Bank",
+      "roles": [
+        {"name_th": "พนักงานธนาคาร", "name_en": "Bank teller"},
+        {"name_th": "ลูกค้า", "name_en": "Customer"},
+        {"name_th": "รปภ.", "name_en": "Security guard"},
+        {"name_th": "ผู้จัดการสาขา", "name_en": "Branch manager"},
+        {"name_th": "พนักงานต้อนรับ", "name_en": "Receptionist"},
+        {"name_th": "คนส่งเงิน", "name_en": "Money courier"},
+        {"name_th": "พนักงานสินเชื่อ", "name_en": "Loan officer"}
+      ]
+    },
+    {
+      "id": 6,
+      "name_th": "ร้านอาหาร",
+      "name_en": "Restaurant",
+      "roles": [
+        {"name_th": "พ่อครัว", "name_en": "Chef"},
+        {"name_th": "พนักงานเสิร์ฟ", "name_en": "Waiter/Waitress"},
+        {"name_th": "ลูกค้า", "name_en": "Customer"},
+        {"name_th": "แคชเชียร์", "name_en": "Cashier"},
+        {"name_th": "เด็กล้างจาน", "name_en": "Dishwasher"},
+        {"name_th": "เจ้าของร้าน", "name_en": "Restaurant owner"},
+        {"name_th": "พนักงานส่งอาหาร", "name_en": "Food runner"}
+      ]
+    },
+    {
+      "id": 7,
+      "name_th": "สวนสาธารณะ",
+      "name_en": "Public Park",
+      "roles": [
+        {"name_th": "คนมาออกกำลังกาย", "name_en": "Jogger"},
+        {"name_th": "คนขายอาหารนก", "name_en": "Bird feed vendor"},
+        {"name_th": "เจ้าหน้าที่ดูแลสวน", "name_en": "Park keeper"},
+        {"name_th": "คนพาสุนัขมาเดิน", "name_en": "Dog walker"},
+        {"name_th": "เด็กเล่นสนาม", "name_en": "Kid playing"},
+        {"name_th": "คนนั่งอ่านหนังสือ", "name_en": "Reader"},
+        {"name_th": "ช่างภาพ", "name_en": "Photographer"}
+      ]
+    },
+    {
+      "id": 8,
+      "name_th": "สนามกีฬา",
+      "name_en": "Sports Stadium",
+      "roles": [
+        {"name_th": "นักกีฬา", "name_en": "Athlete"},
+        {"name_th": "โค้ช", "name_en": "Coach"},
+        {"name_th": "ผู้ชม", "name_en": "Spectator"},
+        {"name_th": "ผู้ตัดสิน", "name_en": "Referee"},
+        {"name_th": "คนขายของ", "name_en": "Vendor"},
+        {"name_th": "นักข่าว", "name_en": "Reporter"},
+        {"name_th": "รปภ.", "name_en": "Security guard"}
+      ]
+    },
+    {
+      "id": 9,
+      "name_th": "ห้องสมุด",
+      "name_en": "Library",
+      "roles": [
+        {"name_th": "บรรณารักษ์", "name_en": "Librarian"},
+        {"name_th": "นักเรียน", "name_en": "Student"},
+        {"name_th": "คนมาอ่านหนังสือ", "name_en": "Reader"},
+        {"name_th": "อาจารย์", "name_en": "Teacher"},
+        {"name_th": "พนักงานจัดหนังสือ", "name_en": "Book organizer"},
+        {"name_th": "เด็กฝึกงาน", "name_en": "Intern"},
+        {"name_th": "แม่บ้าน", "name_en": "Cleaner"}
+      ]
+    },
+    {
+      "id": 10,
+      "name_th": "ไปรษณีย์",
+      "name_en": "Post Office",
+      "roles": [
+        {"name_th": "พนักงานไปรษณีย์", "name_en": "Postal worker"},
+        {"name_th": "ลูกค้า", "name_en": "Customer"},
+        {"name_th": "บุรุษไปรษณีย์", "name_en": "Mailman"},
+        {"name_th": "ผู้จัดการ", "name_en": "Manager"},
+        {"name_th": "พนักงานเรียงพัสดุ", "name_en": "Package sorter"},
+        {"name_th": "แคชเชียร์", "name_en": "Cashier"},
+        {"name_th": "รปภ.", "name_en": "Security guard"}
+      ]
+    },
+    {
+      "id": 11,
+      "name_th": "ร้านสะดวกซื้อ",
+      "name_en": "Convenience Store",
+      "roles": [
+        {"name_th": "พนักงานขาย", "name_en": "Sales clerk"},
+        {"name_th": "ลูกค้า", "name_en": "Customer"},
+        {"name_th": "เจ้าของร้าน", "name_en": "Shop owner"},
+        {"name_th": "คนส่งของ", "name_en": "Delivery person"},
+        {"name_th": "พนักงานกะดึก", "name_en": "Night shift worker"},
+        {"name_th": "พนักงานเติมสินค้า", "name_en": "Stocker"},
+        {"name_th": "แคชเชียร์", "name_en": "Cashier"}
+      ]
+    },
+    {
+      "id": 12,
+      "name_th": "ปั๊มน้ำมัน",
+      "name_en": "Gas Station",
+      "roles": [
+        {"name_th": "พนักงานปั๊มน้ำมัน", "name_en": "Gas attendant"},
+        {"name_th": "ลูกค้า", "name_en": "Customer"},
+        {"name_th": "แคชเชียร์", "name_en": "Cashier"},
+        {"name_th": "ช่างซ่อมรถ", "name_en": "Mechanic"},
+        {"name_th": "ผู้จัดการ", "name_en": "Manager"},
+        {"name_th": "พนักงานร้านสะดวกซื้อ", "name_en": "Convenience store clerk"},
+        {"name_th": "คนล้างรถ", "name_en": "Car washer"}
+      ]
+    },
+    {
+      "id": 13,
+      "name_th": "ร้านตัดผม",
+      "name_en": "Hair Salon",
+      "roles": [
+        {"name_th": "ช่างตัดผม", "name_en": "Hairdresser"},
+        {"name_th": "ลูกค้า", "name_en": "Customer"},
+        {"name_th": "ช่างสระผม", "name_en": "Hair washer"},
+        {"name_th": "เจ้าของร้าน", "name_en": "Salon owner"},
+        {"name_th": "แคชเชียร์", "name_en": "Cashier"},
+        {"name_th": "เด็กฝึกงาน", "name_en": "Apprentice"},
+        {"name_th": "คนนวดหัว", "name_en": "Head masseur"}
+      ]
+    },
+    {
+      "id": 14,
+      "name_th": "ร้านซักรีด",
+      "name_en": "Laundromat",
+      "roles": [
+        {"name_th": "เจ้าของร้าน", "name_en": "Shop owner"},
+        {"name_th": "ลูกค้า", "name_en": "Customer"},
+        {"name_th": "พนักงานรีดผ้า", "name_en": "Ironing staff"},
+        {"name_th": "พนักงานรับของ", "name_en": "Receptionist"},
+        {"name_th": "คนส่งผ้า", "name_en": "Delivery person"},
+        {"name_th": "ช่างซ่อมเครื่อง", "name_en": "Technician"},
+        {"name_th": "แคชเชียร์", "name_en": "Cashier"}
+      ]
+    },
+    {
+      "id": 15,
+      "name_th": "ร้านขายยา",
+      "name_en": "Pharmacy",
+      "roles": [
+        {"name_th": "เภสัชกร", "name_en": "Pharmacist"},
+        {"name_th": "ลูกค้า", "name_en": "Customer"},
+        {"name_th": "พนักงานขาย", "name_en": "Sales clerk"},
+        {"name_th": "แคชเชียร์", "name_en": "Cashier"},
+        {"name_th": "เจ้าของร้าน", "name_en": "Shop owner"},
+        {"name_th": "หมอที่คลินิก", "name_en": "Clinic doctor"},
+        {"name_th": "พนักงานจัดยา", "name_en": "Medicine organizer"}
+      ]
+    },
+    {
+      "id": 16,
+      "name_th": "ออฟฟิศ",
+      "name_en": "Office",
+      "roles": [
+        {"name_th": "พนักงานบริษัท", "name_en": "Office worker"},
+        {"name_th": "หัวหน้างาน", "name_en": "Manager"},
+        {"name_th": "เลขานุการ", "name_en": "Secretary"},
+        {"name_th": "แม่บ้าน", "name_en": "Janitor"},
+        {"name_th": "รปภ.", "name_en": "Security guard"},
+        {"name_th": "IT Support", "name_en": "IT support"},
+        {"name_th": "พนักงานต้อนรับ", "name_en": "Receptionist"}
+      ]
+    },
+    {
+      "id": 17,
+      "name_th": "ร้านกาแฟ",
+      "name_en": "Coffee Shop",
+      "roles": [
+        {"name_th": "บาริสต้า", "name_en": "Barista"},
+        {"name_th": "ลูกค้า", "name_en": "Customer"},
+        {"name_th": "แคชเชียร์", "name_en": "Cashier"},
+        {"name_th": "เจ้าของร้าน", "name_en": "Shop owner"},
+        {"name_th": "คนทำเค้ก", "name_en": "Baker"},
+        {"name_th": "พนักงานล้างจาน", "name_en": "Dishwasher"},
+        {"name_th": "พนักงานส่งอาหาร", "name_en": "Delivery person"}
+      ]
+    },
+    {
+      "id": 18,
+      "name_th": "ร้านขายของชำ",
+      "name_en": "Grocery Store",
+      "roles": [
+        {"name_th": "เจ้าของร้าน", "name_en": "Shop owner"},
+        {"name_th": "ลูกค้า", "name_en": "Customer"},
+        {"name_th": "แคชเชียร์", "name_en": "Cashier"},
+        {"name_th": "พนักงานจัดสินค้า", "name_en": "Stocker"},
+        {"name_th": "คนส่งของ", "name_en": "Delivery person"},
+        {"name_th": "ลูกค้าประจำ", "name_en": "Regular customer"},
+        {"name_th": "เด็กช่วยแพ็คของ", "name_en": "Packer"}
+      ]
+    },
+    {
+      "id": 19,
+      "name_th": "สถานีรถไฟฟ้า BTS",
+      "name_en": "BTS Station",
+      "roles": [
+        {"name_th": "พนักงานขายตั๋ว", "name_en": "Ticket seller"},
+        {"name_th": "ผู้โดยสาร", "name_en": "Passenger"},
+        {"name_th": "รปภ.", "name_en": "Security guard"},
+        {"name_th": "พนักงานประชาสัมพันธ์", "name_en": "Information staff"},
+        {"name_th": "คนขายของ", "name_en": "Vendor"},
+        {"name_th": "ช่างซ่อมบำรุง", "name_en": "Maintenance worker"},
+        {"name_th": "พนักงานควบคุมรถไฟ", "name_en": "Train operator"}
+      ]
+    },
+    {
+      "id": 20,
+      "name_th": "แมคโดนัลด์",
+      "name_en": "McDonald's",
+      "roles": [
+        {"name_th": "พนักงานเสิร์ฟ", "name_en": "Crew member"},
+        {"name_th": "ลูกค้า", "name_en": "Customer"},
+        {"name_th": "แคชเชียร์", "name_en": "Cashier"},
+        {"name_th": "ผู้จัดการ", "name_en": "Manager"},
+        {"name_th": "คนทำอาหาร", "name_en": "Cook"},
+        {"name_th": "พนักงานทำความสะอาด", "name_en": "Cleaner"},
+        {"name_th": "คนส่งอาหาร", "name_en": "Delivery rider"}
+      ]
+    },
+    {
+      "id": 21,
+      "name_th": "วัด",
+      "name_en": "Temple",
+      "roles": [
+        {"name_th": "พระ", "name_en": "Monk"},
+        {"name_th": "แม่ชี", "name_en": "Nun"},
+        {"name_th": "ผู้มาทำบุญ", "name_en": "Merit maker"},
+        {"name_th": "นักท่องเที่ยว", "name_en": "Tourist"},
+        {"name_th": "เด็กวัด", "name_en": "Temple boy"},
+        {"name_th": "คนขายของที่ระลึก", "name_en": "Souvenir seller"},
+        {"name_th": "เจ้าอาวาส", "name_en": "Abbot"}
+      ]
+    },
+    {
+      "id": 22,
+      "name_th": "ตลาดน้ำ",
+      "name_en": "Floating Market",
+      "roles": [
+        {"name_th": "แม่ค้าขายของบนเรือ", "name_en": "Boat vendor"},
+        {"name_th": "นักท่องเที่ยว", "name_en": "Tourist"},
+        {"name_th": "ไกด์นำเที่ยว", "name_en": "Tour guide"},
+        {"name_th": "คนพายเรือ", "name_en": "Boatman"},
+        {"name_th": "ช่างภาพ", "name_en": "Photographer"},
+        {"name_th": "เจ้าของร้านริมน้ำ", "name_en": "Riverside shop owner"},
+        {"name_th": "คนขายหมวก", "name_en": "Hat seller"}
+      ]
+    },
+    {
+      "id": 23,
+      "name_th": "พระบรมมหาราชวัง",
+      "name_en": "Grand Palace",
+      "roles": [
+        {"name_th": "ทหารยาม", "name_en": "Palace guard"},
+        {"name_th": "ไกด์นำเที่ยว", "name_en": "Tour guide"},
+        {"name_th": "นักท่องเที่ยวไทย", "name_en": "Thai tourist"},
+        {"name_th": "นักท่องเที่ยวต่างชาติ", "name_en": "Foreign tourist"},
+        {"name_th": "เจ้าหน้าที่ตรวจเช็คเสื้อผ้า", "name_en": "Dress code inspector"},
+        {"name_th": "ช่างภาพ", "name_en": "Photographer"},
+        {"name_th": "พนักงานขายตั๋ว", "name_en": "Ticket seller"}
+      ]
+    },
+    {
+      "id": 24,
+      "name_th": "วัดพระแก้ว",
+      "name_en": "Temple of the Emerald Buddha",
+      "roles": [
+        {"name_th": "พระ", "name_en": "Monk"},
+        {"name_th": "นักท่องเที่ยว", "name_en": "Tourist"},
+        {"name_th": "ไกด์", "name_en": "Tour guide"},
+        {"name_th": "เจ้าหน้าที่ดูแลวัด", "name_en": "Temple caretaker"},
+        {"name_th": "รปภ.", "name_en": "Security guard"},
+        {"name_th": "นักเรียนทัศนศึกษา", "name_en": "Student on field trip"},
+        {"name_th": "คนขายน้ำ", "name_en": "Water vendor"}
+      ]
+    },
+    {
+      "id": 25,
+      "name_th": "พิพิธภัณฑ์",
+      "name_en": "Museum",
+      "roles": [
+        {"name_th": "คนดูแลพิพิธภัณฑ์", "name_en": "Curator"},
+        {"name_th": "ผู้เข้าชม", "name_en": "Visitor"},
+        {"name_th": "ไกด์", "name_en": "Tour guide"},
+        {"name_th": "รปภ.", "name_en": "Security guard"},
+        {"name_th": "นักเรียน", "name_en": "Student"},
+        {"name_th": "ช่างภาพ", "name_en": "Photographer"},
+        {"name_th": "พนักงานขายของที่ระลึก", "name_en": "Gift shop staff"}
+      ]
+    },
+    {
+      "id": 26,
+      "name_th": "สวนสัตว์",
+      "name_en": "Zoo",
+      "roles": [
+        {"name_th": "คนดูแลสัตว์", "name_en": "Zookeeper"},
+        {"name_th": "ผู้เข้าชม", "name_en": "Visitor"},
+        {"name_th": "สัตวแพทย์", "name_en": "Veterinarian"},
+        {"name_th": "ไกด์", "name_en": "Tour guide"},
+        {"name_th": "คนขายอาหารสัตว์", "name_en": "Animal feed seller"},
+        {"name_th": "ช่างภาพ", "name_en": "Photographer"},
+        {"name_th": "พนักงานร้านอาหาร", "name_en": "Food vendor"}
+      ]
+    },
+    {
+      "id": 27,
+      "name_th": "เขาสัตว์",
+      "name_en": "Safari Park",
+      "roles": [
+        {"name_th": "พนักงานขับรถนำเที่ยว", "name_en": "Safari driver"},
+        {"name_th": "นักท่องเที่ยว", "name_en": "Tourist"},
+        {"name_th": "คนดูแลสัตว์", "name_en": "Animal caretaker"},
+        {"name_th": "สัตวแพทย์", "name_en": "Veterinarian"},
+        {"name_th": "ไกด์", "name_en": "Tour guide"},
+        {"name_th": "ช่างภาพ", "name_en": "Photographer"},
+        {"name_th": "รปภ.", "name_en": "Security guard"}
+      ]
+    },
+    {
+      "id": 28,
+      "name_th": "ชายหาด",
+      "name_en": "Beach",
+      "roles": [
+        {"name_th": "นักท่องเที่ยว", "name_en": "Tourist"},
+        {"name_th": "คนขายของ", "name_en": "Vendor"},
+        {"name_th": "ไลฟ์การ์ด", "name_en": "Lifeguard"},
+        {"name_th": "คนเช่าเก้าอี้", "name_en": "Beach chair rental"},
+        {"name_th": "ช่างภาพ", "name_en": "Photographer"},
+        {"name_th": "ครูสอนดำน้ำ", "name_en": "Diving instructor"},
+        {"name_th": "คนนวด", "name_en": "Massage therapist"}
+      ]
+    },
+    {
+      "id": 29,
+      "name_th": "ตลาดจตุจักร",
+      "name_en": "Chatuchak Market",
+      "roles": [
+        {"name_th": "แม่ค้า", "name_en": "Vendor"},
+        {"name_th": "ลูกค้า", "name_en": "Customer"},
+        {"name_th": "นักท่องเที่ยว", "name_en": "Tourist"},
+        {"name_th": "คนขนของ", "name_en": "Porter"},
+        {"name_th": "รปภ.", "name_en": "Security guard"},
+        {"name_th": "เจ้าหน้าที่ประชาสัมพันธ์", "name_en": "Information staff"},
+        {"name_th": "คนเก็บขยะ", "name_en": "Waste collector"}
+      ]
+    },
+    {
+      "id": 30,
+      "name_th": "เยาวราช",
+      "name_en": "Yaowarat/Chinatown",
+      "roles": [
+        {"name_th": "เจ้าของร้านทอง", "name_en": "Gold shop owner"},
+        {"name_th": "นักท่องเที่ยว", "name_en": "Tourist"},
+        {"name_th": "แม่ค้าขายอาหาร", "name_en": "Food vendor"},
+        {"name_th": "ไกด์นำเที่ยว", "name_en": "Tour guide"},
+        {"name_th": "คนขายของที่ระลึก", "name_en": "Souvenir seller"},
+        {"name_th": "ลูกค้า", "name_en": "Customer"},
+        {"name_th": "ช่างภาพ", "name_en": "Photographer"}
+      ]
+    },
+    {
+      "id": 31,
+      "name_th": "สวนลุมพินี",
+      "name_en": "Lumpini Park",
+      "roles": [
+        {"name_th": "คนมาวิ่ง", "name_en": "Jogger"},
+        {"name_th": "คนมาออกกำลังกาย", "name_en": "Exerciser"},
+        {"name_th": "คนพายเรือ", "name_en": "Boat paddler"},
+        {"name_th": "คนขายอาหารปลา", "name_en": "Fish feed seller"},
+        {"name_th": "รปภ.", "name_en": "Security guard"},
+        {"name_th": "คนเล่นไทเก๊ก", "name_en": "Tai Chi practitioner"},
+        {"name_th": "ช่างภาพ", "name_en": "Photographer"}
+      ]
+    },
+    {
+      "id": 32,
+      "name_th": "สวนดุสิต",
+      "name_en": "Dusit Zoo",
+      "roles": [
+        {"name_th": "คนดูแลสัตว์", "name_en": "Zookeeper"},
+        {"name_th": "ผู้เข้าชม", "name_en": "Visitor"},
+        {"name_th": "สัตวแพทย์", "name_en": "Veterinarian"},
+        {"name_th": "คนขายอาหารสัตว์", "name_en": "Animal feed seller"},
+        {"name_th": "รปภ.", "name_en": "Security guard"},
+        {"name_th": "พนักงานร้านอาหาร", "name_en": "Food vendor"},
+        {"name_th": "ไกด์", "name_en": "Tour guide"}
+      ]
+    },
+    {
+      "id": 33,
+      "name_th": "อุทยานประวัติศาสตร์",
+      "name_en": "Historical Park",
+      "roles": [
+        {"name_th": "นักท่องเที่ยว", "name_en": "Tourist"},
+        {"name_th": "ไกด์", "name_en": "Tour guide"},
+        {"name_th": "เจ้าหน้าที่ดูแลอุทยาน", "name_en": "Park ranger"},
+        {"name_th": "นักโบราณคดี", "name_en": "Archaeologist"},
+        {"name_th": "ช่างภาพ", "name_en": "Photographer"},
+        {"name_th": "คนขายน้ำ", "name_en": "Water vendor"},
+        {"name_th": "รปภ.", "name_en": "Security guard"}
+      ]
+    },
+    {
+      "id": 34,
+      "name_th": "ถนนคนเดิน",
+      "name_en": "Walking Street",
+      "roles": [
+        {"name_th": "คนเดินเล่น", "name_en": "Walker"},
+        {"name_th": "แม่ค้าขายของ", "name_en": "Street vendor"},
+        {"name_th": "นักดนตรีข้างถนน", "name_en": "Street musician"},
+        {"name_th": "นักท่องเที่ยว", "name_en": "Tourist"},
+        {"name_th": "รปภ.", "name_en": "Security guard"},
+        {"name_th": "ช่างภาพ", "name_en": "Photographer"},
+        {"name_th": "คนวาดภาพ", "name_en": "Portrait artist"}
+      ]
+    },
+    {
+      "id": 35,
+      "name_th": "ถนนข้าวสาร",
+      "name_en": "Khaosan Road",
+      "roles": [
+        {"name_th": "นักท่องเที่ยว", "name_en": "Tourist"},
+        {"name_th": "เจ้าของเกสต์เฮ้าส์", "name_en": "Guesthouse owner"},
+        {"name_th": "คนขายของ", "name_en": "Vendor"},
+        {"name_th": "พนักงานบาร์", "name_en": "Bar staff"},
+        {"name_th": "คนทำแทททู", "name_en": "Tattoo artist"},
+        {"name_th": "คนถักเปีย", "name_en": "Hair braider"},
+        {"name_th": "ไกด์ทัวร์", "name_en": "Tour guide"}
+      ]
+    },
+    {
+      "id": 36,
+      "name_th": "ถ้ำ",
+      "name_en": "Cave",
+      "roles": [
+        {"name_th": "ไกด์นำเที่ยว", "name_en": "Tour guide"},
+        {"name_th": "นักท่องเที่ยว", "name_en": "Tourist"},
+        {"name_th": "พระ", "name_en": "Monk"},
+        {"name_th": "คนขายของที่ระลึก", "name_en": "Souvenir seller"},
+        {"name_th": "ช่างภาพ", "name_en": "Photographer"},
+        {"name_th": "นักสำรวจถ้ำ", "name_en": "Spelunker"},
+        {"name_th": "เจ้าหน้าที่ดูแลความปลอดภัย", "name_en": "Safety officer"}
+      ]
+    },
+    {
+      "id": 37,
+      "name_th": "น้ำตก",
+      "name_en": "Waterfall",
+      "roles": [
+        {"name_th": "นักท่องเที่ยว", "name_en": "Tourist"},
+        {"name_th": "ไกด์", "name_en": "Tour guide"},
+        {"name_th": "เจ้าหน้าที่อุทยาน", "name_en": "Park ranger"},
+        {"name_th": "ช่างภาพ", "name_en": "Photographer"},
+        {"name_th": "คนขายอาหาร", "name_en": "Food vendor"},
+        {"name_th": "คนท้องถิ่น", "name_en": "Local"},
+        {"name_th": "รปภ.", "name_en": "Security guard"}
+      ]
+    },
+    {
+      "id": 38,
+      "name_th": "หมู่บ้านชาวเขา",
+      "name_en": "Hill Tribe Village",
+      "roles": [
+        {"name_th": "ชาวเขา", "name_en": "Hill tribe person"},
+        {"name_th": "นักท่องเที่ยว", "name_en": "Tourist"},
+        {"name_th": "ไกด์", "name_en": "Tour guide"},
+        {"name_th": "ช่างภาพ", "name_en": "Photographer"},
+        {"name_th": "คนขายของฝาก", "name_en": "Handicraft seller"},
+        {"name_th": "หมอพื้นบ้าน", "name_en": "Traditional healer"},
+        {"name_th": "เด็กในหมู่บ้าน", "name_en": "Village child"}
+      ]
+    },
+    {
+      "id": 39,
+      "name_th": "สวนสนุก",
+      "name_en": "Amusement Park",
+      "roles": [
+        {"name_th": "ผู้เข้าชม", "name_en": "Visitor"},
+        {"name_th": "พนักงานเครื่องเล่น", "name_en": "Ride operator"},
+        {"name_th": "คนขายตั๋ว", "name_en": "Ticket seller"},
+        {"name_th": "คนขายอาหาร", "name_en": "Food vendor"},
+        {"name_th": "ช่างซ่อม", "name_en": "Maintenance worker"},
+        {"name_th": "รปภ.", "name_en": "Security guard"},
+        {"name_th": "มาสคอต", "name_en": "Mascot"}
+      ]
+    },
+    {
+      "id": 40,
+      "name_th": "สวนน้ำ",
+      "name_en": "Water Park",
+      "roles": [
+        {"name_th": "ผู้เข้าชม", "name_en": "Visitor"},
+        {"name_th": "ไลฟ์การ์ด", "name_en": "Lifeguard"},
+        {"name_th": "พนักงานเครื่องเล่น", "name_en": "Ride operator"},
+        {"name_th": "คนขายตั๋ว", "name_en": "Ticket seller"},
+        {"name_th": "คนขายอาหาร", "name_en": "Food vendor"},
+        {"name_th": "ช่างซ่อม", "name_en": "Maintenance worker"},
+        {"name_th": "รปภ.", "name_en": "Security guard"}
+      ]
+    },
+    {
+      "id": 41,
+      "name_th": "สนามบินสุวรรณภูมิ",
+      "name_en": "Suvarnabhumi Airport",
+      "roles": [
+        {"name_th": "นักบิน", "name_en": "Pilot"},
+        {"name_th": "แอร์โฮสเตส", "name_en": "Flight attendant"},
+        {"name_th": "ผู้โดยสาร", "name_en": "Passenger"},
+        {"name_th": "เจ้าหน้าที่ตรวจคนเข้าเมือง", "name_en": "Immigration officer"},
+        {"name_th": "รปภ.", "name_en": "Security personnel"},
+        {"name_th": "เจ้าหน้าที่สัมภาระ", "name_en": "Baggage handler"},
+        {"name_th": "พนักงานร้านค้า", "name_en": "Shop staff"}
+      ]
+    },
+    {
+      "id": 42,
+      "name_th": "สนามบินดอนเมือง",
+      "name_en": "Don Mueang Airport",
+      "roles": [
+        {"name_th": "นักบิน", "name_en": "Pilot"},
+        {"name_th": "แอร์โฮสเตส", "name_en": "Flight attendant"},
+        {"name_th": "ผู้โดยสาร", "name_en": "Passenger"},
+        {"name_th": "เจ้าหน้าที่เช็คอิน", "name_en": "Check-in staff"},
+        {"name_th": "คนขนสัมภาระ", "name_en": "Baggage handler"},
+        {"name_th": "รปภ.", "name_en": "Security guard"},
+        {"name_th": "คนขายของในร้าน", "name_en": "Shop vendor"}
+      ]
+    },
+    {
+      "id": 43,
+      "name_th": "สถานีรถไฟหัวลำโพง",
+      "name_en": "Hua Lamphong Station",
+      "roles": [
+        {"name_th": "ผู้โดยสาร", "name_en": "Passenger"},
+        {"name_th": "พนักงานขายตั๋ว", "name_en": "Ticket seller"},
+        {"name_th": "คนขายอาหาร", "name_en": "Food vendor"},
+        {"name_th": "พนักงานรถไฟ", "name_en": "Train conductor"},
+        {"name_th": "แบกหาม", "name_en": "Porter"},
+        {"name_th": "ยาม", "name_en": "Guard"},
+        {"name_th": "พนักงานทำความสะอาด", "name_en": "Cleaner"}
+      ]
+    },
+    {
+      "id": 44,
+      "name_th": "ท่าเรือ",
+      "name_en": "Pier",
+      "roles": [
+        {"name_th": "กัปตันเรือ", "name_en": "Captain"},
+        {"name_th": "ลูกเรือ", "name_en": "Crew member"},
+        {"name_th": "ผู้โดยสาร", "name_en": "Passenger"},
+        {"name_th": "คนขายตั๋ว", "name_en": "Ticket seller"},
+        {"name_th": "ยาม", "name_en": "Guard"},
+        {"name_th": "คนขายของ", "name_en": "Vendor"},
+        {"name_th": "คนขนของ", "name_en": "Cargo handler"}
+      ]
+    },
+    {
+      "id": 45,
+      "name_th": "ป้ายรถเมล์",
+      "name_en": "Bus Stop",
+      "roles": [
+        {"name_th": "ผู้โดยสาร", "name_en": "Passenger"},
+        {"name_th": "พนักงานขับรถ", "name_en": "Bus driver"},
+        {"name_th": "พนักงานเก็บเงิน", "name_en": "Fare collector"},
+        {"name_th": "คนรอรถ", "name_en": "Person waiting"},
+        {"name_th": "คนขายของ", "name_en": "Vendor"},
+        {"name_th": "รปภ.", "name_en": "Security guard"},
+        {"name_th": "พนักงานประชาสัมพันธ์", "name_en": "Information staff"}
+      ]
+    },
+    {
+      "id": 46,
+      "name_th": "สถานีรถไฟฟ้า MRT",
+      "name_en": "MRT Station",
+      "roles": [
+        {"name_th": "ผู้โดยสาร", "name_en": "Passenger"},
+        {"name_th": "พนักงานขายตั๋ว", "name_en": "Ticket seller"},
+        {"name_th": "รปภ.", "name_en": "Security guard"},
+        {"name_th": "พนักงานควบคุมรถไฟ", "name_en": "Train operator"},
+        {"name_th": "ช่างซ่อมบำรุง", "name_en": "Maintenance worker"},
+        {"name_th": "พนักงานทำความสะอาด", "name_en": "Cleaner"},
+        {"name_th": "พนักงานประชาสัมพันธ์", "name_en": "Information staff"}
+      ]
+    },
+    {
+      "id": 47,
+      "name_th": "สถานีขนส่ง",
+      "name_en": "Bus Terminal",
+      "roles": [
+        {"name_th": "ผู้โดยสาร", "name_en": "Passenger"},
+        {"name_th": "พนักงานขายตั๋ว", "name_en": "Ticket seller"},
+        {"name_th": "พนักงานขับรถ", "name_en": "Bus driver"},
+        {"name_th": "คนขายอาหาร", "name_en": "Food vendor"},
+        {"name_th": "แบกหาม", "name_en": "Porter"},
+        {"name_th": "รปภ.", "name_en": "Security guard"},
+        {"name_th": "พนักงานประกาศ", "name_en": "Announcer"}
+      ]
+    },
+    {
+      "id": 48,
+      "name_th": "สะพานลอย",
+      "name_en": "Footbridge",
+      "roles": [
+        {"name_th": "คนข้ามสะพาน", "name_en": "Pedestrian"},
+        {"name_th": "คนขายของ", "name_en": "Vendor"},
+        {"name_th": "นักเรียน", "name_en": "Student"},
+        {"name_th": "พนักงานบริษัท", "name_en": "Office worker"},
+        {"name_th": "คนเร่ร่อน", "name_en": "Homeless person"},
+        {"name_th": "นักดนตรีข้างถนน", "name_en": "Street musician"},
+        {"name_th": "รปภ.", "name_en": "Security guard"}
+      ]
+    },
+    {
+      "id": 49,
+      "name_th": "ปั๊มแท็กซี่",
+      "name_en": "Taxi Stand",
+      "roles": [
+        {"name_th": "คนขับแท็กซี่", "name_en": "Taxi driver"},
+        {"name_th": "ผู้โดยสาร", "name_en": "Passenger"},
+        {"name_th": "คนรอแท็กซี่", "name_en": "Person waiting"},
+        {"name_th": "เจ้าหน้าที่จัดแถว", "name_en": "Queue organizer"},
+        {"name_th": "รปภ.", "name_en": "Security guard"},
+        {"name_th": "คนขายน้ำ", "name_en": "Water vendor"},
+        {"name_th": "คนเรียกแท็กซี่", "name_en": "Taxi caller"}
+      ]
+    },
+    {
+      "id": 50,
+      "name_th": "ที่จอดรถ",
+      "name_en": "Parking Lot",
+      "roles": [
+        {"name_th": "เจ้าหน้าที่จอดรถ", "name_en": "Parking attendant"},
+        {"name_th": "เจ้าของรถ", "name_en": "Car owner"},
+        {"name_th": "รปภ.", "name_en": "Security guard"},
+        {"name_th": "คนล้างรถ", "name_en": "Car washer"},
+        {"name_th": "พนักงานเก็บเงิน", "name_en": "Cashier"},
+        {"name_th": "ช่างซ่อมรถ", "name_en": "Mechanic"},
+        {"name_th": "คนขายของ", "name_en": "Vendor"}
+      ]
+    },
+    {
+      "id": 51,
+      "name_th": "สนามบินภูมิภาค",
+      "name_en": "Regional Airport",
+      "roles": [
+        {"name_th": "นักบิน", "name_en": "Pilot"},
+        {"name_th": "ผู้โดยสาร", "name_en": "Passenger"},
+        {"name_th": "เจ้าหน้าที่เช็คอิน", "name_en": "Check-in staff"},
+        {"name_th": "รปภ.", "name_en": "Security guard"},
+        {"name_th": "คนขายของ", "name_en": "Shop vendor"},
+        {"name_th": "พนักงานภาคพื้น", "name_en": "Ground crew"},
+        {"name_th": "เจ้าหน้าที่ควบคุมจราจรทางอากาศ", "name_en": "Air traffic controller"}
+      ]
+    },
+    {
+      "id": 52,
+      "name_th": "อู่ซ่อมรถ",
+      "name_en": "Auto Repair Shop",
+      "roles": [
+        {"name_th": "ช่างซ่อมรถ", "name_en": "Mechanic"},
+        {"name_th": "เจ้าของรถ", "name_en": "Car owner"},
+        {"name_th": "เจ้าของอู่", "name_en": "Shop owner"},
+        {"name_th": "พนักงานต้อนรับ", "name_en": "Receptionist"},
+        {"name_th": "ช่างพ่นสี", "name_en": "Painter"},
+        {"name_th": "ช่างไฟฟ้า", "name_en": "Electrician"},
+        {"name_th": "คนล้างรถ", "name_en": "Car washer"}
+      ]
+    },
+    {
+      "id": 53,
+      "name_th": "ศูนย์บริการรถยนต์",
+      "name_en": "Car Service Center",
+      "roles": [
+        {"name_th": "ช่างเทคนิค", "name_en": "Technician"},
+        {"name_th": "ลูกค้า", "name_en": "Customer"},
+        {"name_th": "พนักงานต้อนรับ", "name_en": "Service advisor"},
+        {"name_th": "ผู้จัดการ", "name_en": "Manager"},
+        {"name_th": "พนักงานอะไหล่", "name_en": "Parts staff"},
+        {"name_th": "คนล้างรถ", "name_en": "Car washer"},
+        {"name_th": "รปภ.", "name_en": "Security guard"}
+      ]
+    },
+    {
+      "id": 54,
+      "name_th": "สถานีวิทยุจราจร",
+      "name_en": "Traffic Radio Station",
+      "roles": [
+        {"name_th": "ดีเจ", "name_en": "DJ"},
+        {"name_th": "ผู้สื่อข่าว", "name_en": "Reporter"},
+        {"name_th": "ช่างเทคนิค", "name_en": "Technician"},
+        {"name_th": "ผู้ผลิตรายการ", "name_en": "Producer"},
+        {"name_th": "พนักงานรับโทรศัพท์", "name_en": "Call operator"},
+        {"name_th": "เจ้าของสถานี", "name_en": "Station owner"},
+        {"name_th": "ผู้สนับสนุน", "name_en": "Sponsor"}
+      ]
+    },
+    {
+      "id": 55,
+      "name_th": "ท่าอากาศยานเอกชน",
+      "name_en": "Private Airport",
+      "roles": [
+        {"name_th": "นักบิน", "name_en": "Pilot"},
+        {"name_th": "เจ้าของเครื่องบิน", "name_en": "Aircraft owner"},
+        {"name_th": "เจ้าหน้าที่ภาคพื้น", "name_en": "Ground crew"},
+        {"name_th": "รปภ.", "name_en": "Security guard"},
+        {"name_th": "ช่างซ่อมบำรุง", "name_en": "Maintenance engineer"},
+        {"name_th": "พนักงานต้อนรับ", "name_en": "Receptionist"},
+        {"name_th": "เจ้าหน้าที่ศุลกากร", "name_en": "Customs officer"}
+      ]
+    },
+    {
+      "id": 56,
+      "name_th": "ท่าเทียบเรือข้ามฟาก",
+      "name_en": "Ferry Pier",
+      "roles": [
+        {"name_th": "คนขับเรือ", "name_en": "Boat operator"},
+        {"name_th": "ผู้โดยสาร", "name_en": "Passenger"},
+        {"name_th": "คนเก็บค่าโดยสาร", "name_en": "Fare collector"},
+        {"name_th": "คนขายของ", "name_en": "Vendor"},
+        {"name_th": "ยาม", "name_en": "Guard"},
+        {"name_th": "คนผูกเรือ", "name_en": "Dock worker"},
+        {"name_th": "พนักงานประชาสัมพันธ์", "name_en": "Information staff"}
+      ]
+    },
+    {
+      "id": 57,
+      "name_th": "สถานีตำรวจทางหลวง",
+      "name_en": "Highway Police Station",
+      "roles": [
+        {"name_th": "ตำรวจ", "name_en": "Police officer"},
+        {"name_th": "ผู้กระทำผิด", "name_en": "Offender"},
+        {"name_th": "เจ้าหน้าที่ธุรการ", "name_en": "Administrative staff"},
+        {"name_th": "คนมาแจ้งความ", "name_en": "Person reporting"},
+        {"name_th": "ผู้ต้องหา", "name_en": "Suspect"},
+        {"name_th": "ทนายความ", "name_en": "Lawyer"},
+        {"name_th": "ผู้ช่วยเจ้าหน้าที่", "name_en": "Assistant officer"}
+      ]
+    },
+    {
+      "id": 58,
+      "name_th": "ด่านศุลกากร",
+      "name_en": "Customs Checkpoint",
+      "roles": [
+        {"name_th": "เจ้าหน้าที่ศุลกากร", "name_en": "Customs officer"},
+        {"name_th": "นักท่องเที่ยว", "name_en": "Traveler"},
+        {"name_th": "พ่อค้า", "name_en": "Merchant"},
+        {"name_th": "รปภ.", "name_en": "Security guard"},
+        {"name_th": "เจ้าหน้าที่ตรวจค้น", "name_en": "Inspector"},
+        {"name_th": "พนักงานธุรการ", "name_en": "Administrative staff"},
+        {"name_th": "นายหน้า", "name_en": "Broker"}
+      ]
+    },
+    {
+      "id": 59,
+      "name_th": "จุดบริการนักท่องเที่ยว",
+      "name_en": "Tourist Information Center",
+      "roles": [
+        {"name_th": "เจ้าหน้าที่ให้ข้อมูล", "name_en": "Information officer"},
+        {"name_th": "นักท่องเที่ยว", "name_en": "Tourist"},
+        {"name_th": "ไกด์", "name_en": "Tour guide"},
+        {"name_th": "พนักงานขายแผนที่", "name_en": "Map seller"},
+        {"name_th": "ล่าม", "name_en": "Interpreter"},
+        {"name_th": "พนักงานจองทัวร์", "name_en": "Tour booking staff"},
+        {"name_th": "รปภ.", "name_en": "Security guard"}
+      ]
+    },
+    {
+      "id": 60,
+      "name_th": "ท่าจอดเรือท่องเที่ยว",
+      "name_en": "Tourist Boat Pier",
+      "roles": [
+        {"name_th": "กัปตันเรือ", "name_en": "Boat captain"},
+        {"name_th": "ลูกเรือ", "name_en": "Crew member"},
+        {"name_th": "นักท่องเที่ยว", "name_en": "Tourist"},
+        {"name_th": "ไกด์นำเที่ยว", "name_en": "Tour guide"},
+        {"name_th": "พนักงานขายตั๋ว", "name_en": "Ticket seller"},
+        {"name_th": "คนขายของที่ระลึก", "name_en": "Souvenir vendor"},
+        {"name_th": "รปภ.", "name_en": "Security guard"}
+      ]
+    },
+    {
+      "id": 61,
+      "name_th": "ห้างสรรพสินค้า",
+      "name_en": "Shopping Mall",
+      "roles": [
+        {"name_th": "พนักงานขาย", "name_en": "Sales person"},
+        {"name_th": "ลูกค้า", "name_en": "Customer"},
+        {"name_th": "รปภ.", "name_en": "Security guard"},
+        {"name_th": "พนักงานทำความสะอาด", "name_en": "Cleaner"},
+        {"name_th": "พนักงานประชาสัมพันธ์", "name_en": "Promoter"},
+        {"name_th": "เจ้าหน้าที่ประจำชั้น", "name_en": "Floor manager"},
+        {"name_th": "คนจอดรถ", "name_en": "Valet parker"}
+      ]
+    },
+    {
+      "id": 62,
+      "name_th": "โรงหนัง",
+      "name_en": "Cinema",
+      "roles": [
+        {"name_th": "พนักงานขายตั๋ว", "name_en": "Ticket seller"},
+        {"name_th": "ผู้ชม", "name_en": "Viewer"},
+        {"name_th": "พนักงานขายขนม", "name_en": "Concession stand worker"},
+        {"name_th": "เด็กฉีกตั๋ว", "name_en": "Ticket checker"},
+        {"name_th": "พนักงานทำความสะอาด", "name_en": "Cleaner"},
+        {"name_th": "ช่างโปรเจกเตอร์", "name_en": "Projectionist"},
+        {"name_th": "ผู้จัดการโรงหนัง", "name_en": "Cinema manager"}
+      ]
+    },
+    {
+      "id": 63,
+      "name_th": "คาราโอเกะ",
+      "name_en": "Karaoke",
+      "roles": [
+        {"name_th": "ลูกค้า", "name_en": "Customer"},
+        {"name_th": "พนักงานเสิร์ฟ", "name_en": "Waiter"},
+        {"name_th": "แคชเชียร์", "name_en": "Cashier"},
+        {"name_th": "ช่างเทคนิค", "name_en": "Technician"},
+        {"name_th": "พนักงานต้อนรับ", "name_en": "Receptionist"},
+        {"name_th": "แม่บ้าน", "name_en": "Cleaner"},
+        {"name_th": "ดีเจ", "name_en": "DJ"}
+      ]
+    },
+    {
+      "id": 64,
+      "name_th": "ร้านเกมส์",
+      "name_en": "Game Center/Internet Cafe",
+      "roles": [
+        {"name_th": "เจ้าของร้าน", "name_en": "Shop owner"},
+        {"name_th": "ลูกค้า", "name_en": "Customer"},
+        {"name_th": "แคชเชียร์", "name_en": "Cashier"},
+        {"name_th": "ช่างซ่อมคอม", "name_en": "Computer technician"},
+        {"name_th": "พนักงานเสิร์ฟอาหาร", "name_en": "Food server"},
+        {"name_th": "นักเล่นเกมส์มืออาชีพ", "name_en": "Pro gamer"},
+        {"name_th": "พนักงานทำความสะอาด", "name_en": "Cleaner"}
+      ]
+    },
+    {
+      "id": 65,
+      "name_th": "สนามฟุตบอล",
+      "name_en": "Football Stadium",
+      "roles": [
+        {"name_th": "นักฟุตบอล", "name_en": "Football player"},
+        {"name_th": "กรรมการ", "name_en": "Referee"},
+        {"name_th": "ผู้ชม", "name_en": "Spectator"},
+        {"name_th": "โค้ช", "name_en": "Coach"},
+        {"name_th": "คนขายของ", "name_en": "Vendor"},
+        {"name_th": "นักข่าวกีฬา", "name_en": "Sports reporter"},
+        {"name_th": "รปภ.", "name_en": "Security guard"}
+      ]
+    },
+    {
+      "id": 66,
+      "name_th": "คอนเสิร์ต",
+      "name_en": "Concert Venue",
+      "roles": [
+        {"name_th": "นักร้อง", "name_en": "Singer"},
+        {"name_th": "ผู้ชม", "name_en": "Audience"},
+        {"name_th": "ช่างเสียง", "name_en": "Sound engineer"},
+        {"name_th": "ช่างแสง", "name_en": "Lighting technician"},
+        {"name_th": "รปภ.", "name_en": "Security guard"},
+        {"name_th": "คนขายของที่ระลึก", "name_en": "Merchandise seller"},
+        {"name_th": "เวทีแมนเนเจอร์", "name_en": "Stage manager"}
+      ]
+    },
+    {
+      "id": 67,
+      "name_th": "ผับ",
+      "name_en": "Pub",
+      "roles": [
+        {"name_th": "บาร์เทนเดอร์", "name_en": "Bartender"},
+        {"name_th": "ลูกค้า", "name_en": "Customer"},
+        {"name_th": "พนักงานเสิร์ฟ", "name_en": "Waiter"},
+        {"name_th": "ดีเจ", "name_en": "DJ"},
+        {"name_th": "รปภ.", "name_en": "Security/Bouncer"},
+        {"name_th": "แคชเชียร์", "name_en": "Cashier"},
+        {"name_th": "เจ้าของร้าน", "name_en": "Pub owner"}
+      ]
+    },
+    {
+      "id": 68,
+      "name_th": "บาร์",
+      "name_en": "Bar",
+      "roles": [
+        {"name_th": "บาร์เทนเดอร์", "name_en": "Bartender"},
+        {"name_th": "ลูกค้า", "name_en": "Customer"},
+        {"name_th": "พนักงานเสิร์ฟ", "name_en": "Server"},
+        {"name_th": "นักดนตรี", "name_en": "Musician"},
+        {"name_th": "รปภ.", "name_en": "Security"},
+        {"name_th": "แคชเชียร์", "name_en": "Cashier"},
+        {"name_th": "ผู้จัดการ", "name_en": "Manager"}
+      ]
+    },
+    {
+      "id": 69,
+      "name_th": "ไนท์คลับ",
+      "name_en": "Night Club",
+      "roles": [
+        {"name_th": "ดีเจ", "name_en": "DJ"},
+        {"name_th": "ลูกค้า", "name_en": "Customer"},
+        {"name_th": "บาร์เทนเดอร์", "name_en": "Bartender"},
+        {"name_th": "รปภ.", "name_en": "Bouncer/Security"},
+        {"name_th": "พนักงานเสิร์ฟ", "name_en": "Server"},
+        {"name_th": "นักเต้น", "name_en": "Dancer"},
+        {"name_th": "ผู้จัดการ", "name_en": "Manager"}
+      ]
+    },
+    {
+      "id": 70,
+      "name_th": "ร้านนวด",
+      "name_en": "Massage Parlor",
+      "roles": [
+        {"name_th": "หมอนวด", "name_en": "Masseuse/Masseur"},
+        {"name_th": "ลูกค้า", "name_en": "Customer"},
+        {"name_th": "พนักงานต้อนรับ", "name_en": "Receptionist"},
+        {"name_th": "แคชเชียร์", "name_en": "Cashier"},
+        {"name_th": "เจ้าของร้าน", "name_en": "Shop owner"},
+        {"name_th": "พนักงานซักผ้า", "name_en": "Laundry staff"},
+        {"name_th": "แม่บ้าน", "name_en": "Cleaner"}
+      ]
+    },
+    {
+      "id": 71,
+      "name_th": "สปา",
+      "name_en": "Spa",
+      "roles": [
+        {"name_th": "นักบำบัดสปา", "name_en": "Spa therapist"},
+        {"name_th": "ลูกค้า", "name_en": "Customer"},
+        {"name_th": "พนักงานต้อนรับ", "name_en": "Receptionist"},
+        {"name_th": "เจ้าของสปา", "name_en": "Spa owner"},
+        {"name_th": "พนักงานดูแลความสะอาด", "name_en": "Cleaner"},
+        {"name_th": "ช่างทำเล็บ", "name_en": "Nail technician"},
+        {"name_th": "เภสัชกร", "name_en": "Aromatherapist"}
+      ]
+    },
+    {
+      "id": 72,
+      "name_th": "ฟิตเนส",
+      "name_en": "Fitness Center",
+      "roles": [
+        {"name_th": "เทรนเนอร์", "name_en": "Trainer"},
+        {"name_th": "สมาชิก", "name_en": "Member"},
+        {"name_th": "พนักงานต้อนรับ", "name_en": "Receptionist"},
+        {"name_th": "พนักงานทำความสะอาด", "name_en": "Cleaner"},
+        {"name_th": "ครูโยคะ", "name_en": "Yoga instructor"},
+        {"name_th": "นักกล้าม", "name_en": "Bodybuilder"},
+        {"name_th": "ผู้จัดการ", "name_en": "Manager"}
+      ]
+    },
+    {
+      "id": 73,
+      "name_th": "สระว่ายน้ำ",
+      "name_en": "Swimming Pool",
+      "roles": [
+        {"name_th": "ไลฟ์การ์ด", "name_en": "Lifeguard"},
+        {"name_th": "คนว่ายน้ำ", "name_en": "Swimmer"},
+        {"name_th": "โค้ช", "name_en": "Swimming coach"},
+        {"name_th": "พนักงานขายตั๋ว", "name_en": "Ticket seller"},
+        {"name_th": "พนักงานทำความสะอาด", "name_en": "Pool cleaner"},
+        {"name_th": "นักกีฬาว่ายน้ำ", "name_en": "Athlete"},
+        {"name_th": "ผู้ปกครองเด็ก", "name_en": "Parent"}
+      ]
+    },
+    {
+      "id": 74,
+      "name_th": "โบว์ลิ่ง",
+      "name_en": "Bowling Alley",
+      "roles": [
+        {"name_th": "ผู้เล่น", "name_en": "Player"},
+        {"name_th": "พนักงานเช่ารองเท้า", "name_en": "Shoe rental staff"},
+        {"name_th": "แคชเชียร์", "name_en": "Cashier"},
+        {"name_th": "ช่างซ่อม", "name_en": "Technician"},
+        {"name_th": "พนักงานเสิร์ฟอาหาร", "name_en": "Food server"},
+        {"name_th": "นักโบว์ลิ่งมืออาชีพ", "name_en": "Pro bowler"},
+        {"name_th": "ผู้จัดการ", "name_en": "Manager"}
+      ]
+    },
+    {
+      "id": 75,
+      "name_th": "สนุ๊กเกอร์",
+      "name_en": "Snooker Club",
+      "roles": [
+        {"name_th": "ผู้เล่น", "name_en": "Player"},
+        {"name_th": "แคชเชียร์", "name_en": "Cashier"},
+        {"name_th": "พนักงานเสิร์ฟ", "name_en": "Server"},
+        {"name_th": "เจ้าของร้าน", "name_en": "Club owner"},
+        {"name_th": "ช่างซ่อมโต๊ะ", "name_en": "Table technician"},
+        {"name_th": "กรรมการ", "name_en": "Referee"},
+        {"name_th": "นักสนุ๊กเกอร์มืออาชีพ", "name_en": "Pro player"}
+      ]
+    },
+    {
+      "id": 76,
+      "name_th": "ร้านหนังสือ",
+      "name_en": "Bookstore",
+      "roles": [
+        {"name_th": "พนักงานขาย", "name_en": "Sales clerk"},
+        {"name_th": "ลูกค้า", "name_en": "Customer"},
+        {"name_th": "แคชเชียร์", "name_en": "Cashier"},
+        {"name_th": "พนักงานจัดหนังสือ", "name_en": "Book organizer"},
+        {"name_th": "เจ้าของร้าน", "name_en": "Store owner"},
+        {"name_th": "คนมานั่งอ่าน", "name_en": "Reader"},
+        {"name_th": "นักเขียน", "name_en": "Author - book signing"}
+      ]
+    },
+    {
+      "id": 77,
+      "name_th": "ร้านเสื้อผ้า",
+      "name_en": "Clothing Store",
+      "roles": [
+        {"name_th": "พนักงานขาย", "name_en": "Sales person"},
+        {"name_th": "ลูกค้า", "name_en": "Customer"},
+        {"name_th": "แคชเชียร์", "name_en": "Cashier"},
+        {"name_th": "ผู้จัดการ", "name_en": "Manager"},
+        {"name_th": "พนักงานจัดสินค้า", "name_en": "Stocker"},
+        {"name_th": "นายแบบ/นางแบบ", "name_en": "Model"},
+        {"name_th": "ช่างตัดแต่ง", "name_en": "Tailor"}
+      ]
+    },
+    {
+      "id": 78,
+      "name_th": "ร้านรองเท้า",
+      "name_en": "Shoe Store",
+      "roles": [
+        {"name_th": "พนักงานขาย", "name_en": "Sales person"},
+        {"name_th": "ลูกค้า", "name_en": "Customer"},
+        {"name_th": "แคชเชียร์", "name_en": "Cashier"},
+        {"name_th": "พนักงานคลังสินค้า", "name_en": "Stock clerk"},
+        {"name_th": "ผู้จัดการ", "name_en": "Manager"},
+        {"name_th": "ช่างซ่อมรองเท้า", "name_en": "Shoe repairer"},
+        {"name_th": "พนักงานวัดไซส์เท้า", "name_en": "Foot measurer"}
+      ]
+    },
+    {
+      "id": 79,
+      "name_th": "ตลาดนัดรถไฟ",
+      "name_en": "Train Market/Rod Fai Market",
+      "roles": [
+        {"name_th": "แม่ค้า", "name_en": "Vendor"},
+        {"name_th": "ลูกค้า", "name_en": "Customer"},
+        {"name_th": "นักท่องเที่ยว", "name_en": "Tourist"},
+        {"name_th": "คนขายของเก่า", "name_en": "Antique seller"},
+        {"name_th": "คนขายอาหาร", "name_en": "Food vendor"},
+        {"name_th": "ช่างภาพ", "name_en": "Photographer"},
+        {"name_th": "นักสะสมของเก่า", "name_en": "Antique collector"}
+      ]
+    },
+    {
+      "id": 80,
+      "name_th": "ห้องหนีภัย",
+      "name_en": "Escape Room",
+      "roles": [
+        {"name_th": "ผู้เล่น", "name_en": "Player"},
+        {"name_th": "เกมมาสเตอร์", "name_en": "Game master"},
+        {"name_th": "เจ้าของร้าน", "name_en": "Owner"},
+        {"name_th": "ช่างเทคนิค", "name_en": "Technician"},
+        {"name_th": "พนักงานต้อนรับ", "name_en": "Receptionist"},
+        {"name_th": "นักออกแบบเกม", "name_en": "Game designer"},
+        {"name_th": "คนถ่ายวิดีโอ", "name_en": "Videographer"}
+      ]
+    },
+    {
+      "id": 81,
+      "name_th": "สถานีตำรวจ",
+      "name_en": "Police Station",
+      "roles": [
+        {"name_th": "ตำรวจ", "name_en": "Police officer"},
+        {"name_th": "ผู้ต้องหา", "name_en": "Suspect"},
+        {"name_th": "ผู้เสียหาย", "name_en": "Victim"},
+        {"name_th": "ทนายความ", "name_en": "Lawyer"},
+        {"name_th": "เจ้าหน้าที่ธุรการ", "name_en": "Administrative staff"},
+        {"name_th": "นักสืบ", "name_en": "Detective"},
+        {"name_th": "ผู้บัญชาการ", "name_en": "Commander"}
+      ]
+    },
+    {
+      "id": 82,
+      "name_th": "โรงงาน",
+      "name_en": "Factory",
+      "roles": [
+        {"name_th": "คนงาน", "name_en": "Worker"},
+        {"name_th": "หัวหน้างาน", "name_en": "Supervisor"},
+        {"name_th": "วิศวกร", "name_en": "Engineer"},
+        {"name_th": "เจ้าของโรงงาน", "name_en": "Factory owner"},
+        {"name_th": "เจ้าหน้าที่ QC", "name_en": "QC inspector"},
+        {"name_th": "ช่างซ่อม", "name_en": "Mechanic"},
+        {"name_th": "พนักงานคลัง", "name_en": "Warehouse staff"}
+      ]
+    },
+    {
+      "id": 83,
+      "name_th": "สตูดิโอบันเทิง",
+      "name_en": "Entertainment Studio",
+      "roles": [
+        {"name_th": "นักแสดง", "name_en": "Actor"},
+        {"name_th": "ผู้กำกับ", "name_en": "Director"},
+        {"name_th": "ช่างกล้อง", "name_en": "Cameraman"},
+        {"name_th": "ช่างแต่งหน้า", "name_en": "Makeup artist"},
+        {"name_th": "ผู้ผลิต", "name_en": "Producer"},
+        {"name_th": "ช่างแสง", "name_en": "Lighting technician"},
+        {"name_th": "ช่างเสียง", "name_en": "Sound engineer"}
+      ]
+    },
+    {
+      "id": 84,
+      "name_th": "โกดังสินค้า",
+      "name_en": "Warehouse",
+      "roles": [
+        {"name_th": "พนักงานคลัง", "name_en": "Warehouse worker"},
+        {"name_th": "หัวหน้าคลัง", "name_en": "Warehouse supervisor"},
+        {"name_th": "พนักงานขับรถโฟล์คลิฟท์", "name_en": "Forklift operator"},
+        {"name_th": "เจ้าหน้าที่เช็คสต็อก", "name_en": "Inventory checker"},
+        {"name_th": "ผู้จัดการคลัง", "name_en": "Warehouse manager"},
+        {"name_th": "คนขนของ", "name_en": "Loader"},
+        {"name_th": "รปภ.", "name_en": "Security guard"}
+      ]
+    },
+    {
+      "id": 85,
+      "name_th": "ท่าเรือพาณิชย์",
+      "name_en": "Commercial Port",
+      "roles": [
+        {"name_th": "กะลาสี", "name_en": "Sailor"},
+        {"name_th": "กัปตันเรือ", "name_en": "Ship captain"},
+        {"name_th": "เจ้าหน้าที่ศุลกากร", "name_en": "Customs officer"},
+        {"name_th": "คนขนสินค้า", "name_en": "Cargo handler"},
+        {"name_th": "ช่างเครน", "name_en": "Crane operator"},
+        {"name_th": "เจ้าหน้าที่ท่าเรือ", "name_en": "Port officer"},
+        {"name_th": "นายหน้าขนส่ง", "name_en": "Shipping broker"}
+      ]
+    },
+    {
+      "id": 86,
+      "name_th": "คลินิก",
+      "name_en": "Clinic",
+      "roles": [
+        {"name_th": "หมอ", "name_en": "Doctor"},
+        {"name_th": "พยาบาล", "name_en": "Nurse"},
+        {"name_th": "คนไข้", "name_en": "Patient"},
+        {"name_th": "เภสัชกร", "name_en": "Pharmacist"},
+        {"name_th": "พนักงานต้อนรับ", "name_en": "Receptionist"},
+        {"name_th": "แคชเชียร์", "name_en": "Cashier"},
+        {"name_th": "ผู้ช่วยแพทย์", "name_en": "Medical assistant"}
+      ]
+    },
+    {
+      "id": 87,
+      "name_th": "โรงแรม",
+      "name_en": "Hotel",
+      "roles": [
+        {"name_th": "พนักงานต้อนรับ", "name_en": "Receptionist"},
+        {"name_th": "แขกพัก", "name_en": "Guest"},
+        {"name_th": "แม่บ้าน", "name_en": "Housekeeper"},
+        {"name_th": "พนักงานยกกระเป๋า", "name_en": "Bellboy"},
+        {"name_th": "ผู้จัดการโรงแรม", "name_en": "Hotel manager"},
+        {"name_th": "พนักงานห้องอาหาร", "name_en": "Restaurant staff"},
+        {"name_th": "รปภ.", "name_en": "Security guard"}
+      ]
+    },
+    {
+      "id": 88,
+      "name_th": "รีสอร์ท",
+      "name_en": "Resort",
+      "roles": [
+        {"name_th": "แขกพัก", "name_en": "Guest"},
+        {"name_th": "พนักงานต้อนรับ", "name_en": "Receptionist"},
+        {"name_th": "แม่บ้าน", "name_en": "Housekeeper"},
+        {"name_th": "ไลฟ์การ์ด", "name_en": "Lifeguard"},
+        {"name_th": "พนักงานสปา", "name_en": "Spa staff"},
+        {"name_th": "พ่อครัว", "name_en": "Chef"},
+        {"name_th": "ไกด์ทัวร์", "name_en": "Tour guide"}
+      ]
+    },
+    {
+      "id": 89,
+      "name_th": "ศาลา",
+      "name_en": "Pavilion/Community Hall",
+      "roles": [
+        {"name_th": "ผู้ใหญ่บ้าน", "name_en": "Village headman"},
+        {"name_th": "ชาวบ้าน", "name_en": "Villager"},
+        {"name_th": "พระ", "name_en": "Monk"},
+        {"name_th": "คนมาทำบุญ", "name_en": "Merit maker"},
+        {"name_th": "เจ้าหน้าที่รักษาความสะอาด", "name_en": "Cleaner"},
+        {"name_th": "ครูสอนธรรม", "name_en": "Dharma teacher"},
+        {"name_th": "คนจัดงาน", "name_en": "Event organizer"}
+      ]
+    },
+    {
+      "id": 90,
+      "name_th": "สำนักงานใหญ่บริษัท",
+      "name_en": "Corporate Headquarters",
+      "roles": [
+        {"name_th": "ซีอีโอ", "name_en": "CEO"},
+        {"name_th": "พนักงานบริษัท", "name_en": "Employee"},
+        {"name_th": "เลขานุการ", "name_en": "Secretary"},
+        {"name_th": "รปภ.", "name_en": "Security guard"},
+        {"name_th": "พนักงานต้อนรับ", "name_en": "Receptionist"},
+        {"name_th": "ฝ่ายบุคคล", "name_en": "HR staff"},
+        {"name_th": "ผู้จัดการแผนก", "name_en": "Department manager"}
+      ]
+    },
+    {
+      "id": 91,
+      "name_th": "มหาวิทยาลัย",
+      "name_en": "University",
+      "roles": [
+        {"name_th": "นักศึกษา", "name_en": "Student"},
+        {"name_th": "อาจารย์", "name_en": "Professor"},
+        {"name_th": "อธิการบดี", "name_en": "University president"},
+        {"name_th": "บรรณารักษ์", "name_en": "Librarian"},
+        {"name_th": "รปภ.", "name_en": "Security guard"},
+        {"name_th": "เจ้าหน้าที่ทะเบียน", "name_en": "Registrar"},
+        {"name_th": "นักวิจัย", "name_en": "Researcher"}
+      ]
+    },
+    {
+      "id": 92,
+      "name_th": "ห้องแล็บ",
+      "name_en": "Laboratory",
+      "roles": [
+        {"name_th": "นักวิทยาศาสตร์", "name_en": "Scientist"},
+        {"name_th": "ผู้ช่วยนักวิจัย", "name_en": "Research assistant"},
+        {"name_th": "ช่างเทคนิค", "name_en": "Lab technician"},
+        {"name_th": "หัวหน้าห้องแล็บ", "name_en": "Lab supervisor"},
+        {"name_th": "นักศึกษาฝึกงาน", "name_en": "Intern"},
+        {"name_th": "เจ้าหน้าที่ความปลอดภัย", "name_en": "Safety officer"},
+        {"name_th": "พนักงานทำความสะอาด", "name_en": "Cleaner"}
+      ]
+    },
+    {
+      "id": 93,
+      "name_th": "คอนโด",
+      "name_en": "Condominium",
+      "roles": [
+        {"name_th": "เจ้าของห้อง", "name_en": "Unit owner"},
+        {"name_th": "ผู้เช่า", "name_en": "Tenant"},
+        {"name_th": "นิติบุคคล", "name_en": "Juristic person"},
+        {"name_th": "รปภ.", "name_en": "Security guard"},
+        {"name_th": "แม่บ้าน", "name_en": "Housekeeper"},
+        {"name_th": "ช่างซ่อม", "name_en": "Maintenance worker"},
+        {"name_th": "พนักงานต้อนรับ", "name_en": "Front desk staff"}
+      ]
+    },
+    {
+      "id": 94,
+      "name_th": "บ้านเดี่ยว",
+      "name_en": "House",
+      "roles": [
+        {"name_th": "เจ้าของบ้าน", "name_en": "Homeowner"},
+        {"name_th": "แม่บ้าน", "name_en": "Maid"},
+        {"name_th": "สมาชิกในครอบครัว", "name_en": "Family member"},
+        {"name_th": "คนสวน", "name_en": "Gardener"},
+        {"name_th": "ช่างซ่อม", "name_en": "Repairman"},
+        {"name_th": "รปภ.", "name_en": "Security guard"},
+        {"name_th": "พี่เลี้ยงเด็ก", "name_en": "Nanny"}
+      ]
+    },
+    {
+      "id": 95,
+      "name_th": "หอพัก",
+      "name_en": "Dormitory",
+      "roles": [
+        {"name_th": "นักศึกษา", "name_en": "Student"},
+        {"name_th": "แม่หอ", "name_en": "Dorm supervisor"},
+        {"name_th": "รปภ.", "name_en": "Security guard"},
+        {"name_th": "แม่บ้าน", "name_en": "Cleaner"},
+        {"name_th": "เจ้าของหอพัก", "name_en": "Dorm owner"},
+        {"name_th": "พนักงานซักรีด", "name_en": "Laundry staff"},
+        {"name_th": "ช่างซ่อม", "name_en": "Maintenance worker"}
+      ]
+    },
+    {
+      "id": 96,
+      "name_th": "ฟาร์ม",
+      "name_en": "Farm",
+      "roles": [
+        {"name_th": "เกษตรกร", "name_en": "Farmer"},
+        {"name_th": "ลูกจ้าง", "name_en": "Farm worker"},
+        {"name_th": "สัตวแพทย์", "name_en": "Veterinarian"},
+        {"name_th": "พ่อค้ารับซื้อ", "name_en": "Buyer"},
+        {"name_th": "ช่างเครื่องจักร", "name_en": "Mechanic"},
+        {"name_th": "เจ้าของฟาร์ม", "name_en": "Farm owner"},
+        {"name_th": "คนเลี้ยงสัตว์", "name_en": "Livestock keeper"}
+      ]
+    },
+    {
+      "id": 97,
+      "name_th": "ทุ่งนา",
+      "name_en": "Rice Field",
+      "roles": [
+        {"name_th": "ชาวนา", "name_en": "Rice farmer"},
+        {"name_th": "ลูกจ้างไถนา", "name_en": "Plow worker"},
+        {"name_th": "คนเกี่ยวข้าว", "name_en": "Harvester"},
+        {"name_th": "พ่อค้ารับซื้อข้าว", "name_en": "Rice buyer"},
+        {"name_th": "ช่างรถไถ", "name_en": "Tractor operator"},
+        {"name_th": "เจ้าของที่ดิน", "name_en": "Land owner"},
+        {"name_th": "คนดูนา", "name_en": "Field watcher"}
+      ]
+    },
+    {
+      "id": 98,
+      "name_th": "ตลาดประมูลปลา",
+      "name_en": "Fish Auction Market",
+      "roles": [
+        {"name_th": "ชาวประมง", "name_en": "Fisherman"},
+        {"name_th": "พ่อค้าปลา", "name_en": "Fish merchant"},
+        {"name_th": "ผู้ประมูล", "name_en": "Auctioneer"},
+        {"name_th": "คนแบกปลา", "name_en": "Porter"},
+        {"name_th": "ผู้ซื้อปลา", "name_en": "Fish buyer"},
+        {"name_th": "เจ้าหน้าที่ตลาด", "name_en": "Market official"},
+        {"name_th": "คนแกะปลา", "name_en": "Fish cutter"}
+      ]
+    },
+    {
+      "id": 99,
+      "name_th": "โรงฆ่าสัตว์",
+      "name_en": "Slaughterhouse",
+      "roles": [
+        {"name_th": "พนักงานโรงฆ่าสัตว์", "name_en": "Slaughterhouse worker"},
+        {"name_th": "สัตวแพทย์", "name_en": "Veterinarian"},
+        {"name_th": "หัวหน้างาน", "name_en": "Supervisor"},
+        {"name_th": "เจ้าหน้าที่ตรวจสอบสุขอนามัย", "name_en": "Health inspector"},
+        {"name_th": "พ่อค้ารับซื้อเนื้อ", "name_en": "Meat buyer"},
+        {"name_th": "คนขับรถส่งของ", "name_en": "Delivery driver"},
+        {"name_th": "ผู้จัดการโรงฆ่าสัตว์", "name_en": "Plant manager"}
+      ]
+    },
+    {
+      "id": 100,
+      "name_th": "ศูนย์กระจายสินค้า",
+      "name_en": "Distribution Center",
+      "roles": [
+        {"name_th": "พนักงานคลัง", "name_en": "Warehouse worker"},
+        {"name_th": "หัวหน้าศูนย์กระจายสินค้า", "name_en": "DC manager"},
+        {"name_th": "พนักงานขับรถส่งของ", "name_en": "Delivery driver"},
+        {"name_th": "เจ้าหน้าที่เช็คสต็อก", "name_en": "Inventory manager"},
+        {"name_th": "พนักงานแพ็คสินค้า", "name_en": "Packer"},
+        {"name_th": "คนขับโฟล์คลิฟท์", "name_en": "Forklift operator"},
+        {"name_th": "รปภ.", "name_en": "Security guard"}
+      ]
+    }
+  ]
+}

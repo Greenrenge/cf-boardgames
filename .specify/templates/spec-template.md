@@ -100,11 +100,27 @@
 - **[Entity 1]**: [What it represents, key attributes without implementation]
 - **[Entity 2]**: [What it represents, relationships to other entities]
 
+## Playground Validation *(mandatory)*
+
+<!--
+  ACTION REQUIRED: Describe how this feature will be demonstrated in a working playground.
+  The playground MUST be runnable and show the feature working end-to-end.
+-->
+
+**Playground Type**: [e.g., Interactive web page, CLI demo script, Jupyter notebook, live API endpoint]
+
+**What It Demonstrates**:
+- [Key capability 1 that can be seen/interacted with]
+- [Key capability 2 that can be verified visually/manually]
+- [Edge case handling that can be triggered]
+
+**How to Run**: [Step-by-step instructions to run the playground]
+
 ## Success Criteria *(mandatory)*
 
 <!--
   ACTION REQUIRED: Define measurable success criteria.
-  These must be technology-agnostic and measurable.
+  These must be technology-agnostic, measurable, and verifiable via playground.
 -->
 
 ### Measurable Outcomes

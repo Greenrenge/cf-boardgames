@@ -1,0 +1,24 @@
+name = "spyfall-api"
+main = "src/index.ts"
+compatibility_date = "2024-10-24"
+
+[observability]
+enabled = true
+
+[[d1_databases]]
+binding = "DB"
+database_name = "spyfall-locations"
+database_id = "local-db-id"
+
+[[r2_buckets]]
+binding = "ASSETS"
+bucket_name = "spyfall-assets"
+
+[[durable_objects.bindings]]
+name = "GAME_ROOMS"
+class_name = "GameRoom"
+script_name = "spyfall-api"
+
+[[migrations]]
+tag = "v1"
+new_classes = ["GameRoom"]

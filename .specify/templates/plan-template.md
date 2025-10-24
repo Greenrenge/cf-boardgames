@@ -31,7 +31,13 @@
 
 *GATE: Must pass before Phase 0 research. Re-check after Phase 1 design.*
 
-[Gates determined based on constitution file]
+- [ ] **Do Less, Get Works**: Feature solves immediate problem without speculative code
+- [ ] **Playground Over Tests**: Plan includes playground/demo for validation
+- [ ] **Declarative Style**: Design favors data-driven, declarative patterns
+- [ ] **Consistent Code Style**: Formatter configuration ready for language
+- [ ] **Readability First**: Architecture prioritizes clarity over cleverness
+
+*If any principle cannot be met, document justification in Complexity Tracking section below.*
 
 ## Project Structure
 
@@ -43,6 +49,7 @@ specs/[###-feature]/
 ├── research.md          # Phase 0 output (/speckit.plan command)
 ├── data-model.md        # Phase 1 output (/speckit.plan command)
 ├── quickstart.md        # Phase 1 output (/speckit.plan command)
+├── playground.md        # Working demo/examples showing feature works
 ├── contracts/           # Phase 1 output (/speckit.plan command)
 └── tasks.md             # Phase 2 output (/speckit.tasks command - NOT created by /speckit.plan)
 ```
