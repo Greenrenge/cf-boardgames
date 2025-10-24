@@ -11,6 +11,7 @@ import { ChatPanel } from '@/components/game/ChatPanel';
 import { GameTimer } from '@/components/game/GameTimer';
 import { VotingInterface } from '@/components/game/VotingInterface';
 import { ResultsScreen } from '@/components/game/ResultsScreen';
+import { SpyGuess } from '@/components/game/SpyGuess';
 import { storage } from '@/lib/storage';
 import { createWebSocketClient, WebSocketClient } from '@/lib/websocket';
 import type { Player, WebSocketMessage, Difficulty, Message, GamePhase } from '@/lib/types';
@@ -39,6 +40,7 @@ export default function RoomPage() {
   const [votesCount, setVotesCount] = useState<number>(0);
   const [hasVoted, setHasVoted] = useState<boolean>(false);
   const [votingResults, setVotingResults] = useState<any>(null);
+  const [spyGuessResult, setSpyGuessResult] = useState<any>(null);
 
   const wsRef = useRef<WebSocketClient | null>(null);
   const isConnectingRef = useRef(false); // Prevent duplicate connections
@@ -101,6 +103,9 @@ export default function RoomPage() {
         break;
       case 'VOTE_COUNT':
         handleVoteCount(message.payload as { totalVotes: number; requiredVotes: number });
+        break;
+      case 'SPY_GUESS_RESULT':
+        handleSpyGuessResult(message.payload as any);
         break;
       default:
         console.log('[Room] Unhandled message type:', message.type);
@@ -305,6 +310,58 @@ export default function RoomPage() {
     if (payload.hasVoted !== undefined) {
       setHasVoted(payload.hasVoted);
     }
+  };
+
+  const handleSpyGuessResult = async (payload: any) => {
+    console.log('[Room] Spy guess result:', payload);
+    setSpyGuessResult(payload);
+
+    // Fetch location name from ID if payload contains ID instead of name
+    let guessedName = payload.guessedLocationName;
+    if (payload.guessedLocationId && payload.guessedLocationId.startsWith('loc-')) {
+      try {
+        const wsUrl = process.env.NEXT_PUBLIC_WS_URL || 'ws://localhost:8787';
+        const backendUrl = wsUrl.replace('ws://', 'http://').replace('wss://', 'https://');
+        const response = await fetch(`${backendUrl}/api/locations`);
+        if (response.ok) {
+          const data = await response.json();
+          const location = data.locations?.find((loc: any) => loc.id === payload.guessedLocationId);
+          if (location) {
+            guessedName = location.nameTh;
+            console.log('[Room] Resolved guessed location:', guessedName);
+          }
+        }
+      } catch (err) {
+        console.error('[Room] Failed to fetch location name:', err);
+      }
+    }
+
+    // Merge spy guess result with voting results for display
+    setVotingResults((prev: any) => ({
+      ...prev,
+      location: payload.actualLocationName,
+      scores: payload.scores,
+      spyGuessResult: {
+        wasCorrect: payload.wasCorrect,
+        guessedLocationId: payload.guessedLocationId,
+        guessedLocationName: guessedName || payload.guessedLocationId,
+        actualLocationName: payload.actualLocationName,
+      },
+    }));
+    setGamePhase('results');
+  };
+
+  const handleSpyGuess = (locationId: string) => {
+    if (!wsRef.current?.isConnected()) {
+      console.error('[Room] WebSocket not connected');
+      setError('ไม่ได้เชื่อมต่อกับเซิร์ฟเวอร์');
+      return;
+    }
+
+    console.log('[Room] Spy guessing location:', locationId);
+    wsRef.current.send('SPY_GUESS', {
+      locationId,
+    });
   };
 
   const handleStartGame = (difficulty: Difficulty[], timerDuration: number) => {
@@ -542,6 +599,40 @@ export default function RoomPage() {
         </div>
       )}
 
+      {/* Spy Guess Phase */}
+      {gamePhase === 'spy_guess' && (
+        <div className="max-w-4xl mx-auto">
+          {playerRole === 'Spy' ? (
+            <SpyGuess onGuess={handleSpyGuess} />
+          ) : (
+            <Card className="p-8">
+              <div className="text-center">
+                <div className="text-6xl mb-4">🕵️</div>
+                <h2 className="text-2xl font-bold text-gray-800 mb-2">สายลับกำลังเดาสถานที่...</h2>
+                <p className="text-gray-600">
+                  กรุณารอสักครู่ สายลับกำลังตัดสินใจว่าสถานที่นี้คือที่ไหน
+                </p>
+                <div className="mt-6">
+                  <div className="inline-block animate-pulse">
+                    <div className="flex space-x-2">
+                      <div className="w-3 h-3 bg-red-500 rounded-full animate-bounce"></div>
+                      <div
+                        className="w-3 h-3 bg-red-500 rounded-full animate-bounce"
+                        style={{ animationDelay: '0.1s' }}
+                      ></div>
+                      <div
+                        className="w-3 h-3 bg-red-500 rounded-full animate-bounce"
+                        style={{ animationDelay: '0.2s' }}
+                      ></div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </Card>
+          )}
+        </div>
+      )}
+
       {/* Results Phase */}
       {gamePhase === 'results' && votingResults && (
         <div className="max-w-4xl mx-auto">
@@ -553,6 +644,7 @@ export default function RoomPage() {
             scores={votingResults.scores}
             players={players}
             voteTally={votingResults.voteTally}
+            spyGuessResult={votingResults.spyGuessResult}
             onBackToLobby={handleBackToLobby}
           />
         </div>

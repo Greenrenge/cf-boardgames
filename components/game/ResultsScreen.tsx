@@ -12,6 +12,12 @@ interface ResultsScreenProps {
   scores: Record<string, number>;
   players: Player[];
   voteTally: Record<string, number>;
+  spyGuessResult?: {
+    wasCorrect: boolean;
+    guessedLocationId: string;
+    guessedLocationName: string;
+    actualLocationName: string;
+  };
   onNextRound?: () => void;
   onBackToLobby: () => void;
 }
@@ -24,6 +30,7 @@ export function ResultsScreen({
   scores,
   players,
   voteTally,
+  spyGuessResult,
   onNextRound,
   onBackToLobby,
 }: ResultsScreenProps) {
@@ -62,6 +69,52 @@ export function ResultsScreen({
           </div>
         </div>
       </Card>
+
+      {/* Spy Guess Result */}
+      {spyGuessResult && (
+        <Card
+          className={`text-center ${
+            spyGuessResult.wasCorrect
+              ? 'bg-gradient-to-br from-red-50 to-pink-50 border-2 border-red-400'
+              : 'bg-gradient-to-br from-green-50 to-emerald-50 border-2 border-green-400'
+          }`}
+        >
+          <div className="space-y-4">
+            <div className="text-5xl mb-2">{spyGuessResult.wasCorrect ? '🎯' : '❌'}</div>
+            <h3
+              className={`text-2xl font-bold ${
+                spyGuessResult.wasCorrect ? 'text-red-700' : 'text-green-700'
+              }`}
+            >
+              {spyGuessResult.wasCorrect ? 'สปายเดาถูก!' : 'สปายเดาผิด!'}
+            </h3>
+            <div className="space-y-3 pt-2">
+              <div
+                className={`p-3 rounded-lg ${
+                  spyGuessResult.wasCorrect ? 'bg-red-100' : 'bg-gray-100'
+                }`}
+              >
+                <p className="text-sm text-gray-600 mb-1">สปายเดาว่าเป็น:</p>
+                <p
+                  className={`text-lg font-bold ${
+                    spyGuessResult.wasCorrect ? 'text-red-800' : 'text-gray-800'
+                  }`}
+                >
+                  {spyGuessResult.guessedLocationName || spyGuessResult.guessedLocationId}
+                </p>
+              </div>
+              {!spyGuessResult.wasCorrect && (
+                <div className="p-3 bg-green-100 rounded-lg">
+                  <p className="text-sm text-gray-600 mb-1">สถานที่จริงคือ:</p>
+                  <p className="text-lg font-bold text-green-800">
+                    {spyGuessResult.actualLocationName}
+                  </p>
+                </div>
+              )}
+            </div>
+          </div>
+        </Card>
+      )}
 
       {/* Vote Tally */}
       <Card>

@@ -16,6 +16,7 @@ export class GameRoom {
   private messageQueue: Map<string, Promise<void>> = new Map();
   private gameState: GameState | null = null;
   private timerInterval: ReturnType<typeof setInterval> | null = null;
+  private resultsTimer: ReturnType<typeof setTimeout> | null = null;
 
   constructor(state: DurableObjectState, env: any) {
     this.state = state;
@@ -704,6 +705,12 @@ export class GameRoom {
         this.timerInterval = null;
       }
 
+      // Clear results timer
+      if (this.resultsTimer) {
+        clearTimeout(this.resultsTimer);
+        this.resultsTimer = null;
+      }
+
       // Clear game state
       this.gameState = null;
 
@@ -898,6 +905,51 @@ export class GameRoom {
         if (this.gameState.votes.length === this.players.size) {
           await this.endRound();
         }
+      }
+    }
+
+    if (message.type === 'SPY_GUESS') {
+      if (currentPlayerId && this.gameState) {
+        const { locationId } = message.payload as { locationId: string };
+
+        // Validate that player is the spy
+        if (currentPlayerId !== this.gameState.spyPlayerId) {
+          ws.send(
+            JSON.stringify({
+              type: 'ERROR',
+              payload: { code: 'NOT_SPY', message: 'Only spy can guess location' },
+              timestamp: Date.now(),
+            })
+          );
+          return;
+        }
+
+        // Validate phase
+        if (this.room?.phase !== 'spy_guess') {
+          ws.send(
+            JSON.stringify({
+              type: 'ERROR',
+              payload: { code: 'INVALID_PHASE', message: 'Not in spy guess phase' },
+              timestamp: Date.now(),
+            })
+          );
+          return;
+        }
+
+        // Validate location ID
+        if (!locationId) {
+          ws.send(
+            JSON.stringify({
+              type: 'ERROR',
+              payload: { code: 'INVALID_LOCATION', message: 'Location ID is required' },
+              timestamp: Date.now(),
+            })
+          );
+          return;
+        }
+
+        // Process spy guess
+        await this.handleSpyGuess(locationId);
       }
     }
 
@@ -1441,17 +1493,50 @@ export class GameRoom {
     const spyWasEliminated = eliminatedPlayerId === this.gameState.spyPlayerId;
     const spyEscaped = !spyWasEliminated;
 
-    // Calculate scores
+    console.log('[GameRoom] Spy was eliminated:', spyWasEliminated);
+    console.log('[GameRoom] Spy escaped:', spyEscaped);
+
+    // If spy escaped, transition to spy_guess phase
+    if (spyEscaped) {
+      // Broadcast voting results (no scores yet)
+      this.broadcast({
+        type: 'VOTING_RESULTS',
+        payload: {
+          voteTally,
+          eliminatedPlayerId,
+          spyPlayerId: this.gameState.spyPlayerId,
+          spyWasEliminated: false,
+          scores: {}, // Scores will be calculated after spy guess
+          location: null, // Don't reveal location yet
+        },
+        timestamp: Date.now(),
+      });
+
+      // Transition to spy_guess phase
+      this.room.phase = 'spy_guess';
+      await this.saveState();
+
+      this.broadcast({
+        type: 'PHASE_CHANGE',
+        payload: { phase: 'spy_guess', reason: 'Spy escaped, awaiting guess' },
+        timestamp: Date.now(),
+      });
+
+      console.log('[GameRoom] Transitioned to spy_guess phase');
+      return;
+    }
+
+    // If spy was eliminated, calculate scores and end round
     const scores: Record<string, number> = {};
     const activePlayers = Array.from(this.players.values());
 
     for (const player of activePlayers) {
       if (player.id === this.gameState.spyPlayerId) {
-        // Spy scores
-        scores[player.id] = spyEscaped ? 2 : 0;
+        // Spy caught: 0 points
+        scores[player.id] = 0;
       } else {
-        // Non-spy scores
-        scores[player.id] = spyWasEliminated ? 1 : 0;
+        // Non-spy caught spy: +1 point
+        scores[player.id] = 1;
       }
     }
 
@@ -1462,17 +1547,134 @@ export class GameRoom {
         voteTally,
         eliminatedPlayerId,
         spyPlayerId: this.gameState.spyPlayerId,
-        spyWasEliminated,
+        spyWasEliminated: true,
         scores,
         location: this.gameState.selectedLocation.nameTh,
       },
       timestamp: Date.now(),
     });
 
-    // Change room phase to results (but keep game state for connected players to see results)
+    // Change room phase to results
     this.room.phase = 'results';
     await this.saveState();
 
-    console.log('[GameRoom] Round ended, results sent');
+    // Start auto-reset timer (1 minute)
+    if (this.resultsTimer) {
+      clearTimeout(this.resultsTimer);
+    }
+    this.resultsTimer = setTimeout(() => {
+      this.resetToLobby();
+    }, 60000); // 60 seconds
+
+    console.log('[GameRoom] Round ended, results sent, auto-reset timer started');
+  }
+
+  private async handleSpyGuess(guessedLocationId: string) {
+    if (!this.gameState || !this.room) return;
+
+    console.log('[GameRoom] Processing spy guess:', guessedLocationId);
+
+    // Check if guess is correct
+    const actualLocationId = this.gameState.selectedLocation.id;
+    const wasCorrect = guessedLocationId === actualLocationId;
+
+    console.log('[GameRoom] Guess correct:', wasCorrect);
+
+    // Note: guessedLocationName will be the ID for now
+    // The frontend will resolve it since it has the location data loaded
+    const guessedLocationName = guessedLocationId;
+
+    // Store spy guess
+    this.gameState.spyGuess = guessedLocationId;
+    await this.state.storage.put('gameState', this.gameState.toJSON());
+
+    // Calculate scores based on guess
+    const scores: Record<string, number> = {};
+    const activePlayers = Array.from(this.players.values());
+
+    for (const player of activePlayers) {
+      if (player.id === this.gameState.spyPlayerId) {
+        // Spy scores: +2 if correct, 0 if incorrect
+        scores[player.id] = wasCorrect ? 2 : 0;
+      } else {
+        // Non-spy scores: 0 if spy guessed correctly, +1 if spy guessed incorrectly
+        scores[player.id] = wasCorrect ? 0 : 1;
+      }
+    }
+
+    // Broadcast spy guess result
+    this.broadcast({
+      type: 'SPY_GUESS_RESULT',
+      payload: {
+        guessedLocationId,
+        guessedLocationName,
+        actualLocationId,
+        actualLocationName: this.gameState.selectedLocation.nameTh,
+        wasCorrect,
+        scores,
+      },
+      timestamp: Date.now(),
+    });
+
+    // Transition to results phase
+    this.room.phase = 'results';
+    await this.saveState();
+
+    // Start auto-reset timer (1 minute)
+    if (this.resultsTimer) {
+      clearTimeout(this.resultsTimer);
+    }
+    this.resultsTimer = setTimeout(() => {
+      this.resetToLobby();
+    }, 60000); // 60 seconds
+
+    this.broadcast({
+      type: 'PHASE_CHANGE',
+      payload: { phase: 'results', reason: 'Spy guess complete' },
+      timestamp: Date.now(),
+    });
+
+    console.log(
+      '[GameRoom] Spy guess processed, transitioned to results, auto-reset timer started'
+    );
+  }
+
+  private async resetToLobby() {
+    if (!this.room) return;
+
+    console.log('[GameRoom] Auto-resetting to lobby after results phase');
+
+    // Stop timer
+    if (this.timerInterval) {
+      clearInterval(this.timerInterval);
+      this.timerInterval = null;
+    }
+
+    // Clear results timer
+    if (this.resultsTimer) {
+      clearTimeout(this.resultsTimer);
+      this.resultsTimer = null;
+    }
+
+    // Clear game state
+    this.gameState = null;
+
+    // Reset room phase to lobby
+    this.room.phase = 'lobby';
+
+    // Broadcast room state reset
+    this.broadcast({
+      type: 'ROOM_STATE',
+      payload: {
+        players: Array.from(this.players.values()).map((p) => p.toJSON()),
+        hostId: this.room?.hostPlayerId,
+        phase: 'lobby',
+      },
+      timestamp: Date.now(),
+    });
+
+    await this.saveState();
+
+    console.log('[GameRoom] Auto-reset to lobby complete');
   }
 }

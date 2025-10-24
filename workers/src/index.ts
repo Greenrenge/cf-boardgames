@@ -1,5 +1,6 @@
 import { Hono } from 'hono';
 import { cors } from 'hono/cors';
+import locationsData from '../../data/locations.json';
 
 // Types for Cloudflare Workers environment
 export interface Env {
@@ -137,35 +138,58 @@ app.get('/api/rooms/:code', async (c) => {
 // Get locations endpoint
 app.get('/api/locations', async (c) => {
   try {
-    const gameType = c.req.query('gameType') || 'spyfall';
     const difficultyParam = c.req.query('difficulty');
+    let locations: any[] = [];
 
-    let query = 'SELECT * FROM locations WHERE 1=1';
-    const params: string[] = [];
+    // Try to fetch from D1 database first
+    if (c.env.DB) {
+      try {
+        let query = 'SELECT * FROM locations WHERE 1=1';
+        const params: string[] = [];
 
-    if (difficultyParam) {
-      const difficulties = difficultyParam.split(',');
-      const placeholders = difficulties.map(() => '?').join(',');
-      query += ` AND difficulty IN (${placeholders})`;
-      params.push(...difficulties);
+        if (difficultyParam) {
+          const difficulties = difficultyParam.split(',');
+          const placeholders = difficulties.map(() => '?').join(',');
+          query += ` AND difficulty IN (${placeholders})`;
+          params.push(...difficulties);
+        }
+
+        const result = await c.env.DB.prepare(query)
+          .bind(...params)
+          .all();
+
+        locations =
+          result.results?.map((row: any) => ({
+            id: row.id,
+            nameTh: row.name_th,
+            difficulty: row.difficulty,
+            roles: JSON.parse(row.roles),
+            imageUrl: row.image_url,
+          })) || [];
+
+        console.log('[Locations API] Fetched from D1:', locations.length);
+      } catch (dbError) {
+        console.warn('[Locations API] D1 not available, using fallback data:', dbError);
+      }
     }
 
-    const result = await c.env.DB.prepare(query)
-      .bind(...params)
-      .all();
+    // Fallback: Use hardcoded locations if D1 is not available or empty
+    if (locations.length === 0) {
+      // Use imported static locations data
+      locations = [...locationsData];
 
-    const locations =
-      result.results?.map((row: any) => ({
-        id: row.id,
-        nameTh: row.name_th,
-        difficulty: row.difficulty,
-        roles: JSON.parse(row.roles),
-        imageUrl: row.image_url,
-      })) || [];
+      // Filter by difficulty if specified
+      if (difficultyParam) {
+        const difficulties = difficultyParam.split(',');
+        locations = locations.filter((loc: any) => difficulties.includes(loc.difficulty));
+      }
+
+      console.log('[Locations API] Using fallback data:', locations.length);
+    }
 
     return c.json({ locations });
   } catch (error) {
-    console.error('Error fetching locations:', error);
+    console.error('[Locations API] Error:', error);
     return c.json(
       {
         error: {

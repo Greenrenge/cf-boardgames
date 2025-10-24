@@ -1,162 +1,1502 @@
 [
 	{
 		"id": "loc-001",
-		"nameTh": "ชายหาด",
+		"nameTh": "ตลาดนัด",
 		"difficulty": "easy",
 		"roles": [
-			"นักท่องเที่ยว",
-			"ไลฟ์การ์ด",
-			"พนักงานขายอาหาร",
-			"เด็กเล่นน้ำ",
-			"ช่างภาพ",
-			"ผู้ขายของที่ระลึก",
-			"คนนวดแผนไทย",
-			"ผู้เล่นกีฬาทางน้ำ"
+			"แม่ค้าผัก",
+			"ลูกค้า",
+			"คนขายของเก่า",
+			"เจ้าของร้านอาหาร",
+			"คนเก็บเงิน",
+			"คนแบกของ",
+			"คนขายเสื้อผ้า"
 		],
-		"imageUrl": "https://r2.spyfall.example.com/locations/beach.webp"
+		"imageUrl": "https://r2.spyfall.example.com/locations/local-market.webp"
 	},
 	{
 		"id": "loc-002",
-		"nameTh": "ร้านกาแฟ",
+		"nameTh": "เซเว่น อีเลฟเว่น",
 		"difficulty": "easy",
 		"roles": [
-			"บาริสต้า",
+			"พนักงานแคชเชียร์",
 			"ลูกค้า",
-			"เจ้าของร้าน",
-			"พนักงานทำความสะอาด",
-			"คนส่งอาหาร",
-			"นักศึกษา",
-			"คนทำงาน",
-			"นักเขียนอิสระ"
+			"พนักงานจัดสินค้า",
+			"เจ้าของแฟรนไชส์",
+			"คนส่งของ",
+			"รปภ.",
+			"คนแพ็คของ"
 		],
-		"imageUrl": "https://r2.spyfall.example.com/locations/cafe.webp"
+		"imageUrl": "https://r2.spyfall.example.com/locations/7-eleven.webp"
 	},
 	{
 		"id": "loc-003",
-		"nameTh": "ห้างสรรพสินค้า",
-		"difficulty": "easy",
-		"roles": [
-			"พนักงานขาย",
-			"ลูกค้า",
-			"รักษาความปลอดภัย",
-			"พนักงานแคชเชียร์",
-			"คนทำความสะอาด",
-			"พนักงานสต็อกสินค้า",
-			"เด็กเล่น",
-			"ผู้จัดการ"
-		],
-		"imageUrl": "https://r2.spyfall.example.com/locations/mall.webp"
-	},
-	{
-		"id": "loc-004",
-		"nameTh": "สนามบิน",
-		"difficulty": "easy",
-		"roles": [
-			"ผู้โดยสาร",
-			"พนักงานต้อนรับ",
-			"นักบิน",
-			"พนักงานรักษาความปลอดภัย",
-			"เจ้าหน้าที่ศุลกากร",
-			"พนักงานขนกระเป๋า",
-			"พนักงานร้านอาหาร",
-			"เจ้าหน้าที่ตรวจหนังสือเดินทาง"
-		],
-		"imageUrl": "https://r2.spyfall.example.com/locations/airport.webp"
-	},
-	{
-		"id": "loc-005",
-		"nameTh": "โรงเรียน",
-		"difficulty": "easy",
-		"roles": [
-			"นักเรียน",
-			"ครูผู้สอน",
-			"ผู้อำนวยการ",
-			"ภารโรง",
-			"แม่ค้าโรงอาหาร",
-			"เจ้าหน้าที่ห้องสมุด",
-			"ครูพละศึกษา",
-			"พยาบาล"
-		],
-		"imageUrl": "https://r2.spyfall.example.com/locations/school.webp"
-	},
-	{
-		"id": "loc-006",
 		"nameTh": "โรงพยาบาล",
 		"difficulty": "medium",
 		"roles": [
 			"หมอ",
 			"พยาบาล",
 			"คนไข้",
-			"แม่บ้าน",
-			"เจ้าหน้าที่รับส่ง",
+			"ญาติผู้ป่วย",
 			"เภสัชกร",
-			"ช่างเทคนิค",
-			"เจ้าหน้าที่ธุรการ"
+			"รปภ.",
+			"พนักงานรับโทรศัพท์"
 		],
 		"imageUrl": "https://r2.spyfall.example.com/locations/hospital.webp"
 	},
 	{
-		"id": "loc-007",
-		"nameTh": "สถานีรถไฟ",
-		"difficulty": "medium",
+		"id": "loc-004",
+		"nameTh": "โรงเรียน",
+		"difficulty": "easy",
 		"roles": [
-			"ผู้โดยสาร",
-			"พนักงานขายตั๋ว",
-			"พนักงานรถไฟ",
-			"พนักงานรักษาความปลอดภัย",
-			"คนขายของ",
-			"พนักงานทำความสะอาด",
-			"ช่างซ่อมบำรุง",
-			"เจ้าหน้าที่ประชาสัมพันธ์"
+			"ครู",
+			"นักเรียน",
+			"ผู้อำนวยการ",
+			"แม่บ้าน",
+			"ยาม",
+			"พ่อแม่นักเรียน",
+			"ครูพลศึกษา"
 		],
-		"imageUrl": "https://r2.spyfall.example.com/locations/train-station.webp"
+		"imageUrl": "https://r2.spyfall.example.com/locations/school.webp"
 	},
 	{
-		"id": "loc-008",
+		"id": "loc-005",
 		"nameTh": "ธนาคาร",
 		"difficulty": "medium",
 		"roles": [
-			"เจ้าหน้าที่ธนาคาร",
+			"พนักงานธนาคาร",
 			"ลูกค้า",
-			"รักษาความปลอดภัย",
-			"ผู้จัดการ",
-			"พนักงานทำความสะอาด",
-			"ที่ปรึกษาทางการเงิน",
-			"พนักงานเก็บเงิน",
-			"ผู้จัดการสาขา"
+			"รปภ.",
+			"ผู้จัดการสาขา",
+			"พนักงานต้อนรับ",
+			"คนส่งเงิน",
+			"พนักงานสินเชื่อ"
 		],
 		"imageUrl": "https://r2.spyfall.example.com/locations/bank.webp"
 	},
 	{
+		"id": "loc-006",
+		"nameTh": "ร้านอาหาร",
+		"difficulty": "easy",
+		"roles": [
+			"พ่อครัว",
+			"พนักงานเสิร์ฟ",
+			"ลูกค้า",
+			"แคชเชียร์",
+			"เด็กล้างจาน",
+			"เจ้าของร้าน",
+			"พนักงานส่งอาหาร"
+		],
+		"imageUrl": "https://r2.spyfall.example.com/locations/restaurant.webp"
+	},
+	{
+		"id": "loc-007",
+		"nameTh": "สวนสาธารณะ",
+		"difficulty": "easy",
+		"roles": [
+			"คนมาออกกำลังกาย",
+			"คนขายอาหารนก",
+			"เจ้าหน้าที่ดูแลสวน",
+			"คนพาสุนัขมาเดิน",
+			"เด็กเล่นสนาม",
+			"คนนั่งอ่านหนังสือ",
+			"ช่างภาพ"
+		],
+		"imageUrl": "https://r2.spyfall.example.com/locations/public-park.webp"
+	},
+	{
+		"id": "loc-008",
+		"nameTh": "สนามกีฬา",
+		"difficulty": "easy",
+		"roles": [
+			"นักกีฬา",
+			"โค้ช",
+			"ผู้ชม",
+			"ผู้ตัดสิน",
+			"คนขายของ",
+			"นักข่าว",
+			"รปภ."
+		],
+		"imageUrl": "https://r2.spyfall.example.com/locations/sports-stadium.webp"
+	},
+	{
 		"id": "loc-009",
+		"nameTh": "ห้องสมุด",
+		"difficulty": "easy",
+		"roles": [
+			"บรรณารักษ์",
+			"นักเรียน",
+			"คนมาอ่านหนังสือ",
+			"อาจารย์",
+			"พนักงานจัดหนังสือ",
+			"เด็กฝึกงาน",
+			"แม่บ้าน"
+		],
+		"imageUrl": "https://r2.spyfall.example.com/locations/library.webp"
+	},
+	{
+		"id": "loc-010",
+		"nameTh": "ไปรษณีย์",
+		"difficulty": "medium",
+		"roles": [
+			"พนักงานไปรษณีย์",
+			"ลูกค้า",
+			"บุรุษไปรษณีย์",
+			"ผู้จัดการ",
+			"พนักงานเรียงพัสดุ",
+			"แคชเชียร์",
+			"รปภ."
+		],
+		"imageUrl": "https://r2.spyfall.example.com/locations/post-office.webp"
+	},
+	{
+		"id": "loc-011",
+		"nameTh": "ร้านสะดวกซื้อ",
+		"difficulty": "easy",
+		"roles": [
+			"พนักงานขาย",
+			"ลูกค้า",
+			"เจ้าของร้าน",
+			"คนส่งของ",
+			"พนักงานกะดึก",
+			"พนักงานเติมสินค้า",
+			"แคชเชียร์"
+		],
+		"imageUrl": "https://r2.spyfall.example.com/locations/convenience-store.webp"
+	},
+	{
+		"id": "loc-012",
+		"nameTh": "ปั๊มน้ำมัน",
+		"difficulty": "easy",
+		"roles": [
+			"พนักงานปั๊มน้ำมัน",
+			"ลูกค้า",
+			"แคชเชียร์",
+			"ช่างซ่อมรถ",
+			"ผู้จัดการ",
+			"พนักงานร้านสะดวกซื้อ",
+			"คนล้างรถ"
+		],
+		"imageUrl": "https://r2.spyfall.example.com/locations/gas-station.webp"
+	},
+	{
+		"id": "loc-013",
+		"nameTh": "ร้านตัดผม",
+		"difficulty": "easy",
+		"roles": [
+			"ช่างตัดผม",
+			"ลูกค้า",
+			"ช่างสระผม",
+			"เจ้าของร้าน",
+			"แคชเชียร์",
+			"เด็กฝึกงาน",
+			"คนนวดหัว"
+		],
+		"imageUrl": "https://r2.spyfall.example.com/locations/hair-salon.webp"
+	},
+	{
+		"id": "loc-014",
+		"nameTh": "ร้านซักรีด",
+		"difficulty": "easy",
+		"roles": [
+			"เจ้าของร้าน",
+			"ลูกค้า",
+			"พนักงานรีดผ้า",
+			"พนักงานรับของ",
+			"คนส่งผ้า",
+			"ช่างซ่อมเครื่อง",
+			"แคชเชียร์"
+		],
+		"imageUrl": "https://r2.spyfall.example.com/locations/laundromat.webp"
+	},
+	{
+		"id": "loc-015",
+		"nameTh": "ร้านขายยา",
+		"difficulty": "medium",
+		"roles": [
+			"เภสัชกร",
+			"ลูกค้า",
+			"พนักงานขาย",
+			"แคชเชียร์",
+			"เจ้าของร้าน",
+			"หมอที่คลินิก",
+			"พนักงานจัดยา"
+		],
+		"imageUrl": "https://r2.spyfall.example.com/locations/pharmacy.webp"
+	},
+	{
+		"id": "loc-016",
+		"nameTh": "ออฟฟิศ",
+		"difficulty": "medium",
+		"roles": [
+			"พนักงานบริษัท",
+			"หัวหน้างาน",
+			"เลขานุการ",
+			"แม่บ้าน",
+			"รปภ.",
+			"IT Support",
+			"พนักงานต้อนรับ"
+		],
+		"imageUrl": "https://r2.spyfall.example.com/locations/office.webp"
+	},
+	{
+		"id": "loc-017",
+		"nameTh": "ร้านกาแฟ",
+		"difficulty": "easy",
+		"roles": [
+			"บาริสต้า",
+			"ลูกค้า",
+			"แคชเชียร์",
+			"เจ้าของร้าน",
+			"คนทำเค้ก",
+			"พนักงานล้างจาน",
+			"พนักงานส่งอาหาร"
+		],
+		"imageUrl": "https://r2.spyfall.example.com/locations/coffee-shop.webp"
+	},
+	{
+		"id": "loc-018",
+		"nameTh": "ร้านขายของชำ",
+		"difficulty": "easy",
+		"roles": [
+			"เจ้าของร้าน",
+			"ลูกค้า",
+			"แคชเชียร์",
+			"พนักงานจัดสินค้า",
+			"คนส่งของ",
+			"ลูกค้าประจำ",
+			"เด็กช่วยแพ็คของ"
+		],
+		"imageUrl": "https://r2.spyfall.example.com/locations/grocery-store.webp"
+	},
+	{
+		"id": "loc-019",
+		"nameTh": "สถานีรถไฟฟ้า BTS",
+		"difficulty": "medium",
+		"roles": [
+			"พนักงานขายตั๋ว",
+			"ผู้โดยสาร",
+			"รปภ.",
+			"พนักงานประชาสัมพันธ์",
+			"คนขายของ",
+			"ช่างซ่อมบำรุง",
+			"พนักงานควบคุมรถไฟ"
+		],
+		"imageUrl": "https://r2.spyfall.example.com/locations/bts-station.webp"
+	},
+	{
+		"id": "loc-020",
+		"nameTh": "แมคโดนัลด์",
+		"difficulty": "easy",
+		"roles": [
+			"พนักงานเสิร์ฟ",
+			"ลูกค้า",
+			"แคชเชียร์",
+			"ผู้จัดการ",
+			"คนทำอาหาร",
+			"พนักงานทำความสะอาด",
+			"คนส่งอาหาร"
+		],
+		"imageUrl": "https://r2.spyfall.example.com/locations/mcdonald's.webp"
+	},
+	{
+		"id": "loc-021",
+		"nameTh": "วัด",
+		"difficulty": "easy",
+		"roles": [
+			"พระ",
+			"แม่ชี",
+			"ผู้มาทำบุญ",
+			"นักท่องเที่ยว",
+			"เด็กวัด",
+			"คนขายของที่ระลึก",
+			"เจ้าอาวาส"
+		],
+		"imageUrl": "https://r2.spyfall.example.com/locations/temple.webp"
+	},
+	{
+		"id": "loc-022",
+		"nameTh": "ตลาดน้ำ",
+		"difficulty": "easy",
+		"roles": [
+			"แม่ค้าขายของบนเรือ",
+			"นักท่องเที่ยว",
+			"ไกด์นำเที่ยว",
+			"คนพายเรือ",
+			"ช่างภาพ",
+			"เจ้าของร้านริมน้ำ",
+			"คนขายหมวก"
+		],
+		"imageUrl": "https://r2.spyfall.example.com/locations/floating-market.webp"
+	},
+	{
+		"id": "loc-023",
+		"nameTh": "พระบรมมหาราชวัง",
+		"difficulty": "easy",
+		"roles": [
+			"ทหารยาม",
+			"ไกด์นำเที่ยว",
+			"นักท่องเที่ยวไทย",
+			"นักท่องเที่ยวต่างชาติ",
+			"เจ้าหน้าที่ตรวจเช็คเสื้อผ้า",
+			"ช่างภาพ",
+			"พนักงานขายตั๋ว"
+		],
+		"imageUrl": "https://r2.spyfall.example.com/locations/grand-palace.webp"
+	},
+	{
+		"id": "loc-024",
+		"nameTh": "วัดพระแก้ว",
+		"difficulty": "easy",
+		"roles": [
+			"พระ",
+			"นักท่องเที่ยว",
+			"ไกด์",
+			"เจ้าหน้าที่ดูแลวัด",
+			"รปภ.",
+			"นักเรียนทัศนศึกษา",
+			"คนขายน้ำ"
+		],
+		"imageUrl": "https://r2.spyfall.example.com/locations/temple-of-the-emerald-buddha.webp"
+	},
+	{
+		"id": "loc-025",
+		"nameTh": "พิพิธภัณฑ์",
+		"difficulty": "easy",
+		"roles": [
+			"คนดูแลพิพิธภัณฑ์",
+			"ผู้เข้าชม",
+			"ไกด์",
+			"รปภ.",
+			"นักเรียน",
+			"ช่างภาพ",
+			"พนักงานขายของที่ระลึก"
+		],
+		"imageUrl": "https://r2.spyfall.example.com/locations/museum.webp"
+	},
+	{
+		"id": "loc-026",
 		"nameTh": "สวนสัตว์",
 		"difficulty": "medium",
 		"roles": [
-			"ผู้ดูแลสัตว์",
-			"นักท่องเที่ยว",
-			"คนขายตั๋ว",
-			"พนักงานทำความสะอาด",
+			"คนดูแลสัตว์",
+			"ผู้เข้าชม",
 			"สัตวแพทย์",
+			"ไกด์",
+			"คนขายอาหารสัตว์",
 			"ช่างภาพ",
-			"เจ้าหน้าที่ศึกษา",
-			"คนขายอาหาร"
+			"พนักงานร้านอาหาร"
 		],
 		"imageUrl": "https://r2.spyfall.example.com/locations/zoo.webp"
 	},
 	{
-		"id": "loc-010",
-		"nameTh": "ร้านอาหาร",
+		"id": "loc-027",
+		"nameTh": "เขาสัตว์",
+		"difficulty": "medium",
+		"roles": [
+			"พนักงานขับรถนำเที่ยว",
+			"นักท่องเที่ยว",
+			"คนดูแลสัตว์",
+			"สัตวแพทย์",
+			"ไกด์",
+			"ช่างภาพ",
+			"รปภ."
+		],
+		"imageUrl": "https://r2.spyfall.example.com/locations/safari-park.webp"
+	},
+	{
+		"id": "loc-028",
+		"nameTh": "ชายหาด",
 		"difficulty": "easy",
 		"roles": [
-			"เชฟ",
-			"ลูกค้า",
-			"บริกร",
-			"ผู้จัดการ",
-			"พนักงานล้างจาน",
-			"คนส่งอาหาร",
-			"เจ้าของร้าน",
-			"ช่างเทคนิค"
+			"นักท่องเที่ยว",
+			"คนขายของ",
+			"ไลฟ์การ์ด",
+			"คนเช่าเก้าอี้",
+			"ช่างภาพ",
+			"ครูสอนดำน้ำ",
+			"คนนวด"
 		],
-		"imageUrl": "https://r2.spyfall.example.com/locations/restaurant.webp"
+		"imageUrl": "https://r2.spyfall.example.com/locations/beach.webp"
+	},
+	{
+		"id": "loc-029",
+		"nameTh": "ตลาดจตุจักร",
+		"difficulty": "easy",
+		"roles": [
+			"แม่ค้า",
+			"ลูกค้า",
+			"นักท่องเที่ยว",
+			"คนขนของ",
+			"รปภ.",
+			"เจ้าหน้าที่ประชาสัมพันธ์",
+			"คนเก็บขยะ"
+		],
+		"imageUrl": "https://r2.spyfall.example.com/locations/chatuchak-market.webp"
+	},
+	{
+		"id": "loc-030",
+		"nameTh": "เยาวราช",
+		"difficulty": "easy",
+		"roles": [
+			"เจ้าของร้านทอง",
+			"นักท่องเที่ยว",
+			"แม่ค้าขายอาหาร",
+			"ไกด์นำเที่ยว",
+			"คนขายของที่ระลึก",
+			"ลูกค้า",
+			"ช่างภาพ"
+		],
+		"imageUrl": "https://r2.spyfall.example.com/locations/yaowarat/chinatown.webp"
+	},
+	{
+		"id": "loc-031",
+		"nameTh": "สวนลุมพินี",
+		"difficulty": "easy",
+		"roles": [
+			"คนมาวิ่ง",
+			"คนมาออกกำลังกาย",
+			"คนพายเรือ",
+			"คนขายอาหารปลา",
+			"รปภ.",
+			"คนเล่นไทเก๊ก",
+			"ช่างภาพ"
+		],
+		"imageUrl": "https://r2.spyfall.example.com/locations/lumpini-park.webp"
+	},
+	{
+		"id": "loc-032",
+		"nameTh": "สวนดุสิต",
+		"difficulty": "medium",
+		"roles": [
+			"คนดูแลสัตว์",
+			"ผู้เข้าชม",
+			"สัตวแพทย์",
+			"คนขายอาหารสัตว์",
+			"รปภ.",
+			"พนักงานร้านอาหาร",
+			"ไกด์"
+		],
+		"imageUrl": "https://r2.spyfall.example.com/locations/dusit-zoo.webp"
+	},
+	{
+		"id": "loc-033",
+		"nameTh": "อุทยานประวัติศาสตร์",
+		"difficulty": "medium",
+		"roles": [
+			"นักท่องเที่ยว",
+			"ไกด์",
+			"เจ้าหน้าที่ดูแลอุทยาน",
+			"นักโบราณคดี",
+			"ช่างภาพ",
+			"คนขายน้ำ",
+			"รปภ."
+		],
+		"imageUrl": "https://r2.spyfall.example.com/locations/historical-park.webp"
+	},
+	{
+		"id": "loc-034",
+		"nameTh": "ถนนคนเดิน",
+		"difficulty": "easy",
+		"roles": [
+			"คนเดินเล่น",
+			"แม่ค้าขายของ",
+			"นักดนตรีข้างถนน",
+			"นักท่องเที่ยว",
+			"รปภ.",
+			"ช่างภาพ",
+			"คนวาดภาพ"
+		],
+		"imageUrl": "https://r2.spyfall.example.com/locations/walking-street.webp"
+	},
+	{
+		"id": "loc-035",
+		"nameTh": "ถนนข้าวสาร",
+		"difficulty": "easy",
+		"roles": [
+			"นักท่องเที่ยว",
+			"เจ้าของเกสต์เฮ้าส์",
+			"คนขายของ",
+			"พนักงานบาร์",
+			"คนทำแทททู",
+			"คนถักเปีย",
+			"ไกด์ทัวร์"
+		],
+		"imageUrl": "https://r2.spyfall.example.com/locations/khaosan-road.webp"
+	},
+	{
+		"id": "loc-036",
+		"nameTh": "ถ้ำ",
+		"difficulty": "medium",
+		"roles": [
+			"ไกด์นำเที่ยว",
+			"นักท่องเที่ยว",
+			"พระ",
+			"คนขายของที่ระลึก",
+			"ช่างภาพ",
+			"นักสำรวจถ้ำ",
+			"เจ้าหน้าที่ดูแลความปลอดภัย"
+		],
+		"imageUrl": "https://r2.spyfall.example.com/locations/cave.webp"
+	},
+	{
+		"id": "loc-037",
+		"nameTh": "น้ำตก",
+		"difficulty": "medium",
+		"roles": [
+			"นักท่องเที่ยว",
+			"ไกด์",
+			"เจ้าหน้าที่อุทยาน",
+			"ช่างภาพ",
+			"คนขายอาหาร",
+			"คนท้องถิ่น",
+			"รปภ."
+		],
+		"imageUrl": "https://r2.spyfall.example.com/locations/waterfall.webp"
+	},
+	{
+		"id": "loc-038",
+		"nameTh": "หมู่บ้านชาวเขา",
+		"difficulty": "medium",
+		"roles": [
+			"ชาวเขา",
+			"นักท่องเที่ยว",
+			"ไกด์",
+			"ช่างภาพ",
+			"คนขายของฝาก",
+			"หมอพื้นบ้าน",
+			"เด็กในหมู่บ้าน"
+		],
+		"imageUrl": "https://r2.spyfall.example.com/locations/hill-tribe-village.webp"
+	},
+	{
+		"id": "loc-039",
+		"nameTh": "สวนสนุก",
+		"difficulty": "easy",
+		"roles": [
+			"ผู้เข้าชม",
+			"พนักงานเครื่องเล่น",
+			"คนขายตั๋ว",
+			"คนขายอาหาร",
+			"ช่างซ่อม",
+			"รปภ.",
+			"มาสคอต"
+		],
+		"imageUrl": "https://r2.spyfall.example.com/locations/amusement-park.webp"
+	},
+	{
+		"id": "loc-040",
+		"nameTh": "สวนน้ำ",
+		"difficulty": "easy",
+		"roles": [
+			"ผู้เข้าชม",
+			"ไลฟ์การ์ด",
+			"พนักงานเครื่องเล่น",
+			"คนขายตั๋ว",
+			"คนขายอาหาร",
+			"ช่างซ่อม",
+			"รปภ."
+		],
+		"imageUrl": "https://r2.spyfall.example.com/locations/water-park.webp"
+	},
+	{
+		"id": "loc-041",
+		"nameTh": "สนามบินสุวรรณภูมิ",
+		"difficulty": "medium",
+		"roles": [
+			"นักบิน",
+			"แอร์โฮสเตส",
+			"ผู้โดยสาร",
+			"เจ้าหน้าที่ตรวจคนเข้าเมือง",
+			"รปภ.",
+			"เจ้าหน้าที่สัมภาระ",
+			"พนักงานร้านค้า"
+		],
+		"imageUrl": "https://r2.spyfall.example.com/locations/suvarnabhumi-airport.webp"
+	},
+	{
+		"id": "loc-042",
+		"nameTh": "สนามบินดอนเมือง",
+		"difficulty": "medium",
+		"roles": [
+			"นักบิน",
+			"แอร์โฮสเตส",
+			"ผู้โดยสาร",
+			"เจ้าหน้าที่เช็คอิน",
+			"คนขนสัมภาระ",
+			"รปภ.",
+			"คนขายของในร้าน"
+		],
+		"imageUrl": "https://r2.spyfall.example.com/locations/don-mueang-airport.webp"
+	},
+	{
+		"id": "loc-043",
+		"nameTh": "สถานีรถไฟหัวลำโพง",
+		"difficulty": "medium",
+		"roles": [
+			"ผู้โดยสาร",
+			"พนักงานขายตั๋ว",
+			"คนขายอาหาร",
+			"พนักงานรถไฟ",
+			"แบกหาม",
+			"ยาม",
+			"พนักงานทำความสะอาด"
+		],
+		"imageUrl": "https://r2.spyfall.example.com/locations/hua-lamphong-station.webp"
+	},
+	{
+		"id": "loc-044",
+		"nameTh": "ท่าเรือ",
+		"difficulty": "medium",
+		"roles": [
+			"กัปตันเรือ",
+			"ลูกเรือ",
+			"ผู้โดยสาร",
+			"คนขายตั๋ว",
+			"ยาม",
+			"คนขายของ",
+			"คนขนของ"
+		],
+		"imageUrl": "https://r2.spyfall.example.com/locations/pier.webp"
+	},
+	{
+		"id": "loc-045",
+		"nameTh": "ป้ายรถเมล์",
+		"difficulty": "easy",
+		"roles": [
+			"ผู้โดยสาร",
+			"พนักงานขับรถ",
+			"พนักงานเก็บเงิน",
+			"คนรอรถ",
+			"คนขายของ",
+			"รปภ.",
+			"พนักงานประชาสัมพันธ์"
+		],
+		"imageUrl": "https://r2.spyfall.example.com/locations/bus-stop.webp"
+	},
+	{
+		"id": "loc-046",
+		"nameTh": "สถานีรถไฟฟ้า MRT",
+		"difficulty": "medium",
+		"roles": [
+			"ผู้โดยสาร",
+			"พนักงานขายตั๋ว",
+			"รปภ.",
+			"พนักงานควบคุมรถไฟ",
+			"ช่างซ่อมบำรุง",
+			"พนักงานทำความสะอาด",
+			"พนักงานประชาสัมพันธ์"
+		],
+		"imageUrl": "https://r2.spyfall.example.com/locations/mrt-station.webp"
+	},
+	{
+		"id": "loc-047",
+		"nameTh": "สถานีขนส่ง",
+		"difficulty": "medium",
+		"roles": [
+			"ผู้โดยสาร",
+			"พนักงานขายตั๋ว",
+			"พนักงานขับรถ",
+			"คนขายอาหาร",
+			"แบกหาม",
+			"รปภ.",
+			"พนักงานประกาศ"
+		],
+		"imageUrl": "https://r2.spyfall.example.com/locations/bus-terminal.webp"
+	},
+	{
+		"id": "loc-048",
+		"nameTh": "สะพานลอย",
+		"difficulty": "easy",
+		"roles": [
+			"คนข้ามสะพาน",
+			"คนขายของ",
+			"นักเรียน",
+			"พนักงานบริษัท",
+			"คนเร่ร่อน",
+			"นักดนตรีข้างถนน",
+			"รปภ."
+		],
+		"imageUrl": "https://r2.spyfall.example.com/locations/footbridge.webp"
+	},
+	{
+		"id": "loc-049",
+		"nameTh": "ปั๊มแท็กซี่",
+		"difficulty": "easy",
+		"roles": [
+			"คนขับแท็กซี่",
+			"ผู้โดยสาร",
+			"คนรอแท็กซี่",
+			"เจ้าหน้าที่จัดแถว",
+			"รปภ.",
+			"คนขายน้ำ",
+			"คนเรียกแท็กซี่"
+		],
+		"imageUrl": "https://r2.spyfall.example.com/locations/taxi-stand.webp"
+	},
+	{
+		"id": "loc-050",
+		"nameTh": "ที่จอดรถ",
+		"difficulty": "easy",
+		"roles": [
+			"เจ้าหน้าที่จอดรถ",
+			"เจ้าของรถ",
+			"รปภ.",
+			"คนล้างรถ",
+			"พนักงานเก็บเงิน",
+			"ช่างซ่อมรถ",
+			"คนขายของ"
+		],
+		"imageUrl": "https://r2.spyfall.example.com/locations/parking-lot.webp"
+	},
+	{
+		"id": "loc-051",
+		"nameTh": "สนามบินภูมิภาค",
+		"difficulty": "medium",
+		"roles": [
+			"นักบิน",
+			"ผู้โดยสาร",
+			"เจ้าหน้าที่เช็คอิน",
+			"รปภ.",
+			"คนขายของ",
+			"พนักงานภาคพื้น",
+			"เจ้าหน้าที่ควบคุมจราจรทางอากาศ"
+		],
+		"imageUrl": "https://r2.spyfall.example.com/locations/regional-airport.webp"
+	},
+	{
+		"id": "loc-052",
+		"nameTh": "อู่ซ่อมรถ",
+		"difficulty": "medium",
+		"roles": [
+			"ช่างซ่อมรถ",
+			"เจ้าของรถ",
+			"เจ้าของอู่",
+			"พนักงานต้อนรับ",
+			"ช่างพ่นสี",
+			"ช่างไฟฟ้า",
+			"คนล้างรถ"
+		],
+		"imageUrl": "https://r2.spyfall.example.com/locations/auto-repair-shop.webp"
+	},
+	{
+		"id": "loc-053",
+		"nameTh": "ศูนย์บริการรถยนต์",
+		"difficulty": "medium",
+		"roles": [
+			"ช่างเทคนิค",
+			"ลูกค้า",
+			"พนักงานต้อนรับ",
+			"ผู้จัดการ",
+			"พนักงานอะไหล่",
+			"คนล้างรถ",
+			"รปภ."
+		],
+		"imageUrl": "https://r2.spyfall.example.com/locations/car-service-center.webp"
+	},
+	{
+		"id": "loc-054",
+		"nameTh": "สถานีวิทยุจราจร",
+		"difficulty": "medium",
+		"roles": [
+			"ดีเจ",
+			"ผู้สื่อข่าว",
+			"ช่างเทคนิค",
+			"ผู้ผลิตรายการ",
+			"พนักงานรับโทรศัพท์",
+			"เจ้าของสถานี",
+			"ผู้สนับสนุน"
+		],
+		"imageUrl": "https://r2.spyfall.example.com/locations/traffic-radio-station.webp"
+	},
+	{
+		"id": "loc-055",
+		"nameTh": "ท่าอากาศยานเอกชน",
+		"difficulty": "medium",
+		"roles": [
+			"นักบิน",
+			"เจ้าของเครื่องบิน",
+			"เจ้าหน้าที่ภาคพื้น",
+			"รปภ.",
+			"ช่างซ่อมบำรุง",
+			"พนักงานต้อนรับ",
+			"เจ้าหน้าที่ศุลกากร"
+		],
+		"imageUrl": "https://r2.spyfall.example.com/locations/private-airport.webp"
+	},
+	{
+		"id": "loc-056",
+		"nameTh": "ท่าเทียบเรือข้ามฟาก",
+		"difficulty": "medium",
+		"roles": [
+			"คนขับเรือ",
+			"ผู้โดยสาร",
+			"คนเก็บค่าโดยสาร",
+			"คนขายของ",
+			"ยาม",
+			"คนผูกเรือ",
+			"พนักงานประชาสัมพันธ์"
+		],
+		"imageUrl": "https://r2.spyfall.example.com/locations/ferry-pier.webp"
+	},
+	{
+		"id": "loc-057",
+		"nameTh": "สถานีตำรวจทางหลวง",
+		"difficulty": "medium",
+		"roles": [
+			"ตำรวจ",
+			"ผู้กระทำผิด",
+			"เจ้าหน้าที่ธุรการ",
+			"คนมาแจ้งความ",
+			"ผู้ต้องหา",
+			"ทนายความ",
+			"ผู้ช่วยเจ้าหน้าที่"
+		],
+		"imageUrl": "https://r2.spyfall.example.com/locations/highway-police-station.webp"
+	},
+	{
+		"id": "loc-058",
+		"nameTh": "ด่านศุลกากร",
+		"difficulty": "medium",
+		"roles": [
+			"เจ้าหน้าที่ศุลกากร",
+			"นักท่องเที่ยว",
+			"พ่อค้า",
+			"รปภ.",
+			"เจ้าหน้าที่ตรวจค้น",
+			"พนักงานธุรการ",
+			"นายหน้า"
+		],
+		"imageUrl": "https://r2.spyfall.example.com/locations/customs-checkpoint.webp"
+	},
+	{
+		"id": "loc-059",
+		"nameTh": "จุดบริการนักท่องเที่ยว",
+		"difficulty": "easy",
+		"roles": [
+			"เจ้าหน้าที่ให้ข้อมูล",
+			"นักท่องเที่ยว",
+			"ไกด์",
+			"พนักงานขายแผนที่",
+			"ล่าม",
+			"พนักงานจองทัวร์",
+			"รปภ."
+		],
+		"imageUrl": "https://r2.spyfall.example.com/locations/tourist-information-center.webp"
+	},
+	{
+		"id": "loc-060",
+		"nameTh": "ท่าจอดเรือท่องเที่ยว",
+		"difficulty": "medium",
+		"roles": [
+			"กัปตันเรือ",
+			"ลูกเรือ",
+			"นักท่องเที่ยว",
+			"ไกด์นำเที่ยว",
+			"พนักงานขายตั๋ว",
+			"คนขายของที่ระลึก",
+			"รปภ."
+		],
+		"imageUrl": "https://r2.spyfall.example.com/locations/tourist-boat-pier.webp"
+	},
+	{
+		"id": "loc-061",
+		"nameTh": "ห้างสรรพสินค้า",
+		"difficulty": "easy",
+		"roles": [
+			"พนักงานขาย",
+			"ลูกค้า",
+			"รปภ.",
+			"พนักงานทำความสะอาด",
+			"พนักงานประชาสัมพันธ์",
+			"เจ้าหน้าที่ประจำชั้น",
+			"คนจอดรถ"
+		],
+		"imageUrl": "https://r2.spyfall.example.com/locations/shopping-mall.webp"
+	},
+	{
+		"id": "loc-062",
+		"nameTh": "โรงหนัง",
+		"difficulty": "easy",
+		"roles": [
+			"พนักงานขายตั๋ว",
+			"ผู้ชม",
+			"พนักงานขายขนม",
+			"เด็กฉีกตั๋ว",
+			"พนักงานทำความสะอาด",
+			"ช่างโปรเจกเตอร์",
+			"ผู้จัดการโรงหนัง"
+		],
+		"imageUrl": "https://r2.spyfall.example.com/locations/cinema.webp"
+	},
+	{
+		"id": "loc-063",
+		"nameTh": "คาราโอเกะ",
+		"difficulty": "easy",
+		"roles": [
+			"ลูกค้า",
+			"พนักงานเสิร์ฟ",
+			"แคชเชียร์",
+			"ช่างเทคนิค",
+			"พนักงานต้อนรับ",
+			"แม่บ้าน",
+			"ดีเจ"
+		],
+		"imageUrl": "https://r2.spyfall.example.com/locations/karaoke.webp"
+	},
+	{
+		"id": "loc-064",
+		"nameTh": "ร้านเกมส์",
+		"difficulty": "easy",
+		"roles": [
+			"เจ้าของร้าน",
+			"ลูกค้า",
+			"แคชเชียร์",
+			"ช่างซ่อมคอม",
+			"พนักงานเสิร์ฟอาหาร",
+			"นักเล่นเกมส์มืออาชีพ",
+			"พนักงานทำความสะอาด"
+		],
+		"imageUrl": "https://r2.spyfall.example.com/locations/game-center/internet-cafe.webp"
+	},
+	{
+		"id": "loc-065",
+		"nameTh": "สนามฟุตบอล",
+		"difficulty": "easy",
+		"roles": [
+			"นักฟุตบอล",
+			"กรรมการ",
+			"ผู้ชม",
+			"โค้ช",
+			"คนขายของ",
+			"นักข่าวกีฬา",
+			"รปภ."
+		],
+		"imageUrl": "https://r2.spyfall.example.com/locations/football-stadium.webp"
+	},
+	{
+		"id": "loc-066",
+		"nameTh": "คอนเสิร์ต",
+		"difficulty": "easy",
+		"roles": [
+			"นักร้อง",
+			"ผู้ชม",
+			"ช่างเสียง",
+			"ช่างแสง",
+			"รปภ.",
+			"คนขายของที่ระลึก",
+			"เวทีแมนเนเจอร์"
+		],
+		"imageUrl": "https://r2.spyfall.example.com/locations/concert-venue.webp"
+	},
+	{
+		"id": "loc-067",
+		"nameTh": "ผับ",
+		"difficulty": "easy",
+		"roles": [
+			"บาร์เทนเดอร์",
+			"ลูกค้า",
+			"พนักงานเสิร์ฟ",
+			"ดีเจ",
+			"รปภ.",
+			"แคชเชียร์",
+			"เจ้าของร้าน"
+		],
+		"imageUrl": "https://r2.spyfall.example.com/locations/pub.webp"
+	},
+	{
+		"id": "loc-068",
+		"nameTh": "บาร์",
+		"difficulty": "easy",
+		"roles": [
+			"บาร์เทนเดอร์",
+			"ลูกค้า",
+			"พนักงานเสิร์ฟ",
+			"นักดนตรี",
+			"รปภ.",
+			"แคชเชียร์",
+			"ผู้จัดการ"
+		],
+		"imageUrl": "https://r2.spyfall.example.com/locations/bar.webp"
+	},
+	{
+		"id": "loc-069",
+		"nameTh": "ไนท์คลับ",
+		"difficulty": "easy",
+		"roles": [
+			"ดีเจ",
+			"ลูกค้า",
+			"บาร์เทนเดอร์",
+			"รปภ.",
+			"พนักงานเสิร์ฟ",
+			"นักเต้น",
+			"ผู้จัดการ"
+		],
+		"imageUrl": "https://r2.spyfall.example.com/locations/night-club.webp"
+	},
+	{
+		"id": "loc-070",
+		"nameTh": "ร้านนวด",
+		"difficulty": "easy",
+		"roles": [
+			"หมอนวด",
+			"ลูกค้า",
+			"พนักงานต้อนรับ",
+			"แคชเชียร์",
+			"เจ้าของร้าน",
+			"พนักงานซักผ้า",
+			"แม่บ้าน"
+		],
+		"imageUrl": "https://r2.spyfall.example.com/locations/massage-parlor.webp"
+	},
+	{
+		"id": "loc-071",
+		"nameTh": "สปา",
+		"difficulty": "easy",
+		"roles": [
+			"นักบำบัดสปา",
+			"ลูกค้า",
+			"พนักงานต้อนรับ",
+			"เจ้าของสปา",
+			"พนักงานดูแลความสะอาด",
+			"ช่างทำเล็บ",
+			"เภสัชกร"
+		],
+		"imageUrl": "https://r2.spyfall.example.com/locations/spa.webp"
+	},
+	{
+		"id": "loc-072",
+		"nameTh": "ฟิตเนส",
+		"difficulty": "easy",
+		"roles": [
+			"เทรนเนอร์",
+			"สมาชิก",
+			"พนักงานต้อนรับ",
+			"พนักงานทำความสะอาด",
+			"ครูโยคะ",
+			"นักกล้าม",
+			"ผู้จัดการ"
+		],
+		"imageUrl": "https://r2.spyfall.example.com/locations/fitness-center.webp"
+	},
+	{
+		"id": "loc-073",
+		"nameTh": "สระว่ายน้ำ",
+		"difficulty": "easy",
+		"roles": [
+			"ไลฟ์การ์ด",
+			"คนว่ายน้ำ",
+			"โค้ช",
+			"พนักงานขายตั๋ว",
+			"พนักงานทำความสะอาด",
+			"นักกีฬาว่ายน้ำ",
+			"ผู้ปกครองเด็ก"
+		],
+		"imageUrl": "https://r2.spyfall.example.com/locations/swimming-pool.webp"
+	},
+	{
+		"id": "loc-074",
+		"nameTh": "โบว์ลิ่ง",
+		"difficulty": "easy",
+		"roles": [
+			"ผู้เล่น",
+			"พนักงานเช่ารองเท้า",
+			"แคชเชียร์",
+			"ช่างซ่อม",
+			"พนักงานเสิร์ฟอาหาร",
+			"นักโบว์ลิ่งมืออาชีพ",
+			"ผู้จัดการ"
+		],
+		"imageUrl": "https://r2.spyfall.example.com/locations/bowling-alley.webp"
+	},
+	{
+		"id": "loc-075",
+		"nameTh": "สนุ๊กเกอร์",
+		"difficulty": "easy",
+		"roles": [
+			"ผู้เล่น",
+			"แคชเชียร์",
+			"พนักงานเสิร์ฟ",
+			"เจ้าของร้าน",
+			"ช่างซ่อมโต๊ะ",
+			"กรรมการ",
+			"นักสนุ๊กเกอร์มืออาชีพ"
+		],
+		"imageUrl": "https://r2.spyfall.example.com/locations/snooker-club.webp"
+	},
+	{
+		"id": "loc-076",
+		"nameTh": "ร้านหนังสือ",
+		"difficulty": "easy",
+		"roles": [
+			"พนักงานขาย",
+			"ลูกค้า",
+			"แคชเชียร์",
+			"พนักงานจัดหนังสือ",
+			"เจ้าของร้าน",
+			"คนมานั่งอ่าน",
+			"นักเขียน"
+		],
+		"imageUrl": "https://r2.spyfall.example.com/locations/bookstore.webp"
+	},
+	{
+		"id": "loc-077",
+		"nameTh": "ร้านเสื้อผ้า",
+		"difficulty": "easy",
+		"roles": [
+			"พนักงานขาย",
+			"ลูกค้า",
+			"แคชเชียร์",
+			"ผู้จัดการ",
+			"พนักงานจัดสินค้า",
+			"นายแบบ/นางแบบ",
+			"ช่างตัดแต่ง"
+		],
+		"imageUrl": "https://r2.spyfall.example.com/locations/clothing-store.webp"
+	},
+	{
+		"id": "loc-078",
+		"nameTh": "ร้านรองเท้า",
+		"difficulty": "easy",
+		"roles": [
+			"พนักงานขาย",
+			"ลูกค้า",
+			"แคชเชียร์",
+			"พนักงานคลังสินค้า",
+			"ผู้จัดการ",
+			"ช่างซ่อมรองเท้า",
+			"พนักงานวัดไซส์เท้า"
+		],
+		"imageUrl": "https://r2.spyfall.example.com/locations/shoe-store.webp"
+	},
+	{
+		"id": "loc-079",
+		"nameTh": "ตลาดนัดรถไฟ",
+		"difficulty": "easy",
+		"roles": [
+			"แม่ค้า",
+			"ลูกค้า",
+			"นักท่องเที่ยว",
+			"คนขายของเก่า",
+			"คนขายอาหาร",
+			"ช่างภาพ",
+			"นักสะสมของเก่า"
+		],
+		"imageUrl": "https://r2.spyfall.example.com/locations/train-market/rod-fai-market.webp"
+	},
+	{
+		"id": "loc-080",
+		"nameTh": "ห้องหนีภัย",
+		"difficulty": "easy",
+		"roles": [
+			"ผู้เล่น",
+			"เกมมาสเตอร์",
+			"เจ้าของร้าน",
+			"ช่างเทคนิค",
+			"พนักงานต้อนรับ",
+			"นักออกแบบเกม",
+			"คนถ่ายวิดีโอ"
+		],
+		"imageUrl": "https://r2.spyfall.example.com/locations/escape-room.webp"
+	},
+	{
+		"id": "loc-081",
+		"nameTh": "สถานีตำรวจ",
+		"difficulty": "medium",
+		"roles": [
+			"ตำรวจ",
+			"ผู้ต้องหา",
+			"ผู้เสียหาย",
+			"ทนายความ",
+			"เจ้าหน้าที่ธุรการ",
+			"นักสืบ",
+			"ผู้บัญชาการ"
+		],
+		"imageUrl": "https://r2.spyfall.example.com/locations/police-station.webp"
+	},
+	{
+		"id": "loc-082",
+		"nameTh": "โรงงาน",
+		"difficulty": "medium",
+		"roles": [
+			"คนงาน",
+			"หัวหน้างาน",
+			"วิศวกร",
+			"เจ้าของโรงงาน",
+			"เจ้าหน้าที่ QC",
+			"ช่างซ่อม",
+			"พนักงานคลัง"
+		],
+		"imageUrl": "https://r2.spyfall.example.com/locations/factory.webp"
+	},
+	{
+		"id": "loc-083",
+		"nameTh": "สตูดิโอบันเทิง",
+		"difficulty": "medium",
+		"roles": [
+			"นักแสดง",
+			"ผู้กำกับ",
+			"ช่างกล้อง",
+			"ช่างแต่งหน้า",
+			"ผู้ผลิต",
+			"ช่างแสง",
+			"ช่างเสียง"
+		],
+		"imageUrl": "https://r2.spyfall.example.com/locations/entertainment-studio.webp"
+	},
+	{
+		"id": "loc-084",
+		"nameTh": "โกดังสินค้า",
+		"difficulty": "medium",
+		"roles": [
+			"พนักงานคลัง",
+			"หัวหน้าคลัง",
+			"พนักงานขับรถโฟล์คลิฟท์",
+			"เจ้าหน้าที่เช็คสต็อก",
+			"ผู้จัดการคลัง",
+			"คนขนของ",
+			"รปภ."
+		],
+		"imageUrl": "https://r2.spyfall.example.com/locations/warehouse.webp"
+	},
+	{
+		"id": "loc-085",
+		"nameTh": "ท่าเรือพาณิชย์",
+		"difficulty": "medium",
+		"roles": [
+			"กะลาสี",
+			"กัปตันเรือ",
+			"เจ้าหน้าที่ศุลกากร",
+			"คนขนสินค้า",
+			"ช่างเครน",
+			"เจ้าหน้าที่ท่าเรือ",
+			"นายหน้าขนส่ง"
+		],
+		"imageUrl": "https://r2.spyfall.example.com/locations/commercial-port.webp"
+	},
+	{
+		"id": "loc-086",
+		"nameTh": "คลินิก",
+		"difficulty": "medium",
+		"roles": [
+			"หมอ",
+			"พยาบาล",
+			"คนไข้",
+			"เภสัชกร",
+			"พนักงานต้อนรับ",
+			"แคชเชียร์",
+			"ผู้ช่วยแพทย์"
+		],
+		"imageUrl": "https://r2.spyfall.example.com/locations/clinic.webp"
+	},
+	{
+		"id": "loc-087",
+		"nameTh": "โรงแรม",
+		"difficulty": "medium",
+		"roles": [
+			"พนักงานต้อนรับ",
+			"แขกพัก",
+			"แม่บ้าน",
+			"พนักงานยกกระเป๋า",
+			"ผู้จัดการโรงแรม",
+			"พนักงานห้องอาหาร",
+			"รปภ."
+		],
+		"imageUrl": "https://r2.spyfall.example.com/locations/hotel.webp"
+	},
+	{
+		"id": "loc-088",
+		"nameTh": "รีสอร์ท",
+		"difficulty": "medium",
+		"roles": [
+			"แขกพัก",
+			"พนักงานต้อนรับ",
+			"แม่บ้าน",
+			"ไลฟ์การ์ด",
+			"พนักงานสปา",
+			"พ่อครัว",
+			"ไกด์ทัวร์"
+		],
+		"imageUrl": "https://r2.spyfall.example.com/locations/resort.webp"
+	},
+	{
+		"id": "loc-089",
+		"nameTh": "ศาลา",
+		"difficulty": "easy",
+		"roles": [
+			"ผู้ใหญ่บ้าน",
+			"ชาวบ้าน",
+			"พระ",
+			"คนมาทำบุญ",
+			"เจ้าหน้าที่รักษาความสะอาด",
+			"ครูสอนธรรม",
+			"คนจัดงาน"
+		],
+		"imageUrl": "https://r2.spyfall.example.com/locations/pavilion/community-hall.webp"
+	},
+	{
+		"id": "loc-090",
+		"nameTh": "สำนักงานใหญ่บริษัท",
+		"difficulty": "medium",
+		"roles": [
+			"ซีอีโอ",
+			"พนักงานบริษัท",
+			"เลขานุการ",
+			"รปภ.",
+			"พนักงานต้อนรับ",
+			"ฝ่ายบุคคล",
+			"ผู้จัดการแผนก"
+		],
+		"imageUrl": "https://r2.spyfall.example.com/locations/corporate-headquarters.webp"
+	},
+	{
+		"id": "loc-091",
+		"nameTh": "มหาวิทยาลัย",
+		"difficulty": "medium",
+		"roles": [
+			"นักศึกษา",
+			"อาจารย์",
+			"อธิการบดี",
+			"บรรณารักษ์",
+			"รปภ.",
+			"เจ้าหน้าที่ทะเบียน",
+			"นักวิจัย"
+		],
+		"imageUrl": "https://r2.spyfall.example.com/locations/university.webp"
+	},
+	{
+		"id": "loc-092",
+		"nameTh": "ห้องแล็บ",
+		"difficulty": "medium",
+		"roles": [
+			"นักวิทยาศาสตร์",
+			"ผู้ช่วยนักวิจัย",
+			"ช่างเทคนิค",
+			"หัวหน้าห้องแล็บ",
+			"นักศึกษาฝึกงาน",
+			"เจ้าหน้าที่ความปลอดภัย",
+			"พนักงานทำความสะอาด"
+		],
+		"imageUrl": "https://r2.spyfall.example.com/locations/laboratory.webp"
+	},
+	{
+		"id": "loc-093",
+		"nameTh": "คอนโด",
+		"difficulty": "medium",
+		"roles": [
+			"เจ้าของห้อง",
+			"ผู้เช่า",
+			"นิติบุคคล",
+			"รปภ.",
+			"แม่บ้าน",
+			"ช่างซ่อม",
+			"พนักงานต้อนรับ"
+		],
+		"imageUrl": "https://r2.spyfall.example.com/locations/condominium.webp"
+	},
+	{
+		"id": "loc-094",
+		"nameTh": "บ้านเดี่ยว",
+		"difficulty": "easy",
+		"roles": [
+			"เจ้าของบ้าน",
+			"แม่บ้าน",
+			"สมาชิกในครอบครัว",
+			"คนสวน",
+			"ช่างซ่อม",
+			"รปภ.",
+			"พี่เลี้ยงเด็ก"
+		],
+		"imageUrl": "https://r2.spyfall.example.com/locations/house.webp"
+	},
+	{
+		"id": "loc-095",
+		"nameTh": "หอพัก",
+		"difficulty": "medium",
+		"roles": [
+			"นักศึกษา",
+			"แม่หอ",
+			"รปภ.",
+			"แม่บ้าน",
+			"เจ้าของหอพัก",
+			"พนักงานซักรีด",
+			"ช่างซ่อม"
+		],
+		"imageUrl": "https://r2.spyfall.example.com/locations/dormitory.webp"
+	},
+	{
+		"id": "loc-096",
+		"nameTh": "ฟาร์ม",
+		"difficulty": "medium",
+		"roles": [
+			"เกษตรกร",
+			"ลูกจ้าง",
+			"สัตวแพทย์",
+			"พ่อค้ารับซื้อ",
+			"ช่างเครื่องจักร",
+			"เจ้าของฟาร์ม",
+			"คนเลี้ยงสัตว์"
+		],
+		"imageUrl": "https://r2.spyfall.example.com/locations/farm.webp"
+	},
+	{
+		"id": "loc-097",
+		"nameTh": "ทุ่งนา",
+		"difficulty": "medium",
+		"roles": [
+			"ชาวนา",
+			"ลูกจ้างไถนา",
+			"คนเกี่ยวข้าว",
+			"พ่อค้ารับซื้อข้าว",
+			"ช่างรถไถ",
+			"เจ้าของที่ดิน",
+			"คนดูนา"
+		],
+		"imageUrl": "https://r2.spyfall.example.com/locations/rice-field.webp"
+	},
+	{
+		"id": "loc-098",
+		"nameTh": "ตลาดประมูลปลา",
+		"difficulty": "medium",
+		"roles": [
+			"ชาวประมง",
+			"พ่อค้าปลา",
+			"ผู้ประมูล",
+			"คนแบกปลา",
+			"ผู้ซื้อปลา",
+			"เจ้าหน้าที่ตลาด",
+			"คนแกะปลา"
+		],
+		"imageUrl": "https://r2.spyfall.example.com/locations/fish-auction-market.webp"
+	},
+	{
+		"id": "loc-099",
+		"nameTh": "โรงฆ่าสัตว์",
+		"difficulty": "medium",
+		"roles": [
+			"พนักงานโรงฆ่าสัตว์",
+			"สัตวแพทย์",
+			"หัวหน้างาน",
+			"เจ้าหน้าที่ตรวจสอบสุขอนามัย",
+			"พ่อค้ารับซื้อเนื้อ",
+			"คนขับรถส่งของ",
+			"ผู้จัดการโรงฆ่าสัตว์"
+		],
+		"imageUrl": "https://r2.spyfall.example.com/locations/slaughterhouse.webp"
+	},
+	{
+		"id": "loc-100",
+		"nameTh": "ศูนย์กระจายสินค้า",
+		"difficulty": "medium",
+		"roles": [
+			"พนักงานคลัง",
+			"หัวหน้าศูนย์กระจายสินค้า",
+			"พนักงานขับรถส่งของ",
+			"เจ้าหน้าที่เช็คสต็อก",
+			"พนักงานแพ็คสินค้า",
+			"คนขับโฟล์คลิฟท์",
+			"รปภ."
+		],
+		"imageUrl": "https://r2.spyfall.example.com/locations/distribution-center.webp"
 	}
 ]
