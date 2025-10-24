@@ -176,7 +176,6 @@ export default function RoomPage() {
   const handleRoomState = (payload: { players: Player[]; hostId: string; phase: string }) => {
     setPlayers(payload.players);
     setHostId(payload.hostId);
-
     // If game was reset to lobby, clear game state
     if (payload.phase === 'lobby' && gamePhase !== 'lobby') {
       console.log('[Room] Game reset detected, returning to lobby');

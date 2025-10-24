@@ -432,7 +432,9 @@ export class GameRoom {
         // If room is in results phase and player is reconnecting, reset them to lobby
         let phaseToSend = this.room.phase;
         if (this.room.phase === 'results') {
-          console.log(`[GameRoom] Player ${joiningPlayerId} reconnecting during results, sending lobby state`);
+          console.log(
+            `[GameRoom] Player ${joiningPlayerId} reconnecting during results, sending lobby state`
+          );
           phaseToSend = 'lobby';
         }
 
