@@ -143,6 +143,15 @@ export class GameRoom {
             const newPlayer = new Player(playerId, uniqueName, this.room!.code, false);
             this.players.set(playerId, newPlayer);
             this.room!.addPlayer(playerId);
+          } else {
+            // Update existing player's name if it changed
+            const existingPlayer = this.players.get(playerId)!;
+            if (existingPlayer.name !== uniqueName) {
+              console.log(
+                `[GameRoom] Updating player name: ${existingPlayer.name} -> ${uniqueName}`
+              );
+              existingPlayer.name = uniqueName;
+            }
           }
 
           // Store connection
@@ -182,6 +191,13 @@ export class GameRoom {
 
           // Broadcast to OTHER players
           if (playerId) {
+            console.log(
+              `[GameRoom] Broadcasting ${isReconnecting ? 'PLAYER_RECONNECTED' : 'PLAYER_JOINED'} for ${playerId} to other players`
+            );
+            console.log(
+              `[GameRoom] Current connections: ${Array.from(this.connections.keys()).join(', ')}`
+            );
+
             if (isReconnecting) {
               // Notify others this player reconnected
               this.broadcastToOthers(playerId, {
@@ -210,30 +226,53 @@ export class GameRoom {
           if (playerId) {
             const player = this.players.get(playerId);
             if (player) {
-              console.log(`[GameRoom] Received PING from ${playerId} (${player.name})`);
               player.updateActivity();
               player.updateConnectionStatus('connected');
 
-              // Broadcast player is active to all others
-              this.broadcastToOthers(playerId, {
-                type: 'PLAYER_RECONNECTED',
-                payload: { playerId },
+              // Send back full room state to keep client synchronized
+              const roomState = {
+                type: 'ROOM_STATE',
+                payload: {
+                  players: Array.from(this.players.values()).map((p) => p.toJSON()),
+                  hostId: this.room!.hostPlayerId,
+                  phase: this.room!.phase,
+                },
                 timestamp: Date.now(),
-              });
+              };
+
+              try {
+                ws.send(JSON.stringify(roomState));
+                console.log(`[GameRoom] Sent ROOM_STATE to ${playerId} in response to PING`);
+              } catch (error) {
+                console.error(`[GameRoom] Failed to send ROOM_STATE to ${playerId}:`, error);
+              }
+            } else {
+              console.error(`[GameRoom] PING from unknown player: ${playerId}`);
             }
+          } else {
+            console.error(`[GameRoom] PING received but playerId is null`);
           }
         }
 
         if (message.type === 'KICK') {
           if (playerId) {
-            const kicker = this.players.get(playerId);
             const targetPlayerId = (message.payload as any).targetPlayerId;
 
-            // Only host can kick
-            if (kicker?.isHost && targetPlayerId && targetPlayerId !== playerId) {
+            // Only host can kick (and can't kick themselves OR the current host)
+            if (
+              playerId === this.room?.hostPlayerId &&
+              targetPlayerId &&
+              targetPlayerId !== playerId
+            ) {
+              const targetPlayer = this.players.get(targetPlayerId);
               const targetWs = this.connections.get(targetPlayerId);
 
-              if (targetWs) {
+              // Safety check: Don't allow kicking the host
+              if (targetPlayer && targetPlayerId !== this.room?.hostPlayerId && targetWs) {
+                console.log(
+                  `[GameRoom] Host ${playerId} kicking player ${targetPlayerId} (${targetPlayer.name})`
+                );
+
                 // Send KICKED message to target player
                 targetWs.send(
                   JSON.stringify({
@@ -243,14 +282,19 @@ export class GameRoom {
                   })
                 );
 
-                // Force disconnect
-                this.handleDisconnect(targetPlayerId);
+                // Clear any disconnect timers for this player
+                const timer = this.disconnectTimers.get(targetPlayerId);
+                if (timer) {
+                  clearTimeout(timer);
+                  this.disconnectTimers.delete(targetPlayerId);
+                }
 
-                // Immediately remove (no 2-min grace period for kicked players)
+                // Remove from connections and players
+                this.connections.delete(targetPlayerId);
                 this.players.delete(targetPlayerId);
                 this.room?.removePlayer(targetPlayerId);
 
-                // Broadcast removal
+                // Broadcast removal to all remaining players
                 this.broadcast({
                   type: 'PLAYER_LEFT',
                   payload: { playerId: targetPlayerId },
@@ -258,6 +302,8 @@ export class GameRoom {
                 });
 
                 await this.saveState();
+              } else {
+                console.log(`[GameRoom] KICK BLOCKED: Cannot kick host or non-existent player`);
               }
             }
           }
@@ -275,13 +321,14 @@ export class GameRoom {
     });
 
     ws.addEventListener('close', () => {
+      console.log(`[GameRoom] WebSocket closed for player: ${playerId}`);
       if (playerId) {
         this.handleDisconnect(playerId);
       }
     });
 
     ws.addEventListener('error', (error) => {
-      console.error('WebSocket error:', error);
+      console.error(`[GameRoom] WebSocket error for player ${playerId}:`, error);
       if (playerId) {
         this.handleDisconnect(playerId);
       }
@@ -296,16 +343,16 @@ export class GameRoom {
 
     player.updateConnectionStatus('disconnected');
 
-    // IMPORTANT: Broadcast BEFORE deleting connection
-    // so other players receive the message
+    // IMPORTANT: Remove connection FIRST to avoid sending to closed socket
+    this.connections.delete(playerId);
+
+    // Then broadcast to remaining active connections
+    console.log(`[GameRoom] Broadcasting PLAYER_DISCONNECTED to ${this.connections.size} players`);
     this.broadcast({
       type: 'PLAYER_DISCONNECTED',
       payload: { playerId },
       timestamp: Date.now(),
     });
-
-    // Now remove the connection
-    this.connections.delete(playerId);
 
     this.saveState();
 
@@ -334,26 +381,55 @@ export class GameRoom {
 
   private broadcast(message: WebSocketMessage) {
     const messageStr = JSON.stringify(message);
+    console.log(`[GameRoom] Broadcasting ${message.type} to ${this.connections.size} connections`);
+
+    let successCount = 0;
+    let failCount = 0;
+
     for (const [playerId, ws] of this.connections) {
       try {
         ws.send(messageStr);
+        successCount++;
+        console.log(`[GameRoom] ✓ Sent ${message.type} to ${playerId}`);
       } catch (error) {
-        console.error(`Failed to send message to player ${playerId}:`, error);
+        failCount++;
+        console.error(`[GameRoom] ✗ Failed to send ${message.type} to player ${playerId}:`, error);
       }
     }
+
+    console.log(`[GameRoom] Broadcast complete: ${successCount} success, ${failCount} failed`);
   }
 
   private broadcastToOthers(excludePlayerId: string, message: WebSocketMessage) {
     const messageStr = JSON.stringify(message);
+    let sentCount = 0;
+    let skippedCount = 0;
+
+    console.log(
+      `[GameRoom] broadcastToOthers: Excluding ${excludePlayerId}, total connections: ${this.connections.size}`
+    );
+
     for (const [playerId, ws] of this.connections) {
       if (playerId !== excludePlayerId) {
         try {
           ws.send(messageStr);
+          sentCount++;
+          console.log(`[GameRoom] ✓ Sent ${message.type} to ${playerId}`);
         } catch (error) {
-          console.error(`Failed to send message to player ${playerId}:`, error);
+          console.error(
+            `[GameRoom] ✗ Failed to send ${message.type} to player ${playerId}:`,
+            error
+          );
         }
+      } else {
+        skippedCount++;
+        console.log(`[GameRoom] ⊘ Skipped ${playerId} (excluded)`);
       }
     }
+
+    console.log(
+      `[GameRoom] broadcastToOthers complete: ${sentCount} sent, ${skippedCount} skipped`
+    );
   }
 
   private async saveState() {

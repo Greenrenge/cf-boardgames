@@ -15,6 +15,7 @@ export default function RoomPage() {
   const [players, setPlayers] = useState<Player[]>([]);
   const [hostId, setHostId] = useState<string>('');
   const [currentPlayerId, setCurrentPlayerId] = useState<string>('');
+  const [currentPlayerName, setCurrentPlayerName] = useState<string>('');
   const [isConnected, setIsConnected] = useState(false);
   const [isStarting, setIsStarting] = useState(false);
   const [error, setError] = useState<string | null>(null);
@@ -64,6 +65,7 @@ export default function RoomPage() {
     }
 
     setCurrentPlayerId(session.playerId);
+    setCurrentPlayerName(session.playerName);
 
     // Connect to WebSocket
     const wsUrl = `${process.env.NEXT_PUBLIC_WS_URL || 'ws://localhost:8787'}/api/ws/${roomCode}`;
@@ -99,7 +101,7 @@ export default function RoomPage() {
   }, [roomCode]);
 
   const handleRoomState = (payload: { players: Player[]; hostId: string; phase: string }) => {
-    console.log('[Room] Received room state:', payload);
+    // Update with latest room state (received on join and every PING response)
     setPlayers(payload.players);
     setHostId(payload.hostId);
   };
@@ -214,8 +216,38 @@ export default function RoomPage() {
     );
   }
 
+  const handleBackToHome = () => {
+    // Disconnect WebSocket before leaving
+    wsRef.current?.disconnect();
+    router.push('/');
+  };
+
   return (
     <div className="min-h-screen bg-gradient-to-br from-blue-50 to-purple-50 py-8 px-4">
+      {/* Header with back button and current player info */}
+      <div className="max-w-2xl mx-auto mb-6">
+        <div className="flex items-center justify-between">
+          <button
+            onClick={handleBackToHome}
+            className="flex items-center space-x-2 px-4 py-2 text-gray-700 bg-white rounded-lg shadow-sm hover:bg-gray-50 transition-colors"
+          >
+            <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth={2}
+                d="M10 19l-7-7m0 0l7-7m-7 7h18"
+              />
+            </svg>
+            <span>กลับ</span>
+          </button>
+          <div className="flex items-center space-x-2 px-4 py-2 bg-white rounded-lg shadow-sm">
+            <div className="w-2 h-2 rounded-full bg-green-500" title="คุณออนไลน์"></div>
+            <span className="text-gray-700 font-medium">{currentPlayerName}</span>
+          </div>
+        </div>
+      </div>
+
       {error && (
         <div className="max-w-2xl mx-auto mb-4 p-4 bg-red-50 border border-red-200 rounded-lg">
           <p className="text-red-800">{error}</p>
