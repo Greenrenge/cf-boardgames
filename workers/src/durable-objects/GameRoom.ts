@@ -133,7 +133,9 @@ export class GameRoom {
           }
 
           // Add or update player
-          if (!this.players.has(playerId)) {
+          const isReconnecting = this.players.has(playerId);
+
+          if (!isReconnecting) {
             const newPlayer = new Player(playerId, uniqueName, this.room!.code, false);
             this.players.set(playerId, newPlayer);
             this.room!.addPlayer(playerId);
@@ -142,7 +144,7 @@ export class GameRoom {
           // Store connection
           this.connections.set(playerId, ws);
 
-          // Clear disconnect timer if exists
+          // Clear disconnect timer if exists (reconnection case)
           const timer = this.disconnectTimers.get(playerId);
           if (timer) {
             clearTimeout(timer);
@@ -169,13 +171,23 @@ export class GameRoom {
             })
           );
 
-          // Broadcast to OTHER players that this player joined
+          // Broadcast to OTHER players
           if (playerId) {
-            this.broadcastToOthers(playerId, {
-              type: 'PLAYER_JOINED',
-              payload: { player: player.toJSON() },
-              timestamp: Date.now(),
-            });
+            if (isReconnecting) {
+              // Notify others this player reconnected
+              this.broadcastToOthers(playerId, {
+                type: 'PLAYER_RECONNECTED',
+                payload: { playerId },
+                timestamp: Date.now(),
+              });
+            } else {
+              // Notify others this is a new player
+              this.broadcastToOthers(playerId, {
+                type: 'PLAYER_JOINED',
+                payload: { player: player.toJSON() },
+                timestamp: Date.now(),
+              });
+            }
           }
         }
 
@@ -226,6 +238,15 @@ export class GameRoom {
     player.updateConnectionStatus('disconnected');
     this.connections.delete(playerId);
 
+    // Broadcast disconnect status immediately
+    this.broadcast({
+      type: 'PLAYER_DISCONNECTED',
+      payload: { playerId },
+      timestamp: Date.now(),
+    });
+
+    this.saveState();
+
     // Set timer to remove player after 2 minutes
     const timer = setTimeout(
       () => {
@@ -233,6 +254,7 @@ export class GameRoom {
         this.room?.removePlayer(playerId);
         this.disconnectTimers.delete(playerId);
 
+        // Now send PLAYER_LEFT after timeout
         this.broadcast({
           type: 'PLAYER_LEFT',
           payload: { playerId },
@@ -245,13 +267,6 @@ export class GameRoom {
     );
 
     this.disconnectTimers.set(playerId, timer as any);
-
-    // Broadcast disconnect immediately
-    this.broadcast({
-      type: 'PLAYER_LEFT',
-      payload: { playerId },
-      timestamp: Date.now(),
-    });
   }
 
   private broadcast(message: WebSocketMessage) {

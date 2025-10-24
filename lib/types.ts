@@ -88,6 +88,7 @@ export type WebSocketMessageType =
   | 'PONG'
   | 'ROOM_STATE'
   | 'PLAYER_JOINED'
+  | 'PLAYER_DISCONNECTED'
   | 'PLAYER_LEFT'
   | 'GAME_STARTED'
   | 'ROLE_ASSIGNMENT'

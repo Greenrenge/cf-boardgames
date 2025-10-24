@@ -29,6 +29,9 @@ export default function RoomPage() {
       case 'PLAYER_JOINED':
         handlePlayerJoined(message.payload as Player);
         break;
+      case 'PLAYER_DISCONNECTED':
+        handlePlayerDisconnected(message.payload as { playerId: string });
+        break;
       case 'PLAYER_LEFT':
         handlePlayerLeft(message.payload as { playerId: string });
         break;
@@ -112,6 +115,12 @@ export default function RoomPage() {
     if (!hostId && player.isHost) {
       setHostId(player.id);
     }
+  };
+
+  const handlePlayerDisconnected = (payload: { playerId: string }) => {
+    setPlayers((prev) =>
+      prev.map((p) => (p.id === payload.playerId ? { ...p, connectionStatus: 'disconnected' } : p))
+    );
   };
 
   const handlePlayerLeft = (payload: { playerId: string }) => {
