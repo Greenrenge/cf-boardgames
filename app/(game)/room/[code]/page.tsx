@@ -21,6 +21,7 @@ export default function RoomPage() {
   const [error, setError] = useState<string | null>(null);
 
   const wsRef = useRef<WebSocketClient | null>(null);
+  const isConnectingRef = useRef(false); // Prevent duplicate connections
 
   const handleWebSocketMessage = (message: WebSocketMessage) => {
     switch (message.type) {
@@ -57,6 +58,12 @@ export default function RoomPage() {
   };
 
   useEffect(() => {
+    // Prevent duplicate connections
+    if (isConnectingRef.current || wsRef.current) {
+      console.log('[Room] WebSocket already exists or is connecting, skipping...');
+      return;
+    }
+
     // Initialize session
     const session = storage.getSession();
     if (!session) {
@@ -64,12 +71,21 @@ export default function RoomPage() {
       return;
     }
 
+    if (!roomCode) {
+      console.log('[Room] No room code provided');
+      return;
+    }
+
     setCurrentPlayerId(session.playerId);
     setCurrentPlayerName(session.playerName);
+
+    // Mark as connecting
+    isConnectingRef.current = true;
 
     // Connect to WebSocket
     const wsUrl = `${process.env.NEXT_PUBLIC_WS_URL || 'ws://localhost:8787'}/api/ws/${roomCode}`;
 
+    console.log('[Room] Creating WebSocket connection to', wsUrl);
     wsRef.current = createWebSocketClient({
       url: wsUrl,
       playerId: session.playerId,
@@ -80,35 +96,40 @@ export default function RoomPage() {
         console.log('[Room] WebSocket connected');
         setIsConnected(true);
         setError(null);
+        isConnectingRef.current = false;
       },
       onClose: () => {
         console.log('[Room] WebSocket disconnected');
         setIsConnected(false);
+        isConnectingRef.current = false;
       },
       onError: (error) => {
         console.error('[Room] WebSocket error:', error);
         setError('เกิดข้อผิดพลาดในการเชื่อมต่อ');
+        isConnectingRef.current = false;
       },
     });
 
     wsRef.current.connect();
 
-    // Cleanup
+    // Cleanup function
     return () => {
-      wsRef.current?.disconnect();
+      console.log('[Room] Cleaning up WebSocket connection');
+      if (wsRef.current) {
+        wsRef.current.disconnect();
+        wsRef.current = null;
+      }
+      isConnectingRef.current = false;
     };
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [roomCode]);
+  }, [roomCode]); // Include all dependencies
 
   const handleRoomState = (payload: { players: Player[]; hostId: string; phase: string }) => {
-    // Update with latest room state (received on join and every PING response)
     setPlayers(payload.players);
     setHostId(payload.hostId);
   };
 
   const handlePlayerJoined = (player: Player) => {
     setPlayers((prev) => {
-      // Check if player already exists
       const exists = prev.some((p) => p.id === player.id);
       if (exists) {
         return prev.map((p) => (p.id === player.id ? player : p));
@@ -116,7 +137,6 @@ export default function RoomPage() {
       return [...prev, player];
     });
 
-    // Update host if not set
     if (!hostId && player.isHost) {
       setHostId(player.id);
     }
@@ -145,7 +165,6 @@ export default function RoomPage() {
   };
 
   const handleGameStarted = () => {
-    // Navigate to game page (will implement in next phase)
     console.log('[Room] Game started');
     setIsStarting(false);
   };
@@ -166,10 +185,9 @@ export default function RoomPage() {
     console.log('[Room] Kicked from room:', payload.reason);
     setError(payload.reason || 'คุณถูกเจ้าห้องเตะออก');
 
-    // Disconnect WebSocket
     wsRef.current?.disconnect();
+    wsRef.current = null;
 
-    // Redirect to home after 2 seconds
     setTimeout(() => {
       router.push('/');
     }, 2000);
@@ -184,7 +202,7 @@ export default function RoomPage() {
     setIsStarting(true);
     wsRef.current.send('START_GAME', {
       difficulty: ['easy', 'medium', 'hard'],
-      timerDuration: 480, // 8 minutes in seconds
+      timerDuration: 480,
     });
   };
 
@@ -204,6 +222,14 @@ export default function RoomPage() {
     });
   };
 
+  const handleBackToHome = () => {
+    if (wsRef.current) {
+      wsRef.current.disconnect();
+      wsRef.current = null;
+    }
+    router.push('/');
+  };
+
   if (!isConnected) {
     return (
       <div className="min-h-screen flex items-center justify-center">
@@ -216,15 +242,8 @@ export default function RoomPage() {
     );
   }
 
-  const handleBackToHome = () => {
-    // Disconnect WebSocket before leaving
-    wsRef.current?.disconnect();
-    router.push('/');
-  };
-
   return (
     <div className="min-h-screen bg-gradient-to-br from-blue-50 to-purple-50 py-8 px-4">
-      {/* Header with back button and current player info */}
       <div className="max-w-2xl mx-auto mb-6">
         <div className="flex items-center justify-between">
           <button
@@ -253,6 +272,7 @@ export default function RoomPage() {
           <p className="text-red-800">{error}</p>
         </div>
       )}
+
       <Lobby
         roomCode={roomCode}
         players={players}
