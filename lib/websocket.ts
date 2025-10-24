@@ -137,9 +137,9 @@ export class WebSocketClient {
   private startHeartbeat() {
     this.heartbeatInterval = setInterval(() => {
       if (this.isConnected()) {
-        this.send('PONG', {});
+        this.send('PING', {});
       }
-    }, 30000); // 30 seconds
+    }, 5000); // 5 seconds for active heartbeat
   }
 
   private stopHeartbeat() {

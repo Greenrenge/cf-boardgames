@@ -6,9 +6,11 @@ interface PlayerListProps {
   players: Player[];
   hostId: string;
   currentPlayerId?: string;
+  onKickPlayer?: (targetPlayerId: string) => void;
 }
 
-export function PlayerList({ players, hostId, currentPlayerId }: PlayerListProps) {
+export function PlayerList({ players, hostId, currentPlayerId, onKickPlayer }: PlayerListProps) {
+  const isHost = currentPlayerId === hostId;
   return (
     <div className="space-y-2">
       <h3 className="text-sm font-medium text-gray-700">ผู้เล่น ({players.length}/8)</h3>
@@ -44,6 +46,15 @@ export function PlayerList({ players, hostId, currentPlayerId }: PlayerListProps
               )}
               {player.score > 0 && (
                 <span className="text-sm text-gray-600">{player.score} คะแนน</span>
+              )}
+              {isHost && player.id !== currentPlayerId && player.id !== hostId && onKickPlayer && (
+                <button
+                  onClick={() => onKickPlayer(player.id)}
+                  className="ml-2 px-2 py-1 text-xs font-medium bg-red-100 text-red-800 rounded hover:bg-red-200 transition-colors"
+                  title="เตะออก"
+                >
+                  เตะออก
+                </button>
               )}
             </div>
           </div>

@@ -11,6 +11,7 @@ interface LobbyProps {
   hostId: string;
   currentPlayerId: string;
   onStartGame: () => void;
+  onKickPlayer: (targetPlayerId: string) => void;
   isStarting: boolean;
 }
 
@@ -20,6 +21,7 @@ export function Lobby({
   hostId,
   currentPlayerId,
   onStartGame,
+  onKickPlayer,
   isStarting,
 }: LobbyProps) {
   const isHost = currentPlayerId === hostId;
@@ -54,7 +56,12 @@ export function Lobby({
       </Card>
 
       <Card>
-        <PlayerList players={players} hostId={hostId} currentPlayerId={currentPlayerId} />
+        <PlayerList
+          players={players}
+          hostId={hostId}
+          currentPlayerId={currentPlayerId}
+          onKickPlayer={onKickPlayer}
+        />
       </Card>
 
       {isHost && (

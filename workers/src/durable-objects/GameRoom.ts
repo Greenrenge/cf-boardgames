@@ -9,10 +9,12 @@ export class GameRoom {
   private players: Map<string, Player> = new Map();
   private connections: Map<string, WebSocket> = new Map();
   private disconnectTimers: Map<string, number> = new Map();
+  private heartbeatChecker: number | null = null;
 
   constructor(state: DurableObjectState, env: any) {
     this.state = state;
     this.env = env;
+    this.startHeartbeatChecker();
   }
 
   async fetch(request: Request): Promise<Response> {
@@ -120,6 +122,8 @@ export class GameRoom {
           playerId = message.payload.playerId;
           const playerName = message.payload.playerName;
 
+          console.log(`[GameRoom] Player joining: ${playerId} (${playerName})`);
+
           // Handle duplicate names
           let uniqueName = playerName;
           let counter = 2;
@@ -157,6 +161,11 @@ export class GameRoom {
 
           // Save state
           await this.saveState();
+
+          // Schedule heartbeat check if this is the first player
+          if (this.connections.size === 1) {
+            await this.scheduleNextHeartbeatCheck();
+          }
 
           // Send current room state to the joining player
           ws.send(
@@ -197,11 +206,59 @@ export class GameRoom {
           }
         }
 
-        if (message.type === 'PONG') {
+        if (message.type === 'PING') {
           if (playerId) {
             const player = this.players.get(playerId);
             if (player) {
+              console.log(`[GameRoom] Received PING from ${playerId} (${player.name})`);
               player.updateActivity();
+              player.updateConnectionStatus('connected');
+
+              // Broadcast player is active to all others
+              this.broadcastToOthers(playerId, {
+                type: 'PLAYER_RECONNECTED',
+                payload: { playerId },
+                timestamp: Date.now(),
+              });
+            }
+          }
+        }
+
+        if (message.type === 'KICK') {
+          if (playerId) {
+            const kicker = this.players.get(playerId);
+            const targetPlayerId = (message.payload as any).targetPlayerId;
+
+            // Only host can kick
+            if (kicker?.isHost && targetPlayerId && targetPlayerId !== playerId) {
+              const targetWs = this.connections.get(targetPlayerId);
+
+              if (targetWs) {
+                // Send KICKED message to target player
+                targetWs.send(
+                  JSON.stringify({
+                    type: 'KICKED',
+                    payload: { reason: 'Kicked by host' },
+                    timestamp: Date.now(),
+                  })
+                );
+
+                // Force disconnect
+                this.handleDisconnect(targetPlayerId);
+
+                // Immediately remove (no 2-min grace period for kicked players)
+                this.players.delete(targetPlayerId);
+                this.room?.removePlayer(targetPlayerId);
+
+                // Broadcast removal
+                this.broadcast({
+                  type: 'PLAYER_LEFT',
+                  payload: { playerId: targetPlayerId },
+                  timestamp: Date.now(),
+                });
+
+                await this.saveState();
+              }
             }
           }
         }
@@ -235,21 +292,27 @@ export class GameRoom {
     const player = this.players.get(playerId);
     if (!player) return;
 
-    player.updateConnectionStatus('disconnected');
-    this.connections.delete(playerId);
+    console.log(`[GameRoom] Player ${playerId} (${player.name}) disconnecting`);
 
-    // Broadcast disconnect status immediately
+    player.updateConnectionStatus('disconnected');
+
+    // IMPORTANT: Broadcast BEFORE deleting connection
+    // so other players receive the message
     this.broadcast({
       type: 'PLAYER_DISCONNECTED',
       payload: { playerId },
       timestamp: Date.now(),
     });
 
+    // Now remove the connection
+    this.connections.delete(playerId);
+
     this.saveState();
 
     // Set timer to remove player after 2 minutes
     const timer = setTimeout(
       () => {
+        console.log(`[GameRoom] Removing player ${playerId} after timeout`);
         this.players.delete(playerId);
         this.room?.removePlayer(playerId);
         this.disconnectTimers.delete(playerId);
@@ -298,5 +361,48 @@ export class GameRoom {
       await this.state.storage.put('room', this.room.toJSON());
     }
     await this.state.storage.put('players', Array.from(this.players.entries()));
+  }
+
+  private startHeartbeatChecker() {
+    // Use Durable Object alarm for reliable periodic checks
+    this.scheduleNextHeartbeatCheck();
+  }
+
+  private async scheduleNextHeartbeatCheck() {
+    // Schedule alarm for 10 seconds from now
+    const now = Date.now();
+    await this.state.storage.setAlarm(now + 10000);
+  }
+
+  async alarm() {
+    // This is called when the alarm fires
+    console.log('[GameRoom] Heartbeat check running');
+
+    const now = Date.now();
+    const inactivityTimeout = 60 * 1000; // 1 minute
+
+    const playersToDisconnect: string[] = [];
+
+    for (const [playerId, player] of this.players.entries()) {
+      const timeSinceLastActivity = now - player.lastSeenAt;
+
+      // If player hasn't sent PING in 1 minute, disconnect them
+      if (timeSinceLastActivity > inactivityTimeout && this.connections.has(playerId)) {
+        console.log(
+          `[Heartbeat] Player ${playerId} (${player.name}) inactive for ${timeSinceLastActivity}ms, disconnecting`
+        );
+        playersToDisconnect.push(playerId);
+      }
+    }
+
+    // Disconnect inactive players
+    for (const playerId of playersToDisconnect) {
+      this.handleDisconnect(playerId);
+    }
+
+    // Schedule next check if there are still connected players
+    if (this.connections.size > 0) {
+      await this.scheduleNextHeartbeatCheck();
+    }
   }
 }

@@ -47,6 +47,9 @@ export default function RoomPage() {
       case 'PLAYER_RECONNECTED':
         handlePlayerReconnected(message.payload as { playerId: string });
         break;
+      case 'KICKED':
+        handleKicked(message.payload as { reason: string });
+        break;
       default:
         console.log('[Room] Unhandled message type:', message.type);
     }
@@ -118,12 +121,14 @@ export default function RoomPage() {
   };
 
   const handlePlayerDisconnected = (payload: { playerId: string }) => {
+    console.log('[Room] Player disconnected:', payload.playerId);
     setPlayers((prev) =>
       prev.map((p) => (p.id === payload.playerId ? { ...p, connectionStatus: 'disconnected' } : p))
     );
   };
 
   const handlePlayerLeft = (payload: { playerId: string }) => {
+    console.log('[Room] Player left:', payload.playerId);
     setPlayers((prev) => prev.filter((p) => p.id !== payload.playerId));
   };
 
@@ -149,9 +154,23 @@ export default function RoomPage() {
   };
 
   const handlePlayerReconnected = (payload: { playerId: string }) => {
+    console.log('[Room] Player reconnected:', payload.playerId);
     setPlayers((prev) =>
       prev.map((p) => (p.id === payload.playerId ? { ...p, connectionStatus: 'connected' } : p))
     );
+  };
+
+  const handleKicked = (payload: { reason: string }) => {
+    console.log('[Room] Kicked from room:', payload.reason);
+    setError(payload.reason || 'คุณถูกเจ้าห้องเตะออก');
+
+    // Disconnect WebSocket
+    wsRef.current?.disconnect();
+
+    // Redirect to home after 2 seconds
+    setTimeout(() => {
+      router.push('/');
+    }, 2000);
   };
 
   const handleStartGame = () => {
@@ -164,6 +183,22 @@ export default function RoomPage() {
     wsRef.current.send('START_GAME', {
       difficulty: ['easy', 'medium', 'hard'],
       timerDuration: 480, // 8 minutes in seconds
+    });
+  };
+
+  const handleKickPlayer = (targetPlayerId: string) => {
+    if (!wsRef.current?.isConnected()) {
+      setError('ไม่ได้เชื่อมต่อกับเซิร์ฟเวอร์');
+      return;
+    }
+
+    if (currentPlayerId !== hostId) {
+      setError('เฉพาะเจ้าห้องเท่านั้นที่สามารถเตะผู้เล่นได้');
+      return;
+    }
+
+    wsRef.current.send('KICK', {
+      targetPlayerId,
     });
   };
 
@@ -192,6 +227,7 @@ export default function RoomPage() {
         hostId={hostId}
         currentPlayerId={currentPlayerId}
         onStartGame={handleStartGame}
+        onKickPlayer={handleKickPlayer}
         isStarting={isStarting}
       />
     </div>
