@@ -86,6 +86,7 @@ export type WebSocketMessageType =
   | 'SPY_GUESS'
   | 'LEAVE'
   | 'PONG'
+  | 'ROOM_STATE'
   | 'PLAYER_JOINED'
   | 'PLAYER_LEFT'
   | 'GAME_STARTED'
@@ -134,6 +135,12 @@ export interface SpyGuessPayload {
 }
 
 // Server→Client payloads
+export interface RoomStatePayload {
+  players: Player[];
+  hostId: string;
+  phase: GamePhase;
+}
+
 export interface PlayerJoinedPayload {
   player: Player;
 }

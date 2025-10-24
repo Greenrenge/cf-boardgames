@@ -156,12 +156,27 @@ export class GameRoom {
           // Save state
           await this.saveState();
 
-          // Broadcast player joined
-          this.broadcast({
-            type: 'PLAYER_JOINED',
-            payload: { player: player.toJSON() },
-            timestamp: Date.now(),
-          });
+          // Send current room state to the joining player
+          ws.send(
+            JSON.stringify({
+              type: 'ROOM_STATE',
+              payload: {
+                players: Array.from(this.players.values()).map((p) => p.toJSON()),
+                hostId: this.room!.hostPlayerId,
+                phase: this.room!.phase,
+              },
+              timestamp: Date.now(),
+            })
+          );
+
+          // Broadcast to OTHER players that this player joined
+          if (playerId) {
+            this.broadcastToOthers(playerId, {
+              type: 'PLAYER_JOINED',
+              payload: { player: player.toJSON() },
+              timestamp: Date.now(),
+            });
+          }
         }
 
         if (message.type === 'LEAVE') {
@@ -246,6 +261,19 @@ export class GameRoom {
         ws.send(messageStr);
       } catch (error) {
         console.error(`Failed to send message to player ${playerId}:`, error);
+      }
+    }
+  }
+
+  private broadcastToOthers(excludePlayerId: string, message: WebSocketMessage) {
+    const messageStr = JSON.stringify(message);
+    for (const [playerId, ws] of this.connections) {
+      if (playerId !== excludePlayerId) {
+        try {
+          ws.send(messageStr);
+        } catch (error) {
+          console.error(`Failed to send message to player ${playerId}:`, error);
+        }
       }
     }
   }

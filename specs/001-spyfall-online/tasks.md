@@ -79,8 +79,8 @@ Web application structure (monorepo):
 
 ### Playground for User Story 1 (MANDATORY) ✓
 
-- [ ] T026 [US1] Create playground scaffold in specs/001-spyfall-online/playground/story1/ with README explaining how to test
-- [ ] T027 [US1] Document multi-tab testing procedure in playground README
+- [x] T026 [US1] Create playground scaffold in specs/001-spyfall-online/playground/story1/ with README explaining how to test
+- [x] T027 [US1] Document multi-tab testing procedure in playground README
 
 ### Implementation for User Story 1
 
@@ -98,24 +98,24 @@ Web application structure (monorepo):
 
 **Frontend - Home Page & Room Creation**
 
-- [ ] T036 [P] [US1] Create home page in app/page.tsx (create/join room options)
-- [ ] T037 [P] [US1] Create CreateRoom component in components/room/CreateRoom.tsx (name input, create button, gameType selector)
-- [ ] T038 [P] [US1] Create JoinRoom component in components/room/JoinRoom.tsx (name input, room code input, join button)
-- [ ] T039 [US1] Implement room creation logic in CreateRoom.tsx (API call, store session, navigate to room)
-- [ ] T040 [US1] Implement room join logic in JoinRoom.tsx (API call, validate code, navigate to room)
+- [x] T036 [P] [US1] Create home page in app/page.tsx (create/join room options)
+- [x] T037 [P] [US1] Create CreateRoom component in components/room/CreateRoom.tsx (name input, create button, gameType selector)
+- [x] T038 [P] [US1] Create JoinRoom component in components/room/JoinRoom.tsx (name input, room code input, join button)
+- [x] T039 [US1] Implement room creation logic in CreateRoom.tsx (API call, store session, navigate to room)
+- [x] T040 [US1] Implement room join logic in JoinRoom.tsx (API call, validate code, navigate to room)
 
 **Frontend - WebSocket Client & Room UI**
 
-- [ ] T041 [US1] Create WebSocket client utility in lib/websocket.ts (connect, send message, handle reconnection with exponential backoff)
-- [ ] T042 [P] [US1] Create PlayerList component in components/room/PlayerList.tsx (display players, connection status, host badge)
-- [ ] T043 [P] [US1] Create Lobby component in components/room/Lobby.tsx (show room code, player list, start game button for host)
-- [ ] T044 [US1] Create game room page in app/(game)/room/[code]/page.tsx (WebSocket connection, room state management)
-- [ ] T045 [US1] Create game layout in app/(game)/layout.tsx (wrapper for game UI)
-- [ ] T046 [US1] Implement WebSocket message handling in room page (PLAYER_JOINED, PLAYER_LEFT, HOST_CHANGED, ERROR)
-- [ ] T047 [US1] Implement real-time player list updates in room page (add/remove players on messages)
-- [ ] T048 [US1] Add localStorage persistence for player session (load on mount, save on creation/join)
-- [ ] T049 [US1] Implement room code display and copy-to-clipboard in Lobby.tsx
-- [ ] T050 [US1] Add error handling and user feedback (room full, room not found, connection lost)
+- [x] T041 [US1] Create WebSocket client utility in lib/websocket.ts (connect, send message, handle reconnection with exponential backoff)
+- [x] T042 [P] [US1] Create PlayerList component in components/room/PlayerList.tsx (display players, connection status, host badge)
+- [x] T043 [P] [US1] Create Lobby component in components/room/Lobby.tsx (show room code, player list, start game button for host)
+- [x] T044 [US1] Create game room page in app/(game)/room/[code]/page.tsx (WebSocket connection, room state management)
+- [x] T045 [US1] Create game layout in app/(game)/layout.tsx (wrapper for game UI)
+- [x] T046 [US1] Implement WebSocket message handling in room page (PLAYER_JOINED, PLAYER_LEFT, HOST_CHANGED, ERROR)
+- [x] T047 [US1] Implement real-time player list updates in room page (add/remove players on messages)
+- [x] T048 [US1] Add localStorage persistence for player session (load on mount, save on creation/join)
+- [x] T049 [US1] Implement room code display and copy-to-clipboard in Lobby.tsx
+- [x] T050 [US1] Add error handling and user feedback (room full, room not found, connection lost)
 
 **Checkpoint**: User Story 1 playground should demonstrate working room creation, joining, and real-time player sync
 
