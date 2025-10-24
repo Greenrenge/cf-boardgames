@@ -60,12 +60,12 @@ Web application structure (monorepo):
 - [x] T017 [P] Create base UI components: Card in components/ui/Card.tsx
 - [x] T018 [P] Create root layout in app/layout.tsx with Thai font and Tailwind imports
 - [x] T019 [P] Create global styles in app/globals.css with Tailwind directives
-- [ ] T020 Create Cloudflare Worker entry point in workers/src/index.ts (HTTP router with Hono)
+- [x] T020 Create Cloudflare Worker entry point in workers/src/index.ts (HTTP router with Hono)
 - [x] T021 [P] Create Room model in workers/src/models/Room.ts (validation, state transitions)
 - [x] T022 [P] Create Player model in workers/src/models/Player.ts (validation, connection status)
 - [x] T023 [P] Create GameState model in workers/src/models/GameState.ts (round state, assignments)
-- [ ] T024 Run D1 migrations locally to create locations table
-- [ ] T025 Seed D1 database with 100 Thai locations from data/locations.json
+- [x] T024 Run D1 migrations locally to create locations table
+- [x] T025 Seed D1 database with 100 Thai locations from data/locations.json
 
 **Checkpoint**: Foundation ready - user story implementation can now begin in parallel
 
@@ -86,15 +86,15 @@ Web application structure (monorepo):
 
 **Backend - Room Creation & Management**
 
-- [ ] T028 [P] [US1] Implement GameRoom Durable Object class in workers/src/durable-objects/GameRoom.ts (constructor, state initialization)
-- [ ] T029 [P] [US1] Implement room creation handler in workers/src/handlers/room.ts (POST /api/rooms - generate 6-char code, create Durable Object)
-- [ ] T030 [P] [US1] Implement get room info handler in workers/src/handlers/room.ts (GET /api/rooms/:code)
-- [ ] T031 [US1] Add Durable Object WebSocket handling in workers/src/durable-objects/GameRoom.ts (accept connection, handle upgrade)
-- [ ] T032 [US1] Implement JOIN message handler in workers/src/handlers/websocket.ts (validate player, add to room, broadcast PLAYER_JOINED)
-- [ ] T033 [US1] Implement LEAVE message handler in workers/src/handlers/websocket.ts (remove player, broadcast PLAYER_LEFT)
-- [ ] T034 [US1] Implement disconnect detection in workers/src/durable-objects/GameRoom.ts (mark player disconnected after 2min, transfer host if needed)
-- [ ] T034b [US1] Implement room cleanup timer in workers/src/durable-objects/GameRoom.ts (close room after 5min of no active players, per FR-004)
-- [ ] T035 [US1] Implement duplicate name handling in workers/src/handlers/websocket.ts (append (2), (3) to duplicates)
+- [x] T028 [P] [US1] Implement GameRoom Durable Object class in workers/src/durable-objects/GameRoom.ts (constructor, state initialization)
+- [x] T029 [P] [US1] Implement room creation handler in workers/src/handlers/room.ts (POST /api/rooms - generate 6-char code, create Durable Object)
+- [x] T030 [P] [US1] Implement get room info handler in workers/src/handlers/room.ts (GET /api/rooms/:code)
+- [x] T031 [US1] Add Durable Object WebSocket handling in workers/src/durable-objects/GameRoom.ts (accept connection, handle upgrade)
+- [x] T032 [US1] Implement JOIN message handler in workers/src/handlers/websocket.ts (validate player, add to room, broadcast PLAYER_JOINED)
+- [x] T033 [US1] Implement LEAVE message handler in workers/src/handlers/websocket.ts (remove player, broadcast PLAYER_LEFT)
+- [x] T034 [US1] Implement disconnect detection in workers/src/durable-objects/GameRoom.ts (mark player disconnected after 2min, transfer host if needed)
+- [x] T034b [US1] Implement room cleanup timer in workers/src/durable-objects/GameRoom.ts (close room after 5min of no active players, per FR-004)
+- [x] T035 [US1] Implement duplicate name handling in workers/src/handlers/websocket.ts (append (2), (3) to duplicates)
 
 **Frontend - Home Page & Room Creation**
 
@@ -198,7 +198,7 @@ Web application structure (monorepo):
 
 - [x] T089 [US2] Implement game state reducer in room page (manage phase transitions, role, timer, messages, votes)
 - [x] T090 [US2] Add phase-based conditional rendering in room page (lobby → playing → voting → results)
-- [ ] T091 [US2] Update PlayerList to show scores during and after game
+- [x] T091 [US2] Update PlayerList to show scores during and after game
 
 **Checkpoint**: User Story 2 playground should demonstrate complete game round with roles, chat, timer, voting, and results
 

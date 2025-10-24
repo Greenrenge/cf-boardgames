@@ -429,18 +429,103 @@ export class GameRoom {
 
       // Send current room state to the joining player
       try {
+        // If room is in results phase and player is reconnecting, reset them to lobby
+        let phaseToSend = this.room.phase;
+        if (this.room.phase === 'results') {
+          console.log(`[GameRoom] Player ${joiningPlayerId} reconnecting during results, sending lobby state`);
+          phaseToSend = 'lobby';
+        }
+
         ws.send(
           JSON.stringify({
             type: 'ROOM_STATE',
             payload: {
               players: Array.from(this.players.values()).map((p) => p.toJSON()),
               hostId: this.room.hostPlayerId,
-              phase: this.room.phase,
+              phase: phaseToSend,
             },
             timestamp: Date.now(),
           })
         );
         console.log(`[GameRoom] Sent ROOM_STATE to ${joiningPlayerId}`);
+
+        // If game is active, restore game state for this player
+        if (
+          this.gameState &&
+          (this.gameState.phase === 'playing' || this.gameState.phase === 'voting')
+        ) {
+          const assignment = this.gameState.assignments[joiningPlayerId];
+          if (assignment) {
+            console.log(
+              `[GameRoom] Restoring game state for ${joiningPlayerId} (role: ${assignment.role})`
+            );
+
+            // Send role assignment
+            ws.send(
+              JSON.stringify({
+                type: 'ROLE_ASSIGNMENT',
+                payload: {
+                  role: assignment.role,
+                  location: assignment.location,
+                  locationRoles:
+                    assignment.role === 'Spy' ? [] : this.gameState.selectedLocation.roles,
+                },
+                timestamp: Date.now(),
+              })
+            );
+
+            // Send current timer state
+            const remainingSeconds = this.gameState.getRemainingTime();
+            ws.send(
+              JSON.stringify({
+                type: 'TIMER_TICK',
+                payload: { remainingSeconds },
+                timestamp: Date.now(),
+              })
+            );
+
+            // Send chat history
+            for (const message of this.gameState.messages) {
+              ws.send(
+                JSON.stringify({
+                  type: 'MESSAGE',
+                  payload: message,
+                  timestamp: Date.now(),
+                })
+              );
+            }
+
+            // If in voting phase, send phase change and vote count
+            if (this.gameState.phase === 'voting') {
+              ws.send(
+                JSON.stringify({
+                  type: 'PHASE_CHANGE',
+                  payload: { phase: 'voting' },
+                  timestamp: Date.now(),
+                })
+              );
+
+              // Send current vote count
+              const voteCount = this.gameState.votes.length;
+              const hasPlayerVoted = this.gameState.votes.some(
+                (v) => v.voterId === joiningPlayerId
+              );
+              ws.send(
+                JSON.stringify({
+                  type: 'VOTE_COUNT',
+                  payload: {
+                    totalVotes: voteCount,
+                    requiredVotes: this.players.size,
+                    hasVoted: hasPlayerVoted,
+                  },
+                  timestamp: Date.now(),
+                })
+              );
+            }
+
+            console.log(`[GameRoom] Game state restored for ${joiningPlayerId}`);
+          }
+        }
       } catch (error) {
         console.error('[GameRoom] Failed to send ROOM_STATE:', error);
       }
@@ -543,6 +628,102 @@ export class GameRoom {
       } else {
         console.error(`[GameRoom] PING received but playerId is null`);
       }
+    }
+
+    if (message.type === 'SKIP_TIMER') {
+      if (!currentPlayerId || currentPlayerId !== this.room?.hostPlayerId) {
+        console.log('[GameRoom] Non-host tried to skip timer');
+        try {
+          ws.send(
+            JSON.stringify({
+              type: 'ERROR',
+              payload: {
+                code: 'UNAUTHORIZED',
+                message: 'Only the host can skip the timer',
+              },
+              timestamp: Date.now(),
+            })
+          );
+        } catch (error) {
+          console.error('[GameRoom] Failed to send error:', error);
+        }
+        return;
+      }
+
+      if (!this.gameState || this.gameState.phase !== 'playing') {
+        console.log('[GameRoom] Cannot skip timer - game not in playing phase');
+        return;
+      }
+
+      console.log('[GameRoom] Host skipping timer, transitioning to voting');
+
+      // Stop timer
+      if (this.timerInterval) {
+        clearInterval(this.timerInterval);
+        this.timerInterval = null;
+      }
+
+      // Transition to voting phase
+      this.gameState.phase = 'voting';
+      this.broadcast({
+        type: 'PHASE_CHANGE',
+        payload: { phase: 'voting' },
+        timestamp: Date.now(),
+      });
+
+      return;
+    }
+
+    if (message.type === 'RESET_GAME') {
+      if (!currentPlayerId || currentPlayerId !== this.room?.hostPlayerId) {
+        console.log('[GameRoom] Non-host tried to reset game');
+        try {
+          ws.send(
+            JSON.stringify({
+              type: 'ERROR',
+              payload: {
+                code: 'UNAUTHORIZED',
+                message: 'Only the host can reset the game',
+              },
+              timestamp: Date.now(),
+            })
+          );
+        } catch (error) {
+          console.error('[GameRoom] Failed to send error:', error);
+        }
+        return;
+      }
+
+      console.log('[GameRoom] Host resetting game');
+
+      // Stop timer
+      if (this.timerInterval) {
+        clearInterval(this.timerInterval);
+        this.timerInterval = null;
+      }
+
+      // Clear game state
+      this.gameState = null;
+
+      // Reset room phase to lobby
+      if (this.room) {
+        this.room.phase = 'lobby';
+      }
+
+      // Broadcast room state reset
+      this.broadcast({
+        type: 'ROOM_STATE',
+        payload: {
+          players: Array.from(this.players.values()).map((p) => p.toJSON()),
+          hostId: this.room?.hostPlayerId,
+          phase: 'lobby',
+        },
+        timestamp: Date.now(),
+      });
+
+      await this.saveState();
+
+      return;
     }
 
     if (message.type === 'START_GAME') {
@@ -1218,12 +1399,20 @@ export class GameRoom {
 
       // Check if timer expired
       if (remainingSeconds <= 0) {
-        console.log('[GameRoom] Timer expired, ending round');
+        console.log('[GameRoom] Timer expired, transitioning to voting phase');
         if (this.timerInterval) {
           clearInterval(this.timerInterval);
           this.timerInterval = null;
         }
-        this.endRound();
+        // Transition to voting phase
+        if (this.gameState) {
+          this.gameState.phase = 'voting';
+          this.broadcast({
+            type: 'PHASE_CHANGE',
+            payload: { phase: 'voting' },
+            timestamp: Date.now(),
+          });
+        }
       }
     }, 1000);
   }
@@ -1278,7 +1467,7 @@ export class GameRoom {
       timestamp: Date.now(),
     });
 
-    // Change room phase to results
+    // Change room phase to results (but keep game state for connected players to see results)
     this.room.phase = 'results';
     await this.saveState();
 

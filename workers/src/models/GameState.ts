@@ -9,6 +9,7 @@ import {
 export class GameState implements GameStateType {
   roomCode: string;
   roundNumber: number;
+  phase: 'playing' | 'voting';
   selectedLocation: Location;
   assignments: Record<string, Assignment>;
   spyPlayerId: string;
@@ -29,6 +30,7 @@ export class GameState implements GameStateType {
   ) {
     this.roomCode = roomCode;
     this.roundNumber = roundNumber;
+    this.phase = 'playing';
     this.selectedLocation = selectedLocation;
     this.assignments = assignments;
     this.spyPlayerId = spyPlayerId;
@@ -102,10 +104,11 @@ export class GameState implements GameStateType {
     return isTie ? null : eliminatedPlayer;
   }
 
-  toJSON(): GameStateType {
+  toJSON() {
     return {
       roomCode: this.roomCode,
       roundNumber: this.roundNumber,
+      phase: this.phase,
       selectedLocation: this.selectedLocation,
       assignments: this.assignments,
       spyPlayerId: this.spyPlayerId,

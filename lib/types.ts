@@ -32,6 +32,7 @@ export interface Player {
 export interface GameState {
   roomCode: string;
   roundNumber: number;
+  phase: 'playing' | 'voting';
   selectedLocation: Location;
   assignments: Record<string, Assignment>;
   spyPlayerId: string;
@@ -81,6 +82,8 @@ export interface Vote {
 export type WebSocketMessageType =
   | 'JOIN'
   | 'START_GAME'
+  | 'SKIP_TIMER'
+  | 'RESET_GAME'
   | 'CHAT'
   | 'VOTE'
   | 'SPY_GUESS'
@@ -98,6 +101,7 @@ export type WebSocketMessageType =
   | 'MESSAGE'
   | 'PHASE_CHANGE'
   | 'VOTE_CAST'
+  | 'VOTE_COUNT'
   | 'VOTING_RESULTS'
   | 'SPY_GUESS_RESULT'
   | 'TIMER_TICK'

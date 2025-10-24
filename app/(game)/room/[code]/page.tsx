@@ -3,6 +3,8 @@
 import { useEffect, useState, useRef } from 'react';
 import { useParams, useRouter } from 'next/navigation';
 import { Lobby } from '@/components/room/Lobby';
+import { Card } from '@/components/ui/Card';
+import { Button } from '@/components/ui/Button';
 import { RoleCard } from '@/components/game/RoleCard';
 import { LocationReference } from '@/components/game/LocationReference';
 import { ChatPanel } from '@/components/game/ChatPanel';
@@ -94,6 +96,12 @@ export default function RoomPage() {
       case 'VOTING_RESULTS':
         handleVotingResults(message.payload as any);
         break;
+      case 'PHASE_CHANGE':
+        handlePhaseChange(message.payload as { phase: GamePhase });
+        break;
+      case 'VOTE_COUNT':
+        handleVoteCount(message.payload as { totalVotes: number; requiredVotes: number });
+        break;
       default:
         console.log('[Room] Unhandled message type:', message.type);
     }
@@ -168,6 +176,12 @@ export default function RoomPage() {
   const handleRoomState = (payload: { players: Player[]; hostId: string; phase: string }) => {
     setPlayers(payload.players);
     setHostId(payload.hostId);
+
+    // If game was reset to lobby, clear game state
+    if (payload.phase === 'lobby' && gamePhase !== 'lobby') {
+      console.log('[Room] Game reset detected, returning to lobby');
+      handleBackToLobby();
+    }
   };
 
   const handlePlayerJoined = (player: Player) => {
@@ -277,6 +291,23 @@ export default function RoomPage() {
     setGamePhase('results');
   };
 
+  const handlePhaseChange = (payload: { phase: GamePhase }) => {
+    console.log('[Room] Phase changed to:', payload.phase);
+    setGamePhase(payload.phase);
+  };
+
+  const handleVoteCount = (payload: {
+    totalVotes: number;
+    requiredVotes: number;
+    hasVoted?: boolean;
+  }) => {
+    console.log('[Room] Vote count updated:', payload);
+    setVotesCount(payload.totalVotes);
+    if (payload.hasVoted !== undefined) {
+      setHasVoted(payload.hasVoted);
+    }
+  };
+
   const handleStartGame = (difficulty: Difficulty[], timerDuration: number) => {
     console.log('[Room] Starting game with:', { difficulty, timerDuration });
 
@@ -332,6 +363,39 @@ export default function RoomPage() {
     wsRef.current.send('VOTE', {
       suspectId,
     });
+    setHasVoted(true);
+  };
+
+  const handleSkipTimer = () => {
+    if (!wsRef.current?.isConnected()) {
+      setError('ไม่ได้เชื่อมต่อกับเซิร์ฟเวอร์');
+      return;
+    }
+
+    if (currentPlayerId !== hostId) {
+      setError('เฉพาะเจ้าห้องเท่านั้นที่สามารถข้ามเวลาได้');
+      return;
+    }
+
+    console.log('[Room] Skipping timer');
+    wsRef.current.send('SKIP_TIMER', {});
+  };
+
+  const handleResetGame = () => {
+    if (!wsRef.current?.isConnected()) {
+      setError('ไม่ได้เชื่อมต่อกับเซิร์ฟเวอร์');
+      return;
+    }
+
+    if (currentPlayerId !== hostId) {
+      setError('เฉพาะเจ้าห้องเท่านั้นที่สามารถรีเซ็ตเกมได้');
+      return;
+    }
+
+    if (confirm('คุณแน่ใจหรือไม่ว่าต้องการรีเซ็ตเกม? เกมปัจจุบันจะสิ้นสุดลง')) {
+      console.log('[Room] Resetting game');
+      wsRef.current.send('RESET_GAME', {});
+    }
   };
 
   const handleBackToLobby = () => {
@@ -405,8 +469,34 @@ export default function RoomPage() {
       )}
 
       {/* Playing Phase */}
-      {gamePhase === 'playing' && playerRole && (
+      {(gamePhase === 'playing' || gamePhase === 'voting') && playerRole && (
         <div className="max-w-6xl mx-auto">
+          {/* Admin Controls */}
+          {currentPlayerId === hostId && (
+            <div className="mb-6">
+              <Card>
+                <div className="flex items-center justify-between">
+                  <h3 className="text-sm font-medium text-gray-700">ควบคุมเจ้าห้อง</h3>
+                  <div className="flex space-x-2">
+                    {gamePhase === 'playing' && (
+                      <Button
+                        onClick={handleSkipTimer}
+                        className="text-sm px-3 py-1 bg-yellow-600 hover:bg-yellow-700"
+                      >
+                        ⏩ ข้ามเวลา
+                      </Button>
+                    )}
+                    <Button
+                      onClick={handleResetGame}
+                      className="text-sm px-3 py-1 bg-red-600 hover:bg-red-700"
+                    >
+                      🔄 รีเซ็ตเกม
+                    </Button>
+                  </div>
+                </div>
+              </Card>
+            </div>
+          )}
           <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
             {/* Left Column - Role & Timer */}
             <div className="space-y-6">
@@ -432,12 +522,10 @@ export default function RoomPage() {
             </div>
           </div>
 
-          {/* Timer for non-spy or voting UI */}
-          {(playerLocation || remainingSeconds <= 60) && (
+          {/* Timer or Voting UI */}
+          {(playerLocation || gamePhase === 'voting') && (
             <div className="max-w-6xl mx-auto mt-6">
-              {remainingSeconds > 0 ? (
-                <GameTimer remainingSeconds={remainingSeconds} timerEndsAt={timerEndsAt} />
-              ) : (
+              {gamePhase === 'voting' ? (
                 <VotingInterface
                   players={players}
                   currentPlayerId={currentPlayerId}
@@ -447,6 +535,8 @@ export default function RoomPage() {
                   hasVoted={hasVoted}
                   disabled={false}
                 />
+              ) : (
+                <GameTimer remainingSeconds={remainingSeconds} timerEndsAt={timerEndsAt} />
               )}
             </div>
           )}
