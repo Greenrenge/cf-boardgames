@@ -102,7 +102,7 @@
 			"นักข่าว",
 			"รปภ."
 		],
-		"imageUrl": "https://r2.spyfall.example.com/locations/sports-stadium.webp"
+		"imageUrl": "https://spyfall-asset.greenrenge.work/loc-sports-stadium.png"
 	},
 	{
 		"id": "loc-library",
@@ -117,7 +117,7 @@
 			"เด็กฝึกงาน",
 			"แม่บ้าน"
 		],
-		"imageUrl": "https://r2.spyfall.example.com/locations/library.webp"
+		"imageUrl": "https://spyfall-asset.greenrenge.work/loc-library.png"
 	},
 	{
 		"id": "loc-post-office",
