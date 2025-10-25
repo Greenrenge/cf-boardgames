@@ -12,7 +12,7 @@
 			"คนแบกของ",
 			"คนขายเสื้อผ้า"
 		],
-		"imageUrl": "https://r2.spyfall.example.com/locations/local-market.webp"
+		"imageUrl": "https://spyfall-asset.greenrenge.work/loc-local-market.png"
 	},
 	{
 		"id": "loc-hospital",
@@ -27,7 +27,7 @@
 			"รปภ.",
 			"พนักงานรับโทรศัพท์"
 		],
-		"imageUrl": "https://r2.spyfall.example.com/locations/hospital.webp"
+		"imageUrl": "https://spyfall-asset.greenrenge.work/loc-hospital.png"
 	},
 	{
 		"id": "loc-school",
