@@ -132,7 +132,7 @@
 			"แคชเชียร์",
 			"รปภ."
 		],
-		"imageUrl": "https://r2.spyfall.example.com/locations/post-office.webp"
+		"imageUrl": "https://spyfall-asset.greenrenge.work/loc-post-office.png"
 	},
 	{
 		"id": "loc-convenience-store",
@@ -147,7 +147,7 @@
 			"พนักงานเติมสินค้า",
 			"แคชเชียร์"
 		],
-		"imageUrl": "https://r2.spyfall.example.com/locations/convenience-store.webp"
+		"imageUrl": "https://spyfall-asset.greenrenge.work/loc-convenience-store.png"
 	},
 	{
 		"id": "loc-gas-station",
