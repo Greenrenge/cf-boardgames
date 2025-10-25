@@ -72,7 +72,7 @@
 			"เจ้าของร้าน",
 			"พนักงานส่งอาหาร"
 		],
-		"imageUrl": "https://r2.spyfall.example.com/locations/restaurant.webp"
+		"imageUrl": "https://spyfall-asset.greenrenge.work/loc-restaurant.png"
 	},
 	{
 		"id": "loc-public-park",
@@ -87,7 +87,7 @@
 			"คนนั่งอ่านหนังสือ",
 			"ช่างภาพ"
 		],
-		"imageUrl": "https://r2.spyfall.example.com/locations/public-park.webp"
+		"imageUrl": "https://spyfall-asset.greenrenge.work/loc-public-park.png"
 	},
 	{
 		"id": "loc-sports-stadium",
