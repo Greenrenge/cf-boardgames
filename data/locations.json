@@ -57,7 +57,7 @@
 			"คนส่งเงิน",
 			"พนักงานสินเชื่อ"
 		],
-		"imageUrl": "https://r2.spyfall.example.com/locations/bank.webp"
+		"imageUrl": "https://spyfall-asset.greenrenge.work/loc-bank.png"
 	},
 	{
 		"id": "loc-restaurant",
