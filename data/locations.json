@@ -177,7 +177,7 @@
 			"เด็กฝึกงาน",
 			"คนนวดหัว"
 		],
-		"imageUrl": "https://r2.spyfall.example.com/locations/hair-salon.webp"
+		"imageUrl": "https://spyfall-asset.greenrenge.work/loc-hair-salon.png"
 	},
 	{
 		"id": "loc-laundromat",
@@ -192,7 +192,7 @@
 			"ช่างซ่อมเครื่อง",
 			"แคชเชียร์"
 		],
-		"imageUrl": "https://r2.spyfall.example.com/locations/laundromat.webp"
+		"imageUrl": "https://spyfall-asset.greenrenge.work/loc-laundromat.png"
 	},
 	{
 		"id": "loc-pharmacy",
@@ -207,7 +207,7 @@
 			"หมอที่คลินิก",
 			"พนักงานจัดยา"
 		],
-		"imageUrl": "https://r2.spyfall.example.com/locations/pharmacy.webp"
+		"imageUrl": "https://spyfall-asset.greenrenge.work/loc-pharmacy.png"
 	},
 	{
 		"id": "loc-office",
@@ -222,7 +222,7 @@
 			"IT Support",
 			"พนักงานต้อนรับ"
 		],
-		"imageUrl": "https://r2.spyfall.example.com/locations/office.webp"
+		"imageUrl": "https://spyfall-asset.greenrenge.work/loc-office.png"
 	},
 	{
 		"id": "loc-coffee-shop",
@@ -237,7 +237,7 @@
 			"พนักงานล้างจาน",
 			"พนักงานส่งอาหาร"
 		],
-		"imageUrl": "https://r2.spyfall.example.com/locations/coffee-shop.webp"
+		"imageUrl": "https://spyfall-asset.greenrenge.work/loc-coffee-shop.png"
 	},
 	{
 		"id": "loc-bts-station",
@@ -252,7 +252,7 @@
 			"ช่างซ่อมบำรุง",
 			"พนักงานควบคุมรถไฟ"
 		],
-		"imageUrl": "https://r2.spyfall.example.com/locations/bts-station.webp"
+		"imageUrl": "https://spyfall-asset.greenrenge.work/loc-bts-station.png"
 	},
 	{
 		"id": "loc-temple",
@@ -267,7 +267,7 @@
 			"คนขายของที่ระลึก",
 			"เจ้าอาวาส"
 		],
-		"imageUrl": "https://r2.spyfall.example.com/locations/temple.webp"
+		"imageUrl": "https://spyfall-asset.greenrenge.work/loc-temple.png"
 	},
 	{
 		"id": "loc-floating-market",
@@ -282,7 +282,7 @@
 			"เจ้าของร้านริมน้ำ",
 			"คนขายหมวก"
 		],
-		"imageUrl": "https://r2.spyfall.example.com/locations/floating-market.webp"
+		"imageUrl": "https://spyfall-asset.greenrenge.work/loc-floating-market.png"
 	},
 	{
 		"id": "loc-grand-palace",
@@ -297,7 +297,7 @@
 			"ช่างภาพ",
 			"พนักงานขายตั๋ว"
 		],
-		"imageUrl": "https://r2.spyfall.example.com/locations/grand-palace.webp"
+		"imageUrl": "https://spyfall-asset.greenrenge.work/loc-grand-palace.png"
 	},
 	{
 		"id": "loc-cemetery",
@@ -312,7 +312,7 @@
 			"คนขายดอกไม้",
 			"นักสืบ"
 		],
-		"imageUrl": "https://r2.spyfall.example.com/locations/cemetery.webp"
+		"imageUrl": "https://spyfall-asset.greenrenge.work/loc-cemetery.png"
 	},
 	{
 		"id": "loc-museum",
@@ -327,7 +327,7 @@
 			"ช่างภาพ",
 			"พนักงานขายของที่ระลึก"
 		],
-		"imageUrl": "https://r2.spyfall.example.com/locations/museum.webp"
+		"imageUrl": "https://spyfall-asset.greenrenge.work/loc-museum.png"
 	},
 	{
 		"id": "loc-zoo",
@@ -342,7 +342,7 @@
 			"ช่างภาพ",
 			"พนักงานร้านอาหาร"
 		],
-		"imageUrl": "https://r2.spyfall.example.com/locations/zoo.webp"
+		"imageUrl": "https://spyfall-asset.greenrenge.work/loc-zoo.png"
 	},
 	{
 		"id": "loc-beach",
