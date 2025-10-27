@@ -357,7 +357,7 @@
 			"ครูสอนดำน้ำ",
 			"คนนวด"
 		],
-		"imageUrl": "https://r2.spyfall.example.com/locations/beach.webp"
+		"imageUrl": "https://spyfall-asset.greenrenge.work/loc-beach.png"
 	},
 	{
 		"id": "loc-mountain",
@@ -372,7 +372,7 @@
 			"คนขายของ",
 			"พระ"
 		],
-		"imageUrl": "https://r2.spyfall.example.com/locations/mountain.webp"
+		"imageUrl": "https://spyfall-asset.greenrenge.work/loc-mountain.png"
 	},
 	{
 		"id": "loc-space-station",
@@ -387,7 +387,7 @@
 			"นักข่าว",
 			"นักท่องเที่ยวอวกาศ"
 		],
-		"imageUrl": "https://r2.spyfall.example.com/locations/space-station.webp"
+		"imageUrl": "https://spyfall-asset.greenrenge.work/loc-space-station.png"
 	},
 	{
 		"id": "loc-cave",
@@ -402,7 +402,7 @@
 			"นักสำรวจถ้ำ",
 			"เจ้าหน้าที่ดูแลความปลอดภัย"
 		],
-		"imageUrl": "https://r2.spyfall.example.com/locations/cave.webp"
+		"imageUrl": "https://spyfall-asset.greenrenge.work/loc-cave.png"
 	},
 	{
 		"id": "loc-waterfall",
@@ -417,7 +417,7 @@
 			"คนท้องถิ่น",
 			"รปภ."
 		],
-		"imageUrl": "https://r2.spyfall.example.com/locations/waterfall.webp"
+		"imageUrl": "https://spyfall-asset.greenrenge.work/loc-waterfall.png"
 	},
 	{
 		"id": "loc-hill-tribe-village",
@@ -432,7 +432,7 @@
 			"หมอพื้นบ้าน",
 			"เด็กในหมู่บ้าน"
 		],
-		"imageUrl": "https://r2.spyfall.example.com/locations/hill-tribe-village.webp"
+		"imageUrl": "https://spyfall-asset.greenrenge.work/loc-hill-tribe-village.png"
 	},
 	{
 		"id": "loc-amusement-park",
@@ -447,7 +447,7 @@
 			"มาสคอต",
 			"รปภ."
 		],
-		"imageUrl": "https://r2.spyfall.example.com/locations/amusement-park.webp"
+		"imageUrl": "https://spyfall-asset.greenrenge.work/loc-amusement-park.png"
 	},
 	{
 		"id": "loc-water-park",
@@ -462,7 +462,7 @@
 			"ช่างซ่อม",
 			"รปภ."
 		],
-		"imageUrl": "https://r2.spyfall.example.com/locations/water-park.webp"
+		"imageUrl": "https://spyfall-asset.greenrenge.work/loc-water-park.png"
 	},
 	{
 		"id": "loc-suvarnabhumi-airport",
@@ -477,7 +477,7 @@
 			"เจ้าหน้าที่สัมภาระ",
 			"พนักงานร้านค้า"
 		],
-		"imageUrl": "https://r2.spyfall.example.com/locations/suvarnabhumi-airport.webp"
+		"imageUrl": "https://spyfall-asset.greenrenge.work/loc-suvarnabhumi-airport.png"
 	},
 	{
 		"id": "loc-train-station",
@@ -492,7 +492,7 @@
 			"ยาม",
 			"พนักงานทำความสะอาด"
 		],
-		"imageUrl": "https://r2.spyfall.example.com/locations/hua-lamphong-station.webp"
+		"imageUrl": "https://spyfall-asset.greenrenge.work/loc-train-station.png"
 	},
 	{
 		"id": "loc-pier",
@@ -507,7 +507,7 @@
 			"คนขายของ",
 			"คนขนของ"
 		],
-		"imageUrl": "https://r2.spyfall.example.com/locations/pier.webp"
+		"imageUrl": "https://spyfall-asset.greenrenge.work/loc-pier.png"
 	},
 	{
 		"id": "loc-auto-repair-shop",
@@ -522,7 +522,7 @@
 			"ช่างไฟฟ้า",
 			"คนล้างรถ"
 		],
-		"imageUrl": "https://r2.spyfall.example.com/locations/auto-repair-shop.webp"
+		"imageUrl": "https://spyfall-asset.greenrenge.work/loc-auto-repair-shop.png"
 	},
 	{
 		"id": "loc-police-station",
