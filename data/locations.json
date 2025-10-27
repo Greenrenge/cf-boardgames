@@ -537,7 +537,7 @@
 			"ทนายความ",
 			"ผู้ช่วยเจ้าหน้าที่"
 		],
-		"imageUrl": "https://r2.spyfall.example.com/locations/highway-police-station.webp"
+		"imageUrl": "https://spyfall-asset.greenrenge.work/loc-police-station.png"
 	},
 	{
 		"id": "loc-shopping-mall",
@@ -552,7 +552,7 @@
 			"เจ้าหน้าที่ประจำชั้น",
 			"คนจอดรถ"
 		],
-		"imageUrl": "https://r2.spyfall.example.com/locations/shopping-mall.webp"
+		"imageUrl": "https://spyfall-asset.greenrenge.work/loc-shopping-mall.png"
 	},
 	{
 		"id": "loc-cinema",
@@ -567,7 +567,7 @@
 			"ช่างโปรเจกเตอร์",
 			"ผู้จัดการโรงหนัง"
 		],
-		"imageUrl": "https://r2.spyfall.example.com/locations/cinema.webp"
+		"imageUrl": "https://spyfall-asset.greenrenge.work/loc-cinema.png"
 	},
 	{
 		"id": "loc-karaoke",
@@ -582,7 +582,7 @@
 			"แม่บ้าน",
 			"ดีเจ"
 		],
-		"imageUrl": "https://r2.spyfall.example.com/locations/karaoke.webp"
+		"imageUrl": "https://spyfall-asset.greenrenge.work/loc-karaoke.png"
 	},
 	{
 		"id": "loc-game-center",
@@ -597,7 +597,7 @@
 			"นักเล่นเกมส์มืออาชีพ",
 			"พนักงานทำความสะอาด"
 		],
-		"imageUrl": "https://r2.spyfall.example.com/locations/game-center/internet-cafe.webp"
+		"imageUrl": "https://spyfall-asset.greenrenge.work/loc-game-center.png"
 	},
 	{
 		"id": "loc-concert",
@@ -612,7 +612,7 @@
 			"คนขายของที่ระลึก",
 			"เวทีแมนเนเจอร์"
 		],
-		"imageUrl": "https://r2.spyfall.example.com/locations/concert-venue.webp"
+		"imageUrl": "https://spyfall-asset.greenrenge.work/loc-concert.png"
 	},
 	{
 		"id": "loc-pub",
@@ -627,7 +627,7 @@
 			"แคชเชียร์",
 			"เจ้าของร้าน"
 		],
-		"imageUrl": "https://r2.spyfall.example.com/locations/pub.webp"
+		"imageUrl": "https://spyfall-asset.greenrenge.work/loc-pub.png"
 	},
 	{
 		"id": "loc-massage-parlor",
@@ -642,7 +642,7 @@
 			"พนักงานซักผ้า",
 			"แม่บ้าน"
 		],
-		"imageUrl": "https://r2.spyfall.example.com/locations/massage-parlor.webp"
+		"imageUrl": "https://spyfall-asset.greenrenge.work/loc-massage-parlor.png"
 	},
 	{
 		"id": "loc-fitness-center",
@@ -657,7 +657,7 @@
 			"นักกล้าม",
 			"ผู้จัดการ"
 		],
-		"imageUrl": "https://r2.spyfall.example.com/locations/fitness-center.webp"
+		"imageUrl": "https://spyfall-asset.greenrenge.work/loc-fitness-center.png"
 	},
 	{
 		"id": "loc-swimming-pool",
@@ -672,7 +672,7 @@
 			"นักกีฬาว่ายน้ำ",
 			"ผู้ปกครองเด็ก"
 		],
-		"imageUrl": "https://r2.spyfall.example.com/locations/swimming-pool.webp"
+		"imageUrl": "https://spyfall-asset.greenrenge.work/loc-swimming-pool.png"
 	},
 	{
 		"id": "loc-clothing-store",
