@@ -25,7 +25,7 @@ export class GameRoom {
   private async checkAndRemovePlayers() {
     const now = Date.now();
     for (const [playerId, player] of Array.from(this.players.entries())) {
-      if (player.lastSeenAt + 20_000 >= now) {
+      if (player.lastSeenAt + 20_000 >= now || this.room?.phase !== 'lobby') {
         // 20 seconds timeout
         continue;
       }
