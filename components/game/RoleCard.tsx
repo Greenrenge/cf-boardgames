@@ -2,6 +2,7 @@
 
 import { Card } from '../ui/Card';
 import { LocationImage } from './LocationImage';
+import { SpyLocationBrowser } from './SpyLocationBrowser';
 import type { Location } from '@/lib/types';
 
 interface RoleCardProps {
@@ -32,10 +33,17 @@ export function RoleCard({ role, location, isSpy, locations }: RoleCardProps) {
         </div>
 
         {isSpy ? (
-          <div className="space-y-2 p-4 bg-red-100 rounded-lg">
-            <p className="text-red-900 font-medium">🕵️ คุณคือสปาย!</p>
-            <p className="text-sm text-red-800">คุณต้องเดาสถานที่โดยไม่ให้ใครรู้ว่าคุณเป็นสปาย</p>
-            <p className="text-xs text-red-700">ถามคำถามอย่างฉลาดและพยายามเดาสถานที่ก่อนหมดเวลา</p>
+          <div className="space-y-4">
+            <div className="p-4 bg-red-100 rounded-lg">
+              <p className="text-red-900 font-medium">🕵️ คุณคือสปาย!</p>
+              <p className="text-sm text-red-800">คุณต้องเดาสถานที่โดยไม่ให้ใครรู้ว่าคุณเป็นสปาย</p>
+              <p className="text-xs text-red-700">
+                ถามคำถามอย่างฉลาดและพยายามเดาสถานที่ก่อนหมดเวลา
+              </p>
+            </div>
+
+            {/* NEW: Spy location browser */}
+            {locations && locations.length > 0 && <SpyLocationBrowser locations={locations} />}
           </div>
         ) : (
           <div className="space-y-3">
