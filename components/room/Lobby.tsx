@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { Button } from '../ui/Button';
 import { Card } from '../ui/Card';
 import { PlayerList } from './PlayerList';
@@ -14,6 +14,8 @@ interface LobbyProps {
   onStartGame: (difficulty: Difficulty[], timerDuration: number) => void;
   onKickPlayer: (targetPlayerId: string) => void;
   isStarting: boolean;
+  maxPlayers?: number;
+  onUpdateConfig?: (config: { maxPlayers?: number; spyCount?: number }) => void;
 }
 
 export function Lobby({
@@ -24,9 +26,11 @@ export function Lobby({
   onStartGame,
   onKickPlayer,
   isStarting,
+  maxPlayers = 10,
+  onUpdateConfig,
 }: LobbyProps) {
   const isHost = currentPlayerId === hostId;
-  const canStart = players.length >= 3 && players.length <= 8;
+  const canStart = players.length >= 4 && players.length <= maxPlayers;
 
   // Game settings state (host only)
   const [selectedDifficulties, setSelectedDifficulties] = useState<Difficulty[]>([
@@ -35,6 +39,19 @@ export function Lobby({
     'hard',
   ]);
   const [timerDuration, setTimerDuration] = useState<number>(8);
+  const [localMaxPlayers, setLocalMaxPlayers] = useState<number>(maxPlayers);
+
+  // Update local state when maxPlayers prop changes
+  useEffect(() => {
+    setLocalMaxPlayers(maxPlayers);
+  }, [maxPlayers]);
+
+  const handleMaxPlayersChange = (newValue: number) => {
+    setLocalMaxPlayers(newValue);
+    if (onUpdateConfig) {
+      onUpdateConfig({ maxPlayers: newValue });
+    }
+  };
 
   const handleDifficultyToggle = (difficulty: Difficulty) => {
     setSelectedDifficulties((prev) => {
@@ -83,6 +100,16 @@ export function Lobby({
             </button>
           </div>
           <p className="text-sm text-gray-600">แชร์รหัสนี้กับเพื่อนเพื่อเข้าร่วมห้อง</p>
+
+          {/* Player count display */}
+          <div className="mt-4 pt-4 border-t border-gray-200">
+            <p className="text-lg font-semibold text-gray-900">
+              {players.length}/{maxPlayers} ผู้เล่น
+            </p>
+            {players.length >= maxPlayers && (
+              <p className="text-sm text-orange-600 mt-1">🚫 ห้องเต็ม</p>
+            )}
+          </div>
         </div>
       </Card>
 
@@ -99,6 +126,31 @@ export function Lobby({
         <Card>
           <div className="space-y-4">
             <h3 className="text-lg font-medium text-gray-900">ตั้งค่าเกม</h3>
+
+            {/* Capacity Slider - HOST ONLY */}
+            <div className="space-y-2">
+              <label className="block text-sm font-medium text-gray-700">
+                จำนวนผู้เล่นสูงสุด: {localMaxPlayers} คน
+              </label>
+              <input
+                type="range"
+                min={Math.max(4, players.length)}
+                max={20}
+                value={localMaxPlayers}
+                onChange={(e) => handleMaxPlayersChange(Number(e.target.value))}
+                className="w-full h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer accent-blue-600"
+                disabled={!onUpdateConfig}
+              />
+              <div className="flex justify-between text-xs text-gray-500">
+                <span>4 คน</span>
+                <span>20 คน</span>
+              </div>
+              {localMaxPlayers < maxPlayers && (
+                <p className="text-xs text-orange-600">
+                  ไม่สามารถลดต่ำกว่าจำนวนผู้เล่นปัจจุบัน ({players.length} คน)
+                </p>
+              )}
+            </div>
 
             {/* Timer Duration Selector */}
             <div className="space-y-2">
@@ -164,7 +216,7 @@ export function Lobby({
               {isStarting
                 ? 'กำลังเริ่มเกม...'
                 : !canStart
-                  ? `ต้องมีผู้เล่น 3-8 คน (ตอนนี้ ${players.length} คน)`
+                  ? `ต้องมีผู้เล่น 4-${maxPlayers} คน (ตอนนี้ ${players.length} คน)`
                   : 'เริ่มเกม'}
             </Button>
           </div>

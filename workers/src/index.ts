@@ -135,6 +135,76 @@ app.get('/api/rooms/:code', async (c) => {
   }
 });
 
+// Update room configuration endpoint
+app.patch('/api/rooms/:code/config', async (c) => {
+  try {
+    const roomCode = c.req.param('code');
+
+    if (!roomCode || roomCode.length !== 6) {
+      return c.json(
+        {
+          error: {
+            code: 'INVALID_REQUEST',
+            message: 'Invalid room code format',
+          },
+        },
+        400
+      );
+    }
+
+    const body = await c.req.json();
+    const { maxPlayers, spyCount } = body;
+
+    // Validate maxPlayers (4-20)
+    if (maxPlayers !== undefined && (maxPlayers < 4 || maxPlayers > 20)) {
+      return c.json(
+        {
+          error: {
+            code: 'INVALID_REQUEST',
+            message: 'maxPlayers must be between 4 and 20',
+          },
+        },
+        400
+      );
+    }
+
+    // Validate spyCount (1-3)
+    if (spyCount !== undefined && (spyCount < 1 || spyCount > 3)) {
+      return c.json(
+        {
+          error: {
+            code: 'INVALID_REQUEST',
+            message: 'spyCount must be between 1 and 3',
+          },
+        },
+        400
+      );
+    }
+
+    // Get Durable Object for this room
+    const roomId = c.env.GAME_ROOMS.idFromName(roomCode);
+    const roomStub = c.env.GAME_ROOMS.get(roomId);
+
+    const response = await roomStub.fetch(`http://internal/config`, {
+      method: 'PATCH',
+      body: JSON.stringify({ maxPlayers, spyCount }),
+    });
+
+    return response;
+  } catch (error) {
+    console.error('Error updating room config:', error);
+    return c.json(
+      {
+        error: {
+          code: 'INTERNAL_ERROR',
+          message: 'Failed to update room configuration',
+        },
+      },
+      500
+    );
+  }
+});
+
 // Get locations endpoint
 app.get('/api/locations', async (c) => {
   try {

@@ -128,14 +128,102 @@ export class GameRoom {
           roomCode: this.room.code,
           gameType: this.room.gameType,
           playerCount: this.players.size,
-          maxPlayers: 10,
+          maxPlayers: this.room.maxPlayers ?? 10,
           phase: this.room.phase,
-          isJoinable: this.players.size < 10 && this.room.phase === 'lobby',
+          isJoinable: this.room.canJoin(this.players.size) && this.room.phase === 'lobby',
         }),
         {
           headers: { 'Content-Type': 'application/json' },
         }
       );
+    }
+
+    // Update room configuration
+    if (url.pathname === '/config' && request.method === 'PATCH') {
+      await this.loadState();
+
+      if (!this.room) {
+        return new Response(
+          JSON.stringify({
+            error: { code: 'ROOM_NOT_FOUND', message: 'Room does not exist' },
+          }),
+          {
+            status: 404,
+            headers: { 'Content-Type': 'application/json' },
+          }
+        );
+      }
+
+      try {
+        const body = (await request.json()) as any;
+        const { maxPlayers, spyCount } = body;
+
+        // Update maxPlayers if provided
+        if (maxPlayers !== undefined) {
+          // Cannot decrease below current player count
+          if (maxPlayers < this.players.size) {
+            return new Response(
+              JSON.stringify({
+                error: {
+                  code: 'INVALID_REQUEST',
+                  message: `Cannot set maxPlayers to ${maxPlayers} when ${this.players.size} players are already in the room`,
+                },
+              }),
+              {
+                status: 400,
+                headers: { 'Content-Type': 'application/json' },
+              }
+            );
+          }
+          this.room.maxPlayers = maxPlayers;
+        }
+
+        // Update spyCount if provided
+        if (spyCount !== undefined) {
+          this.room.spyCount = spyCount;
+        }
+
+        await this.saveState();
+
+        // Broadcast config update to all connected players
+        this.broadcast({
+          type: 'ROOM_CONFIG_UPDATE',
+          payload: {
+            maxPlayers: this.room.maxPlayers,
+            spyCount: this.room.spyCount,
+          },
+          timestamp: Date.now(),
+        });
+
+        // Also send updated ROOM_STATE
+        this.broadcast({
+          type: 'ROOM_STATE',
+          payload: this.getRoomStatePayload(),
+          timestamp: Date.now(),
+        });
+
+        return new Response(
+          JSON.stringify({
+            success: true,
+            maxPlayers: this.room.maxPlayers,
+            spyCount: this.room.spyCount,
+          }),
+          {
+            headers: { 'Content-Type': 'application/json' },
+          }
+        );
+      } catch (error) {
+        console.error('[GameRoom] Config update error:', error);
+        return new Response(
+          JSON.stringify({
+            error: { code: 'INTERNAL_ERROR', message: 'Failed to update configuration' },
+          }),
+          {
+            status: 500,
+            headers: { 'Content-Type': 'application/json' },
+          }
+        );
+      }
     }
 
     // WebSocket upgrade

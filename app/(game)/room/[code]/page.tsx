@@ -38,6 +38,8 @@ export default function RoomPage() {
   const [isConnected, setIsConnected] = useState(false);
   const [isStarting, setIsStarting] = useState(false);
   const [error, setError] = useState<string | null>(null);
+  const [maxPlayers, setMaxPlayers] = useState<number>(10);
+  const [spyCount, setSpyCount] = useState<number>(1);
 
   // Game state
   const [gamePhase, setGamePhase] = useState<GamePhase>('lobby');
@@ -59,6 +61,9 @@ export default function RoomPage() {
     switch (message.type) {
       case 'ROOM_STATE':
         handleRoomState(message.payload as { players: Player[]; hostId: string; phase: string });
+        break;
+      case 'ROOM_CONFIG_UPDATE':
+        handleRoomConfigUpdate(message.payload as { maxPlayers?: number; spyCount?: number });
         break;
       case 'PLAYER_JOINED':
         handlePlayerJoined(message.payload as Player);
@@ -188,13 +193,38 @@ export default function RoomPage() {
     };
   }, [roomCode]); // Include all dependencies
 
-  const handleRoomState = (payload: { players: Player[]; hostId: string; phase: string }) => {
+  const handleRoomState = (payload: {
+    players: Player[];
+    hostId: string;
+    phase: string;
+    maxPlayers?: number;
+    spyCount?: number;
+  }) => {
     setPlayers(payload.players);
     setHostId(payload.hostId);
+
+    // Update room configuration if provided
+    if (payload.maxPlayers !== undefined) {
+      setMaxPlayers(payload.maxPlayers);
+    }
+    if (payload.spyCount !== undefined) {
+      setSpyCount(payload.spyCount);
+    }
+
     // If game was reset to lobby, clear game state
     if (payload.phase === 'lobby' && gamePhase !== 'lobby') {
       console.log('[Room] Game reset detected, returning to lobby');
       handleBackToLobby();
+    }
+  };
+
+  const handleRoomConfigUpdate = (payload: { maxPlayers?: number; spyCount?: number }) => {
+    console.log('[Room] Room config updated:', payload);
+    if (payload.maxPlayers !== undefined) {
+      setMaxPlayers(payload.maxPlayers);
+    }
+    if (payload.spyCount !== undefined) {
+      setSpyCount(payload.spyCount);
     }
   };
 
@@ -376,6 +406,29 @@ export default function RoomPage() {
     });
   };
 
+  const handleUpdateRoomConfig = async (config: { maxPlayers?: number; spyCount?: number }) => {
+    try {
+      const response = await fetch(`/api/rooms/${roomCode}`, {
+        method: 'PATCH',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(config),
+      });
+
+      if (!response.ok) {
+        const errorData = await response.json();
+        console.error('[Room] Failed to update config:', errorData);
+        setError(errorData.error?.message || 'Failed to update room configuration');
+      } else {
+        console.log('[Room] Room config updated successfully');
+      }
+    } catch (error) {
+      console.error('[Room] Error updating room config:', error);
+      setError('Failed to update room configuration');
+    }
+  };
+
   const handleStartGame = (difficulty: Difficulty[], timerDuration: number) => {
     console.log('[Room] Starting game with:', { difficulty, timerDuration });
 
@@ -533,6 +586,8 @@ export default function RoomPage() {
           onStartGame={handleStartGame}
           onKickPlayer={handleKickPlayer}
           isStarting={isStarting}
+          maxPlayers={maxPlayers}
+          onUpdateConfig={handleUpdateRoomConfig}
         />
       )}
 
