@@ -85,6 +85,7 @@ wrangler dev --local --persist
 ```
 
 This starts:
+
 - Cloudflare Workers on `http://localhost:8787`
 - Durable Objects (in-memory)
 - D1 (local SQLite)
@@ -96,6 +97,7 @@ npm run dev
 ```
 
 This starts:
+
 - Next.js dev server on `http://localhost:3000`
 - Hot reload enabled
 - TypeScript type checking
@@ -122,6 +124,7 @@ Navigate to `http://localhost:3000`
 ### View WebSocket Messages
 
 Open browser DevTools:
+
 1. Go to Network tab
 2. Filter by "WS" (WebSockets)
 3. Click on the WebSocket connection
@@ -143,6 +146,7 @@ Since we use **Playground Over Tests** (per constitution):
 ### Manual Testing Checklist
 
 **User Story 1: Create/Join Room**
+
 - [ ] Create room generates unique 6-char code
 - [ ] Join room with valid code succeeds
 - [ ] Join with invalid code shows error
@@ -151,6 +155,7 @@ Since we use **Playground Over Tests** (per constitution):
 - [ ] Name duplicates get (2), (3) appended
 
 **User Story 2: Play Spyfall Round**
+
 - [ ] Start game assigns roles (1 spy, others non-spy)
 - [ ] Spy sees "You are the spy" with no location
 - [ ] Non-spies see location + specific role + reference sheet
@@ -162,23 +167,27 @@ Since we use **Playground Over Tests** (per constitution):
 - [ ] Scores update correctly based on outcome
 
 **User Story 3: Spy Guess**
+
 - [ ] Spy guess interface shows if spy survives voting
 - [ ] Only spy sees location selection list
 - [ ] Correct guess awards spy 2 points
 - [ ] Incorrect guess awards non-spies 1 point each
 
 **User Story 4: Multi-Round**
+
 - [ ] Scores persist across rounds
 - [ ] New round assigns new roles and location
 - [ ] Previous chat cleared for new round
 - [ ] Leaderboard shows cumulative scores
 
 **User Story 5: Pluggable Games**
+
 - [ ] Game type selection shows on room creation
 - [ ] Werewolf option shows as "Coming Soon"
 - [ ] Code structure separates game logic from room logic
 
 **Edge Cases**
+
 - [ ] Disconnect mid-game: Player marked disconnected
 - [ ] Reconnect within 2 min: Player state restored
 - [ ] Host disconnect: Host transfers to next player
@@ -281,6 +290,7 @@ wrangler d1 migrations apply spyfall-db-dev --local
 ### Deploy Frontend (Cloudflare Pages)
 
 **Option 1: Git Integration (Recommended)**
+
 1. Push code to GitHub
 2. Connect repository to Cloudflare Pages
 3. Configure build:
@@ -290,6 +300,7 @@ wrangler d1 migrations apply spyfall-db-dev --local
 4. Every push auto-deploys
 
 **Option 2: Manual Deploy**
+
 ```bash
 npm run build
 npx wrangler pages deploy .next
@@ -315,7 +326,8 @@ wrangler d1 migrations apply spyfall-db-prod --remote
 ### WebSocket Connection Fails
 
 **Problem**: Can't connect to WebSocket  
-**Solution**: 
+**Solution**:
+
 - Check if Workers dev server is running (`wrangler dev`)
 - Verify `NEXT_PUBLIC_WS_URL` points to correct port
 - Check browser console for errors
@@ -324,6 +336,7 @@ wrangler d1 migrations apply spyfall-db-prod --remote
 
 **Problem**: `Error: Database not found`  
 **Solution**:
+
 ```bash
 wrangler d1 create spyfall-db-dev
 # Copy database ID to wrangler.toml
@@ -334,6 +347,7 @@ wrangler d1 migrations apply spyfall-db-dev --local
 
 **Problem**: Changes not reflecting  
 **Solution**:
+
 - For frontend: Restart `npm run dev`
 - For backend: Restart `wrangler dev`
 - Clear browser cache (Ctrl+Shift+R)
@@ -342,6 +356,7 @@ wrangler d1 migrations apply spyfall-db-dev --local
 
 **Problem**: `Error: Port 3000 is already in use`  
 **Solution**:
+
 ```bash
 # Find and kill process using port
 lsof -ti:3000 | xargs kill -9
@@ -354,6 +369,7 @@ PORT=3001 npm run dev
 
 **Problem**: Room state seems broken  
 **Solution**:
+
 ```bash
 # Stop wrangler dev
 # Delete local state: rm -rf .wrangler/state
@@ -365,18 +381,21 @@ PORT=3001 npm run dev
 ## Environment-Specific Notes
 
 ### Development (Local)
+
 - D1 uses local SQLite file (`.wrangler/state/d1/`)
 - R2 uses filesystem mock (no actual bucket needed)
 - WebSockets work via local Workers
 - No real Cloudflare edge network
 
 ### Staging (Cloudflare)
+
 - Separate D1 database: `spyfall-db-staging`
 - Separate R2 bucket: `spyfall-images-staging`
 - Environment variables via Wrangler secrets
 - Preview URLs for each deployment
 
 ### Production (Cloudflare)
+
 - Production D1: `spyfall-db-prod`
 - Production R2: `spyfall-images`
 - Custom domain configured

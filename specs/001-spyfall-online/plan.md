@@ -10,13 +10,15 @@ Build a real-time multiplayer social deduction game (Spyfall) as a web applicati
 ## Technical Context
 
 **Language/Version**: TypeScript 5.x / JavaScript ES2022  
-**Primary Dependencies**: 
+**Primary Dependencies**:
+
 - Frontend: Next.js 14, React 18, Tailwind CSS 3.x
 - Backend: Cloudflare Workers, Hono (lightweight web framework)
 - Real-time: Cloudflare Durable Objects (WebSocket support)
 - Storage: Cloudflare D1 (SQLite), Cloudflare R2 (object storage)
 
-**Storage**: 
+**Storage**:
+
 - Persistent data: Cloudflare D1 (SQLite) for locations, game configs
 - Real-time state: Durable Objects (in-memory with persistence)
 - Session: Browser localStorage for player name/preferences
@@ -24,20 +26,23 @@ Build a real-time multiplayer social deduction game (Spyfall) as a web applicati
 
 **Testing**: Playground-driven validation (no test suites per constitution)
 
-**Target Platform**: 
+**Target Platform**:
+
 - Deployment: Cloudflare Pages (frontend) + Cloudflare Workers (backend)
 - Client: Modern browsers (Chrome, Firefox, Safari, Edge) + Mobile web
 
 **Project Type**: Web application (Next.js frontend + Cloudflare Workers backend)
 
-**Performance Goals**: 
+**Performance Goals**:
+
 - Real-time message delivery: <500ms latency
 - Player join/leave updates: <1s propagation
 - Room creation: <5s end-to-end
 - Support 100 concurrent rooms (10 players each = 1000 concurrent users)
 - Timer synchronization: <2s drift across clients
 
-**Constraints**: 
+**Constraints**:
+
 - Cloudflare Workers: 128MB memory limit, 50ms CPU time (soft limit)
 - Durable Objects: 128MB memory per object, WebSocket connections capped at 10,000/object
 - D1: SQLite limits (no full-text search, max 10GB database)
@@ -45,7 +50,8 @@ Build a real-time multiplayer social deduction game (Spyfall) as a web applicati
 - No backend server required (fully serverless)
 - Mobile-responsive UI (no horizontal scroll on phones)
 
-**Scale/Scope**: 
+**Scale/Scope**:
+
 - Initial: 100 concurrent rooms, 1000 concurrent players
 - Growth target: 1000 rooms, 10,000 players (requires Durable Objects scaling)
 - Locations: 100 Thai locations across 3 difficulty levels
@@ -54,7 +60,7 @@ Build a real-time multiplayer social deduction game (Spyfall) as a web applicati
 
 ## Constitution Check
 
-*GATE: Must pass before Phase 0 research. Re-check after Phase 1 design.*
+_GATE: Must pass before Phase 0 research. Re-check after Phase 1 design._
 
 - [x] **Do Less, Get Works**: Feature implements only core game mechanics (room, chat, voting, roles). No analytics, user accounts, leaderboards, or advanced features.
 - [x] **Playground Over Tests**: Deployed playground on Cloudflare Pages for multi-device/browser testing of all user stories.
@@ -62,7 +68,7 @@ Build a real-time multiplayer social deduction game (Spyfall) as a web applicati
 - [x] **Consistent Code Style**: Prettier for TypeScript/React, ESLint for code quality, Next.js conventions.
 - [x] **Readability First**: Clear component names, simple state management, avoid complex abstractions, descriptive function names.
 
-*All principles met. No complexity tracking required.*
+_All principles met. No complexity tracking required._
 
 ## Project Structure
 
@@ -163,6 +169,7 @@ tailwind.config.js            # Tailwind config
 **Artifact**: [research.md](./research.md)
 
 **Decisions Made**:
+
 - Frontend: Next.js 14 + React 18 + Tailwind CSS
 - Backend: Cloudflare Workers + Hono framework
 - Real-time: Durable Objects with WebSocket
@@ -171,6 +178,7 @@ tailwind.config.js            # Tailwind config
 - Deployment: Cloudflare Pages + Workers
 
 **Key Trade-offs**:
+
 - Vendor lock-in to Cloudflare (accepted for simplicity and performance)
 - D1 beta status (accepted - stable enough for production)
 - No traditional database for game state (Durable Objects handle it)
@@ -180,12 +188,14 @@ tailwind.config.js            # Tailwind config
 ### ✅ Phase 1: Design & Contracts (Complete)
 
 **Artifacts**:
+
 - [data-model.md](./data-model.md) - Entity definitions and relationships
 - [contracts/websocket.md](./contracts/websocket.md) - WebSocket protocol
 - [contracts/http-api.md](./contracts/http-api.md) - HTTP API specification
 - [quickstart.md](./quickstart.md) - Development setup guide
 
 **Entities Defined**:
+
 - Room (game session)
 - Player (participant)
 - GameState (current round)
@@ -194,11 +204,13 @@ tailwind.config.js            # Tailwind config
 - Vote (suspicion)
 
 **API Contracts**:
+
 - 14 WebSocket message types (client→server and server→client)
 - 4 HTTP endpoints (room creation, info, locations, health)
 - Error handling, rate limiting, CORS, caching
 
 **Constitution Re-check** ✅:
+
 - **Do Less, Get Works**: Only core mechanics, no speculative features
 - **Playground Over Tests**: Detailed manual testing checklist in quickstart
 - **Declarative Style**: React components, config-driven locations, event-driven WebSocket

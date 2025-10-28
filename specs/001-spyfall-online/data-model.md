@@ -10,6 +10,7 @@
 Represents a game session where players gather to play.
 
 **Attributes**:
+
 - `code` (string, 6 chars, alphanumeric, unique): Room identifier for joining (e.g., "A3X9K2")
 - `hostPlayerId` (string, UUID): ID of player who created the room
 - `gameType` (enum): Type of game ("spyfall" | "werewolf")
@@ -21,6 +22,7 @@ Represents a game session where players gather to play.
 - `lastActivityAt` (timestamp): Last activity for cleanup
 
 **Validation Rules**:
+
 - `code` must be unique across all rooms
 - `code` must be exactly 6 characters, alphanumeric
 - `hostPlayerId` must exist in `players` array
@@ -30,6 +32,7 @@ Represents a game session where players gather to play.
 - `phase` must be a valid enum value
 
 **State Transitions**:
+
 ```
 lobby → playing (when host starts game with 4-10 players)
 playing → voting (when timer expires or host triggers vote)
@@ -40,6 +43,7 @@ results → lobby (when host starts new round)
 ```
 
 **Relationships**:
+
 - Has many Players (1-to-many)
 - Has one GameState (1-to-1, optional, only during active game)
 
@@ -50,6 +54,7 @@ results → lobby (when host starts new round)
 Represents a participant in a room.
 
 **Attributes**:
+
 - `id` (string, UUID): Unique player identifier (generated client-side)
 - `name` (string, 1-20 chars): Display name
 - `roomCode` (string, 6 chars): Current room the player is in
@@ -61,6 +66,7 @@ Represents a participant in a room.
 - `lastSeenAt` (timestamp): Last activity for disconnect detection
 
 **Validation Rules**:
+
 - `name` must be 1-20 characters, trimmed
 - `name` duplicates in same room are appended with (2), (3), etc.
 - `roomCode` must reference an existing room
@@ -68,6 +74,7 @@ Represents a participant in a room.
 - `role` is null unless `phase` is "playing" | "voting" | "spy_guess"
 
 **State Transitions**:
+
 ```
 connected → disconnected (on WebSocket close, network failure)
 disconnected → reconnecting (on reconnection attempt within 2 min)
@@ -76,6 +83,7 @@ disconnected → removed (after 2 min timeout)
 ```
 
 **Relationships**:
+
 - Belongs to one Room (many-to-1)
 - Can send many Messages (1-to-many)
 - Can cast many Votes (1-to-many)
@@ -87,6 +95,7 @@ disconnected → removed (after 2 min timeout)
 Represents the current round of gameplay.
 
 **Attributes**:
+
 - `roomCode` (string, 6 chars): Room this game state belongs to
 - `roundNumber` (number, starts at 1): Current round index
 - `selectedLocation` (object): The chosen location for this round
@@ -107,6 +116,7 @@ Represents the current round of gameplay.
 - `spyGuess` (string | null): Location name guessed by spy (if applicable)
 
 **Validation Rules**:
+
 - `selectedLocation` must be from locations database
 - `assignments` map must have entry for every player in room
 - Exactly one player must have role "spy"
@@ -117,6 +127,7 @@ Represents the current round of gameplay.
 - `votes` can only exist when phase is "voting"
 
 **Relationships**:
+
 - Belongs to one Room (1-to-1)
 - References one Location (many-to-1)
 - Has many Messages (1-to-many)
@@ -129,6 +140,7 @@ Represents the current round of gameplay.
 Represents a Spyfall location with roles. Stored in D1 (persistent).
 
 **Attributes**:
+
 - `id` (string, UUID): Unique location identifier
 - `nameTh` (string): Location name in Thai
 - `difficulty` (enum): "easy" | "medium" | "hard"
@@ -136,23 +148,34 @@ Represents a Spyfall location with roles. Stored in D1 (persistent).
 - `imageUrl` (string, URL): R2 URL to location image
 
 **Validation Rules**:
+
 - `nameTh` must be unique
 - `roles` array must have 7-10 elements
 - `difficulty` must be one of the three enums
 - `imageUrl` must be valid HTTPS URL
 
 **Examples**:
+
 ```json
 {
   "id": "loc-001",
   "nameTh": "ชายหาด",
   "difficulty": "easy",
-  "roles": ["นักท่องเที่ยว", "ไลฟ์การ์ด", "พนักงานขายอาหาร", "เด็กเล่นน้ำ", "ช่างภาพ", "ผู้ขายของที่ระลึก", "คนนวดแผนไทย"],
+  "roles": [
+    "นักท่องเที่ยว",
+    "ไลฟ์การ์ด",
+    "พนักงานขายอาหาร",
+    "เด็กเล่นน้ำ",
+    "ช่างภาพ",
+    "ผู้ขายของที่ระลึก",
+    "คนนวดแผนไทย"
+  ],
   "imageUrl": "https://r2.example.com/locations/beach.webp"
 }
 ```
 
 **Relationships**:
+
 - Can be selected by many GameStates (1-to-many)
 
 ---
@@ -162,6 +185,7 @@ Represents a Spyfall location with roles. Stored in D1 (persistent).
 Represents a chat message in a game round.
 
 **Attributes**:
+
 - `id` (string, UUID): Unique message identifier
 - `roomCode` (string, 6 chars): Room this message belongs to
 - `roundNumber` (number): Round index this message was sent in
@@ -172,12 +196,14 @@ Represents a chat message in a game round.
 - `timestamp` (number, Unix ms): When message was sent
 
 **Validation Rules**:
+
 - `content` must be 1-500 characters
 - `roomCode` must reference existing room
 - `playerId` must reference existing player
 - `timestamp` must be in the past or present
 
 **Relationships**:
+
 - Belongs to one Room (many-to-1)
 - Belongs to one Player (many-to-1)
 - Belongs to one GameState/Round (many-to-1)
@@ -189,6 +215,7 @@ Represents a chat message in a game round.
 Represents a player's vote for who they think is the spy.
 
 **Attributes**:
+
 - `id` (string, UUID): Unique vote identifier
 - `roomCode` (string, 6 chars): Room this vote belongs to
 - `roundNumber` (number): Round index
@@ -197,12 +224,14 @@ Represents a player's vote for who they think is the spy.
 - `timestamp` (number, Unix ms): When vote was cast
 
 **Validation Rules**:
+
 - `voterId` must reference existing player in room
 - `suspectId` must reference existing player in room or be "skip"
 - `voterId` and `suspectId` can be the same (self-vote allowed)
 - Each voter can only vote once per round
 
 **Relationships**:
+
 - Belongs to one Room (many-to-1)
 - Belongs to one GameState/Round (many-to-1)
 - References two Players: voter and suspect (many-to-1 each)
@@ -214,6 +243,7 @@ Represents a player's vote for who they think is the spy.
 ### Durable Objects (In-Memory + Persistence)
 
 **What Lives Here**:
+
 - Room entity (active rooms only)
 - Player entities (currently connected players)
 - GameState entity (current round state)
@@ -222,12 +252,14 @@ Represents a player's vote for who they think is the spy.
 - WebSocket connections
 
 **Why**:
+
 - Strong consistency per room
 - Low-latency reads/writes
 - Real-time synchronization
 - Automatic cleanup on object hibernation
 
 **Persistence**:
+
 - Durable Objects have built-in persistence (survives restarts)
 - Critical state (room, players, game state) persisted automatically
 - Messages and votes kept in memory for current round, discarded after round ends
@@ -237,16 +269,19 @@ Represents a player's vote for who they think is the spy.
 ### Cloudflare D1 (SQLite)
 
 **What Lives Here**:
+
 - Locations table (100 Thai locations)
 - Game configs (timer ranges, player limits, scoring rules)
 
 **Why**:
+
 - Read-heavy data (locations queried every game start)
 - Needs filtering (by difficulty level)
 - Edge-cached reads for low latency
 - Persistent across all rooms and time
 
 **Schema**:
+
 ```sql
 CREATE TABLE locations (
   id TEXT PRIMARY KEY,
@@ -273,20 +308,23 @@ CREATE TABLE game_configs (
 ### Browser localStorage
 
 **What Lives Here**:
+
 - Player session: `{ playerId, playerName, lastRoomCode }`
 
 **Why**:
+
 - No backend session management
 - Player name persistence across sessions
 - Quick rejoin to last room
 - Privacy-friendly (no server-side tracking)
 
 **Format**:
+
 ```typescript
 interface SpyfallSession {
-  playerId: string;      // UUID
-  playerName: string;    // Display name
-  lastRoomCode: string;  // Most recent room
+  playerId: string; // UUID
+  playerName: string; // Display name
+  lastRoomCode: string; // Most recent room
 }
 ```
 
@@ -295,9 +333,11 @@ interface SpyfallSession {
 ### Cloudflare R2
 
 **What Lives Here**:
+
 - Location images (WebP format)
 
 **Why**:
+
 - Static assets
 - CDN distribution
 - Zero egress cost
@@ -368,16 +408,19 @@ interface SpyfallSession {
 ## Data Retention & Cleanup
 
 ### Active Rooms (Durable Objects)
+
 - **Retention**: While any player is connected OR last activity < 5 minutes
 - **Cleanup**: Durable Object hibernates (sleeps) after all players disconnect and 5 min timeout
 - **Recovery**: Room can be "revived" if player reconnects within 5 min (Durable Object wakes up)
 
 ### Historical Data
+
 - **Messages**: Discarded after round ends (not persisted to D1)
 - **Votes**: Discarded after round ends
 - **Scores**: Kept in Player entity for duration of room session, then discarded
 
 ### Locations (D1)
+
 - **Retention**: Permanent
 - **Updates**: Only via migrations/admin updates
 
@@ -386,21 +429,25 @@ interface SpyfallSession {
 ## Scalability Considerations
 
 ### Horizontal Scaling
+
 - Each room is an independent Durable Object → rooms scale horizontally automatically
 - 1000 rooms × 10 players = 10,000 concurrent players
 - Cloudflare routes requests to correct Durable Object globally
 
 ### Per-Room Limits
+
 - Max 10 players per room (enforced by validation)
 - Max ~10,000 WebSocket connections per Durable Object (we use max 10)
 - 128MB memory per Durable Object (sufficient for room state + 10 players)
 
 ### Database Scaling
+
 - D1 reads are edge-cached → low latency globally
 - D1 writes (locations) are rare (only during setup)
 - 100 locations × ~1KB each = 100KB total (trivial size)
 
 ### Read vs Write Patterns
+
 - **High-frequency writes**: Player state, messages, votes → Durable Objects
 - **High-frequency reads**: Game state queries → Durable Objects (in-memory)
 - **Low-frequency reads**: Locations → D1 (edge-cached)
@@ -411,12 +458,14 @@ interface SpyfallSession {
 ## Summary
 
 **Storage Distribution**:
+
 - 🔴 **Hot path (real-time)**: Durable Objects (room, players, game state, messages, votes, WebSockets)
 - 🔵 **Cold path (config)**: D1 (locations, game configs)
 - 🟢 **Client-side**: localStorage (player session)
 - 🟡 **Static assets**: R2 (location images)
 
 **Key Design Decisions**:
+
 1. **No traditional database for game state**: Durable Objects handle all real-time state
 2. **D1 only for config data**: Read-heavy, infrequently updated, globally replicated
 3. **No user accounts**: localStorage session sufficient for anonymous gameplay
@@ -424,6 +473,7 @@ interface SpyfallSession {
 5. **Room-based isolation**: Each room is independent, no cross-room queries needed
 
 **Constitution Alignment**:
+
 - ✅ **Do Less**: Minimal entities, no unnecessary persistence
 - ✅ **Declarative**: Data structures drive behavior (location roles, game configs)
 - ✅ **Readable**: Clear entity names, simple relationships, well-documented

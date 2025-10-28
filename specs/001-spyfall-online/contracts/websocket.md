@@ -7,11 +7,13 @@
 ## Connection
 
 ### Endpoint
+
 ```
 wss://api.spyfall.example.com/room/{roomCode}
 ```
 
 ### Connection Flow
+
 1. Client connects to WebSocket endpoint with room code
 2. Server accepts connection or rejects (if room doesn't exist)
 3. Client sends `JOIN` message with player details
@@ -28,10 +30,10 @@ All messages follow this structure:
 
 ```typescript
 interface WebSocketMessage {
-  type: string;           // Message type identifier
-  payload: unknown;       // Message-specific data
-  timestamp: number;      // Unix timestamp in milliseconds
-  playerId?: string;      // UUID of player (for client→server messages)
+  type: string; // Message type identifier
+  payload: unknown; // Message-specific data
+  timestamp: number; // Unix timestamp in milliseconds
+  playerId?: string; // UUID of player (for client→server messages)
 }
 ```
 
@@ -44,6 +46,7 @@ interface WebSocketMessage {
 Player joins a room with their details.
 
 **Message**:
+
 ```json
 {
   "type": "JOIN",
@@ -57,6 +60,7 @@ Player joins a room with their details.
 ```
 
 **Validation**:
+
 - `playerId` must be valid UUID
 - `playerName` must be 1-20 characters
 - `roomCode` must exist
@@ -71,6 +75,7 @@ Player joins a room with their details.
 Host starts a new game round.
 
 **Message**:
+
 ```json
 {
   "type": "START_GAME",
@@ -84,6 +89,7 @@ Host starts a new game round.
 ```
 
 **Validation**:
+
 - Must be sent by room host
 - Room must be in "lobby" phase
 - Must have 4-10 players
@@ -99,6 +105,7 @@ Host starts a new game round.
 Player sends a chat message.
 
 **Message**:
+
 ```json
 {
   "type": "CHAT",
@@ -112,6 +119,7 @@ Player sends a chat message.
 ```
 
 **Validation**:
+
 - `content` must be 1-500 characters
 - Player must be in room
 - Game must be active (phase "playing" or "voting")
@@ -125,6 +133,7 @@ Player sends a chat message.
 Player votes for who they think is the spy.
 
 **Message**:
+
 ```json
 {
   "type": "VOTE",
@@ -137,6 +146,7 @@ Player votes for who they think is the spy.
 ```
 
 **Validation**:
+
 - Room must be in "voting" phase
 - `suspectId` must be valid player ID or "skip"
 - Player can only vote once per round
@@ -150,6 +160,7 @@ Player votes for who they think is the spy.
 Spy attempts to guess the location.
 
 **Message**:
+
 ```json
 {
   "type": "SPY_GUESS",
@@ -162,6 +173,7 @@ Spy attempts to guess the location.
 ```
 
 **Validation**:
+
 - Must be sent by the spy
 - Room must be in "spy_guess" phase
 - `locationId` must be a valid location ID
@@ -175,6 +187,7 @@ Spy attempts to guess the location.
 Player voluntarily leaves the room.
 
 **Message**:
+
 ```json
 {
   "type": "LEAVE",
@@ -185,6 +198,7 @@ Player voluntarily leaves the room.
 ```
 
 **Validation**:
+
 - Player must be in room
 
 **Response**: Server broadcasts `PLAYER_LEFT`
@@ -196,6 +210,7 @@ Player voluntarily leaves the room.
 Client responds to server's PING.
 
 **Message**:
+
 ```json
 {
   "type": "PONG",
@@ -218,6 +233,7 @@ Client responds to server's PING.
 Broadcast when a player joins.
 
 **Message**:
+
 ```json
 {
   "type": "PLAYER_JOINED",
@@ -241,6 +257,7 @@ Broadcast when a player joins.
 Broadcast when a player leaves or disconnects.
 
 **Message**:
+
 ```json
 {
   "type": "PLAYER_LEFT",
@@ -259,6 +276,7 @@ Broadcast when a player leaves or disconnects.
 Broadcast when host starts a game.
 
 **Message**:
+
 ```json
 {
   "type": "GAME_STARTED",
@@ -280,6 +298,7 @@ Broadcast when host starts a game.
 Sent individually to each player (not broadcast).
 
 **Message to Spy**:
+
 ```json
 {
   "type": "ROLE_ASSIGNMENT",
@@ -292,6 +311,7 @@ Sent individually to each player (not broadcast).
 ```
 
 **Message to Non-Spy**:
+
 ```json
 {
   "type": "ROLE_ASSIGNMENT",
@@ -313,6 +333,7 @@ Sent individually to each player (not broadcast).
 Broadcast chat message to all players.
 
 **Message**:
+
 ```json
 {
   "type": "MESSAGE",
@@ -335,6 +356,7 @@ Broadcast chat message to all players.
 Broadcast when game phase changes.
 
 **Message**:
+
 ```json
 {
   "type": "PHASE_CHANGE",
@@ -353,6 +375,7 @@ Broadcast when game phase changes.
 Broadcast when a player votes (doesn't reveal who they voted for).
 
 **Message**:
+
 ```json
 {
   "type": "VOTE_CAST",
@@ -371,6 +394,7 @@ Broadcast when a player votes (doesn't reveal who they voted for).
 Broadcast voting results.
 
 **Message**:
+
 ```json
 {
   "type": "VOTING_RESULTS",
@@ -395,6 +419,7 @@ Broadcast voting results.
 Broadcast spy's guess result.
 
 **Message**:
+
 ```json
 {
   "type": "SPY_GUESS_RESULT",
@@ -420,6 +445,7 @@ Broadcast spy's guess result.
 Broadcast every second during gameplay (optional - client can calculate locally).
 
 **Message**:
+
 ```json
 {
   "type": "TIMER_TICK",
@@ -437,6 +463,7 @@ Broadcast every second during gameplay (optional - client can calculate locally)
 Broadcast when a disconnected player reconnects.
 
 **Message**:
+
 ```json
 {
   "type": "PLAYER_RECONNECTED",
@@ -455,6 +482,7 @@ Broadcast when a disconnected player reconnects.
 Broadcast when host leaves and host role transfers.
 
 **Message**:
+
 ```json
 {
   "type": "HOST_CHANGED",
@@ -473,6 +501,7 @@ Broadcast when host leaves and host role transfers.
 Sent to specific client when their action fails.
 
 **Message**:
+
 ```json
 {
   "type": "ERROR",
@@ -486,6 +515,7 @@ Sent to specific client when their action fails.
 ```
 
 **Error Codes**:
+
 - `ROOM_NOT_FOUND`: Room code doesn't exist
 - `ROOM_FULL`: Room at capacity
 - `NOT_HOST`: Action requires host privileges
@@ -502,6 +532,7 @@ Sent to specific client when their action fails.
 Sent every 30 seconds to check connection health.
 
 **Message**:
+
 ```json
 {
   "type": "PING",
@@ -517,6 +548,7 @@ Sent every 30 seconds to check connection health.
 ## Connection Error Handling
 
 ### Client Disconnection
+
 1. Server detects WebSocket close event
 2. Server marks player as `connectionStatus: "disconnected"`
 3. Server broadcasts `PLAYER_LEFT` with `reason: "disconnected"`
@@ -529,6 +561,7 @@ Sent every 30 seconds to check connection health.
    - If player was host, transfer host to next player
 
 ### Client Reconnection
+
 1. Client detects disconnection
 2. Client attempts reconnection with exponential backoff (1s, 2s, 4s, 8s, 16s)
 3. Client sends `JOIN` message with same `playerId`
@@ -537,16 +570,25 @@ Sent every 30 seconds to check connection health.
 6. Server broadcasts `PLAYER_RECONNECTED`
 
 ### Reconnection State Sync
+
 When client reconnects, server sends:
 
 ```json
 {
   "type": "STATE_SYNC",
   "payload": {
-    "room": { /* full room state */ },
-    "players": [ /* all players */ ],
-    "gameState": { /* current game state */ },
-    "messages": [ /* recent messages */ ]
+    "room": {
+      /* full room state */
+    },
+    "players": [
+      /* all players */
+    ],
+    "gameState": {
+      /* current game state */
+    },
+    "messages": [
+      /* recent messages */
+    ]
   },
   "timestamp": 1698172800000
 }
@@ -557,6 +599,7 @@ When client reconnects, server sends:
 ## Best Practices
 
 ### Client Implementation
+
 - Implement exponential backoff for reconnection (max 30s)
 - Show "Reconnecting..." UI during connection loss
 - Buffer messages locally during disconnection, send on reconnect
@@ -565,6 +608,7 @@ When client reconnects, server sends:
 - Implement heartbeat timeout (disconnect if no PING received in 60s)
 
 ### Server Implementation
+
 - Validate all incoming messages strictly
 - Rate limit messages per player (prevent spam)
 - Broadcast efficiently (don't send redundant state)

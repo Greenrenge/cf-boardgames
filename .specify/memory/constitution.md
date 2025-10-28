@@ -2,29 +2,29 @@
   SYNC IMPACT REPORT
   ==================
   Version Change: 0.0.0 → 1.0.0
-  
+
   Modified Principles:
   - NEW: I. Do Less, Get Works
   - NEW: II. Playground Over Tests
   - NEW: III. Declarative Style
   - NEW: IV. Consistent Code Style
   - NEW: V. Readability First
-  
+
   Added Sections:
   - Core Principles (5 principles)
   - Code Quality Standards
   - Development Workflow
   - Governance
-  
+
   Removed Sections: None (initial constitution)
-  
+
   Templates Status:
   ✅ .specify/templates/plan-template.md - Updated with constitution check for 5 principles
   ✅ .specify/templates/spec-template.md - Added playground validation section
   ✅ .specify/templates/tasks-template.md - Replaced test tasks with playground tasks
   ⚠ .specify/templates/checklist-template.md - Manual review recommended
   ⚠ .specify/templates/agent-file-template.md - Manual review recommended
-  
+
   Follow-up TODOs:
   - Review checklist-template.md and agent-file-template.md for alignment
   - Add language-specific formatter configurations (Prettier, Black, gofmt, etc.)
@@ -41,6 +41,7 @@
 Code MUST solve the immediate problem with minimal complexity. Every line of code is a liability - write only what is necessary to deliver working functionality.
 
 **Rules:**
+
 - Build the simplest thing that works
 - No speculative features or premature abstractions
 - Delete code aggressively - if unused, remove it
@@ -54,6 +55,7 @@ Code MUST solve the immediate problem with minimal complexity. Every line of cod
 Working demonstrations MUST validate functionality. Create interactive playgrounds, examples, or demo pages that prove features work - not test suites.
 
 **Rules:**
+
 - Every feature MUST include a working playground/demo
 - Playgrounds MUST be runnable and demonstrate actual usage
 - Manual verification through playgrounds is acceptable
@@ -67,6 +69,7 @@ Working demonstrations MUST validate functionality. Create interactive playgroun
 Code MUST express intent clearly through declarative patterns. Favor configuration, data-driven approaches, and functional composition over imperative procedural logic.
 
 **Rules:**
+
 - Prefer declarative APIs that describe "what" over imperative "how"
 - Use data structures to drive behavior (maps, configs, schemas)
 - Favor pure functions and immutable data where practical
@@ -80,6 +83,7 @@ Code MUST express intent clearly through declarative patterns. Favor configurati
 All code MUST follow uniform formatting, naming, and structural conventions. Consistency is non-negotiable.
 
 **Rules:**
+
 - Use automated formatters (Prettier, Black, gofmt, etc.) - no manual formatting
 - Follow established language idioms and community standards
 - Naming conventions MUST be consistent: camelCase vs snake_case per language
@@ -94,6 +98,7 @@ All code MUST follow uniform formatting, naming, and structural conventions. Con
 Code MUST prioritize human comprehension over cleverness, brevity, or performance optimizations (unless performance is the explicit requirement).
 
 **Rules:**
+
 - Choose clarity over cleverness - obvious code beats "smart" code
 - Variable and function names MUST be descriptive and unambiguous
 - Break complex expressions into named intermediate steps
@@ -141,6 +146,7 @@ Justification format: "This complexity is required because [specific problem], s
 ### Code Review Focus
 
 Reviews MUST verify:
+
 - ✅ Playground demonstrates feature works
 - ✅ Code is formatted consistently
 - ✅ Logic is readable and declarative where applicable
@@ -148,6 +154,7 @@ Reviews MUST verify:
 - ✅ Naming is clear and unambiguous
 
 Reviews should NOT focus on:
+
 - ❌ Test coverage (unless tests explicitly requested)
 - ❌ Theoretical edge cases without real-world justification
 - ❌ Performance optimization without measured need
@@ -161,6 +168,7 @@ This constitution supersedes all other development practices, style guides, and 
 ### Amendments
 
 Constitution changes require:
+
 1. Documented rationale for the change
 2. Version increment following semantic versioning:
    - **MAJOR**: Principle removal or incompatible redefinition
@@ -179,6 +187,7 @@ Constitution changes require:
 ### Template Consistency
 
 Templates in `.specify/templates/` MUST align with these principles:
+
 - `plan-template.md`: Constitution Check reflects current principles
 - `spec-template.md`: User scenarios emphasize demonstrable functionality
 - `tasks-template.md`: Task structure reflects playground-first approach

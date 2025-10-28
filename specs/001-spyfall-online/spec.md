@@ -5,7 +5,7 @@
 **Status**: Draft  
 **Input**: User description: "Multiplayer social deduction game with real-time communication, Thai localization, and pluggable game system"
 
-## User Scenarios & Testing *(mandatory)*
+## User Scenarios & Testing _(mandatory)_
 
 ### User Story 1 - Create and Join Game Room (Priority: P1)
 
@@ -104,11 +104,12 @@ The room system supports multiple game types (starting with Spyfall, with Werewo
 - What happens when there's a tie in voting? (No one is eliminated; game proceeds to spy guess phase)
 - What happens when a player closes their browser mid-game? (Their name persists in localStorage; if they return within 2 minutes and rejoin the same room code, they can resume; otherwise treated as disconnected)
 
-## Requirements *(mandatory)*
+## Requirements _(mandatory)_
 
 ### Functional Requirements
 
 **Room Management:**
+
 - **FR-001**: System MUST allow users to create a new room with a unique room code (6-character alphanumeric)
 - **FR-002**: System MUST allow users to join an existing room using a valid room code
 - **FR-003**: System MUST enforce room capacity limits (minimum 4 players, maximum 10 players)
@@ -116,6 +117,7 @@ The room system supports multiple game types (starting with Spyfall, with Werewo
 - **FR-005**: System MUST automatically transfer host privileges if the current host disconnects
 
 **Player Management:**
+
 - **FR-006**: System MUST allow players to set a display name before joining/creating a room
 - **FR-007**: System MUST persist player names in browser storage for convenience on return visits
 - **FR-008**: System MUST handle duplicate names by appending unique identifiers
@@ -123,6 +125,7 @@ The room system supports multiple game types (starting with Spyfall, with Werewo
 - **FR-010**: System MUST allow disconnected players to rejoin within 2 minutes and resume their session
 
 **Game Setup:**
+
 - **FR-011**: System MUST support Spyfall game with 100 Thai locations across three difficulty levels: Easy (everyday places), Medium (less common places), Hard (rare/specific places)
 - **FR-012**: Host MUST be able to select which difficulty level(s) to include in the game
 - **FR-013**: System MUST randomly assign one player as the spy and others as non-spies with location + role
@@ -130,6 +133,7 @@ The room system supports multiple game types (starting with Spyfall, with Werewo
 - **FR-015**: Host MUST be able to configure round timer (5-15 minutes in 1-minute increments)
 
 **Gameplay:**
+
 - **FR-016**: System MUST display role assignments privately to each player (spy sees only "You are the spy", non-spies see location + role + reference sheet)
 - **FR-017**: System MUST provide real-time text chat for all players with turn indicators
 - **FR-018**: System MUST display a countdown timer visible to all players
@@ -139,17 +143,20 @@ The room system supports multiple game types (starting with Spyfall, with Werewo
 - **FR-022**: System MUST calculate and display scores based on game outcome (spy wins: +2 points, non-spies catch spy: +1 each)
 
 **Real-Time Communication:**
+
 - **FR-023**: System MUST update player lists across all clients within 1 second when players join/leave
 - **FR-024**: System MUST deliver chat messages to all room participants within 500ms
 - **FR-025**: System MUST synchronize game state (phase changes, timer, votes) across all clients in real-time
 - **FR-026**: System MUST handle connection drops gracefully and attempt reconnection
 
 **Multi-Game Architecture:**
+
 - **FR-027**: System MUST be architected to support multiple game types (Spyfall initially, Werewolf and others in future)
 - **FR-028**: System MUST display game type selection during room creation
 - **FR-029**: Game-specific logic MUST be isolated from room/player/chat management logic
 
 **Localization:**
+
 - **FR-030**: All UI text MUST be in Thai language
 - **FR-031**: Role names and game instructions MUST be in Thai
 
@@ -164,11 +171,12 @@ The room system supports multiple game types (starting with Spyfall, with Werewo
 - **Message**: Represents a chat message; attributes include sender player ID, message text, timestamp, turn indicator flag
 - **Vote**: Represents a player's suspicion; attributes include voter player ID, suspected player ID, timestamp
 
-## Playground Validation *(mandatory)*
+## Playground Validation _(mandatory)_
 
 **Playground Type**: Interactive web application deployed to a public URL (Cloudflare Pages)
 
 **What It Demonstrates**:
+
 - Room creation with unique code generation and instant lobby access
 - Multi-player join flow with real-time player list updates (test with 4+ browser tabs/devices)
 - Role assignment (open multiple tabs to see different roles: spy vs non-spy with location)
@@ -182,6 +190,7 @@ The room system supports multiple game types (starting with Spyfall, with Werewo
 - Mobile-responsive interface (test on phone, tablet, desktop)
 
 **How to Run**:
+
 1. Open the deployed URL in your primary browser
 2. Enter a player name and click "Create Room"
 3. Copy the room code shown
@@ -197,7 +206,7 @@ The room system supports multiple game types (starting with Spyfall, with Werewo
 13. Test disconnection by closing one tab and observing the player list update in other tabs
 14. Test mobile view by opening the room on a smartphone
 
-## Success Criteria *(mandatory)*
+## Success Criteria _(mandatory)_
 
 ### Measurable Outcomes
 

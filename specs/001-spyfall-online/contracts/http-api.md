@@ -19,6 +19,7 @@ Create a new game room.
 **Endpoint**: `POST /api/rooms`
 
 **Request Body**:
+
 ```json
 {
   "hostPlayerId": "uuid-123",
@@ -28,6 +29,7 @@ Create a new game room.
 ```
 
 **Response** (201 Created):
+
 ```json
 {
   "roomCode": "ABC123",
@@ -39,6 +41,7 @@ Create a new game room.
 ```
 
 **Errors**:
+
 - `400 Bad Request`: Invalid request body
 - `500 Internal Server Error`: Room creation failed
 
@@ -51,6 +54,7 @@ Get public information about a room (before joining).
 **Endpoint**: `GET /api/rooms/{roomCode}`
 
 **Response** (200 OK):
+
 ```json
 {
   "roomCode": "ABC123",
@@ -63,6 +67,7 @@ Get public information about a room (before joining).
 ```
 
 **Errors**:
+
 - `404 Not Found`: Room doesn't exist
 - `500 Internal Server Error`: Server error
 
@@ -75,10 +80,12 @@ Get list of locations for a game type (used for spy guess UI).
 **Endpoint**: `GET /api/locations?gameType={gameType}&difficulty={difficulty}`
 
 **Query Parameters**:
+
 - `gameType` (required): "spyfall" | "werewolf"
 - `difficulty` (optional): Comma-separated list "easy,medium,hard" (defaults to all)
 
 **Response** (200 OK):
+
 ```json
 {
   "locations": [
@@ -99,6 +106,7 @@ Get list of locations for a game type (used for spy guess UI).
 ```
 
 **Errors**:
+
 - `400 Bad Request`: Invalid game type or difficulty
 - `500 Internal Server Error`: Database error
 
@@ -111,6 +119,7 @@ Check if API is operational.
 **Endpoint**: `GET /api/health`
 
 **Response** (200 OK):
+
 ```json
 {
   "status": "healthy",
@@ -136,6 +145,7 @@ All errors follow this structure:
 ```
 
 **Common Error Codes**:
+
 - `INVALID_REQUEST`: Malformed request
 - `ROOM_NOT_FOUND`: Room doesn't exist
 - `ROOM_FULL`: Room at capacity
@@ -151,6 +161,7 @@ All errors follow this structure:
 - **Get Locations**: 100 requests per minute per IP (cached at edge)
 
 **Rate Limit Headers**:
+
 ```
 X-RateLimit-Limit: 10
 X-RateLimit-Remaining: 7
@@ -158,6 +169,7 @@ X-RateLimit-Reset: 1698172860
 ```
 
 **429 Too Many Requests Response**:
+
 ```json
 {
   "error": {
@@ -191,6 +203,7 @@ Access-Control-Allow-Headers: Content-Type
 - **Health Check**: Cached for 1 minute
 
 **Cache Headers**:
+
 ```
 Cache-Control: public, max-age=3600
 CDN-Cache-Control: public, max-age=3600

@@ -15,6 +15,16 @@ export interface Room {
   players: string[];
   createdAt: number;
   lastActivityAt: number;
+  maxPlayers?: number; // 4-20, default: 10 for backward compatibility
+  spyCount?: number; // 1-3, default: 1 for backward compatibility
+}
+
+export interface RoomConfig {
+  maxPlayers: number; // 4-20, default: 10
+  spyCount: number; // 1-3, default: 1
+  minPlayers: number; // Always 4 (constant)
+  createdAt: number;
+  updatedAt: number;
 }
 
 export interface Player {
@@ -35,7 +45,7 @@ export interface GameState {
   phase: 'playing' | 'voting';
   selectedLocation: Location;
   assignments: Record<string, Assignment>;
-  spyPlayerId: string;
+  spyPlayerIds: string[]; // Changed from single spyPlayerId to array for multi-spy support
   currentTurn: number;
   timerStartedAt: number;
   timerEndsAt: number;
@@ -48,6 +58,9 @@ export interface Assignment {
   playerId: string;
   role: string;
   location: string | null;
+  isSpy?: boolean; // true if this player is a spy
+  totalSpies?: number; // total number of spies in game (for spy players)
+  isDuplicateRole?: boolean; // true if location had fewer roles than players
 }
 
 export interface Location {
@@ -93,6 +106,7 @@ export type WebSocketMessageType =
   | 'PING'
   | 'PONG'
   | 'ROOM_STATE'
+  | 'ROOM_CONFIG_UPDATE' // NEW: host updates room configuration
   | 'PLAYER_JOINED'
   | 'PLAYER_DISCONNECTED'
   | 'PLAYER_LEFT'
@@ -142,11 +156,20 @@ export interface SpyGuessPayload {
   locationId: string;
 }
 
+// NEW: Room configuration update
+export interface RoomConfigUpdatePayload {
+  maxPlayers?: number; // 4-20, optional
+  spyCount?: number; // 1-3, optional
+}
+
 // Server→Client payloads
 export interface RoomStatePayload {
   players: Player[];
   hostId: string;
   phase: GamePhase;
+  maxPlayers?: number; // NEW: room capacity
+  currentPlayerCount?: number; // NEW: current number of players
+  spyCount?: number; // NEW: number of spies
 }
 
 export interface PlayerJoinedPayload {
