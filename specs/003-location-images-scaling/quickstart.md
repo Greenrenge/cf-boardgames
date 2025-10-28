@@ -41,14 +41,14 @@ export function LocationImage({ imageUrl, locationName, className = '' }: Locati
       {status === 'loading' && (
         <div className="absolute inset-0 bg-gray-200 animate-pulse rounded-lg" />
       )}
-      
+
       {/* Error fallback */}
       {status === 'error' && (
         <div className="absolute inset-0 flex items-center justify-center bg-gray-100 rounded-lg">
           <p className="text-gray-600 font-medium">{locationName}</p>
         </div>
       )}
-      
+
       {/* Image */}
       <img
         src={imageUrl}
@@ -79,19 +79,14 @@ export function RoleCard({ assignment, locations }) {
     // Spy view (we'll update in Phase 2)
     return <div>You are the Spy!</div>;
   }
-  
+
   // Non-spy view with location image
-  const location = locations.find(loc => loc.nameTh === assignment.location);
-  
+  const location = locations.find((loc) => loc.nameTh === assignment.location);
+
   return (
     <div className="space-y-4">
-      {location && (
-        <LocationImage 
-          imageUrl={location.imageUrl}
-          locationName={location.nameTh}
-        />
-      )}
-      
+      {location && <LocationImage imageUrl={location.imageUrl} locationName={location.nameTh} />}
+
       <div className="text-center">
         <h3 className="text-xl font-bold">{assignment.location}</h3>
         <p className="text-lg text-gray-600">{assignment.role}</p>
@@ -104,6 +99,7 @@ export function RoleCard({ assignment, locations }) {
 ### Step 1.3: Test Non-Spy Image Display
 
 **Manual Test**:
+
 1. Run `npm run dev`
 2. Create a room and start a game with 4+ players
 3. Open role card as non-spy player
@@ -114,6 +110,7 @@ export function RoleCard({ assignment, locations }) {
    - ✓ Text fallback appears if image breaks
 
 **Test on Different Devices**:
+
 - Mobile (375px width): 2-column grid
 - Tablet (768px width): 3-column grid
 - Desktop (1440px width): 4-column grid
@@ -138,58 +135,45 @@ interface Location {
 
 export function SpyLocationBrowser({ locations }: { locations: Location[] }) {
   const [selectedLocation, setSelectedLocation] = useState<Location | null>(null);
-  
+
   // Sort alphabetically
-  const sortedLocations = [...locations].sort((a, b) => 
-    a.nameTh.localeCompare(b.nameTh, 'th')
-  );
-  
+  const sortedLocations = [...locations].sort((a, b) => a.nameTh.localeCompare(b.nameTh, 'th'));
+
   return (
     <div className="h-full flex flex-col">
       <div className="p-4 bg-red-50 border-b">
-        <h3 className="text-lg font-bold text-red-600">
-          คุณคือสปาย - เลือกดูสถานที่ทั้งหมด
-        </h3>
+        <h3 className="text-lg font-bold text-red-600">คุณคือสปาย - เลือกดูสถานที่ทั้งหมด</h3>
       </div>
-      
+
       <div className="flex-1 overflow-y-auto p-4">
         <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
-          {sortedLocations.map(location => (
+          {sortedLocations.map((location) => (
             <button
               key={location.id}
               onClick={() => setSelectedLocation(location)}
               className="text-left hover:scale-105 transition-transform"
             >
-              <LocationImage 
-                imageUrl={location.imageUrl}
-                locationName={location.nameTh}
-              />
-              <p className="mt-2 text-sm font-medium text-center">
-                {location.nameTh}
-              </p>
-              <p className="text-xs text-gray-500 text-center">
-                {location.difficulty}
-              </p>
+              <LocationImage imageUrl={location.imageUrl} locationName={location.nameTh} />
+              <p className="mt-2 text-sm font-medium text-center">{location.nameTh}</p>
+              <p className="text-xs text-gray-500 text-center">{location.difficulty}</p>
             </button>
           ))}
         </div>
       </div>
-      
+
       {/* Enlarged view modal */}
       {selectedLocation && (
-        <div 
+        <div
           className="fixed inset-0 bg-black/80 flex items-center justify-center p-4 z-50"
           onClick={() => setSelectedLocation(null)}
         >
-          <div className="max-w-2xl w-full" onClick={e => e.stopPropagation()}>
-            <LocationImage 
+          <div className="max-w-2xl w-full" onClick={(e) => e.stopPropagation()}>
+            <LocationImage
               imageUrl={selectedLocation.imageUrl}
               locationName={selectedLocation.nameTh}
               className="mb-4"
             />
-            <h4 className="text-white text-2xl font-bold text-center">
-              {selectedLocation.nameTh}
-            </h4>
+            <h4 className="text-white text-2xl font-bold text-center">{selectedLocation.nameTh}</h4>
           </div>
         </div>
       )}
@@ -209,7 +193,7 @@ export function RoleCard({ assignment, locations }) {
   if (assignment.isSpy) {
     return <SpyLocationBrowser locations={locations} />;
   }
-  
+
   // ... non-spy code from Phase 1
 }
 ```
@@ -217,6 +201,7 @@ export function RoleCard({ assignment, locations }) {
 ### Step 2.3: Test Spy Image Browser
 
 **Manual Test**:
+
 1. Start a game where you are the spy
 2. Open role card
 3. Verify:
@@ -227,6 +212,7 @@ export function RoleCard({ assignment, locations }) {
    - ✓ Locations sorted alphabetically (Thai)
 
 **Performance Test**:
+
 - Open DevTools Network tab
 - Scroll slowly - verify only visible images load
 - Scroll to bottom - verify total ~70 image requests
@@ -244,28 +230,32 @@ Modify `workers/src/models/Room.ts`:
 export class Room {
   public code: string;
   public hostPlayerId: string;
-  public maxPlayers: number;  // NEW
-  public spyCount: number;    // NEW
+  public maxPlayers: number; // NEW
+  public spyCount: number; // NEW
   // ... existing fields
-  
-  constructor(code: string, hostPlayerId: string, gameType: string, options?: {
-    maxPlayers?: number;
-    spyCount?: number;
-  }) {
+
+  constructor(
+    code: string,
+    hostPlayerId: string,
+    gameType: string,
+    options?: {
+      maxPlayers?: number;
+      spyCount?: number;
+    }
+  ) {
     this.code = code;
     this.hostPlayerId = hostPlayerId;
-    this.maxPlayers = options?.maxPlayers ?? 10;  // Default backward compat
+    this.maxPlayers = options?.maxPlayers ?? 10; // Default backward compat
     this.spyCount = options?.spyCount ?? 1;
     // ... existing initialization
   }
-  
+
   canJoin(currentPlayerCount: number): boolean {
     return currentPlayerCount < this.maxPlayers;
   }
-  
+
   canStart(currentPlayerCount: number): boolean {
-    return currentPlayerCount >= 4 && 
-           currentPlayerCount >= this.spyCount * 3;
+    return currentPlayerCount >= 4 && currentPlayerCount >= this.spyCount * 3;
   }
 }
 ```
@@ -280,27 +270,27 @@ async fetch(request: Request): Promise<Response> {
   if (url.pathname === '/init' && request.method === 'POST') {
     const body = await request.json();
     const { hostPlayerId, hostPlayerName, gameType, maxPlayers, spyCount } = body;
-    
+
     // Validate
     if (maxPlayers && (maxPlayers < 4 || maxPlayers > 20)) {
-      return new Response(JSON.stringify({ 
-        success: false, 
-        error: 'Max players must be between 4 and 20' 
+      return new Response(JSON.stringify({
+        success: false,
+        error: 'Max players must be between 4 and 20'
       }), { status: 400 });
     }
-    
+
     if (spyCount && (spyCount < 1 || spyCount > 3)) {
-      return new Response(JSON.stringify({ 
-        success: false, 
-        error: 'Spy count must be between 1 and 3' 
+      return new Response(JSON.stringify({
+        success: false,
+        error: 'Spy count must be between 1 and 3'
       }), { status: 400 });
     }
-    
+
     this.room = new Room(url.hostname, hostPlayerId, gameType, {
       maxPlayers,
       spyCount
     });
-    
+
     await this.saveState();
     // ...
   }
@@ -315,20 +305,21 @@ Modify WebSocket broadcast in `GameRoom.ts`:
 this.broadcast({
   type: 'ROOM_STATE',
   payload: {
-    players: Array.from(this.players.values()).map(p => p.toJSON()),
+    players: Array.from(this.players.values()).map((p) => p.toJSON()),
     hostId: this.room?.hostPlayerId,
     phase: this.room?.phase,
-    maxPlayers: this.room?.maxPlayers ?? 10,      // NEW
-    currentPlayerCount: this.players.size,         // NEW
-    spyCount: this.room?.spyCount ?? 1             // NEW
+    maxPlayers: this.room?.maxPlayers ?? 10, // NEW
+    currentPlayerCount: this.players.size, // NEW
+    spyCount: this.room?.spyCount ?? 1, // NEW
   },
-  timestamp: Date.now()
+  timestamp: Date.now(),
 });
 ```
 
 ### Step 3.4: Test Capacity Limits
 
 **Manual Test**:
+
 1. Create room with `maxPlayers: 6`
 2. Join with 6 different players
 3. Try to join with 7th player
@@ -349,34 +340,32 @@ Modify `components/room/Lobby.tsx`:
 export function Lobby({ roomState, isHost, onStartGame, onUpdateConfig }) {
   const [maxPlayers, setMaxPlayers] = useState(roomState.maxPlayers ?? 10);
   const [spyCount, setSpyCount] = useState(roomState.spyCount ?? 1);
-  
+
   const handleConfigChange = () => {
     if (isHost) {
       onUpdateConfig({ maxPlayers, spyCount });
     }
   };
-  
+
   return (
     <div className="space-y-6">
       {/* Player list */}
       <PlayerList players={roomState.players} maxPlayers={roomState.maxPlayers} />
-      
+
       {/* Host controls */}
       {isHost && roomState.phase === 'lobby' && (
         <div className="space-y-4 p-4 bg-gray-50 rounded-lg">
           <h3 className="font-bold">Game Settings</h3>
-          
+
           {/* Max players slider */}
           <div>
-            <label className="block text-sm font-medium mb-2">
-              Max Players: {maxPlayers}
-            </label>
+            <label className="block text-sm font-medium mb-2">Max Players: {maxPlayers}</label>
             <input
               type="range"
               min="4"
               max="20"
               value={maxPlayers}
-              onChange={e => setMaxPlayers(parseInt(e.target.value))}
+              onChange={(e) => setMaxPlayers(parseInt(e.target.value))}
               onMouseUp={handleConfigChange}
               disabled={roomState.currentPlayerCount > maxPlayers}
               className="w-full"
@@ -385,14 +374,12 @@ export function Lobby({ roomState, isHost, onStartGame, onUpdateConfig }) {
               Current: {roomState.currentPlayerCount} players
             </p>
           </div>
-          
+
           {/* Spy count selector */}
           <div>
-            <label className="block text-sm font-medium mb-2">
-              Number of Spies: {spyCount}
-            </label>
+            <label className="block text-sm font-medium mb-2">Number of Spies: {spyCount}</label>
             <div className="flex gap-2">
-              {[1, 2, 3].map(n => (
+              {[1, 2, 3].map((n) => (
                 <button
                   key={n}
                   onClick={() => {
@@ -416,7 +403,7 @@ export function Lobby({ roomState, isHost, onStartGame, onUpdateConfig }) {
           </div>
         </div>
       )}
-      
+
       {/* Start button */}
       <button
         onClick={onStartGame}
@@ -435,7 +422,7 @@ export function Lobby({ roomState, isHost, onStartGame, onUpdateConfig }) {
 Modify `components/room/PlayerList.tsx`:
 
 ```tsx
-export function PlayerList({ players, maxPlayers }: { players: Player[], maxPlayers?: number }) {
+export function PlayerList({ players, maxPlayers }: { players: Player[]; maxPlayers?: number }) {
   return (
     <div className="space-y-2">
       <div className="flex justify-between items-center">
@@ -446,12 +433,14 @@ export function PlayerList({ players, maxPlayers }: { players: Player[], maxPlay
           </span>
         )}
       </div>
-      
+
       <div className="space-y-1">
-        {players.map(player => (
+        {players.map((player) => (
           <div key={player.id} className="flex items-center gap-2 p-2 bg-gray-50 rounded">
             <span>{player.name}</span>
-            {player.isHost && <span className="text-xs bg-blue-500 text-white px-2 py-1 rounded">Host</span>}
+            {player.isHost && (
+              <span className="text-xs bg-blue-500 text-white px-2 py-1 rounded">Host</span>
+            )}
           </div>
         ))}
       </div>
@@ -463,6 +452,7 @@ export function PlayerList({ players, maxPlayers }: { players: Player[], maxPlay
 ### Step 4.3: Test Configuration UI
 
 **Manual Test**:
+
 1. Create room as host
 2. Adjust max players slider
 3. Adjust spy count buttons
@@ -485,10 +475,10 @@ Modify `workers/src/models/GameState.ts`:
 ```typescript
 export class GameState {
   public locationId: string;
-  public spyPlayerIds: string[];  // Changed from single to array
+  public spyPlayerIds: string[]; // Changed from single to array
   public assignments: Map<string, Assignment>;
   // ... existing fields
-  
+
   static assignRoles(
     playerIds: string[],
     location: Location,
@@ -496,22 +486,22 @@ export class GameState {
   ): Map<string, Assignment> {
     // Shuffle for fairness
     const shuffled = [...playerIds].sort(() => Math.random() - 0.5);
-    
+
     // Select spies
     const spyIds = shuffled.slice(0, spyCount);
     const nonSpyIds = shuffled.slice(spyCount);
-    
+
     const assignments = new Map();
-    
+
     // Assign spies
-    spyIds.forEach(id => {
+    spyIds.forEach((id) => {
       assignments.set(id, {
         playerId: id,
         isSpy: true,
-        totalSpies: spyCount
+        totalSpies: spyCount,
       });
     });
-    
+
     // Assign roles to non-spies (with modulo for large groups)
     nonSpyIds.forEach((id, index) => {
       const roleIndex = index % location.roles.length;
@@ -520,10 +510,10 @@ export class GameState {
         isSpy: false,
         location: location.nameTh,
         role: location.roles[roleIndex],
-        isDuplicateRole: index >= location.roles.length
+        isDuplicateRole: index >= location.roles.length,
       });
     });
-    
+
     return assignments;
   }
 }
@@ -532,6 +522,7 @@ export class GameState {
 ### Step 5.2: Test Multi-Spy Assignment
 
 **Manual Test**:
+
 1. Create room with 10 players, 2 spies
 2. Start game
 3. Check each player's role
@@ -549,6 +540,7 @@ export class GameState {
 ### Issue: Images not loading
 
 **Solution**: Check R2 bucket CORS configuration:
+
 ```bash
 wrangler r2 bucket update spyfall-assets \
   --cors-config='{
@@ -561,6 +553,7 @@ wrangler r2 bucket update spyfall-assets \
 ### Issue: Capacity changes not syncing
 
 **Solution**: Ensure WebSocket broadcast includes new fields:
+
 - Check `ROOM_STATE` payload has `maxPlayers`, `spyCount`
 - Verify frontend listens for these fields
 - Clear Durable Object state if testing: `wrangler dev --local`
@@ -568,6 +561,7 @@ wrangler r2 bucket update spyfall-assets \
 ### Issue: Lazy loading not working
 
 **Solution**: Verify browser support and fallback:
+
 - Check `loading="lazy"` attribute present
 - Test in Chrome/Firefox/Safari (all support native lazy loading)
 - If older browser, images still load (just not lazy)
@@ -607,18 +601,19 @@ npm run workers:deploy         # Deploy to Cloudflare
 
 Expected results after implementation:
 
-| Metric | Target | Actual (fill after testing) |
-|--------|--------|------------------------------|
-| Non-spy image load time (4G) | <2s | _____ |
-| Spy browser scroll FPS | >55fps | _____ |
-| Room with 20 players start time | <5s | _____ |
-| WebSocket message size increase | <100 bytes | _____ |
+| Metric                          | Target     | Actual (fill after testing) |
+| ------------------------------- | ---------- | --------------------------- |
+| Non-spy image load time (4G)    | <2s        | **\_**                      |
+| Spy browser scroll FPS          | >55fps     | **\_**                      |
+| Room with 20 players start time | <5s        | **\_**                      |
+| WebSocket message size increase | <100 bytes | **\_**                      |
 
 ---
 
 ## Questions?
 
 See:
+
 - **research.md**: Technical decisions and alternatives
 - **data-model.md**: Entity definitions and relationships
 - **contracts/**: API specifications

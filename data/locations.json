@@ -747,7 +747,7 @@
 			"พนักงานห้องอาหาร",
 			"รปภ."
 		],
-		"imageUrl": "https://r2.spyfall.example.com/locations/hotel.webp"
+		"imageUrl": "https://spyfall-asset.greenrenge.work/loc-hotel.png"
 	},
 	{
 		"id": "loc-university",
@@ -762,7 +762,7 @@
 			"เจ้าหน้าที่ทะเบียน",
 			"นักวิจัย"
 		],
-		"imageUrl": "https://r2.spyfall.example.com/locations/university.webp"
+		"imageUrl": "https://spyfall-asset.greenrenge.work/loc-university.png"
 	},
 	{
 		"id": "loc-laboratory",
@@ -777,7 +777,7 @@
 			"เจ้าหน้าที่ความปลอดภัย",
 			"พนักงานทำความสะอาด"
 		],
-		"imageUrl": "https://r2.spyfall.example.com/locations/laboratory.webp"
+		"imageUrl": "https://spyfall-asset.greenrenge.work/loc-laboratory.png"
 	},
 	{
 		"id": "loc-dormitory",
@@ -792,7 +792,7 @@
 			"พนักงานซักรีด",
 			"ช่างซ่อม"
 		],
-		"imageUrl": "https://r2.spyfall.example.com/locations/dormitory.webp"
+		"imageUrl": "https://spyfall-asset.greenrenge.work/loc-dormitory.png"
 	},
 	{
 		"id": "loc-farm",
@@ -807,7 +807,7 @@
 			"เจ้าของฟาร์ม",
 			"คนเลี้ยงสัตว์"
 		],
-		"imageUrl": "https://r2.spyfall.example.com/locations/farm.webp"
+		"imageUrl": "https://spyfall-asset.greenrenge.work/loc-farm.png"
 	},
 	{
 		"id": "loc-rice-field",
@@ -822,7 +822,7 @@
 			"เจ้าของที่ดิน",
 			"คนดูนา"
 		],
-		"imageUrl": "https://r2.spyfall.example.com/locations/rice-field.webp"
+		"imageUrl": "https://spyfall-asset.greenrenge.work/loc-rice-field.png"
 	},
 	{
 		"id": "loc-slaughterhouse",
@@ -837,7 +837,7 @@
 			"คนขับรถส่งของ",
 			"ผู้จัดการโรงฆ่าสัตว์"
 		],
-		"imageUrl": "https://r2.spyfall.example.com/locations/slaughterhouse.webp"
+		"imageUrl": "https://spyfall-asset.greenrenge.work/loc-slaughterhouse.png"
 	},
 	{
 		"id": "loc-military-base",
@@ -852,7 +852,7 @@
 			"เจ้าหน้าที่สื่อสาร",
 			"สายลับศัตรู"
 		],
-		"imageUrl": "https://r2.spyfall.example.com/locations/military_base.webp"
+		"imageUrl": "https://spyfall-asset.greenrenge.work/loc-military-base.png"
 	},
 	{
 		"id": "loc-brothel",
@@ -867,7 +867,7 @@
 			"ตำรวจนอกเครื่องแบบ",
 			"พ่อบ้าน"
 		],
-		"imageUrl": "https://r2.spyfall.example.com/locations/brothel.webp"
+		"imageUrl": "https://spyfall-asset.greenrenge.work/loc-brothel.png"
 	},
 	{
 		"id": "loc-theater",
@@ -882,7 +882,7 @@
 			"คนดู",
 			"นักวิจารณ์"
 		],
-		"imageUrl": "https://r2.spyfall.example.com/locations/theater.webp"
+		"imageUrl": "https://spyfall-asset.greenrenge.work/loc-theater.png"
 	},
 	{
 		"id": "loc-olympics",
@@ -897,7 +897,7 @@
 			"ทีมแพทย์",
 			"เจ้าหน้าที่รักษาความปลอดภัย"
 		],
-		"imageUrl": "https://r2.spyfall.example.com/locations/olympics.webp"
+		"imageUrl": "https://spyfall-asset.greenrenge.work/loc-olympics.png"
 	},
 	{
 		"id": "loc-onsen",
@@ -912,7 +912,7 @@
 			"นักท่องเที่ยว",
 			"คนแอบถ่าย"
 		],
-		"imageUrl": "https://r2.spyfall.example.com/locations/onsen.webp"
+		"imageUrl": "https://spyfall-asset.greenrenge.work/loc-onsen.png"
 	},
 	{
 		"id": "loc-court",
@@ -927,7 +927,7 @@
 			"นักข่าว",
 			"คนฟังคดี"
 		],
-		"imageUrl": "https://r2.spyfall.example.com/locations/court.webp"
+		"imageUrl": "https://spyfall-asset.greenrenge.work/loc-court.png"
 	},
 	{
 		"id": "loc-film-set",
@@ -942,7 +942,7 @@
 			"ผู้ช่วยผู้กำกับ",
 			"คนส่งกาแฟ"
 		],
-		"imageUrl": "https://r2.spyfall.example.com/locations/film_set.webp"
+		"imageUrl": "https://spyfall-asset.greenrenge.work/loc-film-set.png"
 	},
 	{
 		"id": "loc-wedding",
@@ -957,7 +957,7 @@
 			"ช่างภาพ",
 			"พิธีกร"
 		],
-		"imageUrl": "https://r2.spyfall.example.com/locations/wedding.webp"
+		"imageUrl": "https://spyfall-asset.greenrenge.work/loc-wedding.png"
 	},
 	{
 		"id": "loc-ski-resort",
@@ -972,7 +972,7 @@
 			"ช่างซ่อมเครื่องเล่น",
 			"แม่บ้าน"
 		],
-		"imageUrl": "https://r2.spyfall.example.com/locations/ski_resort.webp"
+		"imageUrl": "https://spyfall-asset.greenrenge.work/loc-ski-resort.png"
 	},
 	{
 		"id": "loc-battlefield",
@@ -987,7 +987,7 @@
 			"นักบินรบ",
 			"เชลยศึก"
 		],
-		"imageUrl": "https://r2.spyfall.example.com/locations/battlefield.webp"
+		"imageUrl": "https://spyfall-asset.greenrenge.work/loc-battlefield.png"
 	},
 	{
 		"id": "loc-oil-rig",
@@ -1002,7 +1002,7 @@
 			"เจ้าหน้าที่ความปลอดภัย",
 			"ผู้ตรวจสอบ"
 		],
-		"imageUrl": "https://r2.spyfall.example.com/locations/oil_rig.webp"
+		"imageUrl": "https://spyfall-asset.greenrenge.work/loc-oil-rig.png"
 	},
 	{
 		"id": "loc-himalaya-peak",
@@ -1017,7 +1017,7 @@
 			"ลูกหาบ",
 			"นักวิจัยภูมิอากาศ"
 		],
-		"imageUrl": "https://r2.spyfall.example.com/locations/himalaya_peak.webp"
+		"imageUrl": "https://spyfall-asset.greenrenge.work/loc-himalaya-peak.png"
 	},
 	{
 		"id": "loc-pirate-ship",
@@ -1032,7 +1032,7 @@
 			"ช่างเรือ",
 			"โจรสลัดมือใหม่"
 		],
-		"imageUrl": "https://r2.spyfall.example.com/locations/pirate_ship.webp"
+		"imageUrl": "https://spyfall-asset.greenrenge.work/loc-pirate-ship.png"
 	},
 	{
 		"id": "loc-haunted-house",
