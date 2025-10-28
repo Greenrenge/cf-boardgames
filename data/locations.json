@@ -1198,5 +1198,38 @@
 			"คนรับพนัน"
 		],
 		"imageUrl": "https://spyfall-asset.greenrenge.work/locations/boxing_stadium.webp"
+	},
+	{
+		"id": "loc-castle",
+		"nameTh": "ปราสาท",
+		"difficulty": "medium",
+		"roles": [
+			"เจ้าชาย",
+			"เจ้าหญิง",
+			"อัศวิน",
+			"ขุนนาง",
+			"พ่อครัว",
+			"แม่บ้าน",
+			"ผู้มาเยือน",
+			"ผู้ดูแลปราสาท"
+		],
+		"imageUrl": "https://r2.spyfall.example.com/locations/castle.webp"
+	},
+	{
+		"id": "loc-north_pole",
+		"nameTh": "ขั้วโลกเหนือ",
+		"difficulty": "hard",
+		"roles": [
+			"แซนตาคลอส",
+			"เอลฟ์",
+			"คนขับกวางเรนเดียร์",
+			"ตุ๊กตาหิมะ",
+			"แมมมอธ",
+			"กวางเรนเดียร์",
+			"หมีชั้วโลก",
+			"หมาลากเลื่อน",
+			"นกเพนกวิน"
+		],
+		"imageUrl": "https://r2.spyfall.example.com/locations/north_pole.webp"
 	}
 ]
