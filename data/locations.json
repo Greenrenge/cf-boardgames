@@ -1183,5 +1183,20 @@
 			"นักฟิชชิ่ง"
 		],
 		"imageUrl": "https://r2.spyfall.example.com/locations/scammer.webp"
+	},
+	{
+		"id": "loc-boxing-stadium",
+		"nameTh": "สนามมวย",
+		"difficulty": "medium",
+		"roles": [
+			"นักมวย",
+			"ผู้ฝึกสอน",
+			"กรรมการ",
+			"ผู้ชม",
+			"พนักงานขายตั๋ว",
+			"นักข่าว",
+			"คนรับพนัน"
+		],
+		"imageUrl": "https://spyfall-asset.greenrenge.work/locations/boxing_stadium.webp"
 	}
 ]
