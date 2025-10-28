@@ -1153,5 +1153,35 @@
 			"เจ้าหน้าที่รักษาความปลอดภัย"
 		],
 		"imageUrl": "https://r2.spyfall.example.com/locations/parliament.webp"
+	},
+	{
+		"id": "loc-casino",
+		"nameTh": "คาสิโน",
+		"difficulty": "medium",
+		"roles": [
+			"เจ้ามือ",
+			"นักพนัน",
+			"รปภ.",
+			"พนักงานเสิร์ฟ",
+			"ผู้จัดการคาสิโน",
+			"นักต้มตุ๋น",
+			"แม่บ้าน"
+		],
+		"imageUrl": "https://r2.spyfall.example.com/locations/casino.webp"
+	},
+	{
+		"id": "loc-scammer-den",
+		"nameTh": "รังสแกมเมอร์",
+		"difficulty": "hard",
+		"roles": [
+			"หัวหน้าแก๊งสแกมเมอร์",
+			"โปรแกรมเมอร์",
+			"รปภ.",
+			"คอลเซ็นเตอร์",
+			"ตำราจปลอมเพื่อต้มตุ๋น",
+			"ผู้ทรมานนักต้มตุ๋น",
+			"นักฟิชชิ่ง"
+		],
+		"imageUrl": "https://r2.spyfall.example.com/locations/scammer.webp"
 	}
 ]
