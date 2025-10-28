@@ -587,6 +587,7 @@ export default function RoomPage() {
           onKickPlayer={handleKickPlayer}
           isStarting={isStarting}
           maxPlayers={maxPlayers}
+          spyCount={spyCount}
           onUpdateConfig={handleUpdateRoomConfig}
         />
       )}

@@ -15,6 +15,7 @@ interface LobbyProps {
   onKickPlayer: (targetPlayerId: string) => void;
   isStarting: boolean;
   maxPlayers?: number;
+  spyCount?: number;
   onUpdateConfig?: (config: { maxPlayers?: number; spyCount?: number }) => void;
 }
 
@@ -27,10 +28,15 @@ export function Lobby({
   onKickPlayer,
   isStarting,
   maxPlayers = 10,
+  spyCount = 1,
   onUpdateConfig,
 }: LobbyProps) {
   const isHost = currentPlayerId === hostId;
-  const canStart = players.length >= 4 && players.length <= maxPlayers;
+
+  // Calculate minimum players needed for current spy count (3:1 ratio)
+  const minPlayersForSpyCount = spyCount * 3 + spyCount;
+  const canStart =
+    players.length >= Math.max(4, minPlayersForSpyCount) && players.length <= maxPlayers;
 
   // Game settings state (host only)
   const [selectedDifficulties, setSelectedDifficulties] = useState<Difficulty[]>([
@@ -40,11 +46,16 @@ export function Lobby({
   ]);
   const [timerDuration, setTimerDuration] = useState<number>(8);
   const [localMaxPlayers, setLocalMaxPlayers] = useState<number>(maxPlayers);
+  const [localSpyCount, setLocalSpyCount] = useState<number>(spyCount);
 
-  // Update local state when maxPlayers prop changes
+  // Update local state when props change
   useEffect(() => {
     setLocalMaxPlayers(maxPlayers);
   }, [maxPlayers]);
+
+  useEffect(() => {
+    setLocalSpyCount(spyCount);
+  }, [spyCount]);
 
   const handleMaxPlayersChange = (newValue: number) => {
     setLocalMaxPlayers(newValue);
@@ -52,6 +63,21 @@ export function Lobby({
       onUpdateConfig({ maxPlayers: newValue });
     }
   };
+
+  const handleSpyCountChange = (newValue: number) => {
+    setLocalSpyCount(newValue);
+    if (onUpdateConfig) {
+      onUpdateConfig({ spyCount: newValue });
+    }
+  };
+
+  // Calculate max spy count based on current player count (3:1 ratio)
+  const getMaxSpyCount = (playerCount: number) => {
+    if (playerCount < 4) return 0;
+    return Math.min(3, Math.floor(playerCount / 4));
+  };
+
+  const maxSpyCountForCurrentPlayers = getMaxSpyCount(players.length);
 
   const handleDifficultyToggle = (difficulty: Difficulty) => {
     setSelectedDifficulties((prev) => {
@@ -152,6 +178,55 @@ export function Lobby({
               )}
             </div>
 
+            {/* Spy Count Button Group - HOST ONLY */}
+            <div className="space-y-2">
+              <label className="block text-sm font-medium text-gray-700">
+                จำนวนสปาย: {localSpyCount} คน
+              </label>
+              <div className="flex space-x-2">
+                {[1, 2, 3].map((count) => {
+                  const minPlayersNeeded = count * 4; // 3:1 ratio + spy itself
+                  const isDisabled = players.length < minPlayersNeeded;
+                  const isSelected = localSpyCount === count;
+
+                  return (
+                    <button
+                      key={count}
+                      type="button"
+                      onClick={() => handleSpyCountChange(count)}
+                      disabled={isDisabled || !onUpdateConfig}
+                      className={`flex-1 px-4 py-3 rounded-lg border-2 transition-all ${
+                        isSelected
+                          ? 'border-red-500 bg-red-50 text-red-700 font-semibold'
+                          : isDisabled
+                            ? 'border-gray-200 bg-gray-50 text-gray-400 cursor-not-allowed'
+                            : 'border-gray-300 bg-white text-gray-700 hover:border-red-300 hover:bg-red-50'
+                      }`}
+                      title={
+                        isDisabled
+                          ? `ต้องมีผู้เล่นอย่างน้อย ${minPlayersNeeded} คนสำหรับ ${count} สปาย`
+                          : `เลือก ${count} สปาย`
+                      }
+                    >
+                      <div className="text-center">
+                        <div className="text-2xl font-bold">{count}</div>
+                        <div className="text-xs mt-1">{count === 1 ? 'สปาย' : `สปาย`}</div>
+                      </div>
+                    </button>
+                  );
+                })}
+              </div>
+              <div className="text-xs text-gray-500">
+                <p>ต้องมี 3 ผู้เล่นปกติต่อ 1 สปาย (อย่างน้อย {localSpyCount * 4} คน)</p>
+                {maxSpyCountForCurrentPlayers < 3 && (
+                  <p className="text-orange-600 mt-1">
+                    ⚠️ ต้องมีผู้เล่น {(maxSpyCountForCurrentPlayers + 1) * 4} คนขึ้นไปสำหรับ{' '}
+                    {maxSpyCountForCurrentPlayers + 1} สปาย
+                  </p>
+                )}
+              </div>
+            </div>
+
             {/* Timer Duration Selector */}
             <div className="space-y-2">
               <label className="block text-sm font-medium text-gray-700">ระยะเวลาต่อรอบ</label>
@@ -216,7 +291,9 @@ export function Lobby({
               {isStarting
                 ? 'กำลังเริ่มเกม...'
                 : !canStart
-                  ? `ต้องมีผู้เล่น 4-${maxPlayers} คน (ตอนนี้ ${players.length} คน)`
+                  ? players.length < minPlayersForSpyCount
+                    ? `ต้องมีผู้เล่นอย่างน้อย ${minPlayersForSpyCount} คนสำหรับ ${localSpyCount} สปาย (ตอนนี้ ${players.length} คน)`
+                    : `ต้องมีผู้เล่น 4-${maxPlayers} คน (ตอนนี้ ${players.length} คน)`
                   : 'เริ่มเกม'}
             </Button>
           </div>
