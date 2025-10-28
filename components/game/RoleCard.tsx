@@ -1,14 +1,20 @@
 'use client';
 
 import { Card } from '../ui/Card';
+import { LocationImage } from './LocationImage';
+import type { Location } from '@/lib/types';
 
 interface RoleCardProps {
   role: string;
   location: string | null;
   isSpy: boolean;
+  locations?: Location[]; // NEW: Optional locations data for image display
 }
 
-export function RoleCard({ role, location, isSpy }: RoleCardProps) {
+export function RoleCard({ role, location, isSpy, locations }: RoleCardProps) {
+  // Find the location object to get the imageUrl
+  const locationData = locations?.find((loc) => loc.nameTh === location);
+
   return (
     <Card
       className={
@@ -32,10 +38,17 @@ export function RoleCard({ role, location, isSpy }: RoleCardProps) {
             <p className="text-xs text-red-700">ถามคำถามอย่างฉลาดและพยายามเดาสถานที่ก่อนหมดเวลา</p>
           </div>
         ) : (
-          <div className="space-y-2 p-4 bg-blue-100 rounded-lg">
-            <p className="text-blue-900 font-medium">📍 สถานที่</p>
-            <p className="text-xl font-bold text-blue-900">{location}</p>
-            <p className="text-sm text-blue-800">พยายามหาสปายโดยไม่เปิดเผยสถานที่</p>
+          <div className="space-y-3">
+            {/* NEW: Location image display */}
+            {locationData && (
+              <LocationImage imageUrl={locationData.imageUrl} locationName={locationData.nameTh} />
+            )}
+
+            <div className="p-4 bg-blue-100 rounded-lg">
+              <p className="text-blue-900 font-medium">📍 สถานที่</p>
+              <p className="text-xl font-bold text-blue-900">{location}</p>
+              <p className="text-sm text-blue-800">พยายามหาสปายโดยไม่เปิดเผยสถานที่</p>
+            </div>
           </div>
         )}
 

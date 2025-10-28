@@ -61,11 +61,7 @@ export class GameRoom {
 
       this.broadcast({
         type: 'ROOM_STATE',
-        payload: {
-          players: Array.from(this.players.values()).map((p) => p.toJSON()),
-          hostId: this.room?.hostPlayerId,
-          phase: this.room?.phase,
-        },
+        payload: this.getRoomStatePayload(),
         timestamp: Date.now(),
       });
 
@@ -442,11 +438,7 @@ export class GameRoom {
         ws.send(
           JSON.stringify({
             type: 'ROOM_STATE',
-            payload: {
-              players: Array.from(this.players.values()).map((p) => p.toJSON()),
-              hostId: this.room.hostPlayerId,
-              phase: phaseToSend,
-            },
+            payload: this.getRoomStatePayload(),
             timestamp: Date.now(),
           })
         );
@@ -597,11 +589,7 @@ export class GameRoom {
           // Send back full room state to keep client synchronized
           const roomState = {
             type: 'ROOM_STATE',
-            payload: {
-              players: Array.from(this.players.values()).map((p) => p.toJSON()),
-              hostId: this.room.hostPlayerId,
-              phase: this.room.phase,
-            },
+            payload: this.getRoomStatePayload(),
             timestamp: Date.now(),
           };
 
@@ -722,11 +710,7 @@ export class GameRoom {
       // Broadcast room state reset
       this.broadcast({
         type: 'ROOM_STATE',
-        payload: {
-          players: Array.from(this.players.values()).map((p) => p.toJSON()),
-          hostId: this.room?.hostPlayerId,
-          phase: 'lobby',
-        },
+        payload: this.getRoomStatePayload(),
         timestamp: Date.now(),
       });
 
@@ -912,8 +896,8 @@ export class GameRoom {
       if (currentPlayerId && this.gameState) {
         const { locationId } = message.payload as { locationId: string };
 
-        // Validate that player is the spy
-        if (currentPlayerId !== this.gameState.spyPlayerId) {
+        // Validate that player is a spy
+        if (!this.gameState.spyPlayerIds.includes(currentPlayerId)) {
           ws.send(
             JSON.stringify({
               type: 'ERROR',
@@ -1339,37 +1323,15 @@ export class GameRoom {
       availableLocations[Math.floor(Math.random() * availableLocations.length)];
     console.log(`[GameRoom] Selected location: ${selectedLocation.nameTh}`);
 
-    // Select random spy
-    const spyIndex = Math.floor(Math.random() * activePlayers.length);
-    const spyPlayerId = activePlayers[spyIndex].id;
-    console.log(`[GameRoom] Spy is: ${spyPlayerId}`);
-
-    // Assign roles to non-spy players
-    const assignments: Record<string, Assignment> = {};
-    const availableRoles = [...selectedLocation.roles];
-
-    for (let i = 0; i < activePlayers.length; i++) {
-      const player = activePlayers[i];
-
-      if (player.id === spyPlayerId) {
-        // Assign spy
-        assignments[player.id] = {
-          playerId: player.id,
-          role: 'Spy',
-          location: null,
-        };
-      } else {
-        // Assign random unique role from location
-        const roleIndex = Math.floor(Math.random() * availableRoles.length);
-        const role = availableRoles.splice(roleIndex, 1)[0];
-
-        assignments[player.id] = {
-          playerId: player.id,
-          role,
-          location: selectedLocation.nameTh,
-        };
-      }
-    }
+    // Use GameState.assignRoles to assign roles with multi-spy support
+    const playerIds = activePlayers.map((p) => p.id);
+    const spyCount = this.room?.spyCount ?? 1; // Get spy count from room config
+    const { assignments, spyPlayerIds } = GameState.assignRoles(
+      playerIds,
+      selectedLocation,
+      spyCount
+    );
+    console.log(`[GameRoom] Assigned ${spyCount} spies:`, spyPlayerIds);
 
     // Create game state
     const timerDuration = settings.timerDuration || 8; // Default 8 minutes
@@ -1378,7 +1340,7 @@ export class GameRoom {
       1, // Round 1
       selectedLocation,
       assignments,
-      spyPlayerId,
+      spyPlayerIds, // Now array
       timerDuration
     );
 
@@ -1489,11 +1451,14 @@ export class GameRoom {
     console.log('[GameRoom] Vote tally:', voteTally);
     console.log('[GameRoom] Eliminated player:', eliminatedPlayerId);
 
-    // Calculate results
-    const spyWasEliminated = eliminatedPlayerId === this.gameState.spyPlayerId;
-    const spyEscaped = !spyWasEliminated;
+    // Calculate results - check if eliminated player was a spy
+    const wasSpyEliminated =
+      eliminatedPlayerId !== null && this.gameState.spyPlayerIds.includes(eliminatedPlayerId);
+    const remainingSpyIds = this.gameState.spyPlayerIds.filter((id) => id !== eliminatedPlayerId);
+    const spyEscaped = remainingSpyIds.length > 0; // Any spy remaining?
 
-    console.log('[GameRoom] Spy was eliminated:', spyWasEliminated);
+    console.log('[GameRoom] Spy was eliminated:', wasSpyEliminated);
+    console.log('[GameRoom] Remaining spies:', remainingSpyIds.length);
     console.log('[GameRoom] Spy escaped:', spyEscaped);
 
     // If spy escaped, transition to spy_guess phase
@@ -1504,8 +1469,8 @@ export class GameRoom {
         payload: {
           voteTally,
           eliminatedPlayerId,
-          spyPlayerId: this.gameState.spyPlayerId,
-          spyWasEliminated: false,
+          spyPlayerIds: this.gameState.spyPlayerIds, // Send all spy IDs for results
+          spyWasEliminated: wasSpyEliminated,
           scores: {}, // Scores will be calculated after spy guess
           location: null, // Don't reveal location yet
         },
@@ -1531,7 +1496,7 @@ export class GameRoom {
     const activePlayers = Array.from(this.players.values());
 
     for (const player of activePlayers) {
-      if (player.id === this.gameState.spyPlayerId) {
+      if (this.gameState.spyPlayerIds.includes(player.id)) {
         // Spy caught: 0 points
         scores[player.id] = 0;
       } else {
@@ -1546,7 +1511,7 @@ export class GameRoom {
       payload: {
         voteTally,
         eliminatedPlayerId,
-        spyPlayerId: this.gameState.spyPlayerId,
+        spyPlayerIds: this.gameState.spyPlayerIds, // All spy IDs
         spyWasEliminated: true,
         scores,
         location: this.gameState.selectedLocation.nameTh,
@@ -1593,7 +1558,7 @@ export class GameRoom {
     const activePlayers = Array.from(this.players.values());
 
     for (const player of activePlayers) {
-      if (player.id === this.gameState.spyPlayerId) {
+      if (this.gameState.spyPlayerIds.includes(player.id)) {
         // Spy scores: +2 if correct, 0 if incorrect
         scores[player.id] = wasCorrect ? 2 : 0;
       } else {
@@ -1665,16 +1630,24 @@ export class GameRoom {
     // Broadcast room state reset
     this.broadcast({
       type: 'ROOM_STATE',
-      payload: {
-        players: Array.from(this.players.values()).map((p) => p.toJSON()),
-        hostId: this.room?.hostPlayerId,
-        phase: 'lobby',
-      },
+      payload: this.getRoomStatePayload(),
       timestamp: Date.now(),
     });
 
     await this.saveState();
 
     console.log('[GameRoom] Auto-reset to lobby complete');
+  }
+
+  // Helper method to build consistent ROOM_STATE payload with new fields
+  private getRoomStatePayload() {
+    return {
+      players: Array.from(this.players.values()).map((p) => p.toJSON()),
+      hostId: this.room?.hostPlayerId,
+      phase: this.room?.phase,
+      maxPlayers: this.room?.maxPlayers ?? 10, // NEW: include capacity
+      currentPlayerCount: this.players.size, // NEW: current count
+      spyCount: this.room?.spyCount ?? 1, // NEW: spy configuration
+    };
   }
 }

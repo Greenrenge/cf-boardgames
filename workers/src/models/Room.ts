@@ -10,8 +10,15 @@ export class Room implements RoomType {
   players: string[];
   createdAt: number;
   lastActivityAt: number;
+  maxPlayers: number; // NEW: 4-20, default 10
+  spyCount: number; // NEW: 1-3, default 1
 
-  constructor(code: string, hostPlayerId: string, gameType: GameType = 'spyfall') {
+  constructor(
+    code: string,
+    hostPlayerId: string,
+    gameType: GameType = 'spyfall',
+    options?: { maxPlayers?: number; spyCount?: number }
+  ) {
     this.code = code;
     this.hostPlayerId = hostPlayerId;
     this.gameType = gameType;
@@ -21,6 +28,8 @@ export class Room implements RoomType {
     this.players = [hostPlayerId];
     this.createdAt = Date.now();
     this.lastActivityAt = Date.now();
+    this.maxPlayers = options?.maxPlayers ?? 10; // Default backward compatible
+    this.spyCount = options?.spyCount ?? 1; // Default backward compatible
   }
 
   addPlayer(playerId: string): void {
@@ -41,11 +50,21 @@ export class Room implements RoomType {
   }
 
   isFull(): boolean {
-    return this.players.length >= 10;
+    return this.players.length >= this.maxPlayers;
+  }
+
+  canJoin(currentPlayerCount: number): boolean {
+    return currentPlayerCount < this.maxPlayers;
   }
 
   canStart(): boolean {
-    return this.phase === 'lobby' && this.players.length >= 4 && this.players.length <= 10;
+    const playerCount = this.players.length;
+    return (
+      this.phase === 'lobby' &&
+      playerCount >= 4 &&
+      playerCount <= this.maxPlayers &&
+      playerCount >= this.spyCount * 3 // Minimum 3:1 ratio
+    );
   }
 
   updatePhase(newPhase: GamePhase): void {
@@ -68,6 +87,8 @@ export class Room implements RoomType {
       players: this.players,
       createdAt: this.createdAt,
       lastActivityAt: this.lastActivityAt,
+      maxPlayers: this.maxPlayers, // NEW
+      spyCount: this.spyCount, // NEW
     };
   }
 }
