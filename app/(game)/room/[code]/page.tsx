@@ -46,6 +46,7 @@ export default function RoomPage() {
   const [playerRole, setPlayerRole] = useState<string | null>(null);
   const [playerLocation, setPlayerLocation] = useState<string | null>(null);
   const [locationRoles, setLocationRoles] = useState<string[]>([]);
+  const [isDuplicateRole, setIsDuplicateRole] = useState<boolean>(false);
   const [messages, setMessages] = useState<Message[]>([]);
   const [remainingSeconds, setRemainingSeconds] = useState<number>(0);
   const [timerEndsAt, setTimerEndsAt] = useState<number>(0);
@@ -91,7 +92,13 @@ export default function RoomPage() {
         break;
       case 'ROLE_ASSIGNMENT':
         handleRoleAssignment(
-          message.payload as { role: string; location: string | null; locationRoles?: string[] }
+          message.payload as {
+            role: string;
+            location: string | null;
+            locationRoles?: string[];
+            isDuplicateRole?: boolean;
+            totalSpies?: number;
+          }
         );
         break;
       case 'TIMER_TICK':
@@ -298,11 +305,14 @@ export default function RoomPage() {
     role: string;
     location: string | null;
     locationRoles?: string[];
+    isDuplicateRole?: boolean;
+    totalSpies?: number;
   }) => {
     console.log('[Room] Role assigned:', payload);
     setPlayerRole(payload.role);
     setPlayerLocation(payload.location);
     setLocationRoles(payload.locationRoles || []);
+    setIsDuplicateRole(payload.isDuplicateRole || false);
     setGamePhase('playing');
     // Set initial timer - will be updated by TIMER_TICK
     setTimerEndsAt(Date.now() + 8 * 60 * 1000); // Default 8 minutes
@@ -629,6 +639,7 @@ export default function RoomPage() {
                 location={playerLocation}
                 isSpy={playerRole === 'Spy'}
                 locations={locationsData as Location[]}
+                isDuplicateRole={isDuplicateRole}
               />
 
               {!playerLocation && locationRoles.length === 0 && (

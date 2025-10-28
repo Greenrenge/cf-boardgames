@@ -10,9 +10,16 @@ interface RoleCardProps {
   location: string | null;
   isSpy: boolean;
   locations?: Location[]; // NEW: Optional locations data for image display
+  isDuplicateRole?: boolean; // NEW: Indicates if this role is duplicated in large groups
 }
 
-export function RoleCard({ role, location, isSpy, locations }: RoleCardProps) {
+export function RoleCard({
+  role,
+  location,
+  isSpy,
+  locations,
+  isDuplicateRole = false,
+}: RoleCardProps) {
   // Find the location object to get the imageUrl
   const locationData = locations?.find((loc) => loc.nameTh === location);
 
@@ -30,6 +37,14 @@ export function RoleCard({ role, location, isSpy, locations }: RoleCardProps) {
           <h2 className={`text-3xl font-bold ${isSpy ? 'text-red-600' : 'text-blue-600'}`}>
             {role}
           </h2>
+          {/* NEW: Duplicate role indicator */}
+          {!isSpy && isDuplicateRole && (
+            <div className="inline-flex items-center gap-2 px-3 py-1 bg-amber-100 border border-amber-300 rounded-full">
+              <span className="text-amber-700 text-xs font-medium">
+                ⚠️ ผู้เล่นคนอื่นอาจมีบทบาทเดียวกัน
+              </span>
+            </div>
+          )}
         </div>
 
         {isSpy ? (

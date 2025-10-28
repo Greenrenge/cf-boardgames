@@ -185,6 +185,8 @@ export interface RoleAssignmentPayload {
   role: string;
   location: string | null;
   locationRoles?: string[];
+  isDuplicateRole?: boolean; // NEW: indicates if this role is duplicated in large groups
+  totalSpies?: number; // NEW: total number of spies (for spy players)
 }
 
 export interface MessagePayload {
