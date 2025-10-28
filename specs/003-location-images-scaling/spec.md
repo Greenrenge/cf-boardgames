@@ -5,7 +5,7 @@
 **Status**: Draft  
 **Input**: User description: "to show image properly. 3:2 ratio full width. at the room page. while spy can browse all location images in the list for see what possibly location that everyone is talking about. non-spy player has only one location image. add total 20 person possible add 1-3 spy person setting."
 
-## User Scenarios & Testing *(mandatory)*
+## User Scenarios & Testing _(mandatory)_
 
 ### User Story 1 - View Location Image as Non-Spy (Priority: P1)
 
@@ -107,7 +107,7 @@ The system automatically adapts role assignment to support 11-20 players with ap
 - What happens when a player's device has low memory and can't load all location images? (Images load on-demand as spy scrolls; older images may be unloaded from memory to preserve performance)
 - What happens when viewing location images on very small screens (< 320px width)? (Images scale down but maintain 3:2 ratio; grid switches to single-column layout for readability)
 
-## Requirements *(mandatory)*
+## Requirements _(mandatory)_
 
 ### Functional Requirements
 
@@ -176,7 +176,7 @@ The system automatically adapts role assignment to support 11-20 players with ap
 - **Role Assignment**: Enhanced entity; attributes include player ID, role type (spy/non-spy), assigned location (if non-spy), assigned specific role, is duplicate role flag (for large groups)
 - **Image Cache Entry**: Represents cached image data; attributes include location ID, image blob/data, cache timestamp, cache hit count
 
-## Playground Validation *(mandatory)*
+## Playground Validation _(mandatory)_
 
 **Playground Type**: Interactive web application deployed to public URL (existing Cloudflare Pages deployment)
 
@@ -243,7 +243,7 @@ The system automatically adapts role assignment to support 11-20 players with ap
    - Test with very slow network (2G) to see progressive image loading
    - Test on device with limited memory (old phone) for performance
 
-## Success Criteria *(mandatory)*
+## Success Criteria _(mandatory)_
 
 ### Measurable Outcomes
 

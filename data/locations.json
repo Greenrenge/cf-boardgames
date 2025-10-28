@@ -687,7 +687,7 @@
 			"นายแบบ/นางแบบ",
 			"ช่างตัดแต่ง"
 		],
-		"imageUrl": "https://r2.spyfall.example.com/locations/clothing-store.webp"
+		"imageUrl": "https://spyfall-asset.greenrenge.work/loc-clothing-store.png"
 	},
 	{
 		"id": "loc-factory",
@@ -702,7 +702,7 @@
 			"ช่างซ่อม",
 			"พนักงานคลัง"
 		],
-		"imageUrl": "https://r2.spyfall.example.com/locations/factory.webp"
+		"imageUrl": "https://spyfall-asset.greenrenge.work/loc-factory.png"
 	},
 	{
 		"id": "loc-entertainment-studio",
@@ -717,7 +717,7 @@
 			"ช่างแสง",
 			"ช่างเสียง"
 		],
-		"imageUrl": "https://r2.spyfall.example.com/locations/entertainment-studio.webp"
+		"imageUrl": "https://spyfall-asset.greenrenge.work/loc-entertainment-studio.png"
 	},
 	{
 		"id": "loc-warehouse",
@@ -732,7 +732,7 @@
 			"คนขนของ",
 			"รปภ."
 		],
-		"imageUrl": "https://r2.spyfall.example.com/locations/warehouse.webp"
+		"imageUrl": "https://spyfall-asset.greenrenge.work/loc-warehouse.png"
 	},
 	{
 		"id": "loc-hotel",
