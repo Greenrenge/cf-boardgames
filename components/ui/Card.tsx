@@ -8,7 +8,9 @@ interface CardProps {
 
 export const Card: React.FC<CardProps> = ({ children, className = '', title }) => {
   return (
-    <div className={`bg-white/80 backdrop-blur-sm rounded-2xl shadow-xl border border-blue-100 p-6 hover:shadow-2xl transition-all duration-300 ${className}`}>
+    <div
+      className={`bg-white/80 backdrop-blur-sm rounded-2xl shadow-xl border border-blue-100 p-6 hover:shadow-2xl transition-all duration-300 ${className}`}
+    >
       {title && (
         <div className="flex items-center gap-3 mb-4">
           <div className="w-2 h-8 bg-gradient-to-b from-blue-500 to-indigo-600 rounded-full"></div>
