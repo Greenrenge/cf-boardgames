@@ -7,6 +7,7 @@ import { useParams, useRouter } from 'next/navigation';
 import { Lobby } from '@/components/room/Lobby';
 import { Card } from '@/components/ui/Card';
 import { Button } from '@/components/ui/Button';
+import { ThemeToggle } from '@/components/ui/ThemeToggle';
 import { RoleCard } from '@/components/game/RoleCard';
 import { LocationReference } from '@/components/game/LocationReference';
 import { ChatPanel } from '@/components/game/ChatPanel';
@@ -545,23 +546,25 @@ export default function RoomPage() {
 
   if (!isConnected) {
     return (
-      <div className="min-h-screen flex items-center justify-center">
+      <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-blue-50 to-purple-50 dark:from-slate-900 dark:to-slate-800">
+        <ThemeToggle />
         <div className="text-center">
-          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-600 mx-auto mb-4"></div>
-          <p className="text-gray-600">กำลังเชื่อมต่อ...</p>
-          {error && <p className="text-red-600 mt-2">{error}</p>}
+          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-600 dark:border-blue-400 mx-auto mb-4"></div>
+          <p className="text-gray-600 dark:text-gray-300">กำลังเชื่อมต่อ...</p>
+          {error && <p className="text-red-600 dark:text-red-400 mt-2">{error}</p>}
         </div>
       </div>
     );
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-blue-50 to-purple-50 py-8 px-4">
+    <div className="min-h-screen bg-gradient-to-br from-blue-50 to-purple-50 dark:from-slate-900 dark:to-slate-800 py-8 px-4">
+      <ThemeToggle />
       <div className="max-w-2xl mx-auto mb-6">
-        <div className="flex items-center justify-between">
+        <div className="flex items-center justify-between gap-4">
           <button
             onClick={handleBackToHome}
-            className="flex items-center space-x-2 px-4 py-2 text-gray-700 bg-white rounded-lg shadow-sm hover:bg-gray-50 transition-colors"
+            className="flex items-center space-x-2 px-4 py-2 text-gray-700 dark:text-gray-200 bg-white dark:bg-slate-800 rounded-lg shadow-sm hover:bg-gray-50 dark:hover:bg-slate-700 transition-colors border border-gray-200 dark:border-slate-700"
           >
             <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path
@@ -573,16 +576,18 @@ export default function RoomPage() {
             </svg>
             <span>กลับ</span>
           </button>
-          <div className="flex items-center space-x-2 px-4 py-2 bg-white rounded-lg shadow-sm">
+          <div className="flex items-center space-x-2 px-4 py-2 bg-white dark:bg-slate-800 rounded-lg shadow-sm border border-gray-200 dark:border-slate-700">
             <div className="w-2 h-2 rounded-full bg-green-500" title="คุณออนไลน์"></div>
-            <span className="text-gray-700 font-medium">{currentPlayerName}</span>
+            <span className="text-gray-700 dark:text-gray-200 font-medium">
+              {currentPlayerName}
+            </span>
           </div>
         </div>
       </div>
 
       {error && (
-        <div className="max-w-2xl mx-auto mb-4 p-4 bg-red-50 border border-red-200 rounded-lg">
-          <p className="text-red-800">{error}</p>
+        <div className="max-w-2xl mx-auto mb-4 p-4 bg-red-50 dark:bg-red-900/30 border border-red-200 dark:border-red-800 rounded-lg">
+          <p className="text-red-800 dark:text-red-200">{error}</p>
         </div>
       )}
 
@@ -610,7 +615,9 @@ export default function RoomPage() {
             <div className="mb-6">
               <Card>
                 <div className="flex items-center justify-between">
-                  <h3 className="text-sm font-medium text-gray-700">ควบคุมเจ้าห้อง</h3>
+                  <h3 className="text-sm font-medium text-gray-700 dark:text-gray-300">
+                    ควบคุมเจ้าห้อง
+                  </h3>
                   <div className="flex space-x-2">
                     {gamePhase === 'playing' && (
                       <Button
@@ -692,8 +699,10 @@ export default function RoomPage() {
             <Card className="p-8">
               <div className="text-center">
                 <div className="text-6xl mb-4">🕵️</div>
-                <h2 className="text-2xl font-bold text-gray-800 mb-2">สายลับกำลังเดาสถานที่...</h2>
-                <p className="text-gray-600">
+                <h2 className="text-2xl font-bold text-gray-800 dark:text-gray-100 mb-2">
+                  สายลับกำลังเดาสถานที่...
+                </h2>
+                <p className="text-gray-600 dark:text-gray-400">
                   กรุณารอสักครู่ สายลับกำลังตัดสินใจว่าสถานที่นี้คือที่ไหน
                 </p>
                 <div className="mt-6">
