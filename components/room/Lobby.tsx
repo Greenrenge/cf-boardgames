@@ -125,7 +125,9 @@ export function Lobby({
               </svg>
             </button>
           </div>
-          <p className="text-sm text-gray-600 dark:text-gray-400">แชร์รหัสนี้กับเพื่อนเพื่อเข้าร่วมห้อง</p>
+          <p className="text-sm text-gray-600 dark:text-gray-400">
+            แชร์รหัสนี้กับเพื่อนเพื่อเข้าร่วมห้อง
+          </p>
 
           {/* Player count display */}
           <div className="mt-4 pt-4 border-t border-gray-200 dark:border-slate-700">
@@ -229,7 +231,9 @@ export function Lobby({
 
             {/* Timer Duration Selector */}
             <div className="space-y-2">
-              <label className="block text-sm font-medium text-gray-700 dark:text-gray-300">ระยะเวลาต่อรอบ</label>
+              <label className="block text-sm font-medium text-gray-700 dark:text-gray-300">
+                ระยะเวลาต่อรอบ
+              </label>
               <select
                 value={timerDuration}
                 onChange={(e) => setTimerDuration(Number(e.target.value))}
@@ -248,7 +252,9 @@ export function Lobby({
 
             {/* Difficulty Selector */}
             <div className="space-y-2">
-              <label className="block text-sm font-medium text-gray-700 dark:text-gray-300">ระดับความยาก</label>
+              <label className="block text-sm font-medium text-gray-700 dark:text-gray-300">
+                ระดับความยาก
+              </label>
               <div className="space-y-2">
                 <label className="flex items-center space-x-2 cursor-pointer">
                   <input
@@ -279,7 +285,9 @@ export function Lobby({
                 </label>
               </div>
               {selectedDifficulties.length === 0 && (
-                <p className="text-xs text-red-600 dark:text-red-400">กรุณาเลือกอย่างน้อย 1 ระดับ</p>
+                <p className="text-xs text-red-600 dark:text-red-400">
+                  กรุณาเลือกอย่างน้อย 1 ระดับ
+                </p>
               )}
             </div>
 
