@@ -18,14 +18,30 @@
     "id": "loc-hospital",
     "nameTh": "โรงพยาบาล",
     "difficulty": "medium",
-    "roles": ["หมอ", "พยาบาล", "คนไข้", "ญาติผู้ป่วย", "เภสัชกร", "รปภ.", "พนักงานรับโทรศัพท์"],
+    "roles": [
+      "หมอ",
+      "พยาบาล",
+      "คนไข้",
+      "ญาติผู้ป่วย",
+      "เภสัชกร",
+      "รปภ.",
+      "พนักงานรับโทรศัพท์"
+    ],
     "imageUrl": "https://spyfall-asset.greenrenge.work/loc-hospital.png"
   },
   {
     "id": "loc-school",
     "nameTh": "โรงเรียน",
     "difficulty": "easy",
-    "roles": ["ครู", "นักเรียน", "ผู้อำนวยการ", "แม่บ้าน", "ยาม", "พ่อแม่นักเรียน", "ครูพลศึกษา"],
+    "roles": [
+      "ครู",
+      "นักเรียน",
+      "ผู้อำนวยการ",
+      "แม่บ้าน",
+      "ยาม",
+      "พ่อแม่นักเรียน",
+      "ครูพลศึกษา"
+    ],
     "imageUrl": "https://spyfall-asset.greenrenge.work/loc-school.png"
   },
   {
@@ -77,7 +93,15 @@
     "id": "loc-sports-stadium",
     "nameTh": "สนามกีฬา",
     "difficulty": "easy",
-    "roles": ["นักกีฬา", "โค้ช", "ผู้ชม", "ผู้ตัดสิน", "คนขายของ", "นักข่าว", "รปภ."],
+    "roles": [
+      "นักกีฬา",
+      "โค้ช",
+      "ผู้ชม",
+      "ผู้ตัดสิน",
+      "คนขายของ",
+      "นักข่าว",
+      "รปภ."
+    ],
     "imageUrl": "https://spyfall-asset.greenrenge.work/loc-sports-stadium.png"
   },
   {
@@ -339,7 +363,15 @@
     "id": "loc-mountain",
     "nameTh": "ภูเขา",
     "difficulty": "medium",
-    "roles": ["นักปีนเขา", "ไกด์นำเที่ยว", "ช่างภาพ", "นักท่องเที่ยว", "ทหาร", "คนขายของ", "พระ"],
+    "roles": [
+      "นักปีนเขา",
+      "ไกด์นำเที่ยว",
+      "ช่างภาพ",
+      "นักท่องเที่ยว",
+      "ทหาร",
+      "คนขายของ",
+      "พระ"
+    ],
     "imageUrl": "https://spyfall-asset.greenrenge.work/loc-mountain.png"
   },
   {
@@ -466,7 +498,15 @@
     "id": "loc-pier",
     "nameTh": "ท่าเรือ",
     "difficulty": "medium",
-    "roles": ["กัปตันเรือ", "ลูกเรือ", "ผู้โดยสาร", "คนขายตั๋ว", "ยาม", "คนขายของ", "คนขนของ"],
+    "roles": [
+      "กัปตันเรือ",
+      "ลูกเรือ",
+      "ผู้โดยสาร",
+      "คนขายตั๋ว",
+      "ยาม",
+      "คนขายของ",
+      "คนขนของ"
+    ],
     "imageUrl": "https://spyfall-asset.greenrenge.work/loc-pier.png"
   },
   {
@@ -743,7 +783,15 @@
     "id": "loc-dormitory",
     "nameTh": "หอพัก",
     "difficulty": "medium",
-    "roles": ["นักศึกษา", "แม่หอ", "รปภ.", "แม่บ้าน", "เจ้าของหอพัก", "พนักงานซักรีด", "ช่างซ่อม"],
+    "roles": [
+      "นักศึกษา",
+      "แม่หอ",
+      "รปภ.",
+      "แม่บ้าน",
+      "เจ้าของหอพัก",
+      "พนักงานซักรีด",
+      "ช่างซ่อม"
+    ],
     "imageUrl": "https://spyfall-asset.greenrenge.work/loc-dormitory.png"
   },
   {
@@ -825,7 +873,15 @@
     "id": "loc-theater",
     "nameTh": "โรงละคร",
     "difficulty": "medium",
-    "roles": ["ผู้กำกับ", "นักแสดงนำ", "นักแสดงสมทบ", "คนขายบัตร", "ช่างไฟ", "คนดู", "นักวิจารณ์"],
+    "roles": [
+      "ผู้กำกับ",
+      "นักแสดงนำ",
+      "นักแสดงสมทบ",
+      "คนขายบัตร",
+      "ช่างไฟ",
+      "คนดู",
+      "นักวิจารณ์"
+    ],
     "imageUrl": "https://spyfall-asset.greenrenge.work/loc-theater.png"
   },
   {
@@ -862,7 +918,15 @@
     "id": "loc-court",
     "nameTh": "ศาล",
     "difficulty": "medium",
-    "roles": ["ผู้พิพากษา", "ทนาย", "จำเลย", "พยาน", "เจ้าหน้าที่ศาล", "นักข่าว", "คนฟังคดี"],
+    "roles": [
+      "ผู้พิพากษา",
+      "ทนาย",
+      "จำเลย",
+      "พยาน",
+      "เจ้าหน้าที่ศาล",
+      "นักข่าว",
+      "คนฟังคดี"
+    ],
     "imageUrl": "https://spyfall-asset.greenrenge.work/loc-court.png"
   },
   {
@@ -884,7 +948,15 @@
     "id": "loc-wedding",
     "nameTh": "งานแต่ง",
     "difficulty": "easy",
-    "roles": ["เจ้าบ่าว", "เจ้าสาว", "เพื่อนเจ้าบ่าว", "เพื่อนเจ้าสาว", "แขก", "ช่างภาพ", "พิธีกร"],
+    "roles": [
+      "เจ้าบ่าว",
+      "เจ้าสาว",
+      "เพื่อนเจ้าบ่าว",
+      "เพื่อนเจ้าสาว",
+      "แขก",
+      "ช่างภาพ",
+      "พิธีกร"
+    ],
     "imageUrl": "https://spyfall-asset.greenrenge.work/loc-wedding.png"
   },
   {
@@ -951,7 +1023,15 @@
     "id": "loc-pirate-ship",
     "nameTh": "เรือโจรสลัด",
     "difficulty": "medium",
-    "roles": ["กัปตัน", "ต้นหน", "พลธง", "นักโทษ", "คนครัวเรือ", "ช่างเรือ", "โจรสลัดมือใหม่"],
+    "roles": [
+      "กัปตัน",
+      "ต้นหน",
+      "พลธง",
+      "นักโทษ",
+      "คนครัวเรือ",
+      "ช่างเรือ",
+      "โจรสลัดมือใหม่"
+    ],
     "imageUrl": "https://spyfall-asset.greenrenge.work/loc-pirate-ship.png"
   },
   {
@@ -967,14 +1047,22 @@
       "ผู้เช่าบ้าน",
       "เด็กหลงทาง"
     ],
-    "imageUrl": "https://r2.spyfall.example.com/locations/haunted_house.webp"
+    "imageUrl": "https://spyfall-asset.greenrenge.work/loc-haunted-house.png"
   },
   {
     "id": "loc-hogwarts",
     "nameTh": "ฮอกวอร์ต",
     "difficulty": "easy",
-    "roles": ["อาจารย์ใหญ่", "นักเรียน", "พ่อมด", "แม่มด", "ภารโรง", "ผีประจำบ้าน", "สัตว์วิเศษ"],
-    "imageUrl": "https://r2.spyfall.example.com/locations/hogwarts.webp"
+    "roles": [
+      "ดัมเบิลดอร์",
+      "แฮรี่ พอตเตอร์",
+      "รอน วีสลีย์",
+      "เฮอร์ไมโอนี่ เกรนเจอร์",
+      "นกฮูก",
+      "ลอร์ดโวลเดอมอร์",
+      "สัตว์วิเศษ"
+    ],
+    "imageUrl": "https://spyfall-asset.greenrenge.work/loc-hogwarts.png"
   },
   {
     "id": "loc-yacht",
@@ -989,7 +1077,7 @@
       "ช่างเครื่อง",
       "พนักงานต้อนรับ"
     ],
-    "imageUrl": "https://r2.spyfall.example.com/locations/yacht.webp"
+    "imageUrl": "https://spy-fall-asset.greenrenge.work/loc-yacht.png"
   },
   {
     "id": "loc-desert",
@@ -1004,7 +1092,7 @@
       "พ่อค้าเร่",
       "เจ้าหน้าที่กู้ภัย"
     ],
-    "imageUrl": "https://r2.spyfall.example.com/locations/desert.webp"
+    "imageUrl": "https://spy-fall-asset.greenrenge.work/loc-desert.png"
   },
   {
     "id": "loc-aquarium",
@@ -1019,7 +1107,7 @@
       "มัคคุเทศก์",
       "เด็กที่มาเที่ยว"
     ],
-    "imageUrl": "https://r2.spyfall.example.com/locations/aquarium.webp"
+    "imageUrl": "https://spy-fall-asset.greenrenge.work/loc-aquarium.png"
   },
   {
     "id": "loc-volcano",
@@ -1034,7 +1122,7 @@
       "ชาวบ้านใกล้ภูเขาไฟ",
       "นักสำรวจ"
     ],
-    "imageUrl": "https://r2.spyfall.example.com/locations/volcano.webp"
+    "imageUrl": "https://spy-fall-asset.greenrenge.work/loc-volcano.png"
   },
   {
     "id": "loc-prison",
@@ -1049,7 +1137,7 @@
       "คนส่งอาหาร",
       "นักข่าว"
     ],
-    "imageUrl": "https://r2.spyfall.example.com/locations/prison.webp"
+    "imageUrl": "https://spyfall-asset.greenrenge.work/loc-prison.png"
   },
   {
     "id": "loc-parliament",
@@ -1064,7 +1152,7 @@
       "นักข่าว",
       "เจ้าหน้าที่รักษาความปลอดภัย"
     ],
-    "imageUrl": "https://r2.spyfall.example.com/locations/parliament.webp"
+    "imageUrl": "https://spyfall-asset.greenrenge.work/loc-parliament.png"
   },
   {
     "id": "loc-casino",
@@ -1079,7 +1167,7 @@
       "นักต้มตุ๋น",
       "แม่บ้าน"
     ],
-    "imageUrl": "https://r2.spyfall.example.com/locations/casino.webp"
+    "imageUrl": "https://spyfall-asset.greenrenge.work/loc-casino.png"
   },
   {
     "id": "loc-scammer-den",
@@ -1094,14 +1182,23 @@
       "ผู้ทรมานนักต้มตุ๋น",
       "นักฟิชชิ่ง"
     ],
-    "imageUrl": "https://r2.spyfall.example.com/locations/scammer.webp"
+    "imageUrl": "https://spyfall-asset.greenrenge.work/loc-scammer-den.png"
   },
   {
     "id": "loc-boxing-stadium",
     "nameTh": "สนามมวย",
     "difficulty": "medium",
-    "roles": ["นักมวย", "ผู้ฝึกสอน", "กรรมการ", "ผู้ชม", "พนักงานขายตั๋ว", "นักข่าว", "คนรับพนัน"],
-    "imageUrl": "https://spyfall-asset.greenrenge.work/locations/boxing_stadium.webp"
+    "roles": [
+      "นักมวย",
+      "ผู้ฝึกสอน",
+      "กรรมการ",
+      "ผู้ชม",
+      "สาวสวยชูป้าย",
+      "พนักงานขายตั๋ว",
+      "นักข่าว",
+      "คนรับพนัน"
+    ],
+    "imageUrl": "https://spyfall-asset.greenrenge.work/loc-boxing-stadium.png"
   },
   {
     "id": "loc-castle",
@@ -1117,10 +1214,10 @@
       "ผู้มาเยือน",
       "ผู้ดูแลปราสาท"
     ],
-    "imageUrl": "https://r2.spyfall.example.com/locations/castle.webp"
+    "imageUrl": "https://spyfall-asset.greenrenge.work/loc-castle.png"
   },
   {
-    "id": "loc-north_pole",
+    "id": "loc-north-pole",
     "nameTh": "ขั้วโลกเหนือ",
     "difficulty": "hard",
     "roles": [
@@ -1134,6 +1231,81 @@
       "หมาลากเลื่อน",
       "นกเพนกวิน"
     ],
-    "imageUrl": "https://r2.spyfall.example.com/locations/north_pole.webp"
+    "imageUrl": "https://spyfall-asset.greenrenge.work/loc-north-pole.png"
+  },
+  {
+    "id": "loc-pyramid",
+    "nameTh": "พีระมิด",
+    "difficulty": "hard",
+    "roles": [
+      "ฟาโรห์",
+      "นักบวช",
+      "คนงานก่อสร้าง",
+      "นักโบราณคดี",
+      "นักท่องเที่ยว",
+      "คลีโอพัตรา",
+      "นักสำรวจ",
+      "นักล่าสมบัติ"
+    ],
+    "imageUrl": "https://spyfall-asset.greenrenge.work/loc-pyramid.png"
+  },
+  {
+    "id": "loc-deep-sea",
+    "nameTh": "ใต้ทะเลลึก",
+    "difficulty": "hard",
+    "roles": [
+      "นักประดาน้ำ",
+      "ปลาน้ำลึก",
+      "ซากไททานิค",
+      "นักถ่ายสารคดี",
+      "ปลาหมึกยักษ์",
+      "ซากสัตว์โบราณ",
+      "ทรายใต้ทะเล"
+    ],
+    "imageUrl": "https://spyfall-asset.greenrenge.work/loc-deep-sea.png"
+  },
+  {
+    "id": "loc-amazon-rainforest",
+    "nameTh": "ป่าฝนแอมะซอน",
+    "difficulty": "hard",
+    "roles": [
+      "นักสำรวจ",
+      "ชาวพื้นเมือง",
+      "ปลาปิรันยา",
+      "นักถ่ายสารคดี",
+      "นักล่าสัตว์ป่า",
+      "งูอนาคอนดา",
+      "นกแก้วมาคอร์"
+    ],
+    "imageUrl": "https://spyfall-asset.greenrenge.work/loc-amazon-rainforest.png"
+  },
+  {
+    "id": "loc-chinese-great-wall",
+    "nameTh": "กำแพงเมืองจีน",
+    "difficulty": "medium",
+    "roles": [
+      "นักท่องเที่ยว",
+      "ไกด์",
+      "ช่างภาพ",
+      "นักประวัติศาสตร์",
+      "นักโบราณคดี",
+      "เจ้าหน้าที่รักษาความปลอดภัย"
+    ],
+    "imageUrl": "https://spyfall-asset.greenrenge.work/loc-chinese-great-wall.png"
+  },
+  {
+    "id": "loc-mars",
+    "nameTh": "ดาวอังคาร",
+    "difficulty": "hard",
+    "roles": [
+      "นักบินอวกาศ",
+      "นักวิทยาศาสตร์",
+      "หุ่นยนต์สำรวจ",
+      "ผู้บัญชาการสถานี",
+      "นักวิจัย",
+      "ช่างเทคนิค",
+      "นักท่องเที่ยวอวกาศ"
+    ],
+    "imageUrl": "https://spyfall-asset.greenrenge.work/loc-mars.png"
   }
 ]
