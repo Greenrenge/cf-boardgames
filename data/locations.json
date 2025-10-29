@@ -1077,7 +1077,7 @@
       "ช่างเครื่อง",
       "พนักงานต้อนรับ"
     ],
-    "imageUrl": "https://spy-fall-asset.greenrenge.work/loc-yacht.png"
+    "imageUrl": "https://spyfall-asset.greenrenge.work/loc-yacht.png"
   },
   {
     "id": "loc-desert",
@@ -1092,7 +1092,7 @@
       "พ่อค้าเร่",
       "เจ้าหน้าที่กู้ภัย"
     ],
-    "imageUrl": "https://spy-fall-asset.greenrenge.work/loc-desert.png"
+    "imageUrl": "https://spyfall-asset.greenrenge.work/loc-desert.png"
   },
   {
     "id": "loc-aquarium",
@@ -1107,7 +1107,7 @@
       "มัคคุเทศก์",
       "เด็กที่มาเที่ยว"
     ],
-    "imageUrl": "https://spy-fall-asset.greenrenge.work/loc-aquarium.png"
+    "imageUrl": "https://spyfall-asset.greenrenge.work/loc-aquarium.png"
   },
   {
     "id": "loc-volcano",
@@ -1122,7 +1122,7 @@
       "ชาวบ้านใกล้ภูเขาไฟ",
       "นักสำรวจ"
     ],
-    "imageUrl": "https://spy-fall-asset.greenrenge.work/loc-volcano.png"
+    "imageUrl": "https://spyfall-asset.greenrenge.work/loc-volcano.png"
   },
   {
     "id": "loc-prison",
