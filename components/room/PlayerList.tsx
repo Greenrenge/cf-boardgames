@@ -13,7 +13,9 @@ export function PlayerList({ players, hostId, currentPlayerId, onKickPlayer }: P
   const isHost = currentPlayerId === hostId;
   return (
     <div className="space-y-2">
-      <h3 className="text-sm font-medium text-gray-700">ผู้เล่น ({players.length}/8)</h3>
+      <h3 className="text-sm font-medium text-gray-700 dark:text-gray-400">
+        ผู้เล่น ({players.length}/8)
+      </h3>
       <div className="space-y-2">
         {players.map((player) => (
           <div
