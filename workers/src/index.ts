@@ -4,7 +4,6 @@ import locationsData from '../../data/locations.json';
 
 // Types for Cloudflare Workers environment
 export interface Env {
-  DB: D1Database;
   ASSETS: R2Bucket;
   GAME_ROOMS: DurableObjectNamespace;
 }
@@ -209,52 +208,12 @@ app.patch('/api/rooms/:code/config', async (c) => {
 app.get('/api/locations', async (c) => {
   try {
     const difficultyParam = c.req.query('difficulty');
-    let locations: any[] = [];
+    let locations = [...locationsData];
 
-    // Try to fetch from D1 database first
-    if (c.env.DB) {
-      try {
-        let query = 'SELECT * FROM locations WHERE 1=1';
-        const params: string[] = [];
-
-        if (difficultyParam) {
-          const difficulties = difficultyParam.split(',');
-          const placeholders = difficulties.map(() => '?').join(',');
-          query += ` AND difficulty IN (${placeholders})`;
-          params.push(...difficulties);
-        }
-
-        const result = await c.env.DB.prepare(query)
-          .bind(...params)
-          .all();
-
-        locations =
-          result.results?.map((row: any) => ({
-            id: row.id,
-            nameTh: row.name_th,
-            difficulty: row.difficulty,
-            roles: JSON.parse(row.roles),
-            imageUrl: row.image_url,
-          })) || [];
-
-        console.log('[Locations API] Fetched from D1:', locations.length);
-      } catch (dbError) {
-        console.warn('[Locations API] D1 not available, using fallback data:', dbError);
-      }
-    }
-
-    // Fallback: Use hardcoded locations if D1 is not available or empty
-    if (locations.length === 0) {
-      // Use imported static locations data
-      locations = [...locationsData];
-
-      // Filter by difficulty if specified
-      if (difficultyParam) {
-        const difficulties = difficultyParam.split(',');
-        locations = locations.filter((loc: any) => difficulties.includes(loc.difficulty));
-      }
-
-      console.log('[Locations API] Using fallback data:', locations.length);
+    // Filter by difficulty if specified
+    if (difficultyParam) {
+      const difficulties = difficultyParam.split(',');
+      locations = locations.filter((loc) => difficulties.includes(loc.difficulty));
     }
 
     return c.json({ locations });

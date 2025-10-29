@@ -5,11 +5,6 @@ compatibility_date = "2024-10-24"
 [observability]
 enabled = true
 
-[[d1_databases]]
-binding = "DB"
-database_name = "spyfall-locations"
-database_id = "9398a8ee-0ffc-4279-b223-ab8fb6698395"
-
 [[r2_buckets]]
 binding = "ASSETS"
 bucket_name = "spyfall-assets"
