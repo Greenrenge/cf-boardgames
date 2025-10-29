@@ -10,7 +10,7 @@ export class Room implements RoomType {
   players: string[];
   createdAt: number;
   lastActivityAt: number;
-  maxPlayers: number; // NEW: 4-20, default 10
+  maxPlayers: number; // NEW: 3-20, default 10
   spyCount: number; // NEW: 1-3, default 1
 
   constructor(
@@ -61,7 +61,7 @@ export class Room implements RoomType {
     const playerCount = this.players.length;
     return (
       this.phase === 'lobby' &&
-      playerCount >= 4 &&
+      playerCount >= 3 &&
       playerCount <= this.maxPlayers &&
       playerCount >= this.spyCount * 3 // Minimum 3:1 ratio
     );

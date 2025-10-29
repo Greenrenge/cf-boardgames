@@ -155,13 +155,13 @@ app.patch('/api/rooms/:code/config', async (c) => {
     const body = await c.req.json();
     const { maxPlayers, spyCount } = body;
 
-    // Validate maxPlayers (4-20)
-    if (maxPlayers !== undefined && (maxPlayers < 4 || maxPlayers > 20)) {
+    // Validate maxPlayers (3-20)
+    if (maxPlayers !== undefined && (maxPlayers < 3 || maxPlayers > 20)) {
       return c.json(
         {
           error: {
             code: 'INVALID_REQUEST',
-            message: 'maxPlayers must be between 4 and 20',
+            message: 'maxPlayers must be between 3 and 20',
           },
         },
         400

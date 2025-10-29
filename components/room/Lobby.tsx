@@ -36,7 +36,7 @@ export function Lobby({
   // Calculate minimum players needed for current spy count (3:1 ratio)
   const minPlayersForSpyCount = spyCount * 3 + spyCount;
   const canStart =
-    players.length >= Math.max(4, minPlayersForSpyCount) && players.length <= maxPlayers;
+    players.length >= Math.max(3, minPlayersForSpyCount) && players.length <= maxPlayers;
 
   // Game settings state (host only)
   const [selectedDifficulties, setSelectedDifficulties] = useState<Difficulty[]>([
@@ -73,7 +73,7 @@ export function Lobby({
 
   // Calculate max spy count based on current player count (3:1 ratio)
   const getMaxSpyCount = (playerCount: number) => {
-    if (playerCount < 4) return 0;
+    if (playerCount < 3) return 0;
     return Math.min(3, Math.floor(playerCount / 4));
   };
 
@@ -162,7 +162,7 @@ export function Lobby({
               </label>
               <input
                 type="range"
-                min={Math.max(4, players.length)}
+                min={Math.max(3, players.length)}
                 max={20}
                 value={localMaxPlayers}
                 onChange={(e) => handleMaxPlayersChange(Number(e.target.value))}
@@ -170,7 +170,7 @@ export function Lobby({
                 disabled={!onUpdateConfig}
               />
               <div className="flex justify-between text-xs text-gray-500 dark:text-gray-400">
-                <span>4 คน</span>
+                <span>3 คน</span>
                 <span>20 คน</span>
               </div>
               {localMaxPlayers < maxPlayers && (
@@ -301,7 +301,7 @@ export function Lobby({
                 : !canStart
                   ? players.length < minPlayersForSpyCount
                     ? `ต้องมีผู้เล่นอย่างน้อย ${minPlayersForSpyCount} คนสำหรับ ${localSpyCount} สปาย (ตอนนี้ ${players.length} คน)`
-                    : `ต้องมีผู้เล่น 4-${maxPlayers} คน (ตอนนี้ ${players.length} คน)`
+                    : `ต้องมีผู้เล่น 3-${maxPlayers} คน (ตอนนี้ ${players.length} คน)`
                   : 'เริ่มเกม'}
             </Button>
           </div>

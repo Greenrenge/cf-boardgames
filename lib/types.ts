@@ -15,14 +15,14 @@ export interface Room {
   players: string[];
   createdAt: number;
   lastActivityAt: number;
-  maxPlayers?: number; // 4-20, default: 10 for backward compatibility
+  maxPlayers?: number; // 3-20, default: 10 for backward compatibility
   spyCount?: number; // 1-3, default: 1 for backward compatibility
 }
 
 export interface RoomConfig {
-  maxPlayers: number; // 4-20, default: 10
+  maxPlayers: number; // 3-20, default: 10
   spyCount: number; // 1-3, default: 1
-  minPlayers: number; // Always 4 (constant)
+  minPlayers: number; // Always 3 (constant)
   createdAt: number;
   updatedAt: number;
 }
