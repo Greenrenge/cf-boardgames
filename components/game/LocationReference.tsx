@@ -2,6 +2,8 @@
 
 import { useTranslations } from 'next-intl';
 import { useLocationTranslations } from '@/lib/useLocationTranslations';
+import { useRoleTranslations } from '@/lib/useRoleTranslations';
+import { thaiRolesToSlugs } from '@/lib/roleUtils';
 import { Card } from '../ui/Card';
 
 interface LocationReferenceProps {
@@ -12,9 +14,14 @@ interface LocationReferenceProps {
 export function LocationReference({ location, roles }: LocationReferenceProps) {
   const t = useTranslations('common');
   const { getLocationName } = useLocationTranslations();
+  const { getRoleName } = useRoleTranslations();
 
   // Get translated location name
   const translatedLocationName = getLocationName(location);
+
+  // Convert Thai role names to slugs and translate
+  const roleSlugs = thaiRolesToSlugs(roles);
+  const translatedRoles = roleSlugs.map((slug) => getRoleName(slug));
 
   return (
     <Card className="bg-gradient-to-br from-purple-50 to-indigo-50 border-2 border-purple-300 dark:from-purple-900 dark:to-indigo-900 dark:border-purple-700">
@@ -29,7 +36,7 @@ export function LocationReference({ location, roles }: LocationReferenceProps) {
         </div>
 
         <div className="grid grid-cols-2 gap-2">
-          {roles.map((role, index) => (
+          {translatedRoles.map((role, index) => (
             <div
               key={index}
               className="px-3 py-2 bg-white rounded-lg shadow-sm border border-purple-200 dark:bg-gray-800 dark:border-purple-700"

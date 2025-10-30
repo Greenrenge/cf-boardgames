@@ -3,6 +3,8 @@
 import { useState } from 'react';
 import { useTranslations } from 'next-intl';
 import { useLocationTranslations } from '@/lib/useLocationTranslations';
+import { useRoleTranslations } from '@/lib/useRoleTranslations';
+import { thaiRolesToSlugs } from '@/lib/roleUtils';
 import { Location } from '@/lib/types';
 import { LocationImage } from './LocationImage';
 
@@ -18,6 +20,7 @@ interface ModalState {
 export function SpyLocationBrowser({ locations }: SpyLocationBrowserProps) {
   const t = useTranslations('common');
   const { getLocationName } = useLocationTranslations();
+  const { getRoleName } = useRoleTranslations();
   const [modal, setModal] = useState<ModalState>({ isOpen: false, location: null });
 
   // Sort locations alphabetically by translated name
@@ -137,14 +140,18 @@ export function SpyLocationBrowser({ locations }: SpyLocationBrowserProps) {
                     {t('game.availableRoles')} ({modal.location.roles.length})
                   </h4>
                   <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-2">
-                    {modal.location.roles.map((role, index) => (
-                      <div
-                        key={index}
-                        className="bg-gray-50 dark:bg-gray-800 rounded px-3 py-2 text-sm text-gray-700 dark:text-gray-200"
-                      >
-                        {role}
-                      </div>
-                    ))}
+                    {modal.location.roles.map((role, index) => {
+                      const roleSlugs = thaiRolesToSlugs([role]);
+                      const translatedRole = getRoleName(roleSlugs[0]);
+                      return (
+                        <div
+                          key={index}
+                          className="bg-gray-50 dark:bg-gray-800 rounded px-3 py-2 text-sm text-gray-700 dark:text-gray-200"
+                        >
+                          {translatedRole}
+                        </div>
+                      );
+                    })}
                   </div>
                 </div>
               )}

@@ -56,31 +56,44 @@ if (missingTranslations.length > 0) {
   console.log('');
 }
 
-// English template (Thai -> English translations)
-// For now, keep Thai as placeholder - will be translated separately
-const englishRoles = {};
+// Create role objects for all languages
+const roles = {
+  en: {},
+  th: {},
+  zh: {},
+  hi: {},
+  es: {},
+  fr: {},
+  ar: {},
+};
+
 uniqueRoles.forEach((thaiRole) => {
   const key = roleKeyMap[thaiRole];
-  // Placeholder - these need to be translated
-  englishRoles[key] = thaiRole; // Will be replaced with actual English
+
+  // English: Use the slug key itself (capitalize and replace hyphens)
+  roles.en[key] = key
+    .split('-')
+    .map((word) => word.charAt(0).toUpperCase() + word.slice(1))
+    .join(' ');
+
+  // Thai: Already have these
+  roles.th[key] = thaiRole;
+
+  // Other languages: Use Thai as placeholder (to be translated)
+  roles.zh[key] = thaiRole; // Chinese - placeholder
+  roles.hi[key] = thaiRole; // Hindi - placeholder
+  roles.es[key] = thaiRole; // Spanish - placeholder
+  roles.fr[key] = thaiRole; // French - placeholder
+  roles.ar[key] = thaiRole; // Arabic - placeholder
 });
 
-// Thai roles (already have these)
-const thaiRoles = {};
-uniqueRoles.forEach((thaiRole) => {
-  const key = roleKeyMap[thaiRole];
-  thaiRoles[key] = thaiRole;
+// Save all language files
+const languages = ['en', 'th', 'zh', 'hi', 'es', 'fr', 'ar'];
+languages.forEach((lang) => {
+  const langPath = path.join(__dirname, `../locales/${lang}/roles.json`);
+  fs.writeFileSync(langPath, JSON.stringify(roles[lang], null, 2));
+  console.log(`✅ Created: ${langPath}`);
 });
-
-// Save English template
-const enPath = path.join(__dirname, '../locales/en/roles-template.json');
-fs.writeFileSync(enPath, JSON.stringify(englishRoles, null, 2));
-console.log(`✅ Created: ${enPath}`);
-
-// Save Thai roles
-const thPath = path.join(__dirname, '../locales/th/roles.json');
-fs.writeFileSync(thPath, JSON.stringify(thaiRoles, null, 2));
-console.log(`✅ Created: ${thPath}`);
 
 // Save role key mapping for reference
 const mapPath = path.join(__dirname, 'role-key-mapping.json');
@@ -93,7 +106,14 @@ const rolesList = uniqueRoles.join('\n');
 fs.writeFileSync(rolesListPath, rolesList);
 console.log(`✅ Created roles list for translation: ${rolesListPath}`);
 
-console.log(`\n✨ Next steps:`);
-console.log(`1. Translate the 382 roles from Thai to other languages`);
-console.log(`2. Create roles.json files for: zh, hi, es, fr, ar`);
+console.log(`\n✨ Role translation files generated!`);
+console.log(`📊 Statistics:`);
+console.log(`   - Total unique roles: ${uniqueRoles.length}`);
+console.log(`   - Languages: ${languages.length}`);
+console.log(`   - Total translations: ${uniqueRoles.length * languages.length}`);
+console.log(`\n⚠️  Note: zh, hi, es, fr, ar files contain Thai placeholders`);
+console.log(`   These need to be translated by a translation service.`);
+console.log(`\n📋 Next steps:`);
+console.log(`1. Translate roles for: zh, hi, es, fr, ar`);
+console.log(`2. Create useRoleTranslations hook`);
 console.log(`3. Update components to use role translations`);

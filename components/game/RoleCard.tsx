@@ -4,6 +4,8 @@ import { Card } from '../ui/Card';
 import { LocationImage } from './LocationImage';
 import { SpyLocationBrowser } from './SpyLocationBrowser';
 import { useLocationTranslations } from '@/lib/useLocationTranslations';
+import { useRoleTranslations } from '@/lib/useRoleTranslations';
+import { thaiRoleToSlug } from '@/lib/roleUtils';
 import { useTranslations } from 'next-intl';
 import type { Location } from '@/lib/types';
 
@@ -24,10 +26,15 @@ export function RoleCard({
 }: RoleCardProps) {
   const t = useTranslations('common');
   const { getLocationName } = useLocationTranslations();
+  const { getRoleName } = useRoleTranslations();
 
   // Find the location object to get the imageUrl and ID
   const locationData = locations?.find((loc) => loc.nameTh === location);
   const translatedLocationName = locationData ? getLocationName(locationData.id) : location;
+
+  // Translate role name from Thai to current language
+  const roleSlug = thaiRoleToSlug(role);
+  const translatedRoleName = getRoleName(roleSlug);
 
   return (
     <Card
@@ -45,7 +52,7 @@ export function RoleCard({
           <h2
             className={`text-3xl font-bold ${isSpy ? 'text-red-600 dark:text-red-300' : 'text-blue-600 dark:text-blue-300'}`}
           >
-            {role}
+            {translatedRoleName}
           </h2>
           {/* NEW: Duplicate role indicator */}
           {!isSpy && isDuplicateRole && (
