@@ -1,6 +1,6 @@
 import { Hono } from 'hono';
 import { cors } from 'hono/cors';
-import locationsData from '../../data/locations.json';
+import { handleGetLocations } from './locations/handler';
 
 // Types for Cloudflare Workers environment
 export interface Env {
@@ -204,32 +204,8 @@ app.patch('/api/rooms/:code/config', async (c) => {
   }
 });
 
-// Get locations endpoint
-app.get('/api/locations', async (c) => {
-  try {
-    const difficultyParam = c.req.query('difficulty');
-    let locations = [...locationsData];
-
-    // Filter by difficulty if specified
-    if (difficultyParam) {
-      const difficulties = difficultyParam.split(',');
-      locations = locations.filter((loc) => difficulties.includes(loc.difficulty));
-    }
-
-    return c.json({ locations });
-  } catch (error) {
-    console.error('[Locations API] Error:', error);
-    return c.json(
-      {
-        error: {
-          code: 'INTERNAL_ERROR',
-          message: 'Failed to fetch locations',
-        },
-      },
-      500
-    );
-  }
-});
+// Get locations endpoint - NEW: Returns locations with all translations
+app.get('/api/locations', handleGetLocations);
 
 // WebSocket upgrade endpoint
 app.get('/api/ws/:code', async (c) => {

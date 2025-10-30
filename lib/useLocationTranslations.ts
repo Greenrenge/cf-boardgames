@@ -3,15 +3,16 @@
 /**
  * useLocationTranslations Hook
  *
- * Custom hook to access translated location names in components
+ * Custom hook to access translated location names from API data
  */
 
 import { useLocale } from 'next-intl';
 import { useState, useEffect } from 'react';
 import type { LocaleCode } from './i18n/types';
+import { fetchLocations } from './api/locationsApi';
 
 /**
- * Hook to load and access location translations for current locale
+ * Hook to load and access location translations for current locale from API
  */
 export function useLocationTranslations() {
   const locale = useLocale() as LocaleCode;
@@ -22,19 +23,18 @@ export function useLocationTranslations() {
     async function loadTranslations() {
       try {
         setIsLoading(true);
-        const locationsModule = await import(`@/locales/${locale}/locations.json`);
-        setTranslations(locationsModule.default || locationsModule);
+        const locations = await fetchLocations();
+        
+        // Build translations map from API data
+        const translationsMap: Record<string, string> = {};
+        locations.forEach((location) => {
+          translationsMap[location.id] = location.names[locale] || location.names.en;
+        });
+        
+        setTranslations(translationsMap);
       } catch (error) {
-        console.error(`Failed to load location translations for ${locale}:`, error);
-        // Try fallback to English
-        if (locale !== 'en') {
-          try {
-            const fallbackModule = await import(`@/locales/en/locations.json`);
-            setTranslations(fallbackModule.default || fallbackModule);
-          } catch {
-            setTranslations({});
-          }
-        }
+        console.error(`Failed to load location translations from API for ${locale}:`, error);
+        setTranslations({});
       } finally {
         setIsLoading(false);
       }

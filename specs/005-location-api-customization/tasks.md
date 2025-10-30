@@ -19,9 +19,9 @@
 
 **Purpose**: Project initialization and basic structure
 
-- [ ] T001 Review existing codebase structure in app/, components/, lib/ directories
-- [ ] T002 Verify existing dependencies (Next.js 14.2, React 18.3, next-intl, Tailwind CSS 3.4)
-- [ ] T003 Create feature branch 005-location-api-customization (if not already created)
+- [x] T001 Review existing codebase structure in app/, components/, lib/ directories
+- [x] T002 Verify existing dependencies (Next.js 14.2, React 18.3, next-intl, Tailwind CSS 3.4)
+- [x] T003 Create feature branch 005-location-api-customization (if not already created)
 
 ---
 
@@ -33,35 +33,35 @@
 
 ### Type Definitions & Data Structures
 
-- [ ] T004 [P] Create Location, Role, and LocalizedNames interfaces in lib/types.ts
-- [ ] T005 [P] Create APIResponse interface with version and timestamp in lib/types.ts
-- [ ] T006 [P] Create LocationSelection interface for user preferences in lib/types.ts
-- [ ] T007 [P] Create LocalStorageConfig interface for persistent data in lib/types.ts
-- [ ] T008 [P] Create CacheEntry interface with expiration logic in lib/types.ts
-- [ ] T009 [P] Create ExportConfig interface for import/export functionality in lib/types.ts
+- [x] T004 [P] Create Location, Role, and LocalizedNames interfaces in lib/types.ts
+- [x] T005 [P] Create APIResponse interface with version and timestamp in lib/types.ts
+- [x] T006 [P] Create LocationSelection interface for user preferences in lib/types.ts
+- [x] T007 [P] Create LocalStorageConfig interface for persistent data in lib/types.ts
+- [x] T008 [P] Create CacheEntry interface with expiration logic in lib/types.ts
+- [x] T009 [P] Create ExportConfig interface for import/export functionality in lib/types.ts
 
 ### Data Preparation & Migration
 
-- [ ] T010 Audit existing location data in data/locations.json for API compatibility
-- [ ] T011 Create migration script in data/migration/prepare-api-data.ts to transform data for API format
-- [ ] T012 Run migration script to generate API-ready location data with all translations
-- [ ] T013 Verify migrated data includes all 7 language translations (en, th, zh, hi, es, fr, ar)
+- [x] T010 Audit existing location data in data/locations.json for API compatibility
+- [x] T011 Create migration script in data/migration/prepare-api-data.ts to transform data for API format
+- [x] T012 Run migration script to generate API-ready location data with all translations
+- [x] T013 Verify migrated data includes all 7 language translations (en, th, zh, hi, es, fr, ar)
 
 ### Backend API Implementation (Cloudflare Workers)
 
-- [ ] T014 Create location data source file in workers/src/locations/data.ts with migrated JSON
-- [ ] T015 Create location API handler in workers/src/locations/handler.ts with GET endpoint
-- [ ] T016 Implement APIResponse structure (version, timestamp, locations) in handler
+- [x] T014 Create location data source file in workers/src/locations/data.ts with migrated JSON
+- [x] T015 Create location API handler in workers/src/locations/handler.ts with GET endpoint
+- [x] T016 Implement APIResponse structure (version, timestamp, locations) in handler
 - [ ] T017 Add response validation using Zod schema in handler
 - [ ] T018 Deploy Workers endpoint and verify /api/locations returns valid JSON
 - [ ] T019 Test API endpoint with curl/Postman to verify all translations are present
 
 ### Frontend API Client Layer
 
-- [ ] T020 Create API cache utility in lib/api/apiCache.ts with 24-hour expiration logic
-- [ ] T021 Create locations API client in lib/api/locationsApi.ts with fetch and caching
-- [ ] T022 Implement cache validation with timestamp checking in apiCache.ts
-- [ ] T023 Add error handling for API failures with fallback to cache in locationsApi.ts
+- [x] T020 Create API cache utility in lib/api/apiCache.ts with 24-hour expiration logic
+- [x] T021 Create locations API client in lib/api/locationsApi.ts with fetch and caching
+- [x] T022 Implement cache validation with timestamp checking in apiCache.ts
+- [x] T023 Add error handling for API failures with fallback to cache in locationsApi.ts
 
 **Checkpoint**: Foundation ready - API endpoint working, types defined, cache layer implemented. User story implementation can now begin.
 
@@ -332,23 +332,29 @@ US1 (Phase 3) ----→ US5 (Phase 4) ----→ US2 (Phase 5)
 ### Parallel Opportunities
 
 **Phase 2 (Foundational)**:
+
 - All type definition tasks (T004-T009) can run in parallel
 - Component stubs (T104-T105) can run in parallel
 
 **Phase 3 (US1)**:
+
 - T030, T031, T032 (component updates) can run in parallel
 - T036-T042 (file deletions) can run in parallel
 
 **Phase 4 (US5)**:
+
 - T048, T051 (utility file creation) can run in parallel
 
 **Phase 5 (US2)**:
+
 - T064, T065, T066 (component creation) can run in parallel
 
 **Phase 8 (US6)**:
+
 - T104, T105 (button components) can run in parallel
 
 **Phase 9 (Polish)**:
+
 - Most polish tasks are parallelizable (marked with [P])
 
 ---
@@ -428,6 +434,7 @@ With multiple developers (after Foundation is complete):
 ## Total Task Count: 140 tasks
 
 ### Breakdown by Phase:
+
 - **Phase 1 (Setup)**: 3 tasks
 - **Phase 2 (Foundational)**: 21 tasks (BLOCKS all user stories)
 - **Phase 3 (US1 - API Integration)**: 21 tasks
@@ -439,4 +446,5 @@ With multiple developers (after Foundation is complete):
 - **Phase 9 (Polish)**: 20 tasks
 
 ### MVP Scope Recommendation:
+
 **Phases 1, 2, 3, 4, 5 only** (81 tasks) - This delivers core value: API integration, merge logic, and customization UI. Users can customize locations and roles, with selections persisting automatically. Phases 6-8 add convenience features that can be delivered incrementally.

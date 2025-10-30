@@ -63,12 +63,61 @@ export interface Assignment {
   isDuplicateRole?: boolean; // true if location had fewer roles than players
 }
 
+// Location API Types (Feature: 005-location-api-customization)
+export type LocaleCode = 'en' | 'th' | 'zh' | 'hi' | 'es' | 'fr' | 'ar';
+
+export type LocalizedNames = Record<LocaleCode, string>;
+
+export interface Role {
+  id: string;
+  names: LocalizedNames;
+  locationId?: string; // Added at runtime for reference
+  isSelected: boolean; // Runtime property
+}
+
 export interface Location {
   id: string;
-  nameTh: string;
-  difficulty: Difficulty;
-  roles: string[];
-  imageUrl: string;
+  names: LocalizedNames; // Replaces nameTh
+  roles: Role[]; // Now Role objects instead of strings
+  imageUrl?: string;
+  isSelected: boolean; // Runtime property
+
+  // Legacy fields for backward compatibility - will be removed later
+  nameTh?: string;
+  difficulty?: Difficulty;
+}
+
+export interface APIResponse {
+  version: string;
+  timestamp: string;
+  locations: Location[];
+}
+
+export interface LocationSelection {
+  locationId: string;
+  isSelected: boolean;
+  selectedRoles?: string[]; // Role IDs, undefined = all selected
+  timestamp?: string; // When selection was made
+}
+
+export interface LocalStorageConfig {
+  selections: LocationSelection[];
+  lastUpdated: string;
+  version: string;
+}
+
+export interface CacheEntry<T = unknown> {
+  data: T;
+  timestamp: string;
+  expiresAt: string;
+  version: string;
+}
+
+export interface ExportConfig {
+  version: string;
+  timestamp: string;
+  appIdentifier: string;
+  selections: LocationSelection[];
 }
 
 export interface Message {
