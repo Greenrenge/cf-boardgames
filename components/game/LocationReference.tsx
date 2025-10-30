@@ -1,5 +1,7 @@
 'use client';
 
+import { useTranslations } from 'next-intl';
+import { useLocationTranslations } from '@/lib/useLocationTranslations';
 import { Card } from '../ui/Card';
 
 interface LocationReferenceProps {
@@ -8,15 +10,21 @@ interface LocationReferenceProps {
 }
 
 export function LocationReference({ location, roles }: LocationReferenceProps) {
+  const t = useTranslations('common');
+  const { getLocationName } = useLocationTranslations();
+
+  // Get translated location name
+  const translatedLocationName = getLocationName(location);
+
   return (
     <Card className="bg-gradient-to-br from-purple-50 to-indigo-50 border-2 border-purple-300 dark:from-purple-900 dark:to-indigo-900 dark:border-purple-700">
       <div className="space-y-4">
         <div className="text-center">
           <p className="text-sm font-medium text-gray-600 dark:text-gray-200">
-            บทบาทที่ {location}
+            {t('game.rolesAt')} {translatedLocationName}
           </p>
           <p className="text-xs text-gray-500 dark:text-gray-300 mt-1">
-            ใช้เป็นข้อมูลอ้างอิงในการสนทนา
+            {t('game.useAsReference')}
           </p>
         </div>
 
@@ -32,7 +40,7 @@ export function LocationReference({ location, roles }: LocationReferenceProps) {
         </div>
 
         <div className="text-xs text-gray-500 dark:text-gray-300 text-center italic">
-          หนึ่งในบทบาทเหล่านี้เป็นของคุณ
+          {t('game.oneOfTheseRoles')}
         </div>
       </div>
     </Card>
