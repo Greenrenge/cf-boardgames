@@ -186,6 +186,7 @@
 		"starting": "Starting game...",
 		"needPlayers": "Need {min}-{max} players (currently {current})",
 		"needMinPlayers": "Need at least {min} players for {spies} spies (currently {current})",
+		"needMinPlayersForSpies": "{spies} जासूसों के लिए कम से कम {min} खिलाड़ियों की आवश्यकता है (वर्तमान में {current})",
 		"waitingForHost": "Waiting for host to start..."
 	}
 }

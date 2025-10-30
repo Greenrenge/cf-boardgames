@@ -186,6 +186,7 @@
 		"starting": "Starting game...",
 		"needPlayers": "Need {min}-{max} players (currently {current})",
 		"needMinPlayers": "Need at least {min} players for {spies} spies (currently {current})",
+		"needMinPlayersForSpies": "Il faut au moins {min} joueurs pour {spies} espions (actuellement {current})",
 		"waitingForHost": "Waiting for host to start..."
 	}
 }

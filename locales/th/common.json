@@ -213,6 +213,7 @@
 		"starting": "กำลังเริ่มเกม...",
 		"needPlayers": "ต้องมีผู้เล่น {min}-{max} คน (ตอนนี้ {current} คน)",
 		"needMinPlayers": "ต้องมีผู้เล่นอย่างน้อย {min} คนสำหรับ {spies} สปาย (ตอนนี้ {current} คน)",
+		"needMinPlayersForSpies": "ต้องมีผู้เล่นอย่างน้อย {min} คนสำหรับ {spies} สปาย (ตอนนี้ {current} คน)",
 		"waitingForHost": "รอเจ้าห้องเริ่มเกม..."
 	}
 }
