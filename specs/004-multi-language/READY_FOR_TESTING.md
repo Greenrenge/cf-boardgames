@@ -37,6 +37,7 @@
 ### Quick Test (5 minutes)
 
 1. **Start the app:**
+
    ```bash
    npm run dev
    ```
@@ -65,16 +66,19 @@
 ### What Should Work
 
 ✅ **English Users:**
+
 - See roles like "Teacher", "Doctor", "Customer", "Security Guard"
 - Proper capitalization (not "teacher" or "TEACHER")
 - All 382 roles translated
 
 ✅ **Thai Users:**
+
 - See roles like "ครู", "หมอ", "ลูกค้า", "รปภ."
 - Native Thai script
 - All 382 roles native
 
 ✅ **Other Languages (ZH/HI/ES/FR/AR):**
+
 - Will see Thai text (placeholder)
 - This is expected behavior until translations provided
 - No errors or crashes
@@ -87,6 +91,7 @@ For comprehensive testing instructions, see:
 **`specs/004-multi-language/ROLE_TRANSLATION_TESTING_GUIDE.md`**
 
 This guide includes:
+
 - Detailed test cases for all components
 - Language-specific testing steps
 - Edge case scenarios
@@ -101,15 +106,15 @@ This guide includes:
 
 Here are some roles you should see when testing:
 
-| Thai | English | Slug Key |
-|------|---------|----------|
-| ครู | Teacher | `teacher` |
-| หมอ | Doctor | `doctor` |
-| ลูกค้า | Customer | `customer` |
-| รปภ. | Security Guard | `security-guard` |
-| พยาบาล | Nurse | `nurse` |
-| ตำรวจ | Police Officer | `police-officer` |
-| นักเรียน | Student | `student` |
+| Thai                       | English          | Slug Key           |
+| -------------------------- | ---------------- | ------------------ |
+| ครู                        | Teacher          | `teacher`          |
+| หมอ                        | Doctor           | `doctor`           |
+| ลูกค้า                     | Customer         | `customer`         |
+| รปภ.                       | Security Guard   | `security-guard`   |
+| พยาบาล                     | Nurse            | `nurse`            |
+| ตำรวจ                      | Police Officer   | `police-officer`   |
+| นักเรียน                   | Student          | `student`          |
 | พนักงานต้อนรับบนเครื่องบิน | Flight Attendant | `flight-attendant` |
 
 ---
@@ -119,6 +124,7 @@ Here are some roles you should see when testing:
 ### Issue: Roles still showing in Thai when English selected
 
 **Solution:**
+
 1. Hard refresh browser (Ctrl+Shift+R or Cmd+Shift+R)
 2. Clear browser cache
 3. Check language switcher is set correctly
@@ -127,6 +133,7 @@ Here are some roles you should see when testing:
 ### Issue: Console shows "Failed to load role translations"
 
 **Check:**
+
 1. File exists: `locales/en/roles.json`
 2. File has content (not empty)
 3. No JSON syntax errors
@@ -135,6 +142,7 @@ Here are some roles you should see when testing:
 ### Issue: Some roles display slug keys (e.g., "security-guard")
 
 **This means:**
+
 - Translation missing for that role
 - Fallback to slug display
 - Check the specific role in `locales/*/roles.json`
@@ -146,7 +154,7 @@ Here are some roles you should see when testing:
 ### Overall Feature: 50.4% Complete (69/137 tasks)
 
 - ✅ **User Story 1:** Language Switcher (Complete)
-- ✅ **User Story 2:** Location Translations (Complete)  
+- ✅ **User Story 2:** Location Translations (Complete)
 - ✅ **User Story 3:** Role Translations (Infrastructure Complete) ← **YOU ARE HERE**
 - ⏳ **User Story 4:** Complete UI Translation (Pending)
 - ⏳ **User Story 5:** Accessibility (Pending)
@@ -172,6 +180,7 @@ Here are some roles you should see when testing:
 ## 🎮 How to Use in Game
 
 ### As a Player:
+
 1. Select your preferred language in settings
 2. Join/create a room
 3. Start the game
@@ -180,6 +189,7 @@ Here are some roles you should see when testing:
 6. Everything updates automatically when you switch languages
 
 ### As Spy:
+
 1. You'll see "Spy" role (translated)
 2. Browse all locations to blend in
 3. Click any location to see its roles
@@ -187,6 +197,7 @@ Here are some roles you should see when testing:
 5. Use this to ask questions that fit the location
 
 ### As Non-Spy:
+
 1. You'll see your specific role (translated)
 2. You'll see your location name (translated)
 3. Reference panel shows all 7 possible roles at your location
@@ -198,6 +209,7 @@ Here are some roles you should see when testing:
 ## 📝 What to Look For During Testing
 
 ### ✅ Good Signs:
+
 - Role names in plain English (if English selected)
 - Proper capitalization ("Teacher" not "teacher")
 - Thai script displays correctly (if Thai selected)
@@ -206,6 +218,7 @@ Here are some roles you should see when testing:
 - Smooth loading (no flicker)
 
 ### ⚠️ Warning Signs:
+
 - Seeing Thai when English selected (check cache)
 - Console errors about translations
 - Slow loading or freezing
@@ -213,6 +226,7 @@ Here are some roles you should see when testing:
 - Layout broken on mobile
 
 ### 🐛 Bugs to Report:
+
 - Roles not translating at all
 - JavaScript errors in console
 - Blank role displays
@@ -247,7 +261,7 @@ User Story 3 is considered **complete** when:
 
 - ✅ No JavaScript errors in console
 - ✅ English roles display correctly
-- ✅ Thai roles display correctly  
+- ✅ Thai roles display correctly
 - ✅ All 3 components work (RoleCard, LocationReference, Browser)
 - ✅ Language switching updates roles instantly
 - ✅ Dark mode readable

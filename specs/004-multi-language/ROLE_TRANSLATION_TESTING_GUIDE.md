@@ -8,11 +8,13 @@
 ## Quick Start
 
 ### Prerequisites
+
 1. Development server running: `npm run dev`
 2. Browser with dev tools open
 3. Test room created with multiple players
 
 ### Quick Test (5 minutes)
+
 1. Open app in browser
 2. Switch to English language
 3. Create a test room
@@ -25,6 +27,7 @@
 ### ✅ 1. Infrastructure Verification
 
 **Files Exist:**
+
 ```bash
 # Check all role translation files exist
 ls -la locales/*/roles.json
@@ -40,6 +43,7 @@ ls -la locales/*/roles.json
 ```
 
 **File Content Check:**
+
 ```bash
 # Verify English translations (should have 382 entries)
 cat locales/en/roles.json | grep -c '"'
@@ -53,6 +57,7 @@ cat locales/th/roles.json | grep -c '"'
 #### Test Case 2.1: RoleCard Component
 
 **Steps:**
+
 1. Create a room and start a game
 2. Check your assigned role card
 3. Verify role name displays in current language
@@ -61,6 +66,7 @@ cat locales/th/roles.json | grep -c '"'
 6. Verify role name updates to new language
 
 **Expected Results:**
+
 - ✅ Role name displays (not Thai if English selected)
 - ✅ Role name styling correct (large, bold, centered)
 - ✅ Language switching works
@@ -77,6 +83,7 @@ cat locales/th/roles.json | grep -c '"'
 | พยาบาล | Nurse | nurse |
 
 **Console Check:**
+
 ```javascript
 // Open browser console and check:
 // Should NOT see errors like:
@@ -87,6 +94,7 @@ cat locales/th/roles.json | grep -c '"'
 #### Test Case 2.2: LocationReference Component
 
 **Steps:**
+
 1. As a non-spy player, view your role card
 2. Scroll down to see location reference
 3. Check the list of roles for your location
@@ -95,6 +103,7 @@ cat locales/th/roles.json | grep -c '"'
 6. Switch language and verify updates
 
 **Expected Results:**
+
 - ✅ All 7 roles display in 2-column grid
 - ✅ Each role translated to current language
 - ✅ Thai roles show if language has placeholders
@@ -102,6 +111,7 @@ cat locales/th/roles.json | grep -c '"'
 - ✅ Roles match location theme
 
 **Test Locations:**
+
 - Hospital (loc-hospital): Doctor, Nurse, Patient, etc.
 - School (loc-school): Teacher, Student, Principal, etc.
 - Market (loc-local-market): Vendor, Customer, etc.
@@ -109,6 +119,7 @@ cat locales/th/roles.json | grep -c '"'
 #### Test Case 2.3: SpyLocationBrowser Component
 
 **Steps:**
+
 1. Be assigned as Spy role
 2. Open "All Locations" browser
 3. Click on any location thumbnail
@@ -117,6 +128,7 @@ cat locales/th/roles.json | grep -c '"'
 6. Verify all roles are translated
 
 **Expected Results:**
+
 - ✅ Roles display in 2-4 column grid
 - ✅ Each role in current language
 - ✅ Role count shows (7)
@@ -128,6 +140,7 @@ cat locales/th/roles.json | grep -c '"'
 #### Test 3.1: English (en) - Complete Translations
 
 **Test Steps:**
+
 1. Switch to English language
 2. Create room and start game
 3. Check RoleCard shows English role name
@@ -135,6 +148,7 @@ cat locales/th/roles.json | grep -c '"'
 5. Check SpyLocationBrowser modal roles
 
 **Sample Roles to Verify:**
+
 - Teacher (not "ครู")
 - Doctor (not "หมอ")
 - Security Guard (not "รปภ.")
@@ -146,12 +160,14 @@ cat locales/th/roles.json | grep -c '"'
 #### Test 3.2: Thai (th) - Complete Translations
 
 **Test Steps:**
+
 1. Switch to Thai language (or default)
 2. Start game and check roles
 3. Verify Thai characters display correctly
 4. No broken characters or encoding issues
 
 **Sample Roles to Verify:**
+
 - ครู (Teacher)
 - หมอ (Doctor)
 - ลูกค้า (Customer)
@@ -163,12 +179,14 @@ cat locales/th/roles.json | grep -c '"'
 #### Test 3.3: Chinese (zh) - Placeholder Testing
 
 **Test Steps:**
+
 1. Switch to Chinese language
 2. Start game
 3. Verify roles display (will be Thai placeholders)
 4. Check no console errors
 
 **Expected:**
+
 - ✅ Thai text displays (placeholder)
 - ✅ No JavaScript errors
 - ✅ Layout not broken
@@ -189,6 +207,7 @@ Same as 3.3 but for French language.
 #### Test 3.7: Arabic (ar) - Placeholder + RTL Testing
 
 **Test Steps:**
+
 1. Switch to Arabic language
 2. Start game
 3. Check RTL layout works
@@ -196,6 +215,7 @@ Same as 3.3 but for French language.
 5. Check no text overflow issues
 
 **Expected:**
+
 - ✅ Page layout RTL
 - ✅ Role cards aligned correctly
 - ✅ Thai placeholders readable
@@ -206,12 +226,14 @@ Same as 3.3 but for French language.
 #### Test 4.1: Missing Role Translation
 
 **Simulate:**
+
 1. Edit `locales/en/roles.json`
 2. Remove one role entry (e.g., "teacher")
 3. Start game with that role
 4. Check fallback behavior
 
 **Expected:**
+
 - ✅ Falls back to Thai translation
 - ✅ No crash or blank display
 - ✅ Console warning (optional)
@@ -219,10 +241,12 @@ Same as 3.3 but for French language.
 #### Test 4.2: Invalid Role Data
 
 **Test:**
+
 1. Assign role with typo/invalid Thai name
 2. Check component doesn't crash
 
 **Expected:**
+
 - ✅ Displays slug key or original text
 - ✅ No JavaScript error
 - ✅ Game still playable
@@ -230,11 +254,13 @@ Same as 3.3 but for French language.
 #### Test 4.3: Fast Language Switching
 
 **Test:**
+
 1. Start game
 2. Rapidly switch languages 5 times
 3. Check for memory leaks or issues
 
 **Expected:**
+
 - ✅ Translations update correctly
 - ✅ No console errors
 - ✅ No performance degradation
@@ -243,6 +269,7 @@ Same as 3.3 but for French language.
 #### Test 4.4: Simultaneous Players Different Languages
 
 **Test:**
+
 1. Open app in 2 browsers
 2. Browser 1: English
 3. Browser 2: Thai
@@ -250,6 +277,7 @@ Same as 3.3 but for French language.
 5. Verify each sees roles in their language
 
 **Expected:**
+
 - ✅ Each player sees own language
 - ✅ No interference between players
 - ✅ Game logic unaffected
@@ -259,12 +287,14 @@ Same as 3.3 but for French language.
 #### Test 5.1: Initial Load Time
 
 **Measure:**
+
 ```javascript
 // In browser console:
-performance.getEntriesByType('resource').filter(r => r.name.includes('roles.json'))
+performance.getEntriesByType('resource').filter((r) => r.name.includes('roles.json'));
 ```
 
 **Expected:**
+
 - ✅ roles.json loads in < 100ms
 - ✅ File size ~15KB
 - ✅ No blocking during load
@@ -272,11 +302,13 @@ performance.getEntriesByType('resource').filter(r => r.name.includes('roles.json
 #### Test 5.2: Translation Hook Performance
 
 **Test:**
+
 1. Use React DevTools Profiler
 2. Switch languages
 3. Check re-render count
 
 **Expected:**
+
 - ✅ Only affected components re-render
 - ✅ < 16ms per update
 - ✅ No unnecessary re-renders
@@ -284,11 +316,13 @@ performance.getEntriesByType('resource').filter(r => r.name.includes('roles.json
 #### Test 5.3: Memory Usage
 
 **Test:**
+
 1. Play 5 games switching languages
 2. Check memory in DevTools
 3. Look for memory leaks
 
 **Expected:**
+
 - ✅ Memory stable over time
 - ✅ No unbounded growth
 - ✅ Translations properly garbage collected
@@ -296,12 +330,14 @@ performance.getEntriesByType('resource').filter(r => r.name.includes('roles.json
 ### ✅ 6. Dark Mode Testing
 
 **Test:**
+
 1. Enable dark mode
 2. Start game and check role displays
 3. Verify text contrast/readability
 4. Check all 3 components (RoleCard, LocationReference, Browser)
 
 **Expected:**
+
 - ✅ Role text readable in dark mode
 - ✅ Proper contrast ratios
 - ✅ No white text on white background
@@ -310,11 +346,13 @@ performance.getEntriesByType('resource').filter(r => r.name.includes('roles.json
 ### ✅ 7. Mobile Responsiveness
 
 **Test:**
+
 1. Open on mobile device or emulator
 2. Portrait and landscape orientations
 3. Check role displays
 
 **Expected:**
+
 - ✅ Text size appropriate
 - ✅ No horizontal scroll
 - ✅ Tap targets >= 44x44px
@@ -323,11 +361,13 @@ performance.getEntriesByType('resource').filter(r => r.name.includes('roles.json
 ### ✅ 8. Accessibility Testing
 
 **Test with Screen Reader:**
+
 1. Enable VoiceOver (Mac) or NVDA (Windows)
 2. Navigate to role displays
 3. Verify announced correctly
 
 **Expected:**
+
 - ✅ Role names announced in correct language
 - ✅ Grid structure understandable
 - ✅ Semantic HTML used
@@ -335,12 +375,14 @@ performance.getEntriesByType('resource').filter(r => r.name.includes('roles.json
 ## Known Issues
 
 ### Issue 1: Placeholder Translations
+
 **Status:** Expected  
 **Impact:** 5 languages (ZH, HI, ES, FR, AR) show Thai text  
 **Resolution:** Pending translation service  
 **Workaround:** Users can still play, Thai serves as fallback
 
 ### Issue 2: 211 English Roles Using Fallback
+
 **Status:** Minor  
 **Impact:** Some English roles use slug-to-title conversion  
 **Resolution:** Update thai-to-english-roles.js mapping  
@@ -401,12 +443,14 @@ All tests pass when:
 ## Testing Tools
 
 ### Recommended Browser Extensions
+
 - React Developer Tools
 - Redux DevTools (if using)
 - Lighthouse (for performance)
 - axe DevTools (for accessibility)
 
 ### Useful Commands
+
 ```bash
 # Check for TypeScript errors
 npm run type-check
