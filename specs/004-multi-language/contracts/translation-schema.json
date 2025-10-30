@@ -1,0 +1,410 @@
+{
+	"$schema": "http://json-schema.org/draft-07/schema#",
+	"$id": "https://cf-boardgames.com/schemas/translation-file.json",
+	"title": "Translation File Schema",
+	"description": "JSON Schema for translation files in locales/{locale}/*.json",
+	"type": "object",
+	"oneOf": [
+		{
+			"$ref": "#/definitions/commonTranslations"
+		},
+		{
+			"$ref": "#/definitions/locationsTranslations"
+		},
+		{
+			"$ref": "#/definitions/rolesTranslations"
+		},
+		{
+			"$ref": "#/definitions/errorsTranslations"
+		},
+		{
+			"$ref": "#/definitions/gameplayTranslations"
+		}
+	],
+	"definitions": {
+		"commonTranslations": {
+			"title": "Common UI Translations",
+			"description": "Translations for buttons, labels, headings, and common messages",
+			"type": "object",
+			"required": [
+				"button",
+				"label",
+				"heading",
+				"message"
+			],
+			"properties": {
+				"button": {
+					"type": "object",
+					"description": "Button text translations",
+					"properties": {
+						"createRoom": {
+							"type": "string",
+							"minLength": 1,
+							"maxLength": 50
+						},
+						"joinRoom": {
+							"type": "string",
+							"minLength": 1,
+							"maxLength": 50
+						},
+						"startGame": {
+							"type": "string",
+							"minLength": 1,
+							"maxLength": 50
+						},
+						"leaveRoom": {
+							"type": "string",
+							"minLength": 1,
+							"maxLength": 50
+						},
+						"copyCode": {
+							"type": "string",
+							"minLength": 1,
+							"maxLength": 50
+						},
+						"share": {
+							"type": "string",
+							"minLength": 1,
+							"maxLength": 50
+						},
+						"vote": {
+							"type": "string",
+							"minLength": 1,
+							"maxLength": 50
+						},
+						"guess": {
+							"type": "string",
+							"minLength": 1,
+							"maxLength": 50
+						},
+						"confirm": {
+							"type": "string",
+							"minLength": 1,
+							"maxLength": 50
+						},
+						"cancel": {
+							"type": "string",
+							"minLength": 1,
+							"maxLength": 50
+						}
+					},
+					"additionalProperties": {
+						"type": "string",
+						"minLength": 1,
+						"maxLength": 50
+					}
+				},
+				"label": {
+					"type": "object",
+					"description": "Form labels and UI labels",
+					"properties": {
+						"roomCode": {
+							"type": "string",
+							"minLength": 1,
+							"maxLength": 50
+						},
+						"playerName": {
+							"type": "string",
+							"minLength": 1,
+							"maxLength": 50
+						},
+						"difficulty": {
+							"type": "string",
+							"minLength": 1,
+							"maxLength": 50
+						},
+						"timer": {
+							"type": "string",
+							"minLength": 1,
+							"maxLength": 50
+						},
+						"players": {
+							"type": "string",
+							"minLength": 1,
+							"maxLength": 50
+						},
+						"language": {
+							"type": "string",
+							"minLength": 1,
+							"maxLength": 50
+						}
+					},
+					"additionalProperties": {
+						"type": "string",
+						"minLength": 1,
+						"maxLength": 50
+					}
+				},
+				"heading": {
+					"type": "object",
+					"description": "Page headings and section titles",
+					"properties": {
+						"welcome": {
+							"type": "string",
+							"minLength": 1,
+							"maxLength": 100
+						},
+						"lobby": {
+							"type": "string",
+							"minLength": 1,
+							"maxLength": 100
+						},
+						"gameplay": {
+							"type": "string",
+							"minLength": 1,
+							"maxLength": 100
+						},
+						"results": {
+							"type": "string",
+							"minLength": 1,
+							"maxLength": 100
+						}
+					},
+					"additionalProperties": {
+						"type": "string",
+						"minLength": 1,
+						"maxLength": 100
+					}
+				},
+				"message": {
+					"type": "object",
+					"description": "User-facing messages (may contain parameters in {param} format)",
+					"additionalProperties": {
+						"type": "string",
+						"minLength": 1,
+						"maxLength": 500
+					}
+				}
+			},
+			"additionalProperties": false
+		},
+		"locationsTranslations": {
+			"title": "Location Name Translations",
+			"description": "Translated names for all 84 game locations",
+			"type": "object",
+			"patternProperties": {
+				"^loc-[a-z-]+$": {
+					"type": "object",
+					"required": [
+						"name"
+					],
+					"properties": {
+						"name": {
+							"type": "string",
+							"description": "Translated location name",
+							"minLength": 1,
+							"maxLength": 100
+						}
+					},
+					"additionalProperties": false
+				}
+			},
+			"additionalProperties": false,
+			"minProperties": 84,
+			"maxProperties": 84
+		},
+		"rolesTranslations": {
+			"title": "Role Name Translations",
+			"description": "Translated role names for each location (7 roles per location)",
+			"type": "object",
+			"patternProperties": {
+				"^loc-[a-z-]+$": {
+					"type": "object",
+					"required": [
+						"roles"
+					],
+					"properties": {
+						"roles": {
+							"type": "array",
+							"description": "Array of 7 translated role names for this location",
+							"items": {
+								"type": "string",
+								"minLength": 1,
+								"maxLength": 50
+							},
+							"minItems": 7,
+							"maxItems": 7
+						}
+					},
+					"additionalProperties": false
+				}
+			},
+			"additionalProperties": false,
+			"minProperties": 84,
+			"maxProperties": 84
+		},
+		"errorsTranslations": {
+			"title": "Error Message Translations",
+			"description": "Translated error messages organized by category",
+			"type": "object",
+			"required": [
+				"room",
+				"player",
+				"game",
+				"network"
+			],
+			"properties": {
+				"room": {
+					"type": "object",
+					"description": "Room-related errors",
+					"properties": {
+						"notFound": {
+							"type": "string",
+							"minLength": 1,
+							"maxLength": 200
+						},
+						"full": {
+							"type": "string",
+							"minLength": 1,
+							"maxLength": 200
+						},
+						"alreadyStarted": {
+							"type": "string",
+							"minLength": 1,
+							"maxLength": 200
+						},
+						"invalidCode": {
+							"type": "string",
+							"minLength": 1,
+							"maxLength": 200
+						}
+					},
+					"additionalProperties": {
+						"type": "string",
+						"minLength": 1,
+						"maxLength": 200
+					}
+				},
+				"player": {
+					"type": "object",
+					"description": "Player-related errors",
+					"properties": {
+						"nameRequired": {
+							"type": "string",
+							"minLength": 1,
+							"maxLength": 200
+						},
+						"nameTooLong": {
+							"type": "string",
+							"minLength": 1,
+							"maxLength": 200
+						},
+						"alreadyInRoom": {
+							"type": "string",
+							"minLength": 1,
+							"maxLength": 200
+						}
+					},
+					"additionalProperties": {
+						"type": "string",
+						"minLength": 1,
+						"maxLength": 200
+					}
+				},
+				"game": {
+					"type": "object",
+					"description": "Game-related errors",
+					"properties": {
+						"notEnoughPlayers": {
+							"type": "string",
+							"minLength": 1,
+							"maxLength": 200
+						},
+						"alreadyVoted": {
+							"type": "string",
+							"minLength": 1,
+							"maxLength": 200
+						},
+						"invalidAction": {
+							"type": "string",
+							"minLength": 1,
+							"maxLength": 200
+						}
+					},
+					"additionalProperties": {
+						"type": "string",
+						"minLength": 1,
+						"maxLength": 200
+					}
+				},
+				"network": {
+					"type": "object",
+					"description": "Network and connection errors",
+					"properties": {
+						"connectionLost": {
+							"type": "string",
+							"minLength": 1,
+							"maxLength": 200
+						},
+						"reconnecting": {
+							"type": "string",
+							"minLength": 1,
+							"maxLength": 200
+						},
+						"serverError": {
+							"type": "string",
+							"minLength": 1,
+							"maxLength": 200
+						}
+					},
+					"additionalProperties": {
+						"type": "string",
+						"minLength": 1,
+						"maxLength": 200
+					}
+				}
+			},
+			"additionalProperties": false
+		},
+		"gameplayTranslations": {
+			"title": "Gameplay Text Translations",
+			"description": "Translated game instructions and gameplay messages",
+			"type": "object",
+			"required": [
+				"spy",
+				"nonSpy",
+				"voting",
+				"results"
+			],
+			"properties": {
+				"spy": {
+					"type": "object",
+					"description": "Spy-specific instructions and messages",
+					"additionalProperties": {
+						"type": "string",
+						"minLength": 1,
+						"maxLength": 500
+					}
+				},
+				"nonSpy": {
+					"type": "object",
+					"description": "Non-spy instructions and messages",
+					"additionalProperties": {
+						"type": "string",
+						"minLength": 1,
+						"maxLength": 500
+					}
+				},
+				"voting": {
+					"type": "object",
+					"description": "Voting phase messages",
+					"additionalProperties": {
+						"type": "string",
+						"minLength": 1,
+						"maxLength": 500
+					}
+				},
+				"results": {
+					"type": "object",
+					"description": "Results screen messages",
+					"additionalProperties": {
+						"type": "string",
+						"minLength": 1,
+						"maxLength": 500
+					}
+				}
+			},
+			"additionalProperties": false
+		}
+	}
+}
