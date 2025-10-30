@@ -31,6 +31,16 @@
 		"selectLanguage": "Select Language",
 		"gameDuration": "Game Duration"
 	},
+	"playerList": {
+		"title": "Jugadores ({count}/{max})",
+		"online": "En línea",
+		"offline": "Desconectado",
+		"you": "(Tú)",
+		"host": "Anfitrión",
+		"points": "{score} puntos",
+		"kick": "Expulsar",
+		"minPlayersNeeded": "Se necesitan al menos 3 jugadores para comenzar el juego"
+	},
 	"heading": {
 		"welcome": "Welcome to Spyfall",
 		"createRoom": "Create a Room",
@@ -77,7 +87,19 @@
 		"roomNotFound": "Room not found",
 		"roomFull": "Room is full",
 		"connectionLost": "Connection lost",
-		"reconnecting": "Reconnecting..."
+		"reconnecting": "Reconnecting...",
+		"connecting": "Conectando...",
+		"connectionError": "Error de conexión",
+		"youAreOnline": "Estás en línea",
+		"back": "Atrás",
+		"hostControls": "Controles del Anfitrión",
+		"skipTimer": "⏩ Saltar Temporizador",
+		"resetGame": "🔄 Reiniciar Juego",
+		"spyIsGuessing": "El espía está adivinando la ubicación...",
+		"pleaseWait": "Por favor espera, el espía está decidiendo qué ubicación es esta",
+		"kickedByHost": "Fuiste expulsado por el anfitrión",
+		"notConnectedToServer": "No conectado al servidor",
+		"confirmResetGame": "¿Estás seguro de que quieres reiniciar el juego? El juego actual terminará."
 	},
 	"game": {
 		"yourRole": "Your Role",
