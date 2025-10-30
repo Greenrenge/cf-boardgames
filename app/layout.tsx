@@ -2,6 +2,7 @@ import type { Metadata } from 'next';
 import { Noto_Sans_Thai } from 'next/font/google';
 import './globals.css';
 import { ThemeProvider } from '@/contexts/ThemeContext';
+import { Footer } from '@/components/ui/Footer';
 
 const notoSansThai = Noto_Sans_Thai({
   subsets: ['thai', 'latin'],
@@ -110,7 +111,12 @@ export default function RootLayout({
         />
       </head>
       <body className={`${notoSansThai.variable} font-sans antialiased`}>
-        <ThemeProvider>{children}</ThemeProvider>
+        <ThemeProvider>
+          <div className="min-h-screen flex flex-col">
+            <div className="flex-1">{children}</div>
+            <Footer />
+          </div>
+        </ThemeProvider>
       </body>
     </html>
   );

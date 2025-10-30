@@ -43,7 +43,20 @@
 		"locations": "Ubicaciones",
 		"languageSelection": "Selección de Idioma",
 		"buttons": "Botones",
-		"labels": "Etiquetas"
+		"labels": "Etiquetas",
+		"howToPlay": "Cómo Jugar"
+	},
+	"homepage": {
+		"tagline": "Juego de espías en línea para 4-20 jugadores 🕵️‍♂️",
+		"howToPlay1": "1-4 jugadores son espías, los demás reciben información de ubicación",
+		"howToPlay2": "Háganse preguntas para descubrir quién es el espía",
+		"howToPlay3": "Voten para encontrar al espía antes de que se acabe el tiempo",
+		"howToPlay4": "Si el espía sobrevive, puede adivinar la ubicación para ganar",
+		"feature1": "4-20 Jugadores",
+		"feature2": "Imágenes de Ubicación",
+		"feature3": "1-4 Espías",
+		"feature4": "Juego en Tiempo Real",
+		"footer": "Made with ❤️ for Thai gamers"
 	},
 	"message": {
 		"roomCreated": "Sala creada exitosamente",

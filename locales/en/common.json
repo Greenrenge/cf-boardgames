@@ -43,7 +43,20 @@
 		"locations": "Locations",
 		"languageSelection": "Language Selection",
 		"buttons": "Buttons",
-		"labels": "Labels"
+		"labels": "Labels",
+		"howToPlay": "How to Play"
+	},
+	"homepage": {
+		"tagline": "Online spy game for 4-20 players 🕵️‍♂️",
+		"howToPlay1": "1-4 players are spies, others receive location information",
+		"howToPlay2": "Ask each other questions to find out who's the spy",
+		"howToPlay3": "Vote to find the spy before time runs out",
+		"howToPlay4": "If the spy survives, they can guess the location to win",
+		"feature1": "4-20 Players",
+		"feature2": "Location Images",
+		"feature3": "1-4 Spies",
+		"feature4": "Real-time Play",
+		"footer": "Made with ❤️ for Thai gamers"
 	},
 	"message": {
 		"roomCreated": "Room created successfully",

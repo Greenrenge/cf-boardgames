@@ -4,9 +4,11 @@ import { CreateRoom } from '@/components/room/CreateRoom';
 import { JoinRoom } from '@/components/room/JoinRoom';
 import { ThemeToggle } from '@/components/ui/ThemeToggle';
 import { LanguageSwitcher } from '@/components/i18n/LanguageSwitcher';
+import { useTranslations } from 'next-intl';
 import Image from 'next/image';
 
 export default function HomePage() {
+  const t = useTranslations('common');
   return (
     <main className="min-h-screen flex items-center justify-center p-4 bg-gradient-to-br from-blue-50 via-white to-indigo-50 dark:from-slate-900 dark:via-slate-800 dark:to-slate-900">
       {/* Top right controls */}
@@ -33,7 +35,7 @@ export default function HomePage() {
             Spyfall Online
           </h1> */}
           <p className="text-gray-600 dark:text-gray-300 text-base md:text-lg">
-            เกมหาสายลับออนไลน์สำหรับ 4-20 คน 🕵️‍♂️
+            {t('homepage.tagline')}
           </p>
         </div>
 
@@ -49,24 +51,26 @@ export default function HomePage() {
             <div className="w-10 h-10 bg-gradient-to-br from-blue-500 to-indigo-600 dark:from-blue-400 dark:to-indigo-500 rounded-full flex items-center justify-center">
               <span className="text-white text-xl">📖</span>
             </div>
-            <h3 className="text-2xl font-bold text-gray-800 dark:text-gray-100">วิธีเล่น</h3>
+            <h3 className="text-2xl font-bold text-gray-800 dark:text-gray-100">
+              {t('heading.howToPlay')}
+            </h3>
           </div>
           <ul className="space-y-4 text-gray-700 dark:text-gray-300">
             <li className="flex items-start gap-3 p-3 rounded-lg hover:bg-blue-50 dark:hover:bg-slate-700/50 transition-colors">
               <span className="text-2xl flex-shrink-0">🎭</span>
-              <span>ผู้เล่น 1-4 คนเป็นสายลับ คนอื่นๆ จะได้รับข้อมูลสถานที่</span>
+              <span>{t('homepage.howToPlay1')}</span>
             </li>
             <li className="flex items-start gap-3 p-3 rounded-lg hover:bg-blue-50 dark:hover:bg-slate-700/50 transition-colors">
               <span className="text-2xl flex-shrink-0">💬</span>
-              <span>ถามตอบกันเพื่อหาว่าใครเป็นสายลับ</span>
+              <span>{t('homepage.howToPlay2')}</span>
             </li>
             <li className="flex items-start gap-3 p-3 rounded-lg hover:bg-blue-50 dark:hover:bg-slate-700/50 transition-colors">
               <span className="text-2xl flex-shrink-0">🗳️</span>
-              <span>ลงคะแนนเสียงหาสายลับก่อนเวลาหมด</span>
+              <span>{t('homepage.howToPlay3')}</span>
             </li>
             <li className="flex items-start gap-3 p-3 rounded-lg hover:bg-blue-50 dark:hover:bg-slate-700/50 transition-colors">
               <span className="text-2xl flex-shrink-0">🎯</span>
-              <span>ถ้าสายลับรอด สายลับสามารถทายสถานที่เพื่อชนะได้</span>
+              <span>{t('homepage.howToPlay4')}</span>
             </li>
           </ul>
         </div>
@@ -76,30 +80,32 @@ export default function HomePage() {
           <div className="bg-white/60 dark:bg-slate-800/60 backdrop-blur-sm p-4 rounded-xl text-center border border-blue-100 dark:border-slate-700 hover:shadow-lg transition-shadow">
             <div className="text-3xl mb-2">👥</div>
             <div className="text-sm font-semibold text-gray-800 dark:text-gray-100">
-              4-20 ผู้เล่น
+              {t('homepage.feature1')}
             </div>
           </div>
           <div className="bg-white/60 dark:bg-slate-800/60 backdrop-blur-sm p-4 rounded-xl text-center border border-blue-100 dark:border-slate-700 hover:shadow-lg transition-shadow">
             <div className="text-3xl mb-2">🖼️</div>
             <div className="text-sm font-semibold text-gray-800 dark:text-gray-100">
-              รูปภาพสถานที่
+              {t('homepage.feature2')}
             </div>
           </div>
           <div className="bg-white/60 dark:bg-slate-800/60 backdrop-blur-sm p-4 rounded-xl text-center border border-blue-100 dark:border-slate-700 hover:shadow-lg transition-shadow">
             <div className="text-3xl mb-2">🕵️</div>
-            <div className="text-sm font-semibold text-gray-800 dark:text-gray-100">1-4 สายลับ</div>
+            <div className="text-sm font-semibold text-gray-800 dark:text-gray-100">
+              {t('homepage.feature3')}
+            </div>
           </div>
           <div className="bg-white/60 dark:bg-slate-800/60 backdrop-blur-sm p-4 rounded-xl text-center border border-blue-100 dark:border-slate-700 hover:shadow-lg transition-shadow">
             <div className="text-3xl mb-2">⚡</div>
             <div className="text-sm font-semibold text-gray-800 dark:text-gray-100">
-              เล่นแบบเรียลไทม์
+              {t('homepage.feature4')}
             </div>
           </div>
         </div>
 
         {/* Footer */}
         <div className="mt-8 text-center text-sm text-gray-500 dark:text-gray-400">
-          <p>Made with ❤️ for Thai gamers</p>
+          <p>{t('homepage.footer')}</p>
         </div>
       </div>
     </main>
