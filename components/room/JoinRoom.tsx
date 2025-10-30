@@ -1,7 +1,7 @@
 'use client';
 
 import { useState } from 'react';
-import { useRouter } from 'next/navigation';
+import { useRouter, useParams } from 'next/navigation';
 import { useTranslations } from 'next-intl';
 import { Input } from '../ui/Input';
 import { Button } from '../ui/Button';
@@ -10,6 +10,8 @@ import { storage } from '@/lib/storage';
 
 export function JoinRoom() {
   const t = useTranslations('common');
+  const params = useParams();
+  const locale = params.locale as string;
   const [playerName, setPlayerName] = useState('');
   const [roomCode, setRoomCode] = useState('');
   const [isLoading, setIsLoading] = useState(false);
@@ -53,8 +55,8 @@ export function JoinRoom() {
         throw new Error(t('message.roomFull'));
       }
 
-      // Navigate to room (WebSocket will handle joining)
-      router.push(`/room/${roomCode.trim().toUpperCase()}`);
+      // Navigate to room with locale (WebSocket will handle joining)
+      router.push(`/${locale}/room/${roomCode.trim().toUpperCase()}`);
     } catch (err) {
       console.error('Error joining room:', err);
       if (err instanceof Error) {

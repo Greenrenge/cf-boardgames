@@ -1,7 +1,7 @@
 'use client';
 
 import { useState } from 'react';
-import { useRouter } from 'next/navigation';
+import { useRouter, useParams } from 'next/navigation';
 import { useTranslations } from 'next-intl';
 import { Input } from '../ui/Input';
 import { Button } from '../ui/Button';
@@ -10,6 +10,8 @@ import { storage } from '@/lib/storage';
 
 export function CreateRoom() {
   const t = useTranslations('common');
+  const params = useParams();
+  const locale = params.locale as string;
   const [playerName, setPlayerName] = useState('');
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState('');
@@ -49,8 +51,8 @@ export function CreateRoom() {
       const data = (await response.json()) as { roomCode: string };
       storage.updateRoomCode(data.roomCode);
 
-      // Navigate to room
-      router.push(`/room/${data.roomCode}`);
+      // Navigate to room with locale
+      router.push(`/${locale}/room/${data.roomCode}`);
     } catch (err) {
       console.error('Error creating room:', err);
       setError(t('message.connectionLost'));
