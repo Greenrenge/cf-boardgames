@@ -9,6 +9,7 @@ import { Lobby } from '@/components/room/Lobby';
 import { Card } from '@/components/ui/Card';
 import { Button } from '@/components/ui/Button';
 import { ThemeToggle } from '@/components/ui/ThemeToggle';
+import { LanguageSwitcher } from '@/components/i18n/LanguageSwitcher';
 import { RoleCard } from '@/components/game/RoleCard';
 import { LocationReference } from '@/components/game/LocationReference';
 import { ChatPanel } from '@/components/game/ChatPanel';
@@ -550,7 +551,11 @@ export default function RoomPage() {
   if (!isConnected) {
     return (
       <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-blue-50 to-purple-50 dark:from-slate-900 dark:to-slate-800">
-        <ThemeToggle />
+        {/* Top right controls */}
+        <div className="fixed top-4 right-4 z-50 flex items-center gap-3">
+          <LanguageSwitcher />
+          <ThemeToggle />
+        </div>
         <div className="text-center">
           <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-600 dark:border-blue-400 mx-auto mb-4"></div>
           <p className="text-gray-600 dark:text-gray-300">{t('message.connecting')}</p>
@@ -562,7 +567,12 @@ export default function RoomPage() {
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-blue-50 to-purple-50 dark:from-slate-900 dark:to-slate-800 py-8 px-4">
-      <ThemeToggle />
+      {/* Top right controls */}
+      <div className="fixed top-4 right-4 z-50 flex items-center gap-3">
+        <LanguageSwitcher />
+        <ThemeToggle />
+      </div>
+
       <div className="max-w-2xl mx-auto mb-6">
         <div className="flex items-center justify-between gap-4">
           <button
