@@ -2,12 +2,14 @@
 
 import { useState } from 'react';
 import { useRouter } from 'next/navigation';
+import { useTranslations } from 'next-intl';
 import { Input } from '../ui/Input';
 import { Button } from '../ui/Button';
 import { Card } from '../ui/Card';
 import { storage } from '@/lib/storage';
 
 export function JoinRoom() {
+  const t = useTranslations('common');
   const [playerName, setPlayerName] = useState('');
   const [roomCode, setRoomCode] = useState('');
   const [isLoading, setIsLoading] = useState(false);
@@ -16,12 +18,12 @@ export function JoinRoom() {
 
   const handleJoin = async () => {
     if (!playerName.trim()) {
-      setError('กรุณาใส่ชื่อของคุณ');
+      setError(t('message.invalidRoomCode'));
       return;
     }
 
     if (!roomCode.trim()) {
-      setError('กรุณาใส่รหัสห้อง');
+      setError(t('message.invalidRoomCode'));
       return;
     }
 
@@ -38,7 +40,7 @@ export function JoinRoom() {
       const response = await fetch(`/api/rooms/${roomCode.trim().toUpperCase()}`);
 
       if (!response.ok) {
-        throw new Error('ไม่พบห้องนี้');
+        throw new Error(t('message.roomNotFound'));
       }
 
       const roomInfo = (await response.json()) as {
@@ -48,7 +50,7 @@ export function JoinRoom() {
 
       // Check if room is full
       if (roomInfo.playerCount >= roomInfo.maxPlayers) {
-        throw new Error('ห้องเต็มแล้ว');
+        throw new Error(t('message.roomFull'));
       }
 
       // Navigate to room (WebSocket will handle joining)
@@ -58,7 +60,7 @@ export function JoinRoom() {
       if (err instanceof Error) {
         setError(err.message);
       } else {
-        setError('เกิดข้อผิดพลาดในการเข้าห้อง กรุณาลองอีกครั้ง');
+        setError(t('message.connectionLost'));
       }
     } finally {
       setIsLoading(false);
@@ -66,19 +68,19 @@ export function JoinRoom() {
   };
 
   return (
-    <Card title="เข้าร่วมห้อง">
+    <Card title={t('heading.joinRoom')}>
       <div className="space-y-4">
         <Input
-          label="ชื่อของคุณ"
-          placeholder="ใส่ชื่อของคุณ"
+          label={t('label.playerName')}
+          placeholder={t('label.playerName')}
           value={playerName}
           onChange={(e) => setPlayerName(e.target.value)}
           maxLength={20}
           disabled={isLoading}
         />
         <Input
-          label="รหัสห้อง"
-          placeholder="ใส่รหัส 6 ตัว"
+          label={t('label.roomCode')}
+          placeholder={t('label.roomCode')}
           value={roomCode}
           onChange={(e) => setRoomCode(e.target.value.toUpperCase())}
           maxLength={6}
@@ -90,7 +92,7 @@ export function JoinRoom() {
           disabled={isLoading || !playerName.trim() || !roomCode.trim()}
           className="w-full"
         >
-          {isLoading ? 'กำลังเข้าห้อง...' : 'เข้าร่วม'}
+          {isLoading ? t('message.reconnecting') : t('button.joinRoom')}
         </Button>
       </div>
     </Card>

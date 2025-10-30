@@ -2,13 +2,14 @@
 
 import { useState } from 'react';
 import { useRouter } from 'next/navigation';
-import Image from 'next/image';
+import { useTranslations } from 'next-intl';
 import { Input } from '../ui/Input';
 import { Button } from '../ui/Button';
 import { Card } from '../ui/Card';
 import { storage } from '@/lib/storage';
 
 export function CreateRoom() {
+  const t = useTranslations('common');
   const [playerName, setPlayerName] = useState('');
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState('');
@@ -16,7 +17,7 @@ export function CreateRoom() {
 
   const handleCreate = async () => {
     if (!playerName.trim()) {
-      setError('กรุณาใส่ชื่อของคุณ');
+      setError(t('message.invalidRoomCode'));
       return;
     }
 
@@ -42,7 +43,7 @@ export function CreateRoom() {
       });
 
       if (!response.ok) {
-        throw new Error('ไม่สามารถสร้างห้องได้');
+        throw new Error(t('message.roomNotFound'));
       }
 
       const data = (await response.json()) as { roomCode: string };
@@ -52,18 +53,18 @@ export function CreateRoom() {
       router.push(`/room/${data.roomCode}`);
     } catch (err) {
       console.error('Error creating room:', err);
-      setError('เกิดข้อผิดพลาดในการสร้างห้อง กรุณาลองอีกครั้ง');
+      setError(t('message.connectionLost'));
     } finally {
       setIsLoading(false);
     }
   };
 
   return (
-    <Card title="สร้างห้องใหม่">
+    <Card title={t('heading.createRoom')}>
       <div className="space-y-4">
         <Input
-          label="ชื่อของคุณ"
-          placeholder="ใส่ชื่อของคุณ"
+          label={t('label.playerName')}
+          placeholder={t('label.playerName')}
           value={playerName}
           onChange={(e) => setPlayerName(e.target.value)}
           error={error}
@@ -75,7 +76,7 @@ export function CreateRoom() {
           disabled={isLoading || !playerName.trim()}
           className="w-full"
         >
-          {isLoading ? 'กำลังสร้างห้อง...' : 'สร้างห้อง'}
+          {isLoading ? t('message.waitingForPlayers') : t('button.createRoom')}
         </Button>
       </div>
     </Card>

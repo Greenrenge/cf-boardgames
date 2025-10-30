@@ -19,7 +19,7 @@ export default function HomePage() {
         {/* Header with Logo */}
         <div className="text-center mb-12">
           <div className="flex justify-center mb-6">
-            <div className="relative w-24 h-24 md:w-32 md:h-32 animate-fade-in">
+            <div className="relative w-56 h-56 md:w-80 md:h-80 animate-fade-in">
               <Image
                 src="/icon-no-bg.png"
                 alt="Spyfall Online Logo"
@@ -29,12 +29,9 @@ export default function HomePage() {
               />
             </div>
           </div>
-          <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-blue-600 to-indigo-600 dark:from-blue-400 dark:to-indigo-400 mb-4 animate-fade-in">
+          {/* <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-blue-600 to-indigo-600 dark:from-blue-400 dark:to-indigo-400 mb-4 animate-fade-in">
             Spyfall Online
-          </h1>
-          <p className="text-lg md:text-xl text-blue-900 dark:text-blue-300 font-medium mb-2">
-            Thai Edition
-          </p>
+          </h1> */}
           <p className="text-gray-600 dark:text-gray-300 text-base md:text-lg">
             เกมหาสายลับออนไลน์สำหรับ 4-20 คน 🕵️‍♂️
           </p>
