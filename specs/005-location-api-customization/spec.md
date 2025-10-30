@@ -5,6 +5,16 @@
 **Status**: Draft  
 **Input**: User description: "the location should single place of truth via api, the translation of location / role should be included in the location data from api, so delete the role/location translation files. user can customize to include or exclude certain locations or roles before starting the game, default from location returned from api. selected location from default and custom locations will be saved in local storage. non host can also save their room's location that host has selected in local storage for later default use. when there is location in localStorage, the location will be merged into the location list from api, if the id matches, the localStorage location will override the api location."
 
+## Clarifications
+
+### Session 2025-10-30
+
+- Q: What is the caching strategy when the API is unavailable? → A: Cache API response with 24-hour expiration, use cached data on API failure
+- Q: What authentication/security is required for the API endpoint? → A: Public read-only endpoint, no authentication required
+- Q: What is the expected location data volume? → A: Medium set (80-120 locations), scrollable list without pagination
+- Q: What should users see during API fetch and data merge operations? → A: Show skeleton/placeholder UI with loading indicator, non-blocking
+- Q: How long should location selections persist in local storage? → A: Persist indefinitely until user explicitly resets or clears browser data
+
 ## User Scenarios & Testing _(mandatory)_
 
 ### User Story 1 - API as Single Source of Truth (Priority: P1)
@@ -17,11 +27,11 @@ The application should fetch all location data including translations from an AP
 
 **Acceptance Scenarios**:
 
-1. **Given** the application starts, **When** the location data is needed, **Then** the system should make an API call to fetch location data including all translations
-2. **Given** the API returns location data, **When** the data is received, **Then** it should include location names, role names, and translations for all supported languages (Thai, English, Chinese, Hindi, Spanish, French, Arabic)
+1. **Given** the application starts, **When** the location data is needed, **Then** the system should display a skeleton/placeholder UI with a loading indicator while making an API call to fetch location data including all translations
+2. **Given** the API returns location data, **When** the data is received, **Then** it should include location names, role names, and translations for all supported languages (Thai, English, Chinese, Hindi, Spanish, French, Arabic), and the skeleton UI should be replaced with actual content
 3. **Given** a user switches languages, **When** locations are displayed, **Then** the system should use translations from the API response, not from local translation files
 4. **Given** the old translation files (locations.json, roles.json in locale folders) exist, **When** the new API system is implemented, **Then** these files should be removed from the codebase
-5. **Given** the API is unavailable, **When** the application tries to fetch location data, **Then** the system should display an appropriate error message and potentially use cached data if available
+5. **Given** the API is unavailable, **When** the application tries to fetch location data, **Then** the system should use cached data if available (cached within last 24 hours), or display an error message if no valid cache exists
 
 ---
 
@@ -120,7 +130,7 @@ Users should be able to export their customized location and role selections to 
 ### Edge Cases
 
 - **What happens when the API returns malformed data?** The system should validate API responses and fall back to cached data or display an error message, preventing the application from breaking.
-- **What happens when local storage is full?** The system should handle storage quota errors gracefully, potentially removing older saved configurations to make room for new ones.
+- **What happens when local storage is full?** The system should handle storage quota errors gracefully by displaying an error message to the user, since selections persist indefinitely without automatic cleanup.
 - **What happens when a user has saved selections for 100 locations but the API now only returns 50?** The system should merge both sets - keeping all 100 locations from local storage plus any new ones from the API (total would be 100+ locations).
 - **Can users export and import their location customizations?** Yes, users should be able to export their customized location configurations to a JSON file and import previously exported configurations, enabling backup and sharing across devices/browsers.
 - **How does the system handle concurrent updates to local storage?** If a user has multiple browser tabs open, the system should use the most recent updates or notify the user of conflicts.
@@ -132,15 +142,16 @@ Users should be able to export their customized location and role selections to 
 
 ### Functional Requirements
 
-- **FR-001**: System MUST provide an API endpoint that returns all location data including location IDs, names, roles, and translations for all supported languages
+- **FR-001**: System MUST provide a public read-only API endpoint that returns all location data including location IDs, names, roles, and translations for all supported languages (no authentication required)
 - **FR-002**: System MUST remove all separate translation files for locations and roles (locales/{language}/locations.json and locales/{language}/roles.json)
 - **FR-003**: System MUST fetch location data from the API when the application initializes or when location data is needed
+- **FR-003a**: System MUST display skeleton/placeholder UI with loading indicator during API fetch and data merge operations (non-blocking)
 - **FR-004**: System MUST display all locations returned from the API as selected by default in the game setup interface
 - **FR-005**: System MUST provide a user interface for users to select or deselect specific locations before starting a game
 - **FR-006**: System MUST provide a user interface for users to select or deselect specific roles within each location
 - **FR-007**: System MUST prevent game start if no locations are selected, displaying an appropriate validation error
 - **FR-008**: System MUST only use selected locations and roles during gameplay (for role assignment and spy guessing)
-- **FR-009**: System MUST save location and role selections to local storage when a host starts a game
+- **FR-009**: System MUST save location and role selections to local storage when a host starts a game (persist indefinitely)
 - **FR-010**: System MUST automatically load saved selections from local storage when a host creates a new room
 - **FR-011**: System MUST display the host's selected locations and roles to non-host players in the room
 - **FR-012**: System MUST provide a button or option for non-host players to save the host's selections to their own local storage
@@ -149,6 +160,9 @@ Users should be able to export their customized location and role selections to 
 - **FR-015**: System MUST add new locations from the API that don't exist in local storage to the available locations list
 - **FR-016**: System MUST include complete translation data for all supported languages in the API response for each location and role
 - **FR-017**: System MUST validate API response data structure before using it, handling errors gracefully
+- **FR-017a**: System MUST cache API responses with a 24-hour expiration time
+- **FR-017b**: System MUST use cached location data when API is unavailable and cache is less than 24 hours old
+- **FR-017c**: System MUST display an error message when API is unavailable and no valid cache exists
 - **FR-018**: System MUST provide a "Reset to Default" option that reloads selections from the API, ignoring local storage overrides
 - **FR-019**: System MUST provide an export function that generates a downloadable JSON file containing the user's customized location selections and configurations
 - **FR-020**: System MUST provide an import function that accepts a previously exported JSON file and applies those location selections and configurations
@@ -241,9 +255,10 @@ Users should be able to export their customized location and role selections to 
 
 ### Measurable Outcomes
 
-- **SC-001**: 100% of location data including all translations is fetched from the API within 3 seconds of application start
+- **SC-001**: 100% of location data (80-120 locations) including all translations is fetched from the API within 3 seconds of application start
 - **SC-002**: Zero references to old translation files (locales/{language}/locations.json, roles.json) remain in the codebase
 - **SC-003**: Users can successfully customize location and role selections and start a game with only selected items appearing in gameplay
+- **SC-003a**: Location selection UI displays all locations in a scrollable list without requiring pagination or search for the expected volume (80-120 locations)
 - **SC-004**: Host's location selections persist correctly across 100% of browser session restarts
 - **SC-005**: Non-host players can successfully save a host's selections and have them applied to their own future games 100% of the time
 - **SC-006**: Local storage location data overrides API data for matching IDs in 100% of cases
@@ -257,16 +272,19 @@ Users should be able to export their customized location and role selections to 
 
 ## Assumptions _(optional)_
 
-- The API endpoint is accessible and has reasonable response times (< 3 seconds)
+- The API endpoint is publicly accessible without authentication and has reasonable response times (< 3 seconds)
 - The API response format is versioned and backward compatible
+- Location data is read-only and not sensitive (safe for public access)
 - Browser local storage is available and not disabled by user settings
 - Local storage has sufficient capacity for storing customized location data (typically 5-10MB available)
+- User preferences persist indefinitely without automatic cleanup (users manage via explicit reset or browser data clearing)
 - The existing application uses a component-based architecture that can be refactored to use API data instead of local files
 - The API provides adequate error responses for troubleshooting connection issues
 - Location IDs are stable and won't change frequently (to ensure local storage overrides work correctly)
 - Users have a reliable internet connection to fetch API data on application start
 - The API includes rate limiting or caching to handle multiple concurrent requests
 - Location data structure in the API matches or can be easily mapped to the current application's data model
+- Expected location count is in the range of 80-120 locations, manageable without virtualization or complex pagination
 
 ## Dependencies _(optional)_
 
