@@ -1,6 +1,7 @@
 'use client';
 
 import { useState } from 'react';
+import { useTranslations } from 'next-intl';
 import { Card } from '../ui/Card';
 import { Button } from '../ui/Button';
 import type { Player } from '@/lib/types';
@@ -24,6 +25,7 @@ export function VotingInterface({
   hasVoted,
   disabled = false,
 }: VotingInterfaceProps) {
+  const t = useTranslations('common');
   const [selectedPlayerId, setSelectedPlayerId] = useState<string | null>(null);
 
   const handleVote = () => {
@@ -43,22 +45,22 @@ export function VotingInterface({
     <Card className="bg-gradient-to-br from-yellow-50 to-orange-50 border-2 border-yellow-400 dark:from-yellow-900 dark:to-orange-900 dark:border-yellow-700">
       <div className="space-y-4">
         <div className="text-center">
-          <h3 className="text-xl font-bold text-gray-900 dark:text-gray-100">🗳️ ลงคะแนนเสียง</h3>
-          <p className="text-sm text-gray-600 dark:text-gray-300 mt-1">
-            เลือกผู้เล่นที่คุณสงสัยว่าเป็นสปาย
-          </p>
+          <h3 className="text-xl font-bold text-gray-900 dark:text-gray-100">
+            {t('voting.title')}
+          </h3>
+          <p className="text-sm text-gray-600 dark:text-gray-300 mt-1">{t('voting.subtitle')}</p>
           <div className="mt-2 text-sm font-medium text-gray-700 dark:text-gray-200">
-            โหวตแล้ว: {votesCount}/{requiredVotes}
+            {t('voting.votesCount', { current: votesCount, required: requiredVotes })}
           </div>
         </div>
 
         {hasVoted ? (
           <div className="text-center p-6 bg-green-100 rounded-lg border-2 border-green-400 dark:bg-green-900 dark:border-green-600">
             <p className="text-green-900 dark:text-green-100 font-medium text-lg">
-              ✓ คุณลงคะแนนแล้ว
+              {t('voting.youVoted')}
             </p>
             <p className="text-sm text-green-800 dark:text-green-200 mt-2">
-              รอผู้เล่นคนอื่นลงคะแนน...
+              {t('voting.waitingForOthers')}
             </p>
           </div>
         ) : (
@@ -92,7 +94,7 @@ export function VotingInterface({
                         </span>
                         {player.isHost && (
                           <span className="text-xs px-2 py-0.5 bg-blue-100 text-blue-800 rounded-full dark:bg-blue-900 dark:text-blue-200">
-                            เจ้าห้อง
+                            {t('voting.host')}
                           </span>
                         )}
                       </div>
@@ -111,19 +113,19 @@ export function VotingInterface({
                 disabled={!selectedPlayerId || disabled}
                 className="flex-1 bg-orange-600 hover:bg-orange-700 text-white dark:bg-orange-700 dark:hover:bg-orange-800 dark:text-white"
               >
-                ลงคะแนน
+                {t('voting.vote')}
               </Button>
               <Button
                 onClick={handleSkip}
                 disabled={disabled}
                 className="flex-1 bg-gray-500 hover:bg-gray-600 text-white dark:bg-gray-700 dark:hover:bg-gray-800 dark:text-white"
               >
-                ข้าม
+                {t('voting.skip')}
               </Button>
             </div>
 
             <p className="text-xs text-gray-600 dark:text-gray-300 text-center">
-              เลือก &quot;ข้าม&quot; ถ้าคุณไม่แน่ใจว่าใครเป็นสปาย
+              {t('voting.skipHint')}
             </p>
           </>
         )}

@@ -1,6 +1,7 @@
 'use client';
 
 import { useState, useEffect } from 'react';
+import { useTranslations } from 'next-intl';
 import { Button } from '../ui/Button';
 import { Card } from '../ui/Card';
 import { PlayerList } from './PlayerList';
@@ -31,6 +32,7 @@ export function Lobby({
   spyCount = 1,
   onUpdateConfig,
 }: LobbyProps) {
+  const t = useTranslations('common');
   const isHost = currentPlayerId === hostId;
 
   // Calculate minimum players needed for current spy count (3:1 ratio)
@@ -105,7 +107,7 @@ export function Lobby({
     <div className="max-w-2xl mx-auto space-y-6">
       <Card>
         <div className="text-center space-y-2">
-          <h2 className="text-2xl font-bold text-gray-900 dark:text-gray-100">ห้อง</h2>
+          <h2 className="text-2xl font-bold text-gray-900 dark:text-gray-100">{t('lobby.room')}</h2>
           <div className="flex items-center justify-center space-x-2">
             <code className="px-4 py-2 text-3xl font-mono font-bold bg-gray-100 dark:bg-slate-700 text-gray-900 dark:text-gray-100 rounded-lg">
               {roomCode}
@@ -113,7 +115,7 @@ export function Lobby({
             <button
               onClick={() => navigator.clipboard.writeText(roomCode)}
               className="p-2 text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-100 transition-colors"
-              title="คัดลอกรหัส"
+              title={t('lobby.copyCode')}
             >
               <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path
@@ -125,17 +127,17 @@ export function Lobby({
               </svg>
             </button>
           </div>
-          <p className="text-sm text-gray-600 dark:text-gray-400">
-            แชร์รหัสนี้กับเพื่อนเพื่อเข้าร่วมห้อง
-          </p>
+          <p className="text-sm text-gray-600 dark:text-gray-400">{t('lobby.shareCode')}</p>
 
           {/* Player count display */}
           <div className="mt-4 pt-4 border-t border-gray-200 dark:border-slate-700">
             <p className="text-lg font-semibold text-gray-900 dark:text-gray-100">
-              {players.length}/{maxPlayers} ผู้เล่น
+              {t('lobby.playerCount', { current: players.length, max: maxPlayers })}
             </p>
             {players.length >= maxPlayers && (
-              <p className="text-sm text-orange-600 dark:text-orange-400 mt-1">🚫 ห้องเต็ม</p>
+              <p className="text-sm text-orange-600 dark:text-orange-400 mt-1">
+                {t('lobby.roomFull')}
+              </p>
             )}
           </div>
         </div>
@@ -153,12 +155,14 @@ export function Lobby({
       {isHost && (
         <Card>
           <div className="space-y-4">
-            <h3 className="text-lg font-medium text-gray-900 dark:text-gray-100">ตั้งค่าเกม</h3>
+            <h3 className="text-lg font-medium text-gray-900 dark:text-gray-100">
+              {t('lobby.gameSettings')}
+            </h3>
 
             {/* Capacity Slider - HOST ONLY */}
             <div className="space-y-2">
               <label className="block text-sm font-medium text-gray-700 dark:text-gray-300">
-                จำนวนผู้เล่นสูงสุด: {localMaxPlayers} คน
+                {t('lobby.maxPlayers', { count: localMaxPlayers })}
               </label>
               <input
                 type="range"
@@ -170,12 +174,12 @@ export function Lobby({
                 disabled={!onUpdateConfig}
               />
               <div className="flex justify-between text-xs text-gray-500 dark:text-gray-400">
-                <span>3 คน</span>
-                <span>20 คน</span>
+                <span>{t('lobby.people', { count: 3 })}</span>
+                <span>{t('lobby.people', { count: 20 })}</span>
               </div>
               {localMaxPlayers < maxPlayers && (
                 <p className="text-xs text-orange-600 dark:text-orange-400">
-                  ไม่สามารถลดต่ำกว่าจำนวนผู้เล่นปัจจุบัน ({players.length} คน)
+                  {t('lobby.cannotReduceBelowCurrent', { count: players.length })}
                 </p>
               )}
             </div>
@@ -183,7 +187,7 @@ export function Lobby({
             {/* Spy Count Button Group - HOST ONLY */}
             <div className="space-y-2">
               <label className="block text-sm font-medium text-gray-700 dark:text-gray-300">
-                จำนวนสปาย: {localSpyCount} คน
+                {t('lobby.spyCount', { count: localSpyCount })}
               </label>
               <div className="flex space-x-2">
                 {[1, 2, 3].map((count) => {
@@ -206,24 +210,26 @@ export function Lobby({
                       }`}
                       title={
                         isDisabled
-                          ? `ต้องมีผู้เล่นอย่างน้อย ${minPlayersNeeded} คนสำหรับ ${count} สปาย`
-                          : `เลือก ${count} สปาย`
+                          ? t('lobby.minPlayersForSpies', { min: minPlayersNeeded, spies: count })
+                          : t('lobby.selectSpies', { count })
                       }
                     >
                       <div className="text-center">
                         <div className="text-2xl font-bold">{count}</div>
-                        <div className="text-xs mt-1">{count === 1 ? 'สปาย' : `สปาย`}</div>
+                        <div className="text-xs mt-1">{t('lobby.spy')}</div>
                       </div>
                     </button>
                   );
                 })}
               </div>
               <div className="text-xs text-gray-500 dark:text-gray-400">
-                <p>ต้องมี 3 ผู้เล่นปกติต่อ 1 สปาย (อย่างน้อย {localSpyCount * 4} คน)</p>
+                <p>{t('lobby.ratioExplanation', { min: localSpyCount * 4 })}</p>
                 {maxSpyCountForCurrentPlayers < 3 && (
                   <p className="text-orange-600 dark:text-orange-400 mt-1">
-                    ⚠️ ต้องมีผู้เล่น {(maxSpyCountForCurrentPlayers + 1) * 4} คนขึ้นไปสำหรับ{' '}
-                    {maxSpyCountForCurrentPlayers + 1} สปาย
+                    {t('lobby.needMorePlayers', {
+                      needed: (maxSpyCountForCurrentPlayers + 1) * 4,
+                      spies: maxSpyCountForCurrentPlayers + 1,
+                    })}
                   </p>
                 )}
               </div>
@@ -232,28 +238,28 @@ export function Lobby({
             {/* Timer Duration Selector */}
             <div className="space-y-2">
               <label className="block text-sm font-medium text-gray-700 dark:text-gray-300">
-                ระยะเวลาต่อรอบ
+                {t('lobby.timerDuration')}
               </label>
               <select
                 value={timerDuration}
                 onChange={(e) => setTimerDuration(Number(e.target.value))}
                 className="w-full px-3 py-2 border border-gray-300 dark:border-slate-600 rounded-lg bg-white dark:bg-slate-800 text-gray-900 dark:text-gray-100 focus:outline-none focus:ring-2 focus:ring-blue-500 dark:focus:ring-blue-400"
               >
-                <option value={5}>5 นาที</option>
-                <option value={6}>6 นาที</option>
-                <option value={7}>7 นาที</option>
-                <option value={8}>8 นาที</option>
-                <option value={9}>9 นาที</option>
-                <option value={10}>10 นาที</option>
-                <option value={12}>12 นาที</option>
-                <option value={15}>15 นาที</option>
+                <option value={5}>{t('lobby.minutes', { count: 5 })}</option>
+                <option value={6}>{t('lobby.minutes', { count: 6 })}</option>
+                <option value={7}>{t('lobby.minutes', { count: 7 })}</option>
+                <option value={8}>{t('lobby.minutes', { count: 8 })}</option>
+                <option value={9}>{t('lobby.minutes', { count: 9 })}</option>
+                <option value={10}>{t('lobby.minutes', { count: 10 })}</option>
+                <option value={12}>{t('lobby.minutes', { count: 12 })}</option>
+                <option value={15}>{t('lobby.minutes', { count: 15 })}</option>
               </select>
             </div>
 
             {/* Difficulty Selector */}
             <div className="space-y-2">
               <label className="block text-sm font-medium text-gray-700 dark:text-gray-300">
-                ระดับความยาก
+                {t('lobby.difficulty')}
               </label>
               <div className="space-y-2">
                 <label className="flex items-center space-x-2 cursor-pointer">
@@ -263,7 +269,9 @@ export function Lobby({
                     onChange={() => handleDifficultyToggle('easy')}
                     className="w-4 h-4 text-blue-600 border-gray-300 dark:border-slate-600 rounded focus:ring-blue-500 dark:focus:ring-blue-400"
                   />
-                  <span className="text-sm text-gray-700 dark:text-gray-300">ง่าย (Easy)</span>
+                  <span className="text-sm text-gray-700 dark:text-gray-300">
+                    {t('lobby.easy')}
+                  </span>
                 </label>
                 <label className="flex items-center space-x-2 cursor-pointer">
                   <input
@@ -272,7 +280,9 @@ export function Lobby({
                     onChange={() => handleDifficultyToggle('medium')}
                     className="w-4 h-4 text-blue-600 border-gray-300 dark:border-slate-600 rounded focus:ring-blue-500 dark:focus:ring-blue-400"
                   />
-                  <span className="text-sm text-gray-700 dark:text-gray-300">ปานกลาง (Medium)</span>
+                  <span className="text-sm text-gray-700 dark:text-gray-300">
+                    {t('lobby.medium')}
+                  </span>
                 </label>
                 <label className="flex items-center space-x-2 cursor-pointer">
                   <input
@@ -281,12 +291,14 @@ export function Lobby({
                     onChange={() => handleDifficultyToggle('hard')}
                     className="w-4 h-4 text-blue-600 border-gray-300 dark:border-slate-600 rounded focus:ring-blue-500 dark:focus:ring-blue-400"
                   />
-                  <span className="text-sm text-gray-700 dark:text-gray-300">ยาก (Hard)</span>
+                  <span className="text-sm text-gray-700 dark:text-gray-300">
+                    {t('lobby.hard')}
+                  </span>
                 </label>
               </div>
               {selectedDifficulties.length === 0 && (
                 <p className="text-xs text-red-600 dark:text-red-400">
-                  กรุณาเลือกอย่างน้อย 1 ระดับ
+                  {t('lobby.selectAtLeastOne')}
                 </p>
               )}
             </div>
@@ -297,12 +309,20 @@ export function Lobby({
               className="w-full"
             >
               {isStarting
-                ? 'กำลังเริ่มเกม...'
+                ? t('lobby.starting')
                 : !canStart
                   ? players.length < minPlayersForSpyCount
-                    ? `ต้องมีผู้เล่นอย่างน้อย ${minPlayersForSpyCount} คนสำหรับ ${localSpyCount} สปาย (ตอนนี้ ${players.length} คน)`
-                    : `ต้องมีผู้เล่น 3-${maxPlayers} คน (ตอนนี้ ${players.length} คน)`
-                  : 'เริ่มเกม'}
+                    ? t('lobby.needMinPlayersForSpies', {
+                        min: minPlayersForSpyCount,
+                        spies: localSpyCount,
+                        current: players.length,
+                      })
+                    : t('lobby.needPlayers', {
+                        min: 3,
+                        max: maxPlayers,
+                        current: players.length,
+                      })
+                  : t('lobby.startGame')}
             </Button>
           </div>
         </Card>
@@ -310,7 +330,9 @@ export function Lobby({
 
       {!isHost && (
         <Card>
-          <p className="text-center text-gray-600 dark:text-gray-400">รอเจ้าห้องเริ่มเกม...</p>
+          <p className="text-center text-gray-600 dark:text-gray-400">
+            {t('lobby.waitingForHost')}
+          </p>
         </Card>
       )}
     </div>

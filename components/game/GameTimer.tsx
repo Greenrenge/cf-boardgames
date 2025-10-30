@@ -1,6 +1,7 @@
 'use client';
 
 import { useEffect, useState } from 'react';
+import { useTranslations } from 'next-intl';
 import { Card } from '../ui/Card';
 
 interface GameTimerProps {
@@ -10,6 +11,7 @@ interface GameTimerProps {
 }
 
 export function GameTimer({ remainingSeconds, timerEndsAt, onTimerExpired }: GameTimerProps) {
+  const t = useTranslations('common');
   const [isExpiring, setIsExpiring] = useState(false);
 
   useEffect(() => {
@@ -51,28 +53,36 @@ export function GameTimer({ remainingSeconds, timerEndsAt, onTimerExpired }: Gam
   };
 
   return (
-    <Card className={`${isExpiring ? 'animate-pulse border-2 border-red-500' : ''}`}>
+    <Card
+      className={`${isExpiring ? 'animate-pulse border-2 border-red-500 dark:border-red-400' : ''}`}
+    >
       <div className="space-y-4">
         <div className="text-center">
-          <p className="text-sm font-medium text-gray-600 mb-2">เวลาที่เหลือ</p>
-          <div className={`text-5xl font-bold tabular-nums ${getTimerColor()}`}>
+          <p className="text-sm font-medium text-gray-600 dark:text-gray-300 mb-2">
+            {t('timer.timeRemaining')}
+          </p>
+          <div
+            className={`text-5xl font-bold tabular-nums ${getTimerColor()} dark:text-opacity-90`}
+          >
             {formatTime(remainingSeconds)}
           </div>
           {isExpiring && (
-            <p className="text-sm text-red-600 font-medium mt-2 animate-bounce">⏰ เวลาใกล้หมด!</p>
+            <p className="text-sm text-red-600 dark:text-red-400 font-medium mt-2 animate-bounce">
+              {t('timer.timeAlmostUp')}
+            </p>
           )}
         </div>
 
         {/* Progress Bar */}
-        <div className="w-full bg-gray-200 rounded-full h-3 overflow-hidden">
+        <div className="w-full bg-gray-200 dark:bg-gray-700 rounded-full h-3 overflow-hidden">
           <div
             className={`h-full transition-all duration-1000 ease-linear ${getProgressColor()}`}
             style={{ width: `${getProgressPercentage()}%` }}
           />
         </div>
 
-        <div className="text-center text-xs text-gray-500">
-          {remainingSeconds <= 60 ? 'เตรียมลงคะแนน!' : 'สนทนาและค้นหาสปาย'}
+        <div className="text-center text-xs text-gray-500 dark:text-gray-400">
+          {remainingSeconds <= 60 ? t('timer.prepareToVote') : t('timer.discussAndFind')}
         </div>
       </div>
     </Card>

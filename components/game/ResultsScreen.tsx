@@ -1,5 +1,6 @@
 'use client';
 
+import { useTranslations } from 'next-intl';
 import { Card } from '../ui/Card';
 import { Button } from '../ui/Button';
 import type { Player } from '@/lib/types';
@@ -34,6 +35,8 @@ export function ResultsScreen({
   onNextRound,
   onBackToLobby,
 }: ResultsScreenProps) {
+  const t = useTranslations('common');
+
   const getPlayerName = (playerId: string) => {
     return players.find((p) => p.id === playerId)?.name || 'Unknown';
   };
@@ -59,17 +62,17 @@ export function ResultsScreen({
           <h2
             className={`text-3xl font-bold ${spyWasEliminated ? 'text-green-700 dark:text-green-200' : 'text-red-700 dark:text-red-200'}`}
           >
-            {spyWasEliminated ? 'สปายถูกจับได้!' : 'สปายหนีรอด!'}
+            {spyWasEliminated ? t('results.spyCaught') : t('results.spyEscaped')}
           </h2>
           <div className="space-y-2">
             <p className="text-lg text-gray-700 dark:text-gray-200">
-              <span className="font-medium dark:text-gray-300">สปาย:</span>{' '}
+              <span className="font-medium dark:text-gray-300">{t('results.spy')}:</span>{' '}
               <span className="font-bold text-red-600 dark:text-red-300">
                 {getPlayerName(spyPlayerId)}
               </span>
             </p>
             <p className="text-lg text-gray-700 dark:text-gray-200">
-              <span className="font-medium dark:text-gray-300">สถานที่:</span>{' '}
+              <span className="font-medium dark:text-gray-300">{t('results.location')}:</span>{' '}
               <span className="font-bold text-blue-600 dark:text-blue-300">{location}</span>
             </p>
           </div>
@@ -94,7 +97,9 @@ export function ResultsScreen({
                   : 'text-green-700 dark:text-green-200'
               }`}
             >
-              {spyGuessResult.wasCorrect ? 'สปายเดาถูก!' : 'สปายเดาผิด!'}
+              {spyGuessResult.wasCorrect
+                ? t('results.spyGuessedCorrect')
+                : t('results.spyGuessedWrong')}
             </h3>
             <div className="space-y-3 pt-2">
               <div
@@ -104,7 +109,9 @@ export function ResultsScreen({
                     : 'bg-gray-100 dark:bg-gray-800'
                 }`}
               >
-                <p className="text-sm text-gray-600 dark:text-gray-200 mb-1">สปายเดาว่าเป็น:</p>
+                <p className="text-sm text-gray-600 dark:text-gray-200 mb-1">
+                  {t('results.spyGuessed')}:
+                </p>
                 <p
                   className={`text-lg font-bold ${
                     spyGuessResult.wasCorrect
@@ -117,7 +124,9 @@ export function ResultsScreen({
               </div>
               {!spyGuessResult.wasCorrect && (
                 <div className="p-3 bg-green-100 rounded-lg dark:bg-green-900">
-                  <p className="text-sm text-gray-600 dark:text-gray-200 mb-1">สถานที่จริงคือ:</p>
+                  <p className="text-sm text-gray-600 dark:text-gray-200 mb-1">
+                    {t('results.actualLocation')}:
+                  </p>
                   <p className="text-lg font-bold text-green-800 dark:text-green-200">
                     {spyGuessResult.actualLocationName}
                   </p>
@@ -130,21 +139,23 @@ export function ResultsScreen({
 
       {/* Vote Tally */}
       <Card>
-        <h3 className="text-xl font-bold text-gray-900 dark:text-gray-100 mb-4">📊 ผลการลงคะแนน</h3>
+        <h3 className="text-xl font-bold text-gray-900 dark:text-gray-100 mb-4">
+          {t('results.voteTally')}
+        </h3>
         <div className="space-y-2">
           {eliminatedPlayerId ? (
             <div className="p-3 bg-red-100 rounded-lg border-2 border-red-300 dark:bg-red-900 dark:border-red-700">
               <p className="text-red-900 dark:text-red-100 font-medium">
-                <span className="font-bold dark:text-white">
-                  {getPlayerName(eliminatedPlayerId)}
-                </span>{' '}
-                ถูกโหวตออก ({voteTally[eliminatedPlayerId] || 0} คะแนน)
+                {t('results.eliminatedPlayer', {
+                  playerName: getPlayerName(eliminatedPlayerId),
+                  votes: voteTally[eliminatedPlayerId] || 0,
+                })}
               </p>
             </div>
           ) : (
             <div className="p-3 bg-gray-100 rounded-lg dark:bg-gray-800">
               <p className="text-gray-700 dark:text-gray-200 font-medium">
-                ไม่มีผู้เล่นถูกโหวตออก (คะแนนเสมอกัน)
+                {t('results.noElimination')}
               </p>
             </div>
           )}
@@ -158,7 +169,9 @@ export function ResultsScreen({
                 className="flex justify-between items-center p-2 bg-gray-50 rounded dark:bg-gray-900"
               >
                 <span className="text-gray-800 dark:text-gray-100">{getPlayerName(playerId)}</span>
-                <span className="text-gray-600 dark:text-gray-300 font-medium">{votes} คะแนน</span>
+                <span className="text-gray-600 dark:text-gray-300 font-medium">
+                  {t('results.votesCount', { count: votes })}
+                </span>
               </div>
             ))}
         </div>
@@ -166,7 +179,9 @@ export function ResultsScreen({
 
       {/* Scores */}
       <Card>
-        <h3 className="text-xl font-bold text-gray-900 dark:text-gray-100 mb-4">🏆 คะแนน</h3>
+        <h3 className="text-xl font-bold text-gray-900 dark:text-gray-100 mb-4">
+          {t('results.scores')}
+        </h3>
         <div className="space-y-2">
           {sortedPlayers.map((player, index) => {
             const score = scores[player.id] || 0;
@@ -189,11 +204,13 @@ export function ResultsScreen({
                   </span>
                   {isSpy && (
                     <span className="text-xs px-2 py-0.5 bg-red-100 text-red-800 rounded-full dark:bg-red-900 dark:text-red-200">
-                      สปาย
+                      {t('results.spyLabel')}
                     </span>
                   )}
                 </div>
-                <span className="text-xl font-bold text-gray-900 dark:text-gray-100">+{score}</span>
+                <span className="text-xl font-bold text-gray-900 dark:text-gray-100">
+                  {t('results.points', { count: score })}
+                </span>
               </div>
             );
           })}
@@ -207,14 +224,14 @@ export function ResultsScreen({
             onClick={onNextRound}
             className="flex-1 bg-blue-600 hover:bg-blue-700 text-white dark:bg-blue-800 dark:hover:bg-blue-900 dark:text-white"
           >
-            รอบถัดไป
+            {t('results.nextRound')}
           </Button>
         )}
         <Button
           onClick={onBackToLobby}
           className="flex-1 bg-gray-600 hover:bg-gray-700 text-white dark:bg-gray-800 dark:hover:bg-gray-900 dark:text-white"
         >
-          กลับล็อบบี้
+          {t('results.backToLobby')}
         </Button>
       </div>
     </div>
