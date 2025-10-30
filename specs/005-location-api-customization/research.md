@@ -109,15 +109,15 @@ function getCachedData(): APIResponse | null {
   try {
     const cached = localStorage.getItem(CACHE_KEY);
     if (!cached) return null;
-    
+
     const entry: CacheEntry = JSON.parse(cached);
     const age = Date.now() - new Date(entry.timestamp).getTime();
-    
+
     if (age > CACHE_DURATION_MS) {
       localStorage.removeItem(CACHE_KEY);
       return null;
     }
-    
+
     return entry.data;
   } catch {
     return null;
@@ -128,9 +128,9 @@ function setCachedData(data: APIResponse): void {
   const entry: CacheEntry = {
     data,
     timestamp: new Date().toISOString(),
-    version: '1.0.0'
+    version: '1.0.0',
   };
-  
+
   try {
     localStorage.setItem(CACHE_KEY, JSON.stringify(entry));
   } catch (e) {
@@ -176,39 +176,35 @@ interface MergeOptions {
 
 function mergeLocations({ apiLocations, localStorageSelections }: MergeOptions): Location[] {
   // Create lookup map for O(1) access
-  const selectionsMap = new Map(
-    localStorageSelections.map(sel => [sel.locationId, sel])
-  );
-  
+  const selectionsMap = new Map(localStorageSelections.map((sel) => [sel.locationId, sel]));
+
   // Start with API locations, apply localStorage overrides
-  const apiMap = new Map(
-    apiLocations.map(loc => [loc.id, loc])
-  );
-  
+  const apiMap = new Map(apiLocations.map((loc) => [loc.id, loc]));
+
   // Add localStorage locations that don't exist in API (keep removed locations per clarification)
   const mergedMap = new Map(apiMap);
-  
+
   for (const selection of localStorageSelections) {
     if (!mergedMap.has(selection.locationId) && selection.customLocation) {
       mergedMap.set(selection.locationId, selection.customLocation);
     }
   }
-  
+
   // Convert to array and apply selection state
-  return Array.from(mergedMap.values()).map(location => ({
+  return Array.from(mergedMap.values()).map((location) => ({
     ...location,
     isSelected: selectionsMap.get(location.id)?.isSelected ?? true,
-    roles: location.roles.map(role => {
+    roles: location.roles.map((role) => {
       const selection = selectionsMap.get(location.id);
-      const isSelected = selection?.selectedRoles 
+      const isSelected = selection?.selectedRoles
         ? selection.selectedRoles.includes(role.id)
         : true;
-      
+
       return {
         ...role,
-        isSelected
+        isSelected,
       };
-    })
+    }),
   }));
 }
 ```
@@ -271,11 +267,13 @@ const ExportConfigSchema = z.object({
   version: z.string().regex(/^\d+\.\d+\.\d+$/),
   timestamp: z.string().datetime(),
   appIdentifier: z.literal('cf-boardgames-spyfall'),
-  selections: z.array(z.object({
-    locationId: z.string(),
-    isSelected: z.boolean(),
-    selectedRoles: z.array(z.string()).optional()
-  }))
+  selections: z.array(
+    z.object({
+      locationId: z.string(),
+      isSelected: z.boolean(),
+      selectedRoles: z.array(z.string()).optional(),
+    })
+  ),
 });
 
 type ExportConfig = z.infer<typeof ExportConfigSchema>;
@@ -309,13 +307,13 @@ function exportConfig(selections: LocationSelection[]): void {
     version: '1.0.0',
     timestamp: new Date().toISOString(),
     appIdentifier: 'cf-boardgames-spyfall',
-    selections: selections.map(sel => ({
+    selections: selections.map((sel) => ({
       locationId: sel.locationId,
       isSelected: sel.isSelected,
-      ...(sel.selectedRoles && { selectedRoles: sel.selectedRoles })
-    }))
+      ...(sel.selectedRoles && { selectedRoles: sel.selectedRoles }),
+    })),
   };
-  
+
   const blob = new Blob([JSON.stringify(config, null, 2)], { type: 'application/json' });
   const url = URL.createObjectURL(blob);
   const link = document.createElement('a');
@@ -330,7 +328,7 @@ async function importConfig(file: File): Promise<LocationSelection[]> {
   const text = await file.text();
   const data = JSON.parse(text);
   const config = validateImport(data);
-  
+
   return config.selections;
 }
 ```
@@ -362,7 +360,7 @@ export function LocationList({ locations, onSelectionChange }: Props) {
 // LocationItem.tsx - memoized
 export const LocationItem = React.memo(({ location, onSelectionChange }: Props) => {
   const [isExpanded, setIsExpanded] = useState(false);
-  
+
   return (
     <div className="border rounded-lg p-4">
       <div className="flex items-center justify-between">
@@ -378,7 +376,7 @@ export const LocationItem = React.memo(({ location, onSelectionChange }: Props) 
           {isExpanded ? 'Collapse' : 'Expand'} Roles
         </button>
       </div>
-      
+
       {isExpanded && (
         <div className="mt-4 ml-6 space-y-1">
           {location.roles.map(role => (
@@ -418,9 +416,10 @@ import { useMemo } from 'react';
 import { debounce } from 'lodash';
 
 const debouncedSelectAll = useMemo(
-  () => debounce((selected: boolean) => {
-    setLocations(locs => locs.map(loc => ({ ...loc, isSelected: selected })));
-  }, 100),
+  () =>
+    debounce((selected: boolean) => {
+      setLocations((locs) => locs.map((loc) => ({ ...loc, isSelected: selected })));
+    }, 100),
   []
 );
 ```
@@ -438,9 +437,9 @@ class StorageManager {
   private readonly QUOTA_ERROR_MESSAGES = [
     'QuotaExceededError',
     'NS_ERROR_DOM_QUOTA_REACHED',
-    'quota'
+    'quota',
   ];
-  
+
   saveSelections(selections: LocationSelection[]): StorageResult {
     try {
       const data = JSON.stringify(selections);
@@ -451,33 +450,34 @@ class StorageManager {
         return {
           success: false,
           error: 'QUOTA_EXCEEDED',
-          message: 'Storage limit reached. Please export your configuration and clear browser data.'
+          message:
+            'Storage limit reached. Please export your configuration and clear browser data.',
         };
       }
-      
+
       if (this.isPrivacyMode(error)) {
         return {
           success: false,
           error: 'PRIVACY_MODE',
-          message: 'Storage unavailable in private mode. Your selections won\'t persist.'
+          message: "Storage unavailable in private mode. Your selections won't persist.",
         };
       }
-      
+
       return {
         success: false,
         error: 'UNKNOWN',
-        message: 'Failed to save selections. Please try again.'
+        message: 'Failed to save selections. Please try again.',
       };
     }
   }
-  
+
   private isQuotaError(error: unknown): boolean {
     const message = (error as Error)?.message || '';
-    return this.QUOTA_ERROR_MESSAGES.some(msg => 
+    return this.QUOTA_ERROR_MESSAGES.some((msg) =>
       message.toLowerCase().includes(msg.toLowerCase())
     );
   }
-  
+
   private isPrivacyMode(error: unknown): boolean {
     // In private mode, localStorage exists but throws on setItem
     try {
@@ -570,11 +570,11 @@ export function LocationListSkeleton() {
 // Usage in LocationCustomizer
 export function LocationCustomizer() {
   const { data: locations, isLoading } = useLocations();
-  
+
   if (isLoading) {
     return <LocationListSkeleton />;
   }
-  
+
   return <LocationList locations={locations} />;
 }
 ```
@@ -610,7 +610,7 @@ export function LocationList({ locations, isLoading }: Props) {
 export function useLocationsWithCache() {
   const [locations, setLocations] = useState<Location[]>(() => getCachedLocations());
   const [isRefreshing, setIsRefreshing] = useState(false);
-  
+
   useEffect(() => {
     async function fetchFresh() {
       setIsRefreshing(true);
@@ -623,7 +623,7 @@ export function useLocationsWithCache() {
     }
     fetchFresh();
   }, []);
-  
+
   return { locations, isRefreshing };
 }
 ```
@@ -649,6 +649,7 @@ All research areas have been investigated and decisions made:
 7. ✅ **Skeleton UI**: Manual loading states, purpose-built components
 
 All decisions align with the constitution:
+
 - ✅ Do Less, Get Works: Using existing APIs, no new frameworks
 - ✅ Declarative Style: Functional transformations, data-driven
 - ✅ Readability First: Clear patterns, explicit error handling

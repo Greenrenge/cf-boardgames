@@ -65,13 +65,13 @@ function validateLocation(location: unknown): Location {
       hi: z.string().min(1),
       es: z.string().min(1),
       fr: z.string().min(1),
-      ar: z.string().min(1)
+      ar: z.string().min(1),
     }),
     roles: z.array(z.custom<Role>()).min(1).max(10),
     imageUrl: z.string().url().optional(),
-    isSelected: z.boolean().default(true)
+    isSelected: z.boolean().default(true),
   });
-  
+
   return schema.parse(location);
 }
 ```
@@ -143,12 +143,12 @@ function validateRole(role: unknown): Role {
       hi: z.string().min(1),
       es: z.string().min(1),
       fr: z.string().min(1),
-      ar: z.string().min(1)
+      ar: z.string().min(1),
     }),
     locationId: z.string().optional(),
-    isSelected: z.boolean().default(true)
+    isSelected: z.boolean().default(true),
   });
-  
+
   return schema.parse(role);
 }
 ```
@@ -207,7 +207,7 @@ interface APIResponse {
 const APIResponseSchema = z.object({
   version: z.string().regex(/^\d+\.\d+\.\d+$/),
   timestamp: z.string().datetime(),
-  locations: z.array(z.custom<Location>()).min(1).max(200)
+  locations: z.array(z.custom<Location>()).min(1).max(200),
 });
 ```
 
@@ -260,7 +260,7 @@ const LocationSelectionSchema = z.object({
   locationId: z.string().min(1),
   isSelected: z.boolean(),
   selectedRoles: z.array(z.string()).min(1).optional(), // Must have at least 1 if present
-  timestamp: z.string().datetime().optional()
+  timestamp: z.string().datetime().optional(),
 });
 ```
 
@@ -553,26 +553,19 @@ User clicks "Reset"
 ### 1. API Response → Merged Locations
 
 ```typescript
-function applySelections(
-  apiLocations: Location[],
-  selections: LocationSelection[]
-): Location[] {
-  const selectionsMap = new Map(
-    selections.map(sel => [sel.locationId, sel])
-  );
-  
-  return apiLocations.map(location => {
+function applySelections(apiLocations: Location[], selections: LocationSelection[]): Location[] {
+  const selectionsMap = new Map(selections.map((sel) => [sel.locationId, sel]));
+
+  return apiLocations.map((location) => {
     const selection = selectionsMap.get(location.id);
-    
+
     return {
       ...location,
       isSelected: selection?.isSelected ?? true,
-      roles: location.roles.map(role => ({
+      roles: location.roles.map((role) => ({
         ...role,
-        isSelected: selection?.selectedRoles
-          ? selection.selectedRoles.includes(role.id)
-          : true
-      }))
+        isSelected: selection?.selectedRoles ? selection.selectedRoles.includes(role.id) : true,
+      })),
     };
   });
 }
@@ -583,19 +576,18 @@ function applySelections(
 ```typescript
 function extractSelections(locations: Location[]): LocationSelection[] {
   return locations
-    .filter(loc => {
+    .filter((loc) => {
       // Only save if not default state
-      const hasCustomSelection = !loc.isSelected || 
-        loc.roles.some(role => !role.isSelected);
+      const hasCustomSelection = !loc.isSelected || loc.roles.some((role) => !role.isSelected);
       return hasCustomSelection;
     })
-    .map(loc => ({
+    .map((loc) => ({
       locationId: loc.id,
       isSelected: loc.isSelected,
-      selectedRoles: loc.roles.every(role => role.isSelected)
+      selectedRoles: loc.roles.every((role) => role.isSelected)
         ? undefined // All selected = omit array
-        : loc.roles.filter(role => role.isSelected).map(role => role.id),
-      timestamp: new Date().toISOString()
+        : loc.roles.filter((role) => role.isSelected).map((role) => role.id),
+      timestamp: new Date().toISOString(),
     }));
 }
 ```
@@ -608,7 +600,7 @@ function createExportConfig(config: LocalStorageConfig): ExportConfig {
     version: '1.0.0',
     timestamp: new Date().toISOString(),
     appIdentifier: 'cf-boardgames-spyfall',
-    selections: config.selections
+    selections: config.selections,
   };
 }
 ```
@@ -624,7 +616,7 @@ function importConfig(
     selections: exportConfig.selections,
     customLocations: existingConfig.customLocations, // Preserve custom locations
     lastUpdated: new Date().toISOString(),
-    version: exportConfig.version
+    version: exportConfig.version,
   };
 }
 ```
@@ -637,32 +629,23 @@ function importConfig(
 
 ```typescript
 function getEnabledLocations(locations: Location[]): Location[] {
-  return locations.filter(loc => 
-    loc.isSelected && 
-    loc.roles.some(role => role.isSelected)
-  );
+  return locations.filter((loc) => loc.isSelected && loc.roles.some((role) => role.isSelected));
 }
 ```
 
 ### Get location by ID
 
 ```typescript
-function getLocationById(
-  locations: Location[],
-  id: string
-): Location | undefined {
-  return locations.find(loc => loc.id === id);
+function getLocationById(locations: Location[], id: string): Location | undefined {
+  return locations.find((loc) => loc.id === id);
 }
 ```
 
 ### Get role by ID within location
 
 ```typescript
-function getRoleById(
-  location: Location,
-  roleId: string
-): Role | undefined {
-  return location.roles.find(role => role.id === roleId);
+function getRoleById(location: Location, roleId: string): Role | undefined {
+  return location.roles.find((role) => role.id === roleId);
 }
 ```
 
@@ -703,7 +686,7 @@ function migrateConfig(config: any): LocalStorageConfig {
     return {
       ...config,
       newField: defaultValue,
-      version: '2.0.0'
+      version: '2.0.0',
     };
   }
   return config;
@@ -715,12 +698,12 @@ function migrateConfig(config: any): LocalStorageConfig {
 ```typescript
 function importWithMigration(fileData: any): LocalStorageConfig {
   const version = fileData.version || '1.0.0';
-  
+
   if (version === '1.0.0') {
     // Current version, no migration needed
     return validateAndImport(fileData);
   }
-  
+
   throw new Error(`Unsupported export version: ${version}`);
 }
 ```

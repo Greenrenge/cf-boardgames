@@ -1,222 +1,246 @@
 {
-  "openapi": "3.0.0",
-  "info": {
-    "title": "Location API",
-    "version": "1.0.0",
-    "description": "API for fetching game location data with translations"
-  },
-  "servers": [
-    {
-      "url": "/api",
-      "description": "Local API endpoint"
-    }
-  ],
-  "paths": {
-    "/locations": {
-      "get": {
-        "summary": "Get all locations with translations",
-        "description": "Returns all available game locations with names and roles in all supported languages",
-        "operationId": "getLocations",
-        "tags": ["locations"],
-        "responses": {
-          "200": {
-            "description": "Successful response with location data",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/APIResponse"
-                },
-                "examples": {
-                  "success": {
-                    "value": {
-                      "version": "1.0.0",
-                      "timestamp": "2025-10-30T12:00:00Z",
-                      "locations": [
-                        {
-                          "id": "hospital",
-                          "names": {
-                            "en": "Hospital",
-                            "th": "โรงพยาบาล",
-                            "zh": "医院",
-                            "hi": "अस्पताल",
-                            "es": "Hospital",
-                            "fr": "Hôpital",
-                            "ar": "مستشفى"
-                          },
-                          "roles": [
-                            {
-                              "id": "doctor",
-                              "names": {
-                                "en": "Doctor",
-                                "th": "แพทย์",
-                                "zh": "医生",
-                                "hi": "डॉक्टर",
-                                "es": "Médico",
-                                "fr": "Médecin",
-                                "ar": "طبيب"
-                              }
-                            }
-                          ],
-                          "imageUrl": "/images/locations/hospital.jpg"
-                        }
-                      ]
-                    }
-                  }
-                }
-              }
-            }
-          },
-          "500": {
-            "description": "Internal server error",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Error"
-                }
-              }
-            }
-          }
-        }
-      }
-    }
-  },
-  "components": {
-    "schemas": {
-      "APIResponse": {
-        "type": "object",
-        "required": ["version", "timestamp", "locations"],
-        "properties": {
-          "version": {
-            "type": "string",
-            "pattern": "^\\d+\\.\\d+\\.\\d+$",
-            "description": "API version in semver format",
-            "example": "1.0.0"
-          },
-          "timestamp": {
-            "type": "string",
-            "format": "date-time",
-            "description": "When the response was generated",
-            "example": "2025-10-30T12:00:00Z"
-          },
-          "locations": {
-            "type": "array",
-            "description": "Array of all available locations",
-            "minItems": 1,
-            "maxItems": 200,
-            "items": {
-              "$ref": "#/components/schemas/Location"
-            }
-          }
-        }
-      },
-      "Location": {
-        "type": "object",
-        "required": ["id", "names", "roles"],
-        "properties": {
-          "id": {
-            "type": "string",
-            "description": "Unique location identifier in kebab-case",
-            "pattern": "^[a-z0-9-]+$",
-            "minLength": 1,
-            "maxLength": 50,
-            "example": "hospital"
-          },
-          "names": {
-            "$ref": "#/components/schemas/LocalizedNames",
-            "description": "Location names in all supported languages"
-          },
-          "roles": {
-            "type": "array",
-            "description": "Roles available at this location",
-            "minItems": 1,
-            "maxItems": 10,
-            "items": {
-              "$ref": "#/components/schemas/Role"
-            }
-          },
-          "imageUrl": {
-            "type": "string",
-            "format": "uri",
-            "description": "Optional URL to location image",
-            "example": "/images/locations/hospital.jpg"
-          }
-        }
-      },
-      "Role": {
-        "type": "object",
-        "required": ["id", "names"],
-        "properties": {
-          "id": {
-            "type": "string",
-            "description": "Unique role identifier within location (kebab-case)",
-            "pattern": "^[a-z0-9-]+$",
-            "minLength": 1,
-            "maxLength": 50,
-            "example": "doctor"
-          },
-          "names": {
-            "$ref": "#/components/schemas/LocalizedNames",
-            "description": "Role names in all supported languages"
-          }
-        }
-      },
-      "LocalizedNames": {
-        "type": "object",
-        "required": ["en", "th", "zh", "hi", "es", "fr", "ar"],
-        "properties": {
-          "en": {
-            "type": "string",
-            "minLength": 1,
-            "description": "English name"
-          },
-          "th": {
-            "type": "string",
-            "minLength": 1,
-            "description": "Thai name"
-          },
-          "zh": {
-            "type": "string",
-            "minLength": 1,
-            "description": "Mandarin Chinese name"
-          },
-          "hi": {
-            "type": "string",
-            "minLength": 1,
-            "description": "Hindi name"
-          },
-          "es": {
-            "type": "string",
-            "minLength": 1,
-            "description": "Spanish name"
-          },
-          "fr": {
-            "type": "string",
-            "minLength": 1,
-            "description": "French name"
-          },
-          "ar": {
-            "type": "string",
-            "minLength": 1,
-            "description": "Arabic name"
-          }
-        }
-      },
-      "Error": {
-        "type": "object",
-        "required": ["error", "message"],
-        "properties": {
-          "error": {
-            "type": "string",
-            "description": "Error code",
-            "example": "INTERNAL_SERVER_ERROR"
-          },
-          "message": {
-            "type": "string",
-            "description": "Human-readable error message",
-            "example": "Failed to fetch location data"
-          }
-        }
-      }
-    }
-  }
+	"openapi": "3.0.0",
+	"info": {
+		"title": "Location API",
+		"version": "1.0.0",
+		"description": "API for fetching game location data with translations"
+	},
+	"servers": [
+		{
+			"url": "/api",
+			"description": "Local API endpoint"
+		}
+	],
+	"paths": {
+		"/locations": {
+			"get": {
+				"summary": "Get all locations with translations",
+				"description": "Returns all available game locations with names and roles in all supported languages",
+				"operationId": "getLocations",
+				"tags": [
+					"locations"
+				],
+				"responses": {
+					"200": {
+						"description": "Successful response with location data",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/APIResponse"
+								},
+								"examples": {
+									"success": {
+										"value": {
+											"version": "1.0.0",
+											"timestamp": "2025-10-30T12:00:00Z",
+											"locations": [
+												{
+													"id": "hospital",
+													"names": {
+														"en": "Hospital",
+														"th": "โรงพยาบาล",
+														"zh": "医院",
+														"hi": "अस्पताल",
+														"es": "Hospital",
+														"fr": "Hôpital",
+														"ar": "مستشفى"
+													},
+													"roles": [
+														{
+															"id": "doctor",
+															"names": {
+																"en": "Doctor",
+																"th": "แพทย์",
+																"zh": "医生",
+																"hi": "डॉक्टर",
+																"es": "Médico",
+																"fr": "Médecin",
+																"ar": "طبيب"
+															}
+														}
+													],
+													"imageUrl": "/images/locations/hospital.jpg"
+												}
+											]
+										}
+									}
+								}
+							}
+						}
+					},
+					"500": {
+						"description": "Internal server error",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/Error"
+								}
+							}
+						}
+					}
+				}
+			}
+		}
+	},
+	"components": {
+		"schemas": {
+			"APIResponse": {
+				"type": "object",
+				"required": [
+					"version",
+					"timestamp",
+					"locations"
+				],
+				"properties": {
+					"version": {
+						"type": "string",
+						"pattern": "^\\d+\\.\\d+\\.\\d+$",
+						"description": "API version in semver format",
+						"example": "1.0.0"
+					},
+					"timestamp": {
+						"type": "string",
+						"format": "date-time",
+						"description": "When the response was generated",
+						"example": "2025-10-30T12:00:00Z"
+					},
+					"locations": {
+						"type": "array",
+						"description": "Array of all available locations",
+						"minItems": 1,
+						"maxItems": 200,
+						"items": {
+							"$ref": "#/components/schemas/Location"
+						}
+					}
+				}
+			},
+			"Location": {
+				"type": "object",
+				"required": [
+					"id",
+					"names",
+					"roles"
+				],
+				"properties": {
+					"id": {
+						"type": "string",
+						"description": "Unique location identifier in kebab-case",
+						"pattern": "^[a-z0-9-]+$",
+						"minLength": 1,
+						"maxLength": 50,
+						"example": "hospital"
+					},
+					"names": {
+						"$ref": "#/components/schemas/LocalizedNames",
+						"description": "Location names in all supported languages"
+					},
+					"roles": {
+						"type": "array",
+						"description": "Roles available at this location",
+						"minItems": 1,
+						"maxItems": 10,
+						"items": {
+							"$ref": "#/components/schemas/Role"
+						}
+					},
+					"imageUrl": {
+						"type": "string",
+						"format": "uri",
+						"description": "Optional URL to location image",
+						"example": "/images/locations/hospital.jpg"
+					}
+				}
+			},
+			"Role": {
+				"type": "object",
+				"required": [
+					"id",
+					"names"
+				],
+				"properties": {
+					"id": {
+						"type": "string",
+						"description": "Unique role identifier within location (kebab-case)",
+						"pattern": "^[a-z0-9-]+$",
+						"minLength": 1,
+						"maxLength": 50,
+						"example": "doctor"
+					},
+					"names": {
+						"$ref": "#/components/schemas/LocalizedNames",
+						"description": "Role names in all supported languages"
+					}
+				}
+			},
+			"LocalizedNames": {
+				"type": "object",
+				"required": [
+					"en",
+					"th",
+					"zh",
+					"hi",
+					"es",
+					"fr",
+					"ar"
+				],
+				"properties": {
+					"en": {
+						"type": "string",
+						"minLength": 1,
+						"description": "English name"
+					},
+					"th": {
+						"type": "string",
+						"minLength": 1,
+						"description": "Thai name"
+					},
+					"zh": {
+						"type": "string",
+						"minLength": 1,
+						"description": "Mandarin Chinese name"
+					},
+					"hi": {
+						"type": "string",
+						"minLength": 1,
+						"description": "Hindi name"
+					},
+					"es": {
+						"type": "string",
+						"minLength": 1,
+						"description": "Spanish name"
+					},
+					"fr": {
+						"type": "string",
+						"minLength": 1,
+						"description": "French name"
+					},
+					"ar": {
+						"type": "string",
+						"minLength": 1,
+						"description": "Arabic name"
+					}
+				}
+			},
+			"Error": {
+				"type": "object",
+				"required": [
+					"error",
+					"message"
+				],
+				"properties": {
+					"error": {
+						"type": "string",
+						"description": "Error code",
+						"example": "INTERNAL_SERVER_ERROR"
+					},
+					"message": {
+						"type": "string",
+						"description": "Human-readable error message",
+						"example": "Failed to fetch location data"
+					}
+				}
+			}
+		}
+	}
 }

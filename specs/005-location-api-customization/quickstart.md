@@ -29,6 +29,7 @@ const loadData = async () => {
 ```
 
 **Key Points:**
+
 - First call fetches from `/api/locations` (takes ~2-3 seconds)
 - Response cached in localStorage for 24 hours
 - Subsequent calls within 24 hours load instantly from cache
@@ -42,11 +43,11 @@ const loadData = async () => {
 Users can customize which locations/roles to include in the game:
 
 ```typescript
-import { 
-  saveLocationSelections, 
+import {
+  saveLocationSelections,
   getLocationSelections,
   toggleLocationSelection,
-  toggleRoleSelection 
+  toggleRoleSelection,
 } from '@/lib/storage';
 
 // Toggle entire location on/off
@@ -66,6 +67,7 @@ console.log('User selections:', selections);
 ```
 
 **Key Points:**
+
 - All changes persist immediately to localStorage
 - Changes are indefinite (no expiration)
 - Selections override API defaults
@@ -86,7 +88,7 @@ import { exportConfig } from '@/lib/storage';
 // Export current configuration to JSON file
 const handleExport = () => {
   const configJson = exportConfig();
-  
+
   // Create download link
   const blob = new Blob([configJson], { type: 'application/json' });
   const url = URL.createObjectURL(blob);
@@ -108,7 +110,7 @@ const handleImport = async (file: File) => {
   try {
     const text = await file.text();
     const success = importConfig(text);
-    
+
     if (success) {
       alert('Configuration imported successfully!');
       // Trigger UI refresh to show imported selections
@@ -123,8 +125,8 @@ const handleImport = async (file: File) => {
 };
 
 // In your component
-<input 
-  type="file" 
+<input
+  type="file"
   accept=".json"
   onChange={(e) => {
     const file = e.target.files?.[0];
@@ -134,6 +136,7 @@ const handleImport = async (file: File) => {
 ```
 
 **Export Format:**
+
 ```json
 {
   "version": "1.0.0",
@@ -153,6 +156,7 @@ const handleImport = async (file: File) => {
 ```
 
 **Key Points:**
+
 - Export generates minimal JSON (only selections, no translations)
 - Import validates against JSON Schema before applying
 - Invalid imports are rejected safely (no data corruption)
@@ -200,11 +204,13 @@ Add new location to your data source (e.g., JSON file or database):
 ```
 
 **Required Fields:**
+
 - `id`: Unique kebab-case identifier
 - `names`: Object with all 7 language codes (en, th, zh, hi, es, fr, ar)
 - `roles`: Array of at least 1 role, each with id and names
 
 **Optional Fields:**
+
 - `imageUrl`: Path to location image (recommended)
 
 #### Step 2: Clear Cache
@@ -222,6 +228,7 @@ const locations = await fetchLocations(); // Will fetch from API
 ```
 
 **Key Points:**
+
 - API validates all required fields before accepting data
 - Missing translations will cause API validation errors
 - Use consistent ID format (kebab-case)
@@ -239,10 +246,10 @@ import { useLocale } from 'next-intl';
 
 const MyComponent = ({ location }: { location: Location }) => {
   const locale = useLocale() as LocaleCode;
-  
+
   // Get translated location name
   const locationName = location.names[locale];
-  
+
   return (
     <div>
       <h2>{locationName}</h2>
@@ -260,6 +267,7 @@ const MyComponent = ({ location }: { location: Location }) => {
 ```
 
 **Supported Locales:**
+
 - `en` - English
 - `th` - Thai (ไทย)
 - `zh` - Mandarin Chinese (中文)
@@ -269,6 +277,7 @@ const MyComponent = ({ location }: { location: Location }) => {
 - `ar` - Arabic (العربية)
 
 **Key Points:**
+
 - All locations include all 7 translations
 - No fallback needed (all translations guaranteed by API)
 - RTL support handled automatically for Arabic
@@ -317,11 +326,13 @@ const MyComponent = ({ location }: { location: Location }) => {
 ### Problem: Locations not loading
 
 **Symptoms:**
+
 - Spinner displays indefinitely
 - Error message shown
 - Console shows API error
 
 **Solutions:**
+
 1. Check network tab for API response
 2. Verify API endpoint is accessible: `/api/locations`
 3. Check console for validation errors
@@ -330,11 +341,13 @@ const MyComponent = ({ location }: { location: Location }) => {
 ### Problem: Changes not persisting
 
 **Symptoms:**
+
 - Toggle location/role but change reverts
 - Export doesn't include changes
 - Selections reset on page refresh
 
 **Solutions:**
+
 1. Check localStorage quota (5MB limit)
 2. Verify browser allows localStorage
 3. Check console for storage errors
@@ -343,11 +356,13 @@ const MyComponent = ({ location }: { location: Location }) => {
 ### Problem: Import fails
 
 **Symptoms:**
+
 - Import doesn't apply
 - Error message about invalid format
 - Console shows validation error
 
 **Solutions:**
+
 1. Validate JSON syntax (use JSONLint)
 2. Check `appIdentifier` matches `"cf-boardgames-spyfall"`
 3. Ensure all location IDs exist in current API
@@ -357,11 +372,13 @@ const MyComponent = ({ location }: { location: Location }) => {
 ### Problem: Translations missing or incorrect
 
 **Symptoms:**
+
 - Location/role shows wrong language
 - Text appears as object or undefined
 - RTL not working for Arabic
 
 **Solutions:**
+
 1. Verify `useLocale()` returns valid LocaleCode
 2. Check API response includes all 7 languages
 3. Clear API cache to get fresh translations
@@ -371,10 +388,12 @@ const MyComponent = ({ location }: { location: Location }) => {
 ### Problem: New locations not appearing
 
 **Symptoms:**
+
 - Added location to API but not visible
 - Old data still showing
 
 **Solutions:**
+
 1. Clear API cache: `clearApiCache()`
 2. Force hard refresh: Cmd+Shift+R (Mac) or Ctrl+Shift+R (Windows)
 3. Check API response in network tab
@@ -388,6 +407,7 @@ const MyComponent = ({ location }: { location: Location }) => {
 ### Large Location Lists (80-120 items)
 
 1. **Use React.memo for Location Components:**
+
    ```typescript
    const LocationCard = React.memo(({ location }: Props) => {
      // Component implementation
@@ -395,26 +415,28 @@ const MyComponent = ({ location }: { location: Location }) => {
    ```
 
 2. **Batch Selection Updates:**
+
    ```typescript
    // Good: Single update
    const selectMultiple = (locationIds: string[]) => {
      const selections = getLocationSelections();
-     locationIds.forEach(id => {
+     locationIds.forEach((id) => {
        selections[id].isSelected = true;
      });
      saveLocationSelections(selections);
    };
-   
+
    // Avoid: Multiple updates
-   locationIds.forEach(id => toggleLocationSelection(id)); // Slow!
+   locationIds.forEach((id) => toggleLocationSelection(id)); // Slow!
    ```
 
 3. **Debounce Search/Filter:**
    ```typescript
    const debouncedFilter = useMemo(
-     () => debounce((query: string) => {
-       setFilteredLocations(filterByName(locations, query));
-     }, 300),
+     () =>
+       debounce((query: string) => {
+         setFilteredLocations(filterByName(locations, query));
+       }, 300),
      [locations]
    );
    ```

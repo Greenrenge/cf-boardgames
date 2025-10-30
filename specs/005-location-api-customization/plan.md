@@ -146,12 +146,14 @@ Based on the specification and clarifications, the following areas need research
 **Objective**: Define the optimal structure for location API response
 
 **Questions**:
+
 - How should translations be nested? (flat vs nested by locale)
 - Should role data be embedded in locations or separate endpoint?
 - What metadata is needed? (version, timestamp, etag for caching)
 - How to structure for efficient client-side merging?
 
 **Approach**:
+
 - Review existing location data structure in `data/locations.json`
 - Research REST API best practices for i18n data
 - Evaluate flat vs nested translation structures
@@ -162,12 +164,14 @@ Based on the specification and clarifications, the following areas need research
 **Objective**: Implement 24-hour cache that survives page reloads
 
 **Questions**:
+
 - localStorage vs IndexedDB vs Cache API for API response caching?
 - How to store timestamps for expiration?
 - How to invalidate cache on-demand?
 - How to handle cache versioning?
 
 **Approach**:
+
 - Compare storage APIs (size limits, performance, browser support)
 - Research cache invalidation patterns
 - Evaluate cache-control headers vs client-side expiration
@@ -177,12 +181,14 @@ Based on the specification and clarifications, the following areas need research
 **Objective**: Create efficient, predictable merge logic
 
 **Questions**:
+
 - How to identify matching locations by ID?
 - What fields should localStorage override vs API?
 - How to handle removed locations (keep vs discard)?
 - How to avoid duplicate processing on every render?
 
 **Approach**:
+
 - Define merge priority rules clearly
 - Create pseudo-code for merge algorithm
 - Identify edge cases (null fields, missing IDs, type mismatches)
@@ -193,12 +199,14 @@ Based on the specification and clarifications, the following areas need research
 **Objective**: Define JSON schema for configuration files
 
 **Questions**:
+
 - Should export include full location data or just selections?
 - How to handle versioning for forward/backward compatibility?
 - What validation is needed on import?
 - How to make files human-readable for debugging?
 
 **Approach**:
+
 - Review JSON schema standards
 - Design minimal format (IDs + selections only)
 - Add metadata fields (version, timestamp, app identifier)
@@ -209,12 +217,14 @@ Based on the specification and clarifications, the following areas need research
 **Objective**: Ensure smooth UX with 80-120 location items
 
 **Questions**:
+
 - Is virtualization needed for 100 items?
 - How to handle expanding/collapsing roles efficiently?
 - Should "select all" / "deselect all" be debounced?
 - How to show loading states without blocking UI?
 
 **Approach**:
+
 - Research React virtualization libraries (react-window, react-virtualized)
 - Review Tailwind CSS patterns for lists
 - Evaluate whether plain scrolling is sufficient (likely yes for 100 items)
@@ -225,12 +235,14 @@ Based on the specification and clarifications, the following areas need research
 **Objective**: Handle quota exceeded and privacy mode gracefully
 
 **Questions**:
+
 - What's the typical size of selection data?
 - How to detect when quota is exceeded?
 - What fallback behavior if localStorage unavailable?
 - How to communicate errors to users?
 
 **Approach**:
+
 - Calculate approximate size of selection data
 - Research localStorage quota limits by browser
 - Test in private/incognito mode
@@ -241,12 +253,14 @@ Based on the specification and clarifications, the following areas need research
 **Objective**: Implement non-blocking loading indicators
 
 **Questions**:
+
 - Should we use React Suspense or manual loading states?
 - What should skeleton UI look like for location list?
 - How to transition from skeleton to real content smoothly?
 - Should skeleton match exact layout or be generic?
 
 **Approach**:
+
 - Review modern skeleton UI libraries (react-loading-skeleton)
 - Evaluate Next.js built-in loading.tsx pattern
 - Design skeleton components that match location list layout
@@ -320,13 +334,13 @@ Location:
       type: object
       description: Location names by locale
       properties:
-        en: {type: string}
-        th: {type: string}
-        zh: {type: string}
-        hi: {type: string}
-        es: {type: string}
-        fr: {type: string}
-        ar: {type: string}
+        en: { type: string }
+        th: { type: string }
+        zh: { type: string }
+        hi: { type: string }
+        es: { type: string }
+        fr: { type: string }
+        ar: { type: string }
     roles:
       type: array
       items:
@@ -347,13 +361,13 @@ Role:
       type: object
       description: Role names by locale
       properties:
-        en: {type: string}
-        th: {type: string}
-        zh: {type: string}
-        hi: {type: string}
-        es: {type: string}
-        fr: {type: string}
-        ar: {type: string}
+        en: { type: string }
+        th: { type: string }
+        zh: { type: string }
+        hi: { type: string }
+        es: { type: string }
+        fr: { type: string }
+        ar: { type: string }
 ```
 
 #### Export Configuration File Schema
@@ -396,7 +410,7 @@ Role:
           },
           "selectedRoles": {
             "type": "array",
-            "items": {"type": "string"},
+            "items": { "type": "string" },
             "description": "Optional: if omitted, all roles selected"
           }
         }
@@ -409,6 +423,7 @@ Role:
 ### Data Model Output
 
 Will generate `data-model.md` with:
+
 - Detailed entity definitions
 - TypeScript interfaces
 - Validation rules
@@ -418,6 +433,7 @@ Will generate `data-model.md` with:
 ### Quickstart Output
 
 Will generate `quickstart.md` with:
+
 - How to fetch locations from API
 - How to customize location selections in UI
 - How to export/import configurations
@@ -427,6 +443,7 @@ Will generate `quickstart.md` with:
 ### Agent Context Update
 
 After Phase 1 completion:
+
 - Run `.specify/scripts/bash/update-agent-context.sh copilot` (if exists)
 - Or manually update `.github/copilot-instructions.md`
 - Add new dependencies: (none expected, using existing Next.js/React)
@@ -453,6 +470,7 @@ Existing code references static translation files (`locales/{lang}/locations.jso
 ### Caching Implementation Details
 
 The 24-hour cache needs to:
+
 - Store full API response in localStorage (not just data, but timestamp too)
 - Check cache age on every fetch attempt
 - Fall back to cache if API fails AND cache is < 24 hours old
@@ -462,6 +480,7 @@ The 24-hour cache needs to:
 ### localStorage Structure
 
 Recommended structure:
+
 ```typescript
 {
   "location-api-cache": {

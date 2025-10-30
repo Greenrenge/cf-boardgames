@@ -1,114 +1,138 @@
 {
-  "$schema": "http://json-schema.org/draft-07/schema#",
-  "$id": "https://cf-boardgames.app/schemas/export-config.json",
-  "title": "Location Export Configuration",
-  "description": "JSON schema for exported location selection configuration",
-  "type": "object",
-  "required": ["version", "timestamp", "appIdentifier", "selections"],
-  "properties": {
-    "version": {
-      "type": "string",
-      "pattern": "^\\d+\\.\\d+\\.\\d+$",
-      "description": "Export format version in semver",
-      "examples": ["1.0.0"]
-    },
-    "timestamp": {
-      "type": "string",
-      "format": "date-time",
-      "description": "When the export was created",
-      "examples": ["2025-10-30T12:00:00Z"]
-    },
-    "appIdentifier": {
-      "type": "string",
-      "const": "cf-boardgames-spyfall",
-      "description": "App identifier to validate import compatibility"
-    },
-    "selections": {
-      "type": "array",
-      "description": "Array of user-selected location and role configurations",
-      "minItems": 0,
-      "maxItems": 200,
-      "items": {
-        "$ref": "#/definitions/LocationSelection"
-      }
-    }
-  },
-  "additionalProperties": false,
-  "definitions": {
-    "LocationSelection": {
-      "type": "object",
-      "required": ["locationId", "isSelected", "roles"],
-      "properties": {
-        "locationId": {
-          "type": "string",
-          "pattern": "^[a-z0-9-]+$",
-          "minLength": 1,
-          "maxLength": 50,
-          "description": "Unique location identifier matching API location.id",
-          "examples": ["hospital", "beach", "school"]
-        },
-        "isSelected": {
-          "type": "boolean",
-          "description": "Whether the location is included in the game"
-        },
-        "roles": {
-          "type": "array",
-          "description": "Role selection overrides for this location",
-          "minItems": 0,
-          "maxItems": 10,
-          "items": {
-            "$ref": "#/definitions/RoleSelection"
-          }
-        }
-      },
-      "additionalProperties": false
-    },
-    "RoleSelection": {
-      "type": "object",
-      "required": ["roleId", "isSelected"],
-      "properties": {
-        "roleId": {
-          "type": "string",
-          "pattern": "^[a-z0-9-]+$",
-          "minLength": 1,
-          "maxLength": 50,
-          "description": "Unique role identifier matching API role.id",
-          "examples": ["doctor", "nurse", "patient"]
-        },
-        "isSelected": {
-          "type": "boolean",
-          "description": "Whether the role is included for this location"
-        }
-      },
-      "additionalProperties": false
-    }
-  },
-  "examples": [
-    {
-      "version": "1.0.0",
-      "timestamp": "2025-10-30T12:00:00Z",
-      "appIdentifier": "cf-boardgames-spyfall",
-      "selections": [
-        {
-          "locationId": "hospital",
-          "isSelected": true,
-          "roles": [
-            {
-              "roleId": "doctor",
-              "isSelected": true
-            },
-            {
-              "roleId": "nurse",
-              "isSelected": false
-            }
-          ]
-        },
-        {
-          "locationId": "beach",
-          "isSelected": false,
-          "roles": []
-        }
-      ]
-    }
-  ]
+	"$schema": "http://json-schema.org/draft-07/schema#",
+	"$id": "https://cf-boardgames.app/schemas/export-config.json",
+	"title": "Location Export Configuration",
+	"description": "JSON schema for exported location selection configuration",
+	"type": "object",
+	"required": [
+		"version",
+		"timestamp",
+		"appIdentifier",
+		"selections"
+	],
+	"properties": {
+		"version": {
+			"type": "string",
+			"pattern": "^\\d+\\.\\d+\\.\\d+$",
+			"description": "Export format version in semver",
+			"examples": [
+				"1.0.0"
+			]
+		},
+		"timestamp": {
+			"type": "string",
+			"format": "date-time",
+			"description": "When the export was created",
+			"examples": [
+				"2025-10-30T12:00:00Z"
+			]
+		},
+		"appIdentifier": {
+			"type": "string",
+			"const": "cf-boardgames-spyfall",
+			"description": "App identifier to validate import compatibility"
+		},
+		"selections": {
+			"type": "array",
+			"description": "Array of user-selected location and role configurations",
+			"minItems": 0,
+			"maxItems": 200,
+			"items": {
+				"$ref": "#/definitions/LocationSelection"
+			}
+		}
+	},
+	"additionalProperties": false,
+	"definitions": {
+		"LocationSelection": {
+			"type": "object",
+			"required": [
+				"locationId",
+				"isSelected",
+				"roles"
+			],
+			"properties": {
+				"locationId": {
+					"type": "string",
+					"pattern": "^[a-z0-9-]+$",
+					"minLength": 1,
+					"maxLength": 50,
+					"description": "Unique location identifier matching API location.id",
+					"examples": [
+						"hospital",
+						"beach",
+						"school"
+					]
+				},
+				"isSelected": {
+					"type": "boolean",
+					"description": "Whether the location is included in the game"
+				},
+				"roles": {
+					"type": "array",
+					"description": "Role selection overrides for this location",
+					"minItems": 0,
+					"maxItems": 10,
+					"items": {
+						"$ref": "#/definitions/RoleSelection"
+					}
+				}
+			},
+			"additionalProperties": false
+		},
+		"RoleSelection": {
+			"type": "object",
+			"required": [
+				"roleId",
+				"isSelected"
+			],
+			"properties": {
+				"roleId": {
+					"type": "string",
+					"pattern": "^[a-z0-9-]+$",
+					"minLength": 1,
+					"maxLength": 50,
+					"description": "Unique role identifier matching API role.id",
+					"examples": [
+						"doctor",
+						"nurse",
+						"patient"
+					]
+				},
+				"isSelected": {
+					"type": "boolean",
+					"description": "Whether the role is included for this location"
+				}
+			},
+			"additionalProperties": false
+		}
+	},
+	"examples": [
+		{
+			"version": "1.0.0",
+			"timestamp": "2025-10-30T12:00:00Z",
+			"appIdentifier": "cf-boardgames-spyfall",
+			"selections": [
+				{
+					"locationId": "hospital",
+					"isSelected": true,
+					"roles": [
+						{
+							"roleId": "doctor",
+							"isSelected": true
+						},
+						{
+							"roleId": "nurse",
+							"isSelected": false
+						}
+					]
+				},
+				{
+					"locationId": "beach",
+					"isSelected": false,
+					"roles": []
+				}
+			]
+		}
+	]
 }
