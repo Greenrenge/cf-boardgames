@@ -567,14 +567,10 @@ export default function RoomPage() {
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-blue-50 to-purple-50 dark:from-slate-900 dark:to-slate-800 py-8 px-4">
-      {/* Top right controls */}
-      <div className="fixed top-4 right-4 z-50 flex items-center gap-3">
-        <LanguageSwitcher />
-        <ThemeToggle />
-      </div>
-
-      <div className="max-w-2xl mx-auto mb-6">
-        <div className="flex items-center justify-between gap-4">
+      <div className="max-w-6xl mx-auto mb-6">
+        {/* Navigation bar with all controls */}
+        <div className="flex items-center justify-between gap-4 flex-wrap">
+          {/* Left side - Back button */}
           <button
             onClick={handleBackToHome}
             className="flex items-center space-x-2 px-4 py-2 text-gray-700 dark:text-gray-200 bg-white dark:bg-slate-800 rounded-lg shadow-sm hover:bg-gray-50 dark:hover:bg-slate-700 transition-colors border border-gray-200 dark:border-slate-700"
@@ -589,14 +585,20 @@ export default function RoomPage() {
             </svg>
             <span>{t('message.back')}</span>
           </button>
-          <div className="flex items-center space-x-2 px-4 py-2 bg-white dark:bg-slate-800 rounded-lg shadow-sm border border-gray-200 dark:border-slate-700">
-            <div
-              className="w-2 h-2 rounded-full bg-green-500"
-              title={t('message.youAreOnline')}
-            ></div>
-            <span className="text-gray-700 dark:text-gray-200 font-medium">
-              {currentPlayerName}
-            </span>
+
+          {/* Right side - Player info and controls */}
+          <div className="flex items-center gap-3">
+            <div className="flex items-center space-x-2 px-4 py-2 bg-white dark:bg-slate-800 rounded-lg shadow-sm border border-gray-200 dark:border-slate-700">
+              <div
+                className="w-2 h-2 rounded-full bg-green-500"
+                title={t('message.youAreOnline')}
+              ></div>
+              <span className="text-gray-700 dark:text-gray-200 font-medium">
+                {currentPlayerName}
+              </span>
+            </div>
+            <LanguageSwitcher />
+            <ThemeToggle />
           </div>
         </div>
       </div>
