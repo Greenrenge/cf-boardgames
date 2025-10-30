@@ -52,7 +52,12 @@ export function LanguageSwitcher() {
         aria-label="Select language"
       >
         {SUPPORTED_LOCALES.map((loc) => (
-          <option key={loc.code} value={loc.code}>
+          <option
+            key={loc.code}
+            value={loc.code}
+            className={loc.code === locale ? 'font-bold' : ''}
+          >
+            {/* {loc.code === locale ? '' : ''} */}
             {loc.flag} {loc.nativeName}
           </option>
         ))}
