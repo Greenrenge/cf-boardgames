@@ -39,7 +39,7 @@ export function Lobby({
   const isHost = currentPlayerId === hostId;
 
   // Load locations and selection state
-  const { locations, isLoading: locationsLoading } = useLocations();
+  const { locations } = useLocations();
   const { stats } = useLocationSelection(locations);
 
   // Check for saved selections

@@ -33,21 +33,25 @@ export const RoleSelector = React.memo(function RoleSelector({
       </div>
 
       {/* Role list */}
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-2">
+      <div
+        className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-2"
+        role="group"
+        aria-label={`Role selection for ${location.names[locale] || location.names.en}`}
+      >
         {location.roles.map((role) => {
           const roleName = role.names[locale] || role.names.en;
 
           return (
             <label
               key={role.id}
-              className="flex items-center gap-2 p-2 rounded-md hover:bg-gray-100 dark:hover:bg-gray-800 cursor-pointer transition-colors"
+              className="flex items-center gap-2 p-2 rounded-md hover:bg-gray-100 dark:hover:bg-gray-800 cursor-pointer transition-colors focus-within:ring-2 focus-within:ring-blue-500"
             >
               <input
                 type="checkbox"
                 checked={role.isSelected}
                 onChange={() => onToggleRole(location.id, role.id)}
                 className="w-4 h-4 rounded border-gray-300 text-green-600 focus:ring-green-500 focus:ring-2 cursor-pointer"
-                aria-label={`Toggle ${roleName}`}
+                aria-label={`Select role: ${roleName}`}
               />
               <span className="text-sm text-gray-900 dark:text-gray-100 truncate">{roleName}</span>
             </label>

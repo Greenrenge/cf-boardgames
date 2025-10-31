@@ -45,6 +45,7 @@ export const LocationItem = React.memo(function LocationItem({
           ? 'border-green-500 bg-green-50 dark:bg-green-900/10'
           : 'border-gray-300 bg-gray-50 dark:border-gray-700 dark:bg-gray-800'
       }`}
+      role="listitem"
     >
       {/* Location header */}
       <div className="flex items-center gap-3 p-4">
@@ -71,9 +72,12 @@ export const LocationItem = React.memo(function LocationItem({
         {totalRoleCount > 0 && (
           <button
             onClick={handleExpand}
-            className="p-2 rounded-md hover:bg-gray-200 dark:hover:bg-gray-700 transition-colors"
-            aria-label={isExpanded ? 'Collapse roles' : 'Expand roles'}
+            className="p-2 rounded-md hover:bg-gray-200 dark:hover:bg-gray-700 transition-colors focus:ring-2 focus:ring-blue-500 focus:ring-offset-1"
+            aria-label={
+              isExpanded ? `Collapse ${locationName} roles` : `Expand ${locationName} roles`
+            }
             aria-expanded={isExpanded}
+            aria-controls={`roles-${location.id}`}
           >
             <svg
               className={`w-5 h-5 transition-transform duration-200 ${
@@ -96,7 +100,12 @@ export const LocationItem = React.memo(function LocationItem({
 
       {/* Expanded role selector */}
       {isExpanded && totalRoleCount > 0 && (
-        <div className="border-t border-gray-200 dark:border-gray-700 p-4 bg-white dark:bg-gray-900/50">
+        <div
+          id={`roles-${location.id}`}
+          className="border-t border-gray-200 dark:border-gray-700 p-4 bg-white dark:bg-gray-900/50"
+          role="region"
+          aria-label={`Roles for ${locationName}`}
+        >
           <RoleSelector location={location} onToggleRole={onToggleRole} />
         </div>
       )}

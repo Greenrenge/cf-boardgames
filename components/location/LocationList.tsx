@@ -44,24 +44,27 @@ export const LocationList = React.memo(function LocationList({
         </div>
 
         {/* Bulk action buttons */}
-        <div className="flex gap-2 flex-wrap">
+        <div className="flex gap-2 flex-wrap" role="group" aria-label="Bulk location actions">
           <button
             onClick={selectAll}
-            className="px-3 py-1.5 text-sm bg-green-600 text-white rounded-md hover:bg-green-700 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+            className="px-3 py-1.5 text-sm bg-green-600 text-white rounded-md hover:bg-green-700 transition-colors disabled:opacity-50 disabled:cursor-not-allowed focus:ring-2 focus:ring-green-500 focus:ring-offset-2"
             disabled={selectedCount === totalCount}
+            aria-label={`Select all ${totalCount} locations`}
           >
             Select All
           </button>
           <button
             onClick={deselectAll}
-            className="px-3 py-1.5 text-sm bg-gray-600 text-white rounded-md hover:bg-gray-700 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+            className="px-3 py-1.5 text-sm bg-gray-600 text-white rounded-md hover:bg-gray-700 transition-colors disabled:opacity-50 disabled:cursor-not-allowed focus:ring-2 focus:ring-gray-500 focus:ring-offset-2"
             disabled={selectedCount === 0}
+            aria-label={`Deselect all ${selectedCount} selected locations`}
           >
             Deselect All
           </button>
           <button
             onClick={resetToDefault}
-            className="px-3 py-1.5 text-sm bg-blue-600 text-white rounded-md hover:bg-blue-700 transition-colors"
+            className="px-3 py-1.5 text-sm bg-blue-600 text-white rounded-md hover:bg-blue-700 transition-colors focus:ring-2 focus:ring-blue-500 focus:ring-offset-2"
+            aria-label="Reset all locations to default selection"
           >
             Reset to Default
           </button>
@@ -96,7 +99,7 @@ export const LocationList = React.memo(function LocationList({
       )}
 
       {/* Location list */}
-      <div className="space-y-2">
+      <div className="space-y-2" role="list" aria-label="Available locations">
         {locations.map((location) => (
           <LocationItem
             key={location.id}
