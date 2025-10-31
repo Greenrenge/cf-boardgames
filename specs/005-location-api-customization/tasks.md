@@ -114,25 +114,25 @@
 
 ### Playground for User Story 5 (MANDATORY) ✓
 
-- [ ] T045 [US5] Create playground directory specs/005-location-api-customization/playground/story5/
-- [ ] T046 [US5] Create README.md in playground/story5/ with merge test scenarios
-- [ ] T047 [US5] Create demo page showing merge behavior with localStorage inspector
+- [x] T045 [US5] Create playground directory specs/005-location-api-customization/playground/story5/
+- [x] T046 [US5] Create README.md in playground/story5/ with merge test scenarios
+- [x] T047 [US5] Create demo page showing merge behavior with localStorage inspector
 
 ### Implementation for User Story 5
 
-- [ ] T048 [P] [US5] Create locationStorage utility in lib/locationStorage.ts for localStorage operations
-- [ ] T049 [US5] Implement getLocationSelections function in lib/locationStorage.ts
-- [ ] T050 [US5] Implement saveLocationSelections function in lib/locationStorage.ts
-- [ ] T051 [US5] Create merge utility in lib/locationMerge.ts for combining API and localStorage data
-- [ ] T052 [US5] Implement mergeLocations function with ID matching logic in lib/locationMerge.ts
-- [ ] T053 [US5] Add logic to apply isSelected from localStorage to API locations in merge function
-- [ ] T054 [US5] Add logic to apply role selections from localStorage to API roles in merge function
-- [ ] T055 [US5] Handle new API locations (not in localStorage) - default to selected
-- [ ] T056 [US5] Handle custom locations (in localStorage but not in API) - preserve them
-- [ ] T057 [US5] Update useLocations hook to call merge logic after API fetch
-- [ ] T058 [US5] Add validation to ensure no duplicate location IDs after merge
-- [ ] T059 [US5] Test merge with various scenarios in playground (override, new, removed)
-- [ ] T060 [US5] Verify playground demo shows correct merge behavior
+- [x] T048 [P] [US5] Create locationStorage utility in lib/locationStorage.ts for localStorage operations
+- [x] T049 [US5] Implement getLocationSelections function in lib/locationStorage.ts
+- [x] T050 [US5] Implement saveLocationSelections function in lib/locationStorage.ts
+- [x] T051 [US5] Create merge utility in lib/locationMerge.ts for combining API and localStorage data
+- [x] T052 [US5] Implement mergeLocations function with ID matching logic in lib/locationMerge.ts
+- [x] T053 [US5] Add logic to apply isSelected from localStorage to API locations in merge function
+- [x] T054 [US5] Add logic to apply role selections from localStorage to API roles in merge function
+- [x] T055 [US5] Handle new API locations (not in localStorage) - default to selected
+- [x] T056 [US5] Handle custom locations (in localStorage but not in API) - preserve them
+- [x] T057 [US5] Update useLocations hook to call merge logic after API fetch
+- [x] T058 [US5] Add validation to ensure no duplicate location IDs after merge
+- [x] T059 [US5] Test merge with various scenarios in playground (override, new, removed)
+- [x] T060 [US5] Verify playground demo shows correct merge behavior
 
 **Checkpoint**: At this point, merge logic is working - localStorage overrides API, new locations are added, custom locations preserved.
 

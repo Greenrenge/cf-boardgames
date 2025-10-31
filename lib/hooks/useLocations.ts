@@ -1,6 +1,7 @@
 /**
  * useLocations Hook
- * Fetches location data from API with caching and loading states
+ * Fetches location data from API with caching and loading states.
+ * Automatically merges with localStorage selections.
  */
 
 'use client';
@@ -8,6 +9,7 @@
 import { useState, useEffect } from 'react';
 import type { Location } from '../types';
 import { fetchLocations } from '../api/locationsApi';
+import { mergeLocations } from '../locationMerge';
 
 export interface UseLocationsResult {
   locations: Location[];
@@ -18,7 +20,7 @@ export interface UseLocationsResult {
 
 /**
  * Hook to fetch and manage location data
- * Automatically fetches on mount, uses 24-hour cache
+ * Automatically fetches on mount, uses 24-hour cache, and merges with localStorage
  */
 export function useLocations(): UseLocationsResult {
   const [locations, setLocations] = useState<Location[]>([]);
@@ -29,8 +31,14 @@ export function useLocations(): UseLocationsResult {
     try {
       setIsLoading(true);
       setError(null);
-      const data = await fetchLocations();
-      setLocations(data);
+      
+      // Fetch from API
+      const apiLocations = await fetchLocations();
+      
+      // Merge with localStorage selections
+      const merged = mergeLocations(apiLocations);
+      
+      setLocations(merged);
     } catch (err) {
       setError(err instanceof Error ? err : new Error('Failed to load locations'));
       console.error('[useLocations] Error:', err);

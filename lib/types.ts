@@ -101,9 +101,9 @@ export interface LocationSelection {
 }
 
 export interface LocalStorageConfig {
-  selections: LocationSelection[];
-  lastUpdated: string;
   version: string;
+  timestamp: string;
+  selections: Record<string, LocationSelection>;
 }
 
 export interface CacheEntry<T = unknown> {
