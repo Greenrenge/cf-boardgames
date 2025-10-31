@@ -75,19 +75,19 @@
 
 ### Playground for User Story 1 (MANDATORY) ✓
 
-- [ ] T024 [US1] Create playground directory specs/005-location-api-customization/playground/story1/
-- [ ] T025 [US1] Create README.md in playground/story1/ documenting API integration demo
+- [x] T024 [US1] Create playground directory specs/005-location-api-customization/playground/story1/
+- [x] T025 [US1] Create README.md in playground/story1/ documenting API integration demo
 - [ ] T026 [US1] Add demo page or component showing API fetch with network inspector
 
 ### Implementation for User Story 1
 
-- [ ] T027 [US1] Create useLocations hook in lib/hooks/useLocations.ts to fetch from API
-- [ ] T028 [US1] Implement skeleton loading component in components/location/LocationSkeleton.tsx
-- [ ] T029 [US1] Modify lib/locations.ts to use API fetch instead of static imports
-- [ ] T030 [US1] Update LocationImage component in components/game/LocationImage.tsx to use API data
-- [ ] T031 [US1] Update LocationReference component in components/game/LocationReference.tsx to use API data
-- [ ] T032 [US1] Update SpyLocationBrowser component in components/game/SpyLocationBrowser.tsx to use API data
-- [ ] T033 [US1] Add error handling UI component in components/location/LocationLoadError.tsx
+- [x] T027 [US1] Create useLocations hook in lib/hooks/useLocations.ts to fetch from API
+- [x] T028 [US1] Implement skeleton loading component in components/location/LocationSkeleton.tsx
+- [x] T029 [US1] Modify lib/locations.ts to use API fetch instead of static imports
+- [x] T030 [US1] Update LocationImage component in components/game/LocationImage.tsx to use API data
+- [x] T031 [US1] Update LocationReference component in components/game/LocationReference.tsx to use API data
+- [x] T032 [US1] Update SpyLocationBrowser component in components/game/SpyLocationBrowser.tsx to use API data
+- [x] T033 [US1] Add error handling UI component in components/location/LocationLoadError.tsx
 - [ ] T034 [US1] Implement cache status display (shows cache age, expiry time) for debugging
 - [ ] T035 [US1] Test API fetch in all supported languages (en, th, zh, hi, es, fr, ar)
 - [ ] T036 [US1] Remove old translation files: locales/en/locations.json and locales/en/roles.json

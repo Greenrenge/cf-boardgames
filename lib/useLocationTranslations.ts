@@ -24,13 +24,13 @@ export function useLocationTranslations() {
       try {
         setIsLoading(true);
         const locations = await fetchLocations();
-        
+
         // Build translations map from API data
         const translationsMap: Record<string, string> = {};
         locations.forEach((location) => {
           translationsMap[location.id] = location.names[locale] || location.names.en;
         });
-        
+
         setTranslations(translationsMap);
       } catch (error) {
         console.error(`Failed to load location translations from API for ${locale}:`, error);

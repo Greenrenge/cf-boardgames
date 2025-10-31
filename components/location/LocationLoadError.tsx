@@ -31,9 +31,7 @@ export function LocationLoadError({ error, onRetry }: LocationLoadErrorProps) {
           <h3 className="text-sm font-medium text-red-800 dark:text-red-200">
             Failed to Load Locations
           </h3>
-          <p className="mt-2 text-sm text-red-700 dark:text-red-300">
-            {error.message}
-          </p>
+          <p className="mt-2 text-sm text-red-700 dark:text-red-300">{error.message}</p>
           {onRetry && (
             <button
               onClick={onRetry}

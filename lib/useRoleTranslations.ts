@@ -24,7 +24,7 @@ export function useRoleTranslations() {
       try {
         setIsLoading(true);
         const locations = await fetchLocations();
-        
+
         // Build translations map from all roles in all locations
         const translationsMap: Record<string, string> = {};
         locations.forEach((location) => {
@@ -32,7 +32,7 @@ export function useRoleTranslations() {
             translationsMap[role.id] = role.names[locale] || role.names.en;
           });
         });
-        
+
         setTranslations(translationsMap);
       } catch (error) {
         console.error(`Failed to load role translations from API for ${locale}:`, error);

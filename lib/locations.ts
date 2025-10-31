@@ -24,11 +24,11 @@ export async function getLocationTranslations(locale: LocaleCode): Promise<Recor
   try {
     const locations = await fetchLocations();
     const translations: Record<string, string> = {};
-    
+
     locations.forEach((location) => {
       translations[location.id] = location.names[locale] || location.names.en;
     });
-    
+
     return translations;
   } catch (error) {
     console.error(`Failed to load location translations from API for locale: ${locale}`, error);
