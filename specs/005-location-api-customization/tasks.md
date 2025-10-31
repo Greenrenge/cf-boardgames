@@ -88,17 +88,17 @@
 - [x] T031 [US1] Update LocationReference component in components/game/LocationReference.tsx to use API data
 - [x] T032 [US1] Update SpyLocationBrowser component in components/game/SpyLocationBrowser.tsx to use API data
 - [x] T033 [US1] Add error handling UI component in components/location/LocationLoadError.tsx
-- [ ] T034 [US1] Implement cache status display (shows cache age, expiry time) for debugging
-- [ ] T035 [US1] Test API fetch in all supported languages (en, th, zh, hi, es, fr, ar)
-- [ ] T036 [US1] Remove old translation files: locales/en/locations.json and locales/en/roles.json
-- [ ] T037 [US1] Remove old translation files: locales/th/locations.json and locales/th/roles.json
-- [ ] T038 [US1] Remove old translation files: locales/zh/locations.json and locales/zh/roles.json
-- [ ] T039 [US1] Remove old translation files: locales/hi/locations.json and locales/hi/roles.json
-- [ ] T040 [US1] Remove old translation files: locales/es/locations.json and locales/es/roles.json
-- [ ] T041 [US1] Remove old translation files: locales/fr/locations.json and locales/fr/roles.json
-- [ ] T042 [US1] Remove old translation files: locales/ar/locations.json and locales/ar/roles.json
-- [ ] T043 [US1] Search codebase for any remaining imports of deleted translation files and remove them
-- [ ] T044 [US1] Verify playground demo shows working API integration with skeleton UI
+- [x] T034 [US1] Implement cache status display (shows cache age, expiry time) for debugging
+- [x] T035 [US1] Test API fetch in all supported languages (en, th, zh, hi, es, fr, ar)
+- [x] T036 [US1] Remove old translation files: locales/en/locations.json and locales/en/roles.json
+- [x] T037 [US1] Remove old translation files: locales/th/locations.json and locales/th/roles.json
+- [x] T038 [US1] Remove old translation files: locales/zh/locations.json and locales/zh/roles.json
+- [x] T039 [US1] Remove old translation files: locales/hi/locations.json and locales/hi/roles.json
+- [x] T040 [US1] Remove old translation files: locales/es/locations.json and locales/es/roles.json
+- [x] T041 [US1] Remove old translation files: locales/fr/locations.json and locales/fr/roles.json
+- [x] T042 [US1] Remove old translation files: locales/ar/locations.json and locales/ar/roles.json
+- [x] T043 [US1] Search codebase for any remaining imports of deleted translation files and remove them
+- [x] T044 [US1] Verify playground demo shows working API integration with skeleton UI
 
 **Checkpoint**: At this point, User Story 1 playground should demonstrate API fetch, caching, skeleton loading, and removal of old translation files.
 
