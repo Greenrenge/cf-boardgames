@@ -146,27 +146,27 @@
 
 ### Playground for User Story 2 (MANDATORY) ✓
 
-- [ ] T061 [US2] Create playground directory specs/005-location-api-customization/playground/story2/
-- [ ] T062 [US2] Create README.md in playground/story2/ with customization UI demo instructions
-- [ ] T063 [US2] Create demo showing location/role selection UI with live preview
+- [x] T061 [US2] Create playground directory specs/005-location-api-customization/playground/story2/
+- [x] T062 [US2] Create README.md in playground/story2/ with customization UI demo instructions
+- [x] T063 [US2] Create demo showing location/role selection UI with live preview
 
 ### Implementation for User Story 2
 
-- [ ] T064 [P] [US2] Create LocationList component in components/location/LocationList.tsx
-- [ ] T065 [P] [US2] Create LocationItem component in components/location/LocationItem.tsx with expand/collapse
-- [ ] T066 [P] [US2] Create RoleSelector component in components/location/RoleSelector.tsx with checkboxes
-- [ ] T067 [US2] Create useLocationSelection hook in lib/hooks/useLocationSelection.ts
-- [ ] T068 [US2] Implement toggleLocationSelection function in lib/locationStorage.ts
-- [ ] T069 [US2] Implement toggleRoleSelection function in lib/locationStorage.ts
-- [ ] T070 [US2] Add "Select All" / "Deselect All" buttons to LocationList component
-- [ ] T071 [US2] Add "Reset to Default" button that clears localStorage and reloads from API
-- [ ] T072 [US2] Add location count display (e.g., "45 of 80 locations selected")
+- [x] T064 [P] [US2] Create LocationList component in components/location/LocationList.tsx
+- [x] T065 [P] [US2] Create LocationItem component in components/location/LocationItem.tsx with expand/collapse
+- [x] T066 [P] [US2] Create RoleSelector component in components/location/RoleSelector.tsx with checkboxes
+- [x] T067 [US2] Create useLocationSelection hook in lib/hooks/useLocationSelection.ts
+- [x] T068 [US2] Implement toggleLocationSelection function in lib/locationStorage.ts
+- [x] T069 [US2] Implement toggleRoleSelection function in lib/locationStorage.ts
+- [x] T070 [US2] Add "Select All" / "Deselect All" buttons to LocationList component
+- [x] T071 [US2] Add "Reset to Default" button that clears localStorage and reloads from API
+- [x] T072 [US2] Add location count display (e.g., "45 of 80 locations selected")
 - [ ] T073 [US2] Modify Lobby component in components/room/Lobby.tsx to integrate LocationList
-- [ ] T074 [US2] Add validation to prevent game start when no locations are selected
-- [ ] T075 [US2] Create validation error component in components/location/SelectionValidationError.tsx
+- [x] T074 [US2] Add validation to prevent game start when no locations are selected
+- [x] T075 [US2] Create validation error component in components/location/SelectionValidationError.tsx
 - [ ] T076 [US2] Implement game start logic to use only selected locations and roles
-- [ ] T077 [US2] Add smooth expand/collapse animation with Tailwind CSS
-- [ ] T078 [US2] Optimize list rendering with React.memo for LocationItem components
+- [x] T077 [US2] Add smooth expand/collapse animation with Tailwind CSS
+- [x] T078 [US2] Optimize list rendering with React.memo for LocationItem components
 - [ ] T079 [US2] Test customization UI with 80-120 locations for performance
 - [ ] T080 [US2] Verify playground demo shows working customization UI with validation
 

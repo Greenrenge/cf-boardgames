@@ -5,6 +5,7 @@
 ## Overview
 
 This playground demonstrates and tests the merge logic that combines:
+
 - User selections stored in localStorage (which locations/roles are selected)
 - Fresh location data from the API (with latest translations and content)
 
@@ -20,22 +21,27 @@ The merge follows these rules:
 ## Test Scenarios
 
 ### Scenario 1: Basic Override
+
 **Setup**: API has 80 locations all selected, localStorage has 5 locations deselected
 **Expected**: Merged result has 80 locations, 5 are deselected (localStorage wins)
 
 ### Scenario 2: New API Locations
+
 **Setup**: localStorage has selections for 80 locations, API now has 85 locations
 **Expected**: All 85 appear, original 80 use localStorage state, 5 new ones default to selected
 
 ### Scenario 3: Custom Locations
+
 **Setup**: localStorage has 3 custom locations not in API
 **Expected**: All API locations + 3 custom locations appear
 
 ### Scenario 4: Role-Level Selections
+
 **Setup**: localStorage has specific roles deselected in a location
 **Expected**: Location appears with API role data, but selection state from localStorage
 
 ### Scenario 5: Removed Locations
+
 **Setup**: localStorage has location "museum", API no longer has it (removed/renamed)
 **Expected**: "museum" still appears in merged data (preserved from localStorage)
 
@@ -65,16 +71,21 @@ The merge follows these rules:
 ### Manual Testing
 
 1. **Test Basic Merge**:
+
    ```javascript
    // In browser console
-   localStorage.setItem('location-selections', JSON.stringify({
-     version: '1.0.0',
-     timestamp: new Date().toISOString(),
-     selections: {
-       'loc-hospital': { isSelected: false, selectedRoles: [] }
-     }
-   }));
+   localStorage.setItem(
+     'location-selections',
+     JSON.stringify({
+       version: '1.0.0',
+       timestamp: new Date().toISOString(),
+       selections: {
+         'loc-hospital': { isSelected: false, selectedRoles: [] },
+       },
+     })
+   );
    ```
+
    Refresh page - hospital should be deselected
 
 2. **Test New Locations**:
@@ -84,19 +95,24 @@ The merge follows these rules:
 
 3. **Test Custom Locations**:
    ```javascript
-   localStorage.setItem('location-selections', JSON.stringify({
-     version: '1.0.0',
-     timestamp: new Date().toISOString(),
-     selections: {
-       'custom-secret-base': { isSelected: true, selectedRoles: [] }
-     }
-   }));
+   localStorage.setItem(
+     'location-selections',
+     JSON.stringify({
+       version: '1.0.0',
+       timestamp: new Date().toISOString(),
+       selections: {
+         'custom-secret-base': { isSelected: true, selectedRoles: [] },
+       },
+     })
+   );
    ```
+
    - Check merged result includes 'custom-secret-base'
 
 ### Automated Validation
 
 Demo page should show:
+
 - Total locations (API + custom)
 - Selected vs deselected count
 - Which locations came from localStorage only
@@ -111,7 +127,7 @@ Demo page should show:
 ✅ Role selections are applied correctly  
 ✅ No duplicate location IDs in merged result  
 ✅ Merge completes in <100ms for 120 locations  
-✅ Demo page clearly shows merge behavior  
+✅ Demo page clearly shows merge behavior
 
 ## API Endpoints Used
 
@@ -131,12 +147,13 @@ Demo page should show:
 ## Demo Page Features
 
 The demo page should display:
+
 1. **Before Merge**: Show API data and localStorage data side-by-side
 2. **After Merge**: Show final merged result
-3. **Merge Stats**: 
+3. **Merge Stats**:
    - Total locations
    - From API only
-   - From localStorage only  
+   - From localStorage only
    - Overridden by localStorage
 4. **Interactive Controls**:
    - Button to add test localStorage data

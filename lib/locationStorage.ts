@@ -1,6 +1,6 @@
 /**
  * Location Storage Utility
- * 
+ *
  * Manages localStorage operations for location and role selections.
  * Provides persistence for user customization across sessions.
  */
@@ -35,9 +35,7 @@ export function getLocationSelections(): LocalStorageConfig | null {
 /**
  * Save location selections to localStorage
  */
-export function saveLocationSelections(
-  selections: Record<string, LocationSelection>
-): void {
+export function saveLocationSelections(selections: Record<string, LocationSelection>): void {
   if (typeof window === 'undefined') {
     return; // SSR safety
   }
@@ -52,7 +50,7 @@ export function saveLocationSelections(
     localStorage.setItem(LOCATION_SELECTIONS_KEY, JSON.stringify(config));
   } catch (error) {
     console.warn('[Location Storage] Error saving selections:', error);
-    
+
     // Handle quota exceeded errors
     if (error instanceof DOMException && error.name === 'QuotaExceededError') {
       console.error('[Location Storage] localStorage quota exceeded');
@@ -83,7 +81,7 @@ export function toggleLocationSelection(locationId: string): void {
   };
 
   const currentSelection = config.selections[locationId];
-  
+
   if (currentSelection) {
     // Toggle existing selection
     config.selections[locationId] = {
@@ -190,7 +188,7 @@ export function getStorageMetadata(): {
   count?: number;
 } {
   const config = getLocationSelections();
-  
+
   if (!config) {
     return { exists: false };
   }

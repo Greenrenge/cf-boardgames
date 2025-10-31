@@ -31,13 +31,13 @@ export function useLocations(): UseLocationsResult {
     try {
       setIsLoading(true);
       setError(null);
-      
+
       // Fetch from API
       const apiLocations = await fetchLocations();
-      
+
       // Merge with localStorage selections
       const merged = mergeLocations(apiLocations);
-      
+
       setLocations(merged);
     } catch (err) {
       setError(err instanceof Error ? err : new Error('Failed to load locations'));

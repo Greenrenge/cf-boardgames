@@ -2,7 +2,7 @@
 
 /**
  * Demo Page for User Story 5: Local Storage and API Merge Strategy
- * 
+ *
  * This component demonstrates:
  * - Merging localStorage selections with API data
  * - localStorage overrides for matching IDs
@@ -14,7 +14,11 @@
 import { useState, useEffect } from 'react';
 import { useLocations } from '@/lib/hooks/useLocations';
 import { fetchLocations } from '@/lib/api/locationsApi';
-import { getLocationSelections, saveLocationSelections, clearLocationSelections } from '@/lib/locationStorage';
+import {
+  getLocationSelections,
+  saveLocationSelections,
+  clearLocationSelections,
+} from '@/lib/locationStorage';
 import { getMergeStats } from '@/lib/locationMerge';
 import type { Location, LocationSelection } from '@/lib/types';
 
@@ -32,7 +36,7 @@ export default function MergeDemo() {
   useEffect(() => {
     // Load raw API data for comparison
     fetchLocations().then(setApiLocations);
-    
+
     // Update merge stats
     fetchLocations().then((api) => {
       setMergeStats(getMergeStats(api));
@@ -41,7 +45,7 @@ export default function MergeDemo() {
 
   const handleAddTestData = () => {
     const selections: Record<string, LocationSelection> = {};
-    
+
     // Deselect first 3 locations
     if (apiLocations.length > 0) {
       selections[apiLocations[0].id] = {
@@ -93,9 +97,7 @@ export default function MergeDemo() {
       <div className="max-w-6xl mx-auto">
         {/* Header */}
         <div className="mb-8">
-          <h1 className="text-3xl font-bold mb-2">
-            User Story 5: Merge Strategy Demo
-          </h1>
+          <h1 className="text-3xl font-bold mb-2">User Story 5: Merge Strategy Demo</h1>
           <p className="text-gray-600 dark:text-gray-400">
             Testing intelligent merge of localStorage selections with API data
           </p>
@@ -141,8 +143,12 @@ export default function MergeDemo() {
             <div className="text-sm text-gray-600 dark:text-gray-400">Both (Overridden)</div>
           </div>
           <div className="bg-white dark:bg-gray-800 rounded-lg shadow-md p-4">
-            <div className="text-2xl font-bold text-purple-600">{mergeStats.localStorageOnlyCount}</div>
-            <div className="text-sm text-gray-600 dark:text-gray-400">localStorage Only (Custom)</div>
+            <div className="text-2xl font-bold text-purple-600">
+              {mergeStats.localStorageOnlyCount}
+            </div>
+            <div className="text-sm text-gray-600 dark:text-gray-400">
+              localStorage Only (Custom)
+            </div>
           </div>
         </div>
 
@@ -151,9 +157,17 @@ export default function MergeDemo() {
           <h2 className="text-xl font-semibold mb-4">localStorage Inspector</h2>
           {storageConfig ? (
             <div className="space-y-2 text-sm">
-              <div><span className="font-medium">Version:</span> {storageConfig.version}</div>
-              <div><span className="font-medium">Timestamp:</span> {new Date(storageConfig.timestamp).toLocaleString()}</div>
-              <div><span className="font-medium">Selection Count:</span> {Object.keys(storageConfig.selections).length}</div>
+              <div>
+                <span className="font-medium">Version:</span> {storageConfig.version}
+              </div>
+              <div>
+                <span className="font-medium">Timestamp:</span>{' '}
+                {new Date(storageConfig.timestamp).toLocaleString()}
+              </div>
+              <div>
+                <span className="font-medium">Selection Count:</span>{' '}
+                {Object.keys(storageConfig.selections).length}
+              </div>
               <details className="mt-4">
                 <summary className="cursor-pointer font-medium">View Raw Data</summary>
                 <pre className="mt-2 p-4 bg-gray-100 dark:bg-gray-900 rounded-md overflow-auto text-xs">
@@ -179,27 +193,29 @@ export default function MergeDemo() {
               {locations.slice(0, 20).map((location) => {
                 const isInApi = apiLocations.some((api) => api.id === location.id);
                 const isInStorage = storageConfig?.selections[location.id] !== undefined;
-                
+
                 let badge = '';
                 let badgeColor = '';
-                
+
                 if (isInApi && isInStorage) {
                   badge = 'Overridden';
-                  badgeColor = 'bg-orange-100 text-orange-800 dark:bg-orange-900 dark:text-orange-200';
+                  badgeColor =
+                    'bg-orange-100 text-orange-800 dark:bg-orange-900 dark:text-orange-200';
                 } else if (isInApi) {
                   badge = 'API Only';
                   badgeColor = 'bg-green-100 text-green-800 dark:bg-green-900 dark:text-green-200';
                 } else {
                   badge = 'Custom';
-                  badgeColor = 'bg-purple-100 text-purple-800 dark:bg-purple-900 dark:text-purple-200';
+                  badgeColor =
+                    'bg-purple-100 text-purple-800 dark:bg-purple-900 dark:text-purple-200';
                 }
 
                 return (
                   <button
                     key={location.id}
-                    onClick={() => setSelectedLocationId(
-                      selectedLocationId === location.id ? null : location.id
-                    )}
+                    onClick={() =>
+                      setSelectedLocationId(selectedLocationId === location.id ? null : location.id)
+                    }
                     className={`w-full px-4 py-3 border rounded-md text-left transition-colors ${
                       selectedLocationId === location.id
                         ? 'border-blue-500 bg-blue-50 dark:bg-blue-900/20'
@@ -208,9 +224,11 @@ export default function MergeDemo() {
                   >
                     <div className="flex items-center justify-between">
                       <div className="flex items-center gap-3">
-                        <span className={`w-3 h-3 rounded-full ${
-                          location.isSelected ? 'bg-green-500' : 'bg-gray-300'
-                        }`} />
+                        <span
+                          className={`w-3 h-3 rounded-full ${
+                            location.isSelected ? 'bg-green-500' : 'bg-gray-300'
+                          }`}
+                        />
                         <div>
                           <div className="font-medium">{location.names.en}</div>
                           <div className="text-sm text-gray-600 dark:text-gray-400">
@@ -257,9 +275,11 @@ export default function MergeDemo() {
                       key={role.id}
                       className="flex items-center gap-2 text-gray-600 dark:text-gray-400"
                     >
-                      <span className={`w-2 h-2 rounded-full ${
-                        role.isSelected ? 'bg-green-500' : 'bg-gray-300'
-                      }`} />
+                      <span
+                        className={`w-2 h-2 rounded-full ${
+                          role.isSelected ? 'bg-green-500' : 'bg-gray-300'
+                        }`}
+                      />
                       {role.names.en}
                     </div>
                   ))}

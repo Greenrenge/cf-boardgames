@@ -1,8 +1,8 @@
 /**
  * Location Merge Utility
- * 
+ *
  * Implements intelligent merging of API location data with localStorage selections.
- * 
+ *
  * Merge Strategy:
  * 1. Matching IDs (API + localStorage): Use API data, apply localStorage selection state
  * 2. New Locations (API only): Add with isSelected: true (default)
@@ -15,13 +15,13 @@ import { getLocationSelections } from './locationStorage';
 
 /**
  * Merge API locations with localStorage selections
- * 
+ *
  * @param apiLocations - Fresh location data from API
  * @returns Merged locations with selection states applied
  */
 export function mergeLocations(apiLocations: Location[]): Location[] {
   const config = getLocationSelections();
-  
+
   // If no localStorage data, return API locations with default selected state
   if (!config || Object.keys(config.selections).length === 0) {
     return apiLocations.map((loc) => ({
@@ -89,13 +89,13 @@ export function mergeLocations(apiLocations: Location[]): Location[] {
 
   // Convert map to array and ensure no duplicates
   const merged = Array.from(mergedMap.values());
-  
+
   // Validate: ensure no duplicate IDs
   const idCounts = new Map<string, number>();
   for (const location of merged) {
     idCounts.set(location.id, (idCounts.get(location.id) || 0) + 1);
   }
-  
+
   const duplicates = Array.from(idCounts.entries()).filter(([, count]) => count > 1);
   if (duplicates.length > 0) {
     console.error('[Location Merge] Duplicate location IDs found:', duplicates);
@@ -106,7 +106,7 @@ export function mergeLocations(apiLocations: Location[]): Location[] {
 
 /**
  * Apply role selections from localStorage to API roles
- * 
+ *
  * @param apiRoles - Roles from API
  * @param selectedRoleIds - Role IDs selected in localStorage (undefined = all selected)
  * @returns Roles with selection state applied
@@ -133,7 +133,7 @@ function applyRoleSelections(
 
 /**
  * Get merge statistics for debugging/display
- * 
+ *
  * @param apiLocations - Locations from API
  * @returns Statistics about the merge operation
  */
@@ -144,7 +144,7 @@ export function getMergeStats(apiLocations: Location[]): {
   totalCount: number;
 } {
   const config = getLocationSelections();
-  
+
   if (!config || Object.keys(config.selections).length === 0) {
     return {
       apiOnlyCount: apiLocations.length,
