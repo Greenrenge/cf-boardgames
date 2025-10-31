@@ -182,19 +182,19 @@
 
 ### Playground for User Story 3 (MANDATORY) ✓
 
-- [ ] T081 [US3] Create playground directory specs/005-location-api-customization/playground/story3/
-- [ ] T082 [US3] Create README.md in playground/story3/ with persistence demo instructions
-- [ ] T083 [US3] Create demo showing host persistence across browser sessions
+- [x] T081 [US3] Create playground directory specs/005-location-api-customization/playground/story3/
+- [x] T082 [US3] Create README.md in playground/story3/ with persistence demo instructions
+- [x] T083 [US3] Create demo showing host persistence across browser sessions
 
 ### Implementation for User Story 3
 
-- [ ] T084 [US3] Add auto-save trigger when host starts game in components/room/Lobby.tsx
-- [ ] T085 [US3] Implement saveHostSelections function in lib/locationStorage.ts
-- [ ] T086 [US3] Add timestamp to saved selections for debugging/audit trail
-- [ ] T087 [US3] Update Lobby component to load saved selections on mount
-- [ ] T088 [US3] Add visual indicator showing "Using your saved selections" message
-- [ ] T089 [US3] Test persistence across browser restarts
-- [ ] T090 [US3] Verify playground demo shows host persistence working
+- [x] T084 [US3] Add auto-save trigger when host starts game in components/room/Lobby.tsx
+- [x] T085 [US3] Implement saveHostSelections function in lib/locationStorage.ts
+- [x] T086 [US3] Add timestamp to saved selections for debugging/audit trail
+- [x] T087 [US3] Update Lobby component to load saved selections on mount
+- [x] T088 [US3] Add visual indicator showing "Using your saved selections" message
+- [x] T089 [US3] Test persistence across browser restarts
+- [x] T090 [US3] Verify playground demo shows host persistence working
 
 **Checkpoint**: At this point, host selections persist across sessions and are automatically restored.
 
