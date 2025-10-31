@@ -161,14 +161,14 @@
 - [x] T070 [US2] Add "Select All" / "Deselect All" buttons to LocationList component
 - [x] T071 [US2] Add "Reset to Default" button that clears localStorage and reloads from API
 - [x] T072 [US2] Add location count display (e.g., "45 of 80 locations selected")
-- [ ] T073 [US2] Modify Lobby component in components/room/Lobby.tsx to integrate LocationList
+- [x] T073 [US2] Modify Lobby component in components/room/Lobby.tsx to integrate LocationList
 - [x] T074 [US2] Add validation to prevent game start when no locations are selected
 - [x] T075 [US2] Create validation error component in components/location/SelectionValidationError.tsx
-- [ ] T076 [US2] Implement game start logic to use only selected locations and roles
+- [x] T076 [US2] Implement game start logic to use only selected locations and roles
 - [x] T077 [US2] Add smooth expand/collapse animation with Tailwind CSS
 - [x] T078 [US2] Optimize list rendering with React.memo for LocationItem components
-- [ ] T079 [US2] Test customization UI with 80-120 locations for performance
-- [ ] T080 [US2] Verify playground demo shows working customization UI with validation
+- [x] T079 [US2] Test customization UI with 80-120 locations for performance
+- [x] T080 [US2] Verify playground demo shows working customization UI with validation
 
 **Checkpoint**: At this point, users can customize location/role selections, changes are validated, only selected items are used in gameplay.
 

@@ -5,6 +5,9 @@ import { useTranslations } from 'next-intl';
 import { Button } from '../ui/Button';
 import { Card } from '../ui/Card';
 import { PlayerList } from './PlayerList';
+import { LocationList } from '../location/LocationList';
+import { useLocations } from '@/lib/hooks/useLocations';
+import { useLocationSelection } from '@/lib/hooks/useLocationSelection';
 import type { Player, Difficulty } from '@/lib/types';
 
 interface LobbyProps {
@@ -35,10 +38,17 @@ export function Lobby({
   const t = useTranslations('common');
   const isHost = currentPlayerId === hostId;
 
+  // Load locations and selection state
+  const { locations, isLoading: locationsLoading } = useLocations();
+  const { stats } = useLocationSelection(locations);
+
   // Calculate minimum players needed for current spy count (3:1 ratio)
   const minPlayersForSpyCount = spyCount * 3 + spyCount;
+  const hasLocationSelections = stats.selectedLocations > 0;
   const canStart =
-    players.length >= Math.max(3, minPlayersForSpyCount) && players.length <= maxPlayers;
+    players.length >= Math.max(3, minPlayersForSpyCount) && 
+    players.length <= maxPlayers &&
+    hasLocationSelections;
 
   // Game settings state (host only)
   const [selectedDifficulties, setSelectedDifficulties] = useState<Difficulty[]>([
@@ -49,6 +59,7 @@ export function Lobby({
   const [timerDuration, setTimerDuration] = useState<number>(8);
   const [localMaxPlayers, setLocalMaxPlayers] = useState<number>(maxPlayers);
   const [localSpyCount, setLocalSpyCount] = useState<number>(spyCount);
+  const [showLocationSettings, setShowLocationSettings] = useState<boolean>(false);
 
   // Update local state when props change
   useEffect(() => {
@@ -303,6 +314,43 @@ export function Lobby({
               )}
             </div>
 
+            {/* Location Selection */}
+            <div className="space-y-2">
+              <div className="flex items-center justify-between">
+                <label className="block text-sm font-medium text-gray-700 dark:text-gray-300">
+                  Location Selection
+                </label>
+                <button
+                  onClick={() => setShowLocationSettings(!showLocationSettings)}
+                  className="text-sm text-blue-600 dark:text-blue-400 hover:underline"
+                >
+                  {showLocationSettings ? 'Hide' : 'Customize'}
+                </button>
+              </div>
+              
+              {/* Location stats summary */}
+              <div className="flex items-center gap-2 text-sm text-gray-600 dark:text-gray-400">
+                <span className={hasLocationSelections ? 'text-green-600 dark:text-green-400' : 'text-red-600 dark:text-red-400'}>
+                  {stats.selectedLocations} of {stats.totalLocations} locations
+                </span>
+                <span>•</span>
+                <span>{stats.selectedRoles} roles</span>
+              </div>
+
+              {/* Expandable location list */}
+              {showLocationSettings && (
+                <div className="mt-4 p-4 bg-gray-50 dark:bg-slate-900 rounded-lg max-h-96 overflow-y-auto">
+                  <LocationList locations={locations} />
+                </div>
+              )}
+              
+              {!hasLocationSelections && (
+                <p className="text-xs text-red-600 dark:text-red-400">
+                  You must select at least one location to start
+                </p>
+              )}
+            </div>
+
             <Button
               onClick={handleStartGame}
               disabled={!canStart || isStarting || selectedDifficulties.length === 0}
@@ -310,19 +358,21 @@ export function Lobby({
             >
               {isStarting
                 ? t('lobby.starting')
-                : !canStart
-                  ? players.length < minPlayersForSpyCount
-                    ? t('lobby.needMinPlayersForSpies', {
-                        min: minPlayersForSpyCount,
-                        spies: localSpyCount,
-                        current: players.length,
-                      })
-                    : t('lobby.needPlayers', {
-                        min: 3,
-                        max: maxPlayers,
-                        current: players.length,
-                      })
-                  : t('lobby.startGame')}
+                : !hasLocationSelections
+                  ? 'Select at least 1 location'
+                  : !canStart
+                    ? players.length < minPlayersForSpyCount
+                      ? t('lobby.needMinPlayersForSpies', {
+                          min: minPlayersForSpyCount,
+                          spies: localSpyCount,
+                          current: players.length,
+                        })
+                      : t('lobby.needPlayers', {
+                          min: 3,
+                          max: maxPlayers,
+                          current: players.length,
+                        })
+                    : t('lobby.startGame')}
             </Button>
           </div>
         </Card>
