@@ -27,7 +27,7 @@ import type {
   GamePhase,
   Location,
 } from '@/lib/types';
-import locationsData from '@/data/locations.json';
+import { useLocations } from '@/lib/hooks/useLocations';
 
 export default function RoomPage() {
   const t = useTranslations('common');
@@ -59,6 +59,9 @@ export default function RoomPage() {
   const [hasVoted, setHasVoted] = useState<boolean>(false);
   const [votingResults, setVotingResults] = useState<any>(null);
   const [spyGuessResult, setSpyGuessResult] = useState<any>(null);
+
+  // Load translated locations from API
+  const { locations: locationsData } = useLocations();
 
   const wsRef = useRef<WebSocketClient | null>(null);
   const isConnectingRef = useRef(false); // Prevent duplicate connections
@@ -444,8 +447,12 @@ export default function RoomPage() {
     }
   };
 
-  const handleStartGame = (difficulty: Difficulty[], timerDuration: number) => {
-    console.log('[Room] Starting game with:', { difficulty, timerDuration });
+  const handleStartGame = (
+    difficulty: Difficulty[],
+    timerDuration: number,
+    selectedLocationIds?: string[]
+  ) => {
+    console.log('[Room] Starting game with:', { difficulty, timerDuration, selectedLocationIds });
 
     if (!wsRef.current?.isConnected()) {
       console.error('[Room] WebSocket not connected');
@@ -457,6 +464,7 @@ export default function RoomPage() {
     wsRef.current.send('START_GAME', {
       difficulty,
       timerDuration,
+      selectedLocationIds, // Pass location selections to server
     });
   };
 

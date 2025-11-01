@@ -1392,24 +1392,37 @@ export class GameRoom {
 
   private async startGame(
     activePlayers: Player[],
-    settings: { difficulty?: Difficulty[]; timerDuration?: number }
+    settings: { difficulty?: Difficulty[]; timerDuration?: number; selectedLocationIds?: string[] }
   ) {
     console.log(`[GameRoom] Starting game with ${activePlayers.length} players`);
+    console.log(`[GameRoom] Settings:`, settings);
 
-    // Select random location based on difficulty
-    const difficulties = settings.difficulty || ['easy', 'medium', 'hard'];
-    const availableLocations = (locationsData as Location[]).filter((loc) =>
-      difficulties.includes(loc.difficulty)
-    );
+    // Select random location based on custom selection OR difficulty
+    let availableLocations: Location[];
+
+    if (settings.selectedLocationIds && settings.selectedLocationIds.length > 0) {
+      // Use host's custom location selection
+      console.log(`[GameRoom] Using custom location selection:`, settings.selectedLocationIds);
+      availableLocations = (locationsData as Location[]).filter((loc) =>
+        settings.selectedLocationIds!.includes(loc.id)
+      );
+    } else {
+      // Fallback to difficulty-based selection
+      console.log(`[GameRoom] No custom selection, using difficulty filter`);
+      const difficulties = settings.difficulty || ['easy', 'medium', 'hard'];
+      availableLocations = (locationsData as Location[]).filter((loc) =>
+        difficulties.includes(loc.difficulty)
+      );
+    }
 
     if (availableLocations.length === 0) {
-      console.error('[GameRoom] No locations available for selected difficulties');
+      console.error('[GameRoom] No locations available for selected criteria');
       return;
     }
 
     const selectedLocation =
       availableLocations[Math.floor(Math.random() * availableLocations.length)];
-    console.log(`[GameRoom] Selected location: ${selectedLocation.nameTh}`);
+    console.log(`[GameRoom] Selected location: ${selectedLocation.nameTh} (${selectedLocation.nameEn})`);
 
     // Use GameState.assignRoles to assign roles with multi-spy support
     const playerIds = activePlayers.map((p) => p.id);

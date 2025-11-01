@@ -15,7 +15,11 @@ interface LobbyProps {
   players: Player[];
   hostId: string;
   currentPlayerId: string;
-  onStartGame: (difficulty: Difficulty[], timerDuration: number) => void;
+  onStartGame: (
+    difficulty: Difficulty[],
+    timerDuration: number,
+    selectedLocationIds?: string[]
+  ) => void;
   onKickPlayer: (targetPlayerId: string) => void;
   isStarting: boolean;
   maxPlayers?: number;
@@ -122,13 +126,17 @@ export function Lobby({
   };
 
   const handleStartGame = () => {
+    // Get selected location IDs from locationsWithState
+    const selectedLocationIds = locations.filter((loc) => loc.isSelected).map((loc) => loc.id);
+
     console.log('[Lobby] Starting game with:', {
       selectedDifficulties,
       timerDuration,
+      selectedLocationIds,
       canStart,
       isStarting,
     });
-    onStartGame(selectedDifficulties, timerDuration);
+    onStartGame(selectedDifficulties, timerDuration, selectedLocationIds);
   };
 
   return (

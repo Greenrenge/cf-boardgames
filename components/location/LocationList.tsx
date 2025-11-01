@@ -31,8 +31,15 @@ export const LocationList = React.memo(function LocationList({
   onSelectionChange,
   className = '',
 }: LocationListProps) {
-  const { stats, toggleLocation, toggleRole, selectAll, deselectAll, resetToDefault } =
-    useLocationSelection(locations, onSelectionChange);
+  const {
+    stats,
+    toggleLocation,
+    toggleRole,
+    selectAll,
+    deselectAll,
+    resetToDefault,
+    locationsWithState,
+  } = useLocationSelection(locations, onSelectionChange);
 
   const listRef = useRef<HTMLDivElement>(null);
   const selectedCount = stats.selectedLocations;
@@ -197,13 +204,13 @@ export const LocationList = React.memo(function LocationList({
           aria-label="Available locations"
           aria-describedby="keyboard-hint"
         >
-          {locations.map((location, index) => (
+          {locationsWithState.map((location, index) => (
             <LocationItem
               key={location.id}
               location={location}
               onToggleLocation={toggleLocation}
               onToggleRole={toggleRole}
-              aria-setsize={locations.length}
+              aria-setsize={locationsWithState.length}
               aria-posinset={index + 1}
             />
           ))}

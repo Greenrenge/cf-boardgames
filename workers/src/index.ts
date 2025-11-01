@@ -206,6 +206,7 @@ app.patch('/api/rooms/:code/config', async (c) => {
 
 // Get locations endpoint - NEW: Returns locations with all translations
 app.get('/api/locations', handleGetLocations);
+app.get('/locations', handleGetLocations); // Alternative route without /api prefix
 
 // WebSocket upgrade endpoint
 app.get('/api/ws/:code', async (c) => {

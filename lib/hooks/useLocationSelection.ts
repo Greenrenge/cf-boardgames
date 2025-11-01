@@ -26,6 +26,7 @@ export interface LocationSelectionStats {
 
 export interface UseLocationSelectionResult {
   stats: LocationSelectionStats;
+  locationsWithState: Location[];
   toggleLocation: (locationId: string) => void;
   toggleRole: (locationId: string, roleId: string) => void;
   selectAll: () => void;
@@ -47,20 +48,39 @@ export function useLocationSelection(
   locations: Location[],
   onSelectionChange?: () => void
 ): UseLocationSelectionResult {
-  const [updateTrigger, setUpdateTrigger] = useState(0);
+  const [, forceUpdate] = useState({});
 
   // Force re-render when selections change
   const triggerUpdate = useCallback(() => {
-    setUpdateTrigger((prev) => prev + 1);
+    forceUpdate({});
     onSelectionChange?.();
   }, [onSelectionChange]);
 
+  // Apply selection state from localStorage to locations
+  const locationsWithState = locations.map((location) => {
+    const config = getLocationSelections();
+    const selection = config?.selections[location.id];
+
+    if (selection) {
+      return {
+        ...location,
+        isSelected: selection.isSelected,
+        roles: location.roles.map((role) => ({
+          ...role,
+          isSelected: selection.selectedRoles?.includes(role.id) ?? true,
+        })),
+      };
+    }
+
+    return location;
+  });
+
   // Calculate statistics
   const stats: LocationSelectionStats = {
-    totalLocations: locations.length,
-    selectedLocations: locations.filter((loc) => loc.isSelected).length,
-    totalRoles: locations.reduce((sum, loc) => sum + loc.roles.length, 0),
-    selectedRoles: locations.reduce(
+    totalLocations: locationsWithState.length,
+    selectedLocations: locationsWithState.filter((loc) => loc.isSelected).length,
+    totalRoles: locationsWithState.reduce((sum, loc) => sum + loc.roles.length, 0),
+    selectedRoles: locationsWithState.reduce(
       (sum, loc) => sum + loc.roles.filter((role) => role.isSelected).length,
       0
     ),
@@ -127,29 +147,27 @@ export function useLocationSelection(
   }, [triggerUpdate]);
 
   // Get selection state for a specific location
-  const getSelectionState = useCallback(
-    (locationId: string) => {
-      const config = getLocationSelections();
-      const selection = config?.selections[locationId];
+  const getSelectionState = useCallback((locationId: string) => {
+    const config = getLocationSelections();
+    const selection = config?.selections[locationId];
 
-      if (selection) {
-        return {
-          isSelected: selection.isSelected,
-          selectedRoles: selection.selectedRoles || [],
-        };
-      }
-
-      // Default state
+    if (selection) {
       return {
-        isSelected: true,
-        selectedRoles: [],
+        isSelected: selection.isSelected,
+        selectedRoles: selection.selectedRoles || [],
       };
-    },
-    [updateTrigger] // eslint-disable-line react-hooks/exhaustive-deps
-  );
+    }
+
+    // Default state
+    return {
+      isSelected: true,
+      selectedRoles: [],
+    };
+  }, []);
 
   return {
     stats,
+    locationsWithState,
     toggleLocation,
     toggleRole,
     selectAll,
