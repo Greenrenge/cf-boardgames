@@ -2,7 +2,7 @@ import { Room } from '../models/Room';
 import { Player } from '../models/Player';
 import { GameState } from '../models/GameState';
 import type { WebSocketMessage, Location, Assignment, Difficulty } from '../../../lib/types';
-import locationsData from '../../../data/locations.json';
+import locationsApiData from '../locations/data';
 
 export class GameRoom {
   private state: DurableObjectState;
@@ -1392,25 +1392,39 @@ export class GameRoom {
 
   private async startGame(
     activePlayers: Player[],
-    settings: { difficulty?: Difficulty[]; timerDuration?: number; selectedLocationIds?: string[] }
+    settings: {
+      difficulty?: Difficulty[];
+      timerDuration?: number;
+      customLocations?: Array<{ locationId: string; roleIds: string[] }>;
+    }
   ) {
     console.log(`[GameRoom] Starting game with ${activePlayers.length} players`);
     console.log(`[GameRoom] Settings:`, settings);
 
     // Select random location based on custom selection OR difficulty
-    let availableLocations: Location[];
+    let availableLocations: any[];
+    let customRolesMap: Map<string, string[]> | null = null;
 
-    if (settings.selectedLocationIds && settings.selectedLocationIds.length > 0) {
-      // Use host's custom location selection
-      console.log(`[GameRoom] Using custom location selection:`, settings.selectedLocationIds);
-      availableLocations = (locationsData as Location[]).filter((loc) =>
-        settings.selectedLocationIds!.includes(loc.id)
+    if (settings.customLocations && settings.customLocations.length > 0) {
+      // Use host's custom location and role selection
+      console.log(`[GameRoom] Using custom location selection:`, settings.customLocations);
+      const locationIds = settings.customLocations.map((cl) => cl.locationId);
+      availableLocations = locationsApiData.locations.filter((loc: any) =>
+        locationIds.includes(loc.id)
       );
+
+      // Build custom roles map
+      customRolesMap = new Map();
+      settings.customLocations.forEach((cl) => {
+        if (cl.roleIds && cl.roleIds.length > 0) {
+          customRolesMap!.set(cl.locationId, cl.roleIds);
+        }
+      });
     } else {
       // Fallback to difficulty-based selection
       console.log(`[GameRoom] No custom selection, using difficulty filter`);
       const difficulties = settings.difficulty || ['easy', 'medium', 'hard'];
-      availableLocations = (locationsData as Location[]).filter((loc) =>
+      availableLocations = locationsApiData.locations.filter((loc: any) =>
         difficulties.includes(loc.difficulty)
       );
     }
@@ -1420,9 +1434,33 @@ export class GameRoom {
       return;
     }
 
-    const selectedLocation =
+    const selectedLocationData =
       availableLocations[Math.floor(Math.random() * availableLocations.length)];
-    console.log(`[GameRoom] Selected location: ${selectedLocation.nameTh} (${selectedLocation.nameEn})`);
+    console.log(
+      `[GameRoom] Selected location: ${selectedLocationData.names?.th || selectedLocationData.nameTh} (${selectedLocationData.names?.en || selectedLocationData.id})`
+    );
+
+    // Convert API format to game format for backward compatibility
+    const selectedLocation: Location = {
+      id: selectedLocationData.id,
+      nameTh:
+        selectedLocationData.names?.th || selectedLocationData.nameTh || selectedLocationData.id,
+      nameEn:
+        selectedLocationData.names?.en || selectedLocationData.nameEn || selectedLocationData.id,
+      difficulty: selectedLocationData.difficulty || 'medium',
+      roles: selectedLocationData.roles.map((role: any) => ({
+        id: role.id,
+        nameTh: role.names?.th || role.id,
+        nameEn: role.names?.en || role.id,
+      })),
+      imageUrl: selectedLocationData.imageUrl,
+      names: selectedLocationData.names,
+      isSelected: false,
+    } as any;
+
+    // Get custom roles for this location if available
+    const customRoles = customRolesMap?.get(selectedLocation.id);
+    console.log(`[GameRoom] Custom roles for ${selectedLocation.id}:`, customRoles);
 
     // Use GameState.assignRoles to assign roles with multi-spy support
     const playerIds = activePlayers.map((p) => p.id);
@@ -1430,7 +1468,8 @@ export class GameRoom {
     const { assignments, spyPlayerIds } = GameState.assignRoles(
       playerIds,
       selectedLocation,
-      spyCount
+      spyCount,
+      customRoles // Pass custom role selection
     );
     console.log(`[GameRoom] Assigned ${spyCount} spies:`, spyPlayerIds);
 

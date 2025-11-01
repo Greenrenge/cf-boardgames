@@ -353,6 +353,12 @@ const thaiToEnglishRoles: Record<string, string> = {
  * @returns Slug key (e.g., "teacher", "doctor")
  */
 export function thaiRoleToSlug(thaiRole: string): string {
+  // Safety check: ensure thaiRole is a string
+  if (typeof thaiRole !== 'string') {
+    console.warn('[roleUtils] thaiRoleToSlug received non-string:', thaiRole);
+    return String(thaiRole || 'unknown-role');
+  }
+
   const slug = thaiToEnglishRoles[thaiRole];
   if (slug) {
     return slug;

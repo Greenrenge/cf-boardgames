@@ -125,7 +125,8 @@ export class GameState implements GameStateType {
   static assignRoles(
     playerIds: string[],
     location: Location,
-    spyCount: number
+    spyCount: number,
+    customRoleIds?: string[]
   ): { assignments: Record<string, Assignment>; spyPlayerIds: string[] } {
     // Fisher-Yates shuffle for fairness
     const shuffled = [...playerIds].sort(() => Math.random() - 0.5);
@@ -147,15 +148,33 @@ export class GameState implements GameStateType {
       };
     });
 
+    // Determine which roles to use
+    let availableRoles: string[];
+    if (customRoleIds && customRoleIds.length > 0) {
+      // Use custom role selection
+      console.log('[GameState] Using custom roles:', customRoleIds);
+      availableRoles = customRoleIds;
+    } else {
+      // Use all location roles
+      availableRoles = location.roles.map((role) => role.id);
+    }
+
     // Assign roles to non-spies with modulo distribution for large groups
     nonSpyIds.forEach((id, index) => {
-      const roleIndex = index % location.roles.length;
+      const roleIndex = index % availableRoles.length;
+      const roleId = availableRoles[roleIndex];
+
+      // Find the role object from location.roles
+      const roleObj = location.roles.find((r) => r.id === roleId);
+      // Use Thai name for backward compatibility with existing translation system
+      const roleName = roleObj?.nameTh || roleObj?.id || roleId;
+
       assignments[id] = {
         playerId: id,
-        role: location.roles[roleIndex],
+        role: roleName,
         location: location.nameTh,
         isSpy: false,
-        isDuplicateRole: index >= location.roles.length,
+        isDuplicateRole: index >= availableRoles.length,
       };
     });
 

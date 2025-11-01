@@ -10,6 +10,11 @@ import { useLocations } from '@/lib/hooks/useLocations';
 import { useLocationSelection } from '@/lib/hooks/useLocationSelection';
 import type { Player, Difficulty } from '@/lib/types';
 
+interface CustomLocationSelection {
+  locationId: string;
+  roleIds: string[];
+}
+
 interface LobbyProps {
   roomCode: string;
   players: Player[];
@@ -18,7 +23,7 @@ interface LobbyProps {
   onStartGame: (
     difficulty: Difficulty[],
     timerDuration: number,
-    selectedLocationIds?: string[]
+    customLocations?: CustomLocationSelection[]
   ) => void;
   onKickPlayer: (targetPlayerId: string) => void;
   isStarting: boolean;
@@ -126,17 +131,22 @@ export function Lobby({
   };
 
   const handleStartGame = () => {
-    // Get selected location IDs from locationsWithState
-    const selectedLocationIds = locations.filter((loc) => loc.isSelected).map((loc) => loc.id);
+    // Get selected locations with their selected roles
+    const customLocations: CustomLocationSelection[] = locations
+      .filter((loc) => loc.isSelected)
+      .map((loc) => ({
+        locationId: loc.id,
+        roleIds: loc.roles.filter((role) => role.isSelected).map((role) => role.id),
+      }));
 
     console.log('[Lobby] Starting game with:', {
       selectedDifficulties,
       timerDuration,
-      selectedLocationIds,
+      customLocations,
       canStart,
       isStarting,
     });
-    onStartGame(selectedDifficulties, timerDuration, selectedLocationIds);
+    onStartGame(selectedDifficulties, timerDuration, customLocations);
   };
 
   return (

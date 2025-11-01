@@ -446,9 +446,9 @@ export default function RoomPage() {
   const handleStartGame = (
     difficulty: Difficulty[],
     timerDuration: number,
-    selectedLocationIds?: string[]
+    customLocations?: Array<{ locationId: string; roleIds: string[] }>
   ) => {
-    console.log('[Room] Starting game with:', { difficulty, timerDuration, selectedLocationIds });
+    console.log('[Room] Starting game with:', { difficulty, timerDuration, customLocations });
 
     if (!wsRef.current?.isConnected()) {
       console.error('[Room] WebSocket not connected');
@@ -460,7 +460,7 @@ export default function RoomPage() {
     wsRef.current.send('START_GAME', {
       difficulty,
       timerDuration,
-      selectedLocationIds, // Pass location selections to server
+      customLocations, // Pass custom location and role selections to server
     });
   };
 
