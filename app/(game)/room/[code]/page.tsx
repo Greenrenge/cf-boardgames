@@ -645,7 +645,7 @@ export default function RoomPage() {
                 role={playerRole}
                 location={playerLocation}
                 isSpy={playerRole === 'Spy'}
-                locations={locationsData as Location[]}
+                locations={locationsData as unknown as Location[]}
                 isDuplicateRole={isDuplicateRole}
               />
 

@@ -216,7 +216,7 @@ export default function TestMergePage() {
           </h3>
           <div className="text-sm text-yellow-700 dark:text-yellow-300 space-y-1">
             <div>1. Check the merge statistics to see data from different sources</div>
-            <div>2. Toggle "Show Merge Details" to understand the merge process</div>
+            <div>2. Toggle &quot;Show Merge Details&quot; to understand the merge process</div>
             <div>3. Look for locations with different source labels (Static/API/Merged)</div>
             <div>4. Verify that user selections are preserved across page reloads</div>
             <div>5. Test offline behavior by disconnecting network</div>

@@ -141,7 +141,9 @@ export function SpyLocationBrowser({ locations }: SpyLocationBrowserProps) {
                   </h4>
                   <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-2">
                     {modal.location.roles.map((role, index) => {
-                      const roleSlugs = thaiRolesToSlugs([role]);
+                      // Handle both string (legacy) and Role object (new) formats
+                      const roleString = typeof role === 'string' ? role : role.id;
+                      const roleSlugs = thaiRolesToSlugs([roleString]);
                       const translatedRole = getRoleName(roleSlugs[0]);
                       return (
                         <div
