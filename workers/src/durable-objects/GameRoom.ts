@@ -1510,6 +1510,21 @@ export class GameRoom {
       const ws = this.connections.get(player.id);
       const assignment = assignments[player.id];
 
+      // Only send the filtered, host-selected roles (as Thai strings)
+      let filteredRoleNames: string[] | undefined = undefined;
+      if (assignment.location && customRoles && Array.isArray(customRoles)) {
+        // Map customRoles (array of role IDs) to Thai names from selectedLocation.roles
+        filteredRoleNames = customRoles
+          .map((roleId) => {
+            const roleObj = selectedLocation.roles.find((r) => r.id === roleId);
+            return roleObj ? roleObj.nameTh : undefined;
+          })
+          .filter((name): name is string => !!name);
+      } else if (assignment.location) {
+        // Fallback: all Thai names for the location
+        filteredRoleNames = selectedLocation.roles.map((r) => r.nameTh);
+      }
+
       if (ws && assignment) {
         ws.send(
           JSON.stringify({
@@ -1517,7 +1532,7 @@ export class GameRoom {
             payload: {
               role: assignment.role,
               location: assignment.location,
-              locationRoles: assignment.location ? selectedLocation.roles : undefined,
+              locationRoles: filteredRoleNames,
             },
             timestamp: Date.now(),
           })
