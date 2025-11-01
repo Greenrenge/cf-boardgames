@@ -2,7 +2,6 @@
 
 import { useState } from 'react';
 import { useTranslations } from 'next-intl';
-import { useLocationTranslations } from '@/lib/useLocationTranslations';
 import { useRoleTranslations } from '@/lib/useRoleTranslations';
 import { thaiRolesToSlugs } from '@/lib/roleUtils';
 import { Location } from '@/lib/types';
