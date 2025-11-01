@@ -1,6 +1,6 @@
 /**
  * Location Storage Utilities
- * 
+ *
  * Manages localStorage persistence for location customization settings.
  * Handles host preferences and user selections with proper serialization.
  */
@@ -27,15 +27,11 @@ interface StoredLocationData {
  */
 export function saveLocationSelection(locations: Location[]): void {
   try {
-    const selectedLocationIds = locations
-      .filter(loc => loc.isSelected)
-      .map(loc => loc.id);
-    
+    const selectedLocationIds = locations.filter((loc) => loc.isSelected).map((loc) => loc.id);
+
     const selectedRoleIds: Record<string, string[]> = {};
-    locations.forEach(location => {
-      const selectedRoles = location.roles
-        .filter(role => role.isSelected)
-        .map(role => role.id);
+    locations.forEach((location) => {
+      const selectedRoles = location.roles.filter((role) => role.isSelected).map((role) => role.id);
       if (selectedRoles.length > 0) {
         selectedRoleIds[location.id] = selectedRoles;
       }
@@ -70,7 +66,7 @@ export function loadLocationSelection(): {
     if (!stored) return null;
 
     const data: StoredLocationData = JSON.parse(stored);
-    
+
     // Check version compatibility
     if (data.version !== STORAGE_VERSION) {
       if (process.env.NODE_ENV === 'development') {
@@ -126,10 +122,10 @@ export function exportConfiguration(locations: Location[]): void {
       appIdentifier: 'cf-boardgames-spyfall',
       version: STORAGE_VERSION,
       exportDate: new Date().toISOString(),
-      locations: locations.map(location => ({
+      locations: locations.map((location) => ({
         id: location.id,
         isSelected: location.isSelected,
-        roles: location.roles.map(role => ({
+        roles: location.roles.map((role) => ({
           id: role.id,
           isSelected: role.isSelected,
         })),
@@ -139,16 +135,16 @@ export function exportConfiguration(locations: Location[]): void {
     const blob = new Blob([JSON.stringify(config, null, 2)], {
       type: 'application/json',
     });
-    
+
     const url = URL.createObjectURL(blob);
     const link = document.createElement('a');
     link.href = url;
     link.download = `spyfall-locations-${new Date().toISOString().split('T')[0]}.json`;
-    
+
     document.body.appendChild(link);
     link.click();
     document.body.removeChild(link);
-    
+
     URL.revokeObjectURL(url);
   } catch (error) {
     console.error('[LocationStorage] Failed to export configuration:', error);

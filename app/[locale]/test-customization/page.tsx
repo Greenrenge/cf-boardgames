@@ -2,7 +2,7 @@
 
 /**
  * Test Page: Location Customization UI
- * 
+ *
  * This page demonstrates the complete location customization interface
  * with all interactive features for hosts to configure their game.
  */
@@ -25,10 +25,10 @@ export default function TestCustomizationPage() {
             🎮 Location Customization Interface
           </h1>
           <p className="text-gray-600 dark:text-gray-400 mb-6">
-            This page demonstrates the complete host interface for customizing location 
-            and role selections before starting a game.
+            This page demonstrates the complete host interface for customizing location and role
+            selections before starting a game.
           </p>
-          
+
           <div className="flex flex-wrap gap-4 mb-6">
             <button
               onClick={refetch}
@@ -37,7 +37,7 @@ export default function TestCustomizationPage() {
             >
               {isLoading ? 'Loading...' : 'Refresh Data'}
             </button>
-            
+
             <button
               onClick={async () => {
                 if (locations) {
@@ -105,7 +105,7 @@ export default function TestCustomizationPage() {
             <LocationListSkeleton count={6} showBulkActions={true} />
           ) : locations ? (
             <div className="bg-white dark:bg-gray-800 rounded-lg border border-gray-200 dark:border-gray-700 p-6">
-              <LocationList 
+              <LocationList
                 locations={locations}
                 onSelectionChange={() => {
                   // This would trigger save in a real implementation
@@ -121,29 +121,23 @@ export default function TestCustomizationPage() {
         <div className="mt-8 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
           <div className="bg-white dark:bg-gray-800 rounded-lg border border-gray-200 dark:border-gray-700 p-6">
             <div className="text-2xl mb-3">♿</div>
-            <h3 className="font-semibold text-gray-900 dark:text-gray-100 mb-2">
-              Accessibility
-            </h3>
+            <h3 className="font-semibold text-gray-900 dark:text-gray-100 mb-2">Accessibility</h3>
             <p className="text-sm text-gray-600 dark:text-gray-400">
               Full keyboard navigation, screen reader support, and ARIA labels throughout
             </p>
           </div>
-          
+
           <div className="bg-white dark:bg-gray-800 rounded-lg border border-gray-200 dark:border-gray-700 p-6">
             <div className="text-2xl mb-3">⚡</div>
-            <h3 className="font-semibold text-gray-900 dark:text-gray-100 mb-2">
-              Performance
-            </h3>
+            <h3 className="font-semibold text-gray-900 dark:text-gray-100 mb-2">Performance</h3>
             <p className="text-sm text-gray-600 dark:text-gray-400">
               Optimized rendering, debounced interactions, and efficient state management
             </p>
           </div>
-          
+
           <div className="bg-white dark:bg-gray-800 rounded-lg border border-gray-200 dark:border-gray-700 p-6">
             <div className="text-2xl mb-3">🛡️</div>
-            <h3 className="font-semibold text-gray-900 dark:text-gray-100 mb-2">
-              Error Handling
-            </h3>
+            <h3 className="font-semibold text-gray-900 dark:text-gray-100 mb-2">Error Handling</h3>
             <p className="text-sm text-gray-600 dark:text-gray-400">
               Comprehensive error boundaries, graceful fallbacks, and retry mechanisms
             </p>

@@ -2,7 +2,7 @@
 
 /**
  * Test Page: Location API Integration
- * 
+ *
  * This page demonstrates the complete location loading and display functionality.
  * Tests the API integration, caching, and fallback mechanisms.
  */
@@ -24,10 +24,10 @@ export default function TestLocationsPage() {
             🧪 Location API Integration Test
           </h1>
           <p className="text-gray-600 dark:text-gray-400 mb-6">
-            This page tests the complete location loading pipeline: API calls, caching, 
-            error handling, and fallback mechanisms.
+            This page tests the complete location loading pipeline: API calls, caching, error
+            handling, and fallback mechanisms.
           </p>
-          
+
           {/* Test Controls */}
           <div className="flex gap-4 mb-6">
             <button
@@ -37,7 +37,7 @@ export default function TestLocationsPage() {
             >
               {isLoading ? 'Loading...' : 'Reload Locations'}
             </button>
-            
+
             <button
               onClick={() => window.location.reload()}
               className="px-4 py-2 bg-gray-600 text-white rounded-md hover:bg-gray-700 transition-colors"
@@ -62,23 +62,19 @@ export default function TestLocationsPage() {
                   <div className="text-2xl font-bold text-blue-600 dark:text-blue-400">
                     {locations.length}
                   </div>
-                  <div className="text-sm text-blue-800 dark:text-blue-200">
-                    Total Locations
-                  </div>
+                  <div className="text-sm text-blue-800 dark:text-blue-200">Total Locations</div>
                 </div>
-                
+
                 <div className="bg-green-50 dark:bg-green-900/20 p-4 rounded-lg">
                   <div className="text-2xl font-bold text-green-600 dark:text-green-400">
                     {locations.reduce((sum, loc) => sum + loc.roles.length, 0)}
                   </div>
-                  <div className="text-sm text-green-800 dark:text-green-200">
-                    Total Roles
-                  </div>
+                  <div className="text-sm text-green-800 dark:text-green-200">Total Roles</div>
                 </div>
-                
+
                 <div className="bg-purple-50 dark:bg-purple-900/20 p-4 rounded-lg">
                   <div className="text-2xl font-bold text-purple-600 dark:text-purple-400">
-                    {locations.filter(loc => loc.isSelected).length}
+                    {locations.filter((loc) => loc.isSelected).length}
                   </div>
                   <div className="text-sm text-purple-800 dark:text-purple-200">
                     Selected Locations
@@ -96,14 +92,14 @@ export default function TestLocationsPage() {
                     All locations loaded from the API with their roles and metadata
                   </p>
                 </div>
-                
+
                 <div className="max-h-96 overflow-y-auto">
                   {locations.map((location, index) => (
-                    <div 
+                    <div
                       key={location.id}
                       className={`px-6 py-4 ${
-                        index !== locations.length - 1 
-                          ? 'border-b border-gray-200 dark:border-gray-700' 
+                        index !== locations.length - 1
+                          ? 'border-b border-gray-200 dark:border-gray-700'
                           : ''
                       }`}
                     >
@@ -116,23 +112,25 @@ export default function TestLocationsPage() {
                             {location.roles.length} roles • ID: {location.id}
                           </p>
                         </div>
-                        
+
                         <div className="flex items-center gap-2">
-                          <span className={`px-2 py-1 text-xs rounded-full ${
-                            location.isSelected
-                              ? 'bg-green-100 text-green-800 dark:bg-green-900/20 dark:text-green-200'
-                              : 'bg-gray-100 text-gray-800 dark:bg-gray-700 dark:text-gray-200'
-                          }`}>
+                          <span
+                            className={`px-2 py-1 text-xs rounded-full ${
+                              location.isSelected
+                                ? 'bg-green-100 text-green-800 dark:bg-green-900/20 dark:text-green-200'
+                                : 'bg-gray-100 text-gray-800 dark:bg-gray-700 dark:text-gray-200'
+                            }`}
+                          >
                             {location.isSelected ? 'Selected' : 'Available'}
                           </span>
                         </div>
                       </div>
-                      
+
                       {/* Role List */}
                       <div className="mt-2">
                         <div className="flex flex-wrap gap-1">
-                          {location.roles.slice(0, 5).map(role => (
-                            <span 
+                          {location.roles.slice(0, 5).map((role) => (
+                            <span
                               key={role.id}
                               className="px-2 py-1 text-xs bg-gray-200 dark:bg-gray-600 text-gray-700 dark:text-gray-300 rounded"
                             >

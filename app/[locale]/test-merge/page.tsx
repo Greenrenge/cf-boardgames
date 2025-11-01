@@ -2,7 +2,7 @@
 
 /**
  * Test Page: Location Data Merging
- * 
+ *
  * This page demonstrates the location merge functionality between
  * static data and API data with intelligent conflict resolution.
  */
@@ -24,10 +24,10 @@ export default function TestMergePage() {
             🔀 Location Data Merge Test
           </h1>
           <p className="text-gray-600 dark:text-gray-400 mb-6">
-            This page tests the intelligent merging of static location data with API data,
-            showing how conflicts are resolved and selections are preserved.
+            This page tests the intelligent merging of static location data with API data, showing
+            how conflicts are resolved and selections are preserved.
           </p>
-          
+
           <button
             onClick={() => setShowMergeDetails(!showMergeDetails)}
             className="px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700 transition-colors"
@@ -45,9 +45,7 @@ export default function TestMergePage() {
 
         {error && (
           <div className="bg-red-50 dark:bg-red-900/20 border border-red-500 rounded-md p-4 mb-6">
-            <h3 className="font-semibold text-red-800 dark:text-red-200 mb-2">
-              Merge Error
-            </h3>
+            <h3 className="font-semibold text-red-800 dark:text-red-200 mb-2">Merge Error</h3>
             <p className="text-red-700 dark:text-red-300">{error.message}</p>
           </div>
         )}
@@ -60,32 +58,30 @@ export default function TestMergePage() {
                 <div className="text-2xl font-bold text-blue-600 dark:text-blue-400">
                   {locations.length}
                 </div>
-                <div className="text-sm text-blue-800 dark:text-blue-200">
-                  Total Merged
-                </div>
+                <div className="text-sm text-blue-800 dark:text-blue-200">Total Merged</div>
               </div>
-              
+
               <div className="bg-green-50 dark:bg-green-900/20 p-4 rounded-lg">
                 <div className="text-2xl font-bold text-green-600 dark:text-green-400">
-                  {locations.filter(loc => loc.id.startsWith('static_')).length}
+                  {locations.filter((loc) => loc.id.startsWith('static_')).length}
                 </div>
-                <div className="text-sm text-green-800 dark:text-green-200">
-                  From Static Data
-                </div>
+                <div className="text-sm text-green-800 dark:text-green-200">From Static Data</div>
               </div>
-              
+
               <div className="bg-purple-50 dark:bg-purple-900/20 p-4 rounded-lg">
                 <div className="text-2xl font-bold text-purple-600 dark:text-purple-400">
-                  {locations.filter(loc => loc.id.startsWith('api_')).length}
+                  {locations.filter((loc) => loc.id.startsWith('api_')).length}
                 </div>
-                <div className="text-sm text-purple-800 dark:text-purple-200">
-                  From API Data
-                </div>
+                <div className="text-sm text-purple-800 dark:text-purple-200">From API Data</div>
               </div>
-              
+
               <div className="bg-orange-50 dark:bg-orange-900/20 p-4 rounded-lg">
                 <div className="text-2xl font-bold text-orange-600 dark:text-orange-400">
-                  {locations.filter(loc => !loc.id.startsWith('static_') && !loc.id.startsWith('api_')).length}
+                  {
+                    locations.filter(
+                      (loc) => !loc.id.startsWith('static_') && !loc.id.startsWith('api_')
+                    ).length
+                  }
                 </div>
                 <div className="text-sm text-orange-800 dark:text-orange-200">
                   Conflicted/Merged
@@ -99,7 +95,7 @@ export default function TestMergePage() {
                 <h2 className="text-xl font-semibold text-gray-900 dark:text-gray-100 mb-4">
                   Merge Process Details
                 </h2>
-                
+
                 <div className="space-y-4 text-sm">
                   <div className="flex items-start gap-3">
                     <div className="w-2 h-2 bg-blue-500 rounded-full mt-2 flex-shrink-0"></div>
@@ -110,7 +106,7 @@ export default function TestMergePage() {
                       </div>
                     </div>
                   </div>
-                  
+
                   <div className="flex items-start gap-3">
                     <div className="w-2 h-2 bg-green-500 rounded-full mt-2 flex-shrink-0"></div>
                     <div>
@@ -120,23 +116,25 @@ export default function TestMergePage() {
                       </div>
                     </div>
                   </div>
-                  
+
                   <div className="flex items-start gap-3">
                     <div className="w-2 h-2 bg-purple-500 rounded-full mt-2 flex-shrink-0"></div>
                     <div>
                       <div className="font-medium">Step 3: Intelligent Merge</div>
                       <div className="text-gray-600 dark:text-gray-400">
-                        Merge data using ID matching, prefer API data for content, preserve user selections
+                        Merge data using ID matching, prefer API data for content, preserve user
+                        selections
                       </div>
                     </div>
                   </div>
-                  
+
                   <div className="flex items-start gap-3">
                     <div className="w-2 h-2 bg-orange-500 rounded-full mt-2 flex-shrink-0"></div>
                     <div>
                       <div className="font-medium">Step 4: Apply User Preferences</div>
                       <div className="text-gray-600 dark:text-gray-400">
-                        Restore previous selections from localStorage and validate against merged data
+                        Restore previous selections from localStorage and validate against merged
+                        data
                       </div>
                     </div>
                   </div>
@@ -154,18 +152,18 @@ export default function TestMergePage() {
                   Showing data source and merge status for each location
                 </p>
               </div>
-              
+
               <div className="max-h-96 overflow-y-auto">
                 {locations.map((location, index) => {
                   const isStatic = location.id.startsWith('static_');
                   const isApi = location.id.startsWith('api_');
-                  
+
                   return (
-                    <div 
+                    <div
                       key={location.id}
                       className={`px-6 py-4 ${
-                        index !== locations.length - 1 
-                          ? 'border-b border-gray-200 dark:border-gray-700' 
+                        index !== locations.length - 1
+                          ? 'border-b border-gray-200 dark:border-gray-700'
                           : ''
                       }`}
                     >
@@ -178,23 +176,27 @@ export default function TestMergePage() {
                             {location.roles.length} roles • ID: {location.id}
                           </p>
                         </div>
-                        
+
                         <div className="flex items-center gap-2">
-                          <span className={`px-2 py-1 text-xs rounded-full ${
-                            isStatic 
-                              ? 'bg-green-100 text-green-800 dark:bg-green-900/20 dark:text-green-200'
-                              : isApi
-                              ? 'bg-purple-100 text-purple-800 dark:bg-purple-900/20 dark:text-purple-200'
-                              : 'bg-orange-100 text-orange-800 dark:bg-orange-900/20 dark:text-orange-200'
-                          }`}>
+                          <span
+                            className={`px-2 py-1 text-xs rounded-full ${
+                              isStatic
+                                ? 'bg-green-100 text-green-800 dark:bg-green-900/20 dark:text-green-200'
+                                : isApi
+                                  ? 'bg-purple-100 text-purple-800 dark:bg-purple-900/20 dark:text-purple-200'
+                                  : 'bg-orange-100 text-orange-800 dark:bg-orange-900/20 dark:text-orange-200'
+                            }`}
+                          >
                             {isStatic ? 'Static' : isApi ? 'API' : 'Merged'}
                           </span>
-                          
-                          <span className={`px-2 py-1 text-xs rounded-full ${
-                            location.isSelected
-                              ? 'bg-blue-100 text-blue-800 dark:bg-blue-900/20 dark:text-blue-200'
-                              : 'bg-gray-100 text-gray-800 dark:bg-gray-700 dark:text-gray-200'
-                          }`}>
+
+                          <span
+                            className={`px-2 py-1 text-xs rounded-full ${
+                              location.isSelected
+                                ? 'bg-blue-100 text-blue-800 dark:bg-blue-900/20 dark:text-blue-200'
+                                : 'bg-gray-100 text-gray-800 dark:bg-gray-700 dark:text-gray-200'
+                            }`}
+                          >
                             {location.isSelected ? 'Selected' : 'Available'}
                           </span>
                         </div>

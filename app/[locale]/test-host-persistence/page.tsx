@@ -2,7 +2,7 @@
 
 /**
  * Test Page: Host Persistence
- * 
+ *
  * This page demonstrates host-specific configuration persistence
  * and how settings are shared between host and players.
  */
@@ -52,10 +52,10 @@ export default function TestHostPersistencePage() {
             💾 Host Persistence Testing
           </h1>
           <p className="text-gray-600 dark:text-gray-400 mb-6">
-            This page tests host-specific configuration persistence and how 
-            customized settings are shared with players in the room.
+            This page tests host-specific configuration persistence and how customized settings are
+            shared with players in the room.
           </p>
-          
+
           {/* Mode Toggle */}
           <div className="flex gap-4 mb-6">
             <button
@@ -68,7 +68,7 @@ export default function TestHostPersistencePage() {
             >
               👑 Host View
             </button>
-            
+
             <button
               onClick={simulatePlayerView}
               className={`px-4 py-2 rounded-md transition-colors ${
@@ -83,27 +83,32 @@ export default function TestHostPersistencePage() {
         </div>
 
         {/* Current Mode Display */}
-        <div className={`p-4 rounded-lg mb-6 ${
-          testMode === 'host' 
-            ? 'bg-blue-50 dark:bg-blue-900/20 border border-blue-200 dark:border-blue-700'
-            : 'bg-green-50 dark:bg-green-900/20 border border-green-200 dark:border-green-700'
-        }`}>
-          <h2 className={`text-lg font-semibold mb-2 ${
-            testMode === 'host' 
-              ? 'text-blue-900 dark:text-blue-100'
-              : 'text-green-900 dark:text-green-100'
-          }`}>
+        <div
+          className={`p-4 rounded-lg mb-6 ${
+            testMode === 'host'
+              ? 'bg-blue-50 dark:bg-blue-900/20 border border-blue-200 dark:border-blue-700'
+              : 'bg-green-50 dark:bg-green-900/20 border border-green-200 dark:border-green-700'
+          }`}
+        >
+          <h2
+            className={`text-lg font-semibold mb-2 ${
+              testMode === 'host'
+                ? 'text-blue-900 dark:text-blue-100'
+                : 'text-green-900 dark:text-green-100'
+            }`}
+          >
             {testMode === 'host' ? '👑 Host Mode' : '🎮 Player Mode'}
           </h2>
-          <p className={`text-sm ${
-            testMode === 'host'
-              ? 'text-blue-800 dark:text-blue-200'
-              : 'text-green-800 dark:text-green-200'
-          }`}>
-            {testMode === 'host' 
+          <p
+            className={`text-sm ${
+              testMode === 'host'
+                ? 'text-blue-800 dark:text-blue-200'
+                : 'text-green-800 dark:text-green-200'
+            }`}
+          >
+            {testMode === 'host'
               ? 'You can customize location selections and save preferences'
-              : 'You see the location configuration set by the room host'
-            }
+              : 'You see the location configuration set by the room host'}
           </p>
         </div>
 
@@ -113,7 +118,7 @@ export default function TestHostPersistencePage() {
             <h2 className="text-xl font-semibold text-gray-900 dark:text-gray-100 mb-4">
               Host Configuration Controls
             </h2>
-            
+
             <div className="flex flex-wrap gap-4 mb-4">
               <button
                 onClick={handleSaveTest}
@@ -122,7 +127,7 @@ export default function TestHostPersistencePage() {
               >
                 Save Current Configuration
               </button>
-              
+
               <button
                 onClick={() => {
                   localStorage.clear();
@@ -132,7 +137,7 @@ export default function TestHostPersistencePage() {
               >
                 Clear All Storage
               </button>
-              
+
               <button
                 onClick={() => window.location.reload()}
                 className="px-4 py-2 bg-gray-600 text-white rounded-md hover:bg-gray-700 transition-colors"
@@ -140,9 +145,12 @@ export default function TestHostPersistencePage() {
                 Test Persistence (Reload)
               </button>
             </div>
-            
+
             <div className="text-sm text-gray-600 dark:text-gray-400">
-              <p>Use these controls to test configuration persistence across page reloads and sessions.</p>
+              <p>
+                Use these controls to test configuration persistence across page reloads and
+                sessions.
+              </p>
             </div>
           </div>
         )}
@@ -152,7 +160,7 @@ export default function TestHostPersistencePage() {
           <h2 className="text-xl font-semibold text-gray-900 dark:text-gray-100 mb-4">
             Persistence Status
           </h2>
-          
+
           {persistenceData ? (
             <div className="space-y-4">
               <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
@@ -160,11 +168,9 @@ export default function TestHostPersistencePage() {
                   <div className="text-2xl font-bold text-green-600 dark:text-green-400">
                     {persistenceData.selectedLocationIds?.length || 0}
                   </div>
-                  <div className="text-sm text-green-800 dark:text-green-200">
-                    Saved Locations
-                  </div>
+                  <div className="text-sm text-green-800 dark:text-green-200">Saved Locations</div>
                 </div>
-                
+
                 <div className="bg-blue-50 dark:bg-blue-900/20 p-4 rounded-lg">
                   <div className="text-2xl font-bold text-blue-600 dark:text-blue-400">
                     {Object.keys(persistenceData.selectedRoleIds || {}).length}
@@ -173,7 +179,7 @@ export default function TestHostPersistencePage() {
                     Locations with Custom Roles
                   </div>
                 </div>
-                
+
                 <div className="bg-purple-50 dark:bg-purple-900/20 p-4 rounded-lg">
                   <div className="text-2xl font-bold text-purple-600 dark:text-purple-400">
                     {Object.values(persistenceData.selectedRoleIds || {}).flat().length}
@@ -183,7 +189,7 @@ export default function TestHostPersistencePage() {
                   </div>
                 </div>
               </div>
-              
+
               {/* Detailed Data */}
               <div className="bg-gray-50 dark:bg-gray-900 rounded-lg p-4">
                 <h3 className="font-semibold text-gray-900 dark:text-gray-100 mb-2">
@@ -208,7 +214,7 @@ export default function TestHostPersistencePage() {
           <h2 className="text-xl font-semibold text-gray-900 dark:text-gray-100 mb-4">
             Room Configuration Simulation
           </h2>
-          
+
           <div className="space-y-4">
             <div className="flex items-center justify-between p-3 bg-gray-50 dark:bg-gray-900 rounded-lg">
               <div>
@@ -220,16 +226,15 @@ export default function TestHostPersistencePage() {
                 <div className="text-sm text-gray-600 dark:text-gray-400">TestHost</div>
               </div>
             </div>
-            
+
             <div className="p-3 bg-yellow-50 dark:bg-yellow-900/20 rounded-lg">
               <div className="font-medium text-yellow-800 dark:text-yellow-200 mb-1">
                 Configuration Status
               </div>
               <div className="text-sm text-yellow-700 dark:text-yellow-300">
-                {persistenceData 
+                {persistenceData
                   ? 'Host has customized location settings - players will use this configuration'
-                  : 'No custom configuration - players will use default location set'
-                }
+                  : 'No custom configuration - players will use default location set'}
               </div>
             </div>
           </div>
