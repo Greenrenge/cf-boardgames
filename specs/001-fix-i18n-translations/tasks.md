@@ -69,8 +69,8 @@ Each story is independently testable using the playground validation criteria fr
 
 ### Tasks
 
-- [ ] T001 Verify Node.js 20+ and pnpm installed
-- [ ] T002 Install dependencies via `pnpm install` and verify next-intl is present
+- [x] T001 Verify Node.js 20+ and pnpm installed
+- [x] T002 Install dependencies via `pnpm install` and verify next-intl is present
 
 ---
 
@@ -82,8 +82,8 @@ Each story is independently testable using the playground validation criteria fr
 
 ### Tasks
 
-- [ ] T003 [P] Create `scripts/sync-translations-from-api-data.ts` to generate locations.json and roles.json for all 7 locales
-- [ ] T004 [P] Create `scripts/audit-translation-coverage.ts` to identify missing UI string keys across locales
+- [x] T003 [P] Create `scripts/sync-translations-from-api-data.ts` to generate locations.json and roles.json for all 7 locales
+- [x] T004 [P] Create `scripts/audit-translation-coverage.ts` to identify missing UI string keys across locales
 
 **Completion Criteria**: Both scripts exist and can be executed successfully
 
@@ -109,13 +109,13 @@ Each story is independently testable using the playground validation criteria fr
 
 ### Tasks
 
-- [ ] T005 [P] [US1] Run audit script to identify missing keys in `locales/{zh,es,fr,hi,ar}/common.json`
+- [x] T005 [P] [US1] Run audit script to identify missing keys in `locales/{zh,es,fr,hi,ar}/common.json`
 - [ ] T006 [P] [US1] Complete missing UI string translations in `locales/zh/common.json` (aim for 90%+ coverage)
 - [ ] T007 [P] [US1] Complete missing UI string translations in `locales/es/common.json` (aim for 90%+ coverage)
 - [ ] T008 [P] [US1] Complete missing UI string translations in `locales/fr/common.json` (aim for 90%+ coverage)
 - [ ] T009 [P] [US1] Complete missing UI string translations in `locales/hi/common.json` (aim for 90%+ coverage)
 - [ ] T010 [P] [US1] Complete missing UI string translations in `locales/ar/common.json` (aim for 90%+ coverage)
-- [ ] T011 [US1] Update `app/[locale]/layout.tsx` to dynamically set `lang` and `dir` attributes on HTML element based on params.locale
+- [x] T011 [US1] Update `app/[locale]/layout.tsx` to dynamically set `lang` and `dir` attributes on HTML element based on params.locale
 - [ ] T012 [US1] Verify language switch updates document metadata by testing all 7 languages via playground (homepage language selector)
 
 **Parallel Execution for US1**:
@@ -148,10 +148,10 @@ Each story is independently testable using the playground validation criteria fr
 
 ### Tasks
 
-- [ ] T013 [US2] Run `scripts/sync-translations-from-api-data.ts` to generate `locales/{locale}/locations.json` for all 7 locales
-- [ ] T014 [US2] Run `scripts/sync-translations-from-api-data.ts` to generate `locales/{locale}/roles.json` for all 7 locales
-- [ ] T015 [P] [US2] Verify `lib/useLocationTranslations.ts` correctly loads and maps location names from API
-- [ ] T016 [P] [US2] Verify `lib/useRoleTranslations.ts` correctly loads and maps role names from API
+- [x] T013 [US2] Run `scripts/sync-translations-from-api-data.ts` to generate `locales/{locale}/locations.json` for all 7 locales
+- [x] T014 [US2] Run `scripts/sync-translations-from-api-data.ts` to generate `locales/{locale}/roles.json` for all 7 locales
+- [x] T015 [P] [US2] Verify `lib/useLocationTranslations.ts` correctly loads and maps location names from API
+- [x] T016 [P] [US2] Verify `lib/useRoleTranslations.ts` correctly loads and maps role names from API
 - [ ] T017 [US2] Test role card component displays translated role names in game (test in 3+ languages)
 - [ ] T018 [US2] Test location browser component displays translated location names in game (test in 3+ languages)
 
@@ -187,9 +187,9 @@ Each story is independently testable using the playground validation criteria fr
 
 ### Tasks
 
-- [ ] T019 [P] [US3] Verify `lib/i18n/utils.ts` correctly saves language preference to localStorage with format `{ locale, source, timestamp }`
-- [ ] T020 [P] [US3] Verify `components/i18n/LanguageSwitcher.tsx` sets NEXT_LOCALE cookie on language change
-- [ ] T021 [US3] Verify `middleware.ts` correctly reads locale from cookie/header and redirects to locale-prefixed path
+- [x] T019 [P] [US3] Verify `lib/i18n/utils.ts` correctly saves language preference to localStorage with format `{ locale, source, timestamp }`
+- [x] T020 [P] [US3] Verify `components/i18n/LanguageSwitcher.tsx` sets NEXT_LOCALE cookie on language change
+- [x] T021 [US3] Verify `middleware.ts` correctly reads locale from cookie/header and redirects to locale-prefixed path
 - [ ] T022 [US3] Test persistence by selecting language, reloading page, and verifying language + URL persist (test 3+ languages)
 
 **Parallel Execution for US3**:
@@ -210,7 +210,7 @@ Each story is independently testable using the playground validation criteria fr
 
 - [ ] T023 Run complete playground validation checklist from `specs/001-fix-i18n-translations/quickstart.md` for all 7 languages
 - [ ] T024 [P] Document translation update process in project README or contributor guide
-- [ ] T025 [P] Run `pnpm build` to verify production build succeeds with all translations
+- [x] T025 [P] Run `pnpm build` to verify production build succeeds with all translations
 
 ---
 

@@ -2,6 +2,8 @@ import { notFound } from 'next/navigation';
 import { LOCALE_CODES } from '@/lib/i18n/config';
 import { getDirectionAttr } from '@/lib/i18n/rtl';
 import TranslationProvider from '@/components/i18n/TranslationProvider';
+import { ThemeProvider } from '@/contexts/ThemeContext';
+import { Footer } from '@/components/ui/Footer';
 import type { LocaleCode } from '@/lib/i18n/types';
 
 interface LocaleLayoutProps {
@@ -34,12 +36,24 @@ export default async function LocaleLayout({ children, params }: LocaleLayoutPro
   const direction = getDirectionAttr(locale);
   const messages = await getMessages(locale);
 
+  // Use useEffect or script to set lang/dir attributes dynamically on document
+  const script = `
+    document.documentElement.lang = "${locale}";
+    document.documentElement.dir = "${direction}";
+  `;
+
   return (
-    <div lang={locale} dir={direction}>
+    <>
+      <script dangerouslySetInnerHTML={{ __html: script }} />
       <TranslationProvider locale={locale} messages={messages}>
-        {children}
+        <ThemeProvider>
+          <div className="min-h-screen flex flex-col">
+            <div className="flex-1">{children}</div>
+            <Footer />
+          </div>
+        </ThemeProvider>
       </TranslationProvider>
-    </div>
+    </>
   );
 }
 

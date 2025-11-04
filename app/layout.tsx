@@ -88,7 +88,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="th" suppressHydrationWarning>
+    <html suppressHydrationWarning>
       <head>
         <link rel="icon" type="image/x-icon" href="/favicon.ico" />
         <link rel="apple-touch-icon" href="/favicon-180x180.png" />
@@ -111,12 +111,7 @@ export default function RootLayout({
         />
       </head>
       <body className={`${notoSansThai.variable} font-sans antialiased`}>
-        <ThemeProvider>
-          <div className="min-h-screen flex flex-col">
-            <div className="flex-1">{children}</div>
-            <Footer />
-          </div>
-        </ThemeProvider>
+        {children}
       </body>
     </html>
   );
