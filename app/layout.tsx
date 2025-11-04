@@ -110,9 +110,7 @@ export default function RootLayout({
           }}
         />
       </head>
-      <body className={`${notoSansThai.variable} font-sans antialiased`}>
-        {children}
-      </body>
+      <body className={`${notoSansThai.variable} font-sans antialiased`}>{children}</body>
     </html>
   );
 }

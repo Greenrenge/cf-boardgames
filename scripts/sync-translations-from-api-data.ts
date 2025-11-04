@@ -51,7 +51,7 @@ const PROJECT_ROOT = path.resolve(__dirname, '..');
  */
 function loadApiData(): Location[] {
   const apiDataPath = path.join(PROJECT_ROOT, 'data/migration/locations-api-ready.json');
-  
+
   if (!fs.existsSync(apiDataPath)) {
     console.error('❌ Error: locations-api-ready.json not found');
     console.error('   Run: npx ts-node data/migration/prepare-api-data.ts');
@@ -66,7 +66,10 @@ function loadApiData(): Location[] {
 /**
  * Extract location translations for a specific locale
  */
-function extractLocationTranslations(locations: Location[], locale: LocaleCode): Record<string, string> {
+function extractLocationTranslations(
+  locations: Location[],
+  locale: LocaleCode
+): Record<string, string> {
   const translations: Record<string, string> = {};
 
   locations.forEach((location) => {
@@ -79,7 +82,10 @@ function extractLocationTranslations(locations: Location[], locale: LocaleCode):
 /**
  * Extract role translations for a specific locale
  */
-function extractRoleTranslations(locations: Location[], locale: LocaleCode): Record<string, string> {
+function extractRoleTranslations(
+  locations: Location[],
+  locale: LocaleCode
+): Record<string, string> {
   const translations: Record<string, string> = {};
 
   locations.forEach((location) => {
@@ -96,7 +102,7 @@ function extractRoleTranslations(locations: Location[], locale: LocaleCode): Rec
  */
 function ensureLocaleDir(locale: LocaleCode): string {
   const localeDir = path.join(PROJECT_ROOT, `locales/${locale}`);
-  
+
   if (!fs.existsSync(localeDir)) {
     fs.mkdirSync(localeDir, { recursive: true });
     console.log(`📁 Created directory: locales/${locale}/`);
@@ -117,7 +123,7 @@ function writeTranslations(
   const filePath = path.join(localeDir, `${type}.json`);
 
   fs.writeFileSync(filePath, JSON.stringify(translations, null, 2) + '\n', 'utf-8');
-  
+
   const count = Object.keys(translations).length;
   console.log(`✓ locales/${locale}/${type}.json (${count} entries)`);
 }
@@ -131,25 +137,29 @@ function validateConsistency(
 ): boolean {
   const locales = Array.from(localeTranslations.keys());
   const referenceKeys = Object.keys(localeTranslations.get(locales[0])!).sort();
-  
+
   let hasErrors = false;
 
   for (let i = 1; i < locales.length; i++) {
     const currentKeys = Object.keys(localeTranslations.get(locales[i])!).sort();
-    
+
     if (JSON.stringify(referenceKeys) !== JSON.stringify(currentKeys)) {
       console.error(`\n⚠️  Warning: ${type} key mismatch between ${locales[0]} and ${locales[i]}`);
-      
-      const missing = referenceKeys.filter(k => !currentKeys.includes(k));
-      const extra = currentKeys.filter(k => !referenceKeys.includes(k));
-      
+
+      const missing = referenceKeys.filter((k) => !currentKeys.includes(k));
+      const extra = currentKeys.filter((k) => !referenceKeys.includes(k));
+
       if (missing.length > 0) {
-        console.error(`   Missing in ${locales[i]}: ${missing.slice(0, 5).join(', ')}${missing.length > 5 ? '...' : ''}`);
+        console.error(
+          `   Missing in ${locales[i]}: ${missing.slice(0, 5).join(', ')}${missing.length > 5 ? '...' : ''}`
+        );
       }
       if (extra.length > 0) {
-        console.error(`   Extra in ${locales[i]}: ${extra.slice(0, 5).join(', ')}${extra.length > 5 ? '...' : ''}`);
+        console.error(
+          `   Extra in ${locales[i]}: ${extra.slice(0, 5).join(', ')}${extra.length > 5 ? '...' : ''}`
+        );
       }
-      
+
       hasErrors = true;
     }
   }
@@ -209,7 +219,9 @@ function syncTranslations(): void {
   console.log(`  - Languages: ${LOCALES.length} (${LOCALES.join(', ')})`);
   console.log(`  - Locations: ${totalLocations} per language`);
   console.log(`  - Roles: ${totalRoles} per language`);
-  console.log(`  - Files generated: ${LOCALES.length * 2} (${LOCALES.length} × locations.json + ${LOCALES.length} × roles.json)`);
+  console.log(
+    `  - Files generated: ${LOCALES.length * 2} (${LOCALES.length} × locations.json + ${LOCALES.length} × roles.json)`
+  );
   console.log(`\n💡 Next steps:`);
   console.log(`  1. Review generated files in locales/{locale}/`);
   console.log(`  2. Verify translations are correct`);

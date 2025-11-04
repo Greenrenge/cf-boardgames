@@ -82,7 +82,7 @@ function loadTranslations(locale: LocaleCode, type: string = 'common'): any {
  */
 function saveTranslations(locale: LocaleCode, type: string, data: any): void {
   const localeDir = path.join(PROJECT_ROOT, `locales/${locale}`);
-  
+
   if (!fs.existsSync(localeDir)) {
     fs.mkdirSync(localeDir, { recursive: true });
   }
@@ -108,9 +108,8 @@ function auditLocale(
   const missing = Array.from(baselineKeys).filter((key) => !currentKeys.has(key));
   const extra = Array.from(currentKeys).filter((key) => !baselineKeys.has(key));
 
-  const coverage = baselineKeys.size > 0 
-    ? Math.round((currentKeys.size / baselineKeys.size) * 100) 
-    : 0;
+  const coverage =
+    baselineKeys.size > 0 ? Math.round((currentKeys.size / baselineKeys.size) * 100) : 0;
 
   // Fix mode: add missing keys with English fallback + TODO marker
   if (fix && missing.length > 0) {
@@ -144,7 +143,7 @@ function auditTranslationCoverage(fix: boolean = false): void {
   const englishTranslations = loadTranslations('en', 'common');
   const englishFlat = flattenKeys(englishTranslations);
   const englishKeys = new Set(Object.keys(englishFlat));
-  
+
   console.log(`✓ Loaded ${englishKeys.size} keys\n`);
 
   if (englishKeys.size === 0) {
@@ -164,12 +163,16 @@ function auditTranslationCoverage(fix: boolean = false): void {
 
     // Console output
     const statusIcon = result.coverage === 100 ? '✓' : result.coverage >= 90 ? '⚠️' : '❌';
-    console.log(`${statusIcon} ${locale.toUpperCase()}: ${result.coverage}% coverage (${englishKeys.size - result.missing.length}/${result.total} keys)`);
+    console.log(
+      `${statusIcon} ${locale.toUpperCase()}: ${result.coverage}% coverage (${englishKeys.size - result.missing.length}/${result.total} keys)`
+    );
 
     if (result.missing.length > 0) {
       console.log(`   Missing: ${result.missing.length} keys`);
       if (!fix) {
-        console.log(`   Sample: ${result.missing.slice(0, 3).join(', ')}${result.missing.length > 3 ? '...' : ''}`);
+        console.log(
+          `   Sample: ${result.missing.slice(0, 3).join(', ')}${result.missing.length > 3 ? '...' : ''}`
+        );
       }
     }
 
@@ -218,7 +221,9 @@ function auditTranslationCoverage(fix: boolean = false): void {
   // Next steps
   if (!fix && !allComplete) {
     console.log('\n💡 Next steps:');
-    console.log('  1. Run with --fix to add missing keys: npx ts-node scripts/audit-translation-coverage.ts --fix');
+    console.log(
+      '  1. Run with --fix to add missing keys: npx ts-node scripts/audit-translation-coverage.ts --fix'
+    );
     console.log('  2. Search for "TODO:" in locale files and translate');
     console.log('  3. Review and remove extra keys if needed');
   } else if (fix) {
