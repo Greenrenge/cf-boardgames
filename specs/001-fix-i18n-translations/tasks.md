@@ -110,11 +110,11 @@ Each story is independently testable using the playground validation criteria fr
 ### Tasks
 
 - [x] T005 [P] [US1] Run audit script to identify missing keys in `locales/{zh,es,fr,hi,ar}/common.json`
-- [ ] T006 [P] [US1] Complete missing UI string translations in `locales/zh/common.json` (aim for 90%+ coverage)
-- [ ] T007 [P] [US1] Complete missing UI string translations in `locales/es/common.json` (aim for 90%+ coverage)
-- [ ] T008 [P] [US1] Complete missing UI string translations in `locales/fr/common.json` (aim for 90%+ coverage)
-- [ ] T009 [P] [US1] Complete missing UI string translations in `locales/hi/common.json` (aim for 90%+ coverage)
-- [ ] T010 [P] [US1] Complete missing UI string translations in `locales/ar/common.json` (aim for 90%+ coverage)
+- [x] T006 [P] [US1] Complete missing UI string translations in `locales/zh/common.json` (aim for 90%+ coverage)
+- [x] T007 [P] [US1] Complete missing UI string translations in `locales/es/common.json` (aim for 90%+ coverage)
+- [x] T008 [P] [US1] Complete missing UI string translations in `locales/fr/common.json` (aim for 90%+ coverage)
+- [x] T009 [P] [US1] Complete missing UI string translations in `locales/hi/common.json` (aim for 90%+ coverage)
+- [x] T010 [P] [US1] Complete missing UI string translations in `locales/ar/common.json` (aim for 90%+ coverage)
 - [x] T011 [US1] Update `app/[locale]/layout.tsx` to dynamically set `lang` and `dir` attributes on HTML element based on params.locale
 - [ ] T012 [US1] Verify language switch updates document metadata by testing all 7 languages via playground (homepage language selector)
 
